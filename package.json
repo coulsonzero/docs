@@ -1,7 +1,7 @@
 {
-  "name": "vuepress-starter",
+  "name": "docs",
   "version": "1.0.0",
-  "description": "homepage-docs",
+  "description": "homepage documents",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
