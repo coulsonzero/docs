@@ -1,0 +1,13 @@
+.vscode/
+.temp
+.cache
+dist/
+
+# Dependency directories
+node_modules/
+
+# Mac
+.DS_Store
+
+# Thumbnails
+._*
