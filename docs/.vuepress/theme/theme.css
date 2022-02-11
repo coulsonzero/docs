@@ -1,0 +1,57 @@
+.sidebar {
+    left: initial;
+    right: 0;
+    width: calc(var(--sidebar-width) + 200px);
+}
+
+.page {
+    float: left;
+    padding-left: 10%;
+}
+
+
+
+.page-nav {
+    /* max-width: initial; */
+    padding-bottom: 1rem;
+    background: #282c34;
+}
+
+.page-nav .inner {
+    border-top: none;
+    padding: 50px 0 20px 0;
+}
+
+.inner .prev a,
+.inner .next a {
+    position: relative;
+    font-size: 30px;
+    color: #fff;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: #6d6d6d;
+    -webkit-transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease;
+}
+
+.inner .prev a:hover {
+    border-color: #fff;
+}
+
+.page-nav .prev a::before {
+    color: #61dafb;
+    font-size: 14px;
+    content: "上一篇";
+    position: absolute;
+    left: 0;
+    top: -70%;
+}
+
+.page-nav .next a::after {
+    color: #61dafb;
+    font-size: 14px;
+    content: "下一篇";
+    position: absolute;
+    right: 0;
+    top: -70%;
+}

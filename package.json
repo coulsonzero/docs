@@ -1,12 +1,12 @@
 {
-  "name": "docs",
+  "name": "vuepress-starter",
   "version": "1.0.0",
-  "description": "",
+  "description": "homepage-docs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vuepress dev docs",
-    "build": "vuepress build docs"
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "author": "coulsonzero",
   "license": "ISC",

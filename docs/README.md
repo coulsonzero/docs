@@ -1,5 +1,11 @@
 # JavaScript
 
+------
+
+[[TOC]]
+
+------
+
 [快速上手](./getting-started.md)
 
 [GitHub](https://github.com)
