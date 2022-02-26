@@ -1,6 +1,6 @@
 # Linux
 
-[TOC]
+
 
 ## 1. 安装VMware虚拟机
 
@@ -18,9 +18,6 @@
 window中设置“打开鼠标指针轨迹“，并设置为”最短"
 ```
 
-<img src="img/linux/mousePointer.png" style="zoom:100%" />
-
-
 
 ### 2.3 如何打开linux终端 ？
 
@@ -36,7 +33,6 @@ window中设置“打开鼠标指针轨迹“，并设置为”最短"
 
 ## 3. 使用linux终端
 
-<img src="img/linux/openLinux.png" style="zoom:100%" />
 
 ## 3. linux常用命令
 
@@ -53,7 +49,7 @@ window中设置“打开鼠标指针轨迹“，并设置为”最短"
 - cp (复制目录/文件)
 - touch (创建空文件) --- touch dirName/fileName
 - vim/vi (修改文件,yy复制,dd剪切,p粘贴,u撤销)--Esc退出编辑后":wq"保存内容
-- gedit (文件编译器) 
+- gedit (文件编译器)
 - cat/more/less/tail (查看文件)
 - find (查找文件)
 - ll (查看目录/文件权限信息)
@@ -68,11 +64,11 @@ window中设置“打开鼠标指针轨迹“，并设置为”最短"
 - du (磁盘)
 - df (文件磁盘)
 - chkconfig iptables off (关闭防火墙)
-- ifconfig 
+- ifconfig
 - ping (网络)
 - netstat (端口)--netstat -an
 - ps (查看进程) -- ps -ef
-- kill 
+- kill
 - id (查询用户信息)
 - who/whoami (查看当前用户名)/users
 - passwd (修改密码)
@@ -86,9 +82,11 @@ window中设置“打开鼠标指针轨迹“，并设置为”最短"
 
 ### Commands 命令大全
 
-<img src="img/linux/linuxCommands.png" style="zoom:100%" /> 
-
 ### `ls`
 
-<img src="img/linux/ls.png" style="zoom:50%" />
+
+
+
+
+
 

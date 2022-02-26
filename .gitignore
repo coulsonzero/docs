@@ -11,3 +11,5 @@ node_modules/
 
 # Thumbnails
 ._*
+
+package-lock.json
