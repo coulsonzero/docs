@@ -1,5 +1,6 @@
-# javascript
+# Javascript
 
+[[TOC]]
 ## QuickStart
 
 
@@ -52,7 +53,7 @@ class Person {
     }
     /* ES6 */
     // say = () => console.log(`hi, my name is ${this.name}.`);
-    
+
     /* 静态成员方法 */
     static staticSay = (name) => console.log(`hi, my name is ${name}.`)
 }
@@ -74,14 +75,14 @@ class Student extends Person {
 }
 
 
-/* 
+/*
  * 创建类对象
  * const p = new Person("tom")
  * p.say()
- * 
+ *
  * 调用类的静态方法
  * Person.staticSay("coke")
- * 
+ *
  * 继承
  * const s = new Student("jacker", "1002")
  * s.hello()
@@ -112,7 +113,7 @@ parseInt(readLine, 10)  //string => int
 documents.write()   // webpage, <br />换行, 其他'\n'
 console.log()       // 标准输出 OK
 /* 弹窗 */
-alert()             // 提示框   OK      
+alert()             // 提示框   OK
 prompt()            // 输入框   OK/Cannle -> value/null
 confirm()           // 确认框   OK/Cannel -> true/false
 ```
@@ -174,7 +175,7 @@ arr.push()       // 末尾添加
 arr.pop()        // 末尾删除
 arr.shift()     // 首部删除
 arr.unshift(v)  // 首部添加
-arr.sort()      
+arr.sort()
 arr.sort((a,b) => a-b)
 arr.sort((a,b) => b-a)
 arr.reverse()
@@ -295,11 +296,11 @@ const magic = (...nums) => {
     nums.filter(n => n%2==0).map(el => sum += el);
     return sum;
 }
-console.log(magic(...nums)); 
+console.log(magic(...nums));
 ```
 
 ```javascript
-// 数组遍历 
+// 数组遍历
 const printOdds = (arr) => {
   arr.forEach(num => {
     if (num/2 != 0) console.log(num);
@@ -310,11 +311,11 @@ const printOdds = (arr) => {
 #### 1. 无参
 
 ```javascript
-const func = () => ...;  
+const func = () => ...;
 ```
 #### 2. 单参
 ```javascript
-const func = x => ...;   
+const func = x => ...;
 ```
 #### 3. 多参
 ```javascript
@@ -337,7 +338,7 @@ const test = (a, b = 3, c = 42) => a + b + c;
 ```javascript
 //单例模式
 let printArray = (function() {
-    arr.forEach (v => console.log(v)) 
+    arr.forEach (v => console.log(v))
 })();
 ```
 ------
@@ -500,7 +501,7 @@ window.onload = function() {
     //our box element
     var box = document.getElementById('box');
     var t = setInterval(move, 10);
-  
+
     function move() {
         if(pos >= 150) {
             clearInterval(t);
@@ -618,8 +619,8 @@ app
          |____main-container
                        |____content-wrapper
                                     |_______content-section
- 
-                                 
+
+
 ```
 
 ```html
@@ -665,7 +666,7 @@ app
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+
     font-family: 'Poppins', sans-serif;
     outline: none;
     list-style: none;
@@ -686,14 +687,14 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
-    
+
     padding: 0 40px;
     white-space: nowrap;
-    
+
     height: 60px;
     width: 100%;
     background-color: var(--header-bg-color);
-    
+
     font-size: 14px;
     transition: box-shadow 0.3s;
 }
@@ -729,7 +730,7 @@ window.onload = function() {
             header.classList.add("header-shadow") :
             header.classList.remove("header-shadow");
     });
-    
+
 	// 按钮切换active
     $(function () {
         $(".menu-link").click(function () {
@@ -737,7 +738,7 @@ window.onload = function() {
             $(this).addClass("is-active");
         });
     });
-    
+
 	// dark-light点击按钮切换主题背景色
     const toggleButton = document.querySelector(".dark-light");
     toggleButton.addEventListener("click", () => {

@@ -6,7 +6,7 @@ module.exports = {
 	themeConfig: {
 		// 导航栏
 		logo: "https://vuejs.org/images/logo.png",
-		repo: "coulsonzero/docs",
+		repo: "https://github.com/coulsonzero/docs",
 		// 是否编辑
 		editLinks: true,
 		editLinkText: "Edit this page",
@@ -31,7 +31,7 @@ module.exports = {
 					{text: "react", link: "https://react.docschina.org/"},
 					{text: "webpack", link: "https://www.webpackjs.com/"},
 					{text: "vite", link: "https://cn.vitejs.dev/"},
-					{text: "echarts", link: "/guide/frontend/echarts/QuickStart"},
+					{text: "echarts", link: "/guide/frontend/echarts/echarts"},
 					{text: "swiper", link: "https://swiperjs.com/demos"},
 					{text: "scroolreveal", link: "https://scrollrevealjs.org/"},
 					{text: "vuepress", link: "https://v2.vuepress.vuejs.org/zh/"},
@@ -56,7 +56,45 @@ module.exports = {
 				],
 			},
 		],
-		repo: "https://github.com/coulsonzero/docs",
+		// 可折叠的侧边栏
+		/*
+		sidebar: {
+			"/": [
+				{
+					text: "前端",
+					// 可折叠
+					collapsible: true,
+					children: [
+						"/guide/frontend/html.md",
+						"/guide/frontend/css",
+						"/guide/frontend/javascript",
+						"/guide/frontend/echarts/echarts",
+						"/guide/frontend/jquery",
+					],
+				},
+				{
+					text: "后端",
+					collapsible: true,
+					children: [
+						"/guide/backend/python",
+						"/guide/backend/java",
+						"/guide/backend/go",
+						"/guide/backend/swift",
+					],
+				},
+				{
+					text: "运维",
+					collapsible: true,
+					children: [
+						"/guide/operations/sql",
+						"/guide/operations/linux",
+						"/guide/operations/shell",
+						"/guide/operations/markdown"
+					],
+				},
+			],
+		},
+		*/
 	},
 	// 搜索栏
 	plugins: ["@vuepress/plugin-search"],

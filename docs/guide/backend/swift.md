@@ -1,7 +1,6 @@
 # Swift
 
-[TOC]
-
+[[TOC]]
 
 Swift is a type safe language
 
