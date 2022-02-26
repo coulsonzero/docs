@@ -2726,7 +2726,7 @@ option = {
     ]
 }
 ```
-::: 
+:::
 
 ### 2. pie2
 
@@ -3105,7 +3105,7 @@ option = {
     ],
 };
 ```
-::: 
+:::
 
 ### 4. pie4
 
@@ -3642,7 +3642,7 @@ option = {
         // 图标样式
         icon: 'circle',
         right: '5%',
-        // 图标文本整体排列方式 
+        // 图标文本整体排列方式
         orient: 'vertical',
         // 图标与文本左对齐
         align: 'left',
@@ -3924,7 +3924,7 @@ option = {
 :::
 
 
-## Gauge 
+## Gauge
 
 ### 1. 进度条
 
@@ -4574,13 +4574,13 @@ option = {
 
 ### table1
 
-![](imgs/table1.png)
+<!-- ![](imgs/table1.png) -->
 
 ## JS
 
 ### 1. Date
 
-![](imgs/date.png)
+<!-- ![](imgs/date.png) -->
 
 ```js
 function printTime() {
@@ -4604,7 +4604,7 @@ setInterval(printTime, 1000);
 
 ### 2. Video
 
-![](imgs/video.png)
+<!-- ![](imgs/video.png) -->
 
 ::: details 点击查看代码
 ```js
@@ -4626,7 +4626,7 @@ video.appendChild(mp4);
 
 ### 3. radio
 
-![](imgs/radio1.png)
+<!-- ![](imgs/radio1.png) -->
 
 ### 4. 打开新页面
 
@@ -4636,7 +4636,7 @@ window.open(url, '_blank');
 
 ### 5. js新增内容
 
-![](imgs/box1.png)
+<!-- ![](imgs/box1.png) -->
 
 ::: details 点击查看代码
 ```js
@@ -4663,7 +4663,7 @@ box.appendChild(text)
 .imgBg {
     background: linear-gradient(lightGreen, skyblue, lightYellow);
     background-size: cover;
-    
+
 }
 .title {
     position: absolute;
@@ -4675,7 +4675,7 @@ box.appendChild(text)
     border: 1px solid #000;
     /*transition: all 0.5s ease;*/
     /*opacity: 0;*/
-    animation: move 1s ease infinite; 
+    animation: move 1s ease infinite;
 }
 /*
 .box:hover .title {
@@ -4699,7 +4699,7 @@ box.appendChild(text)
 
 ### 6. 增加多个box，每个box内又新增内容
 
-![](imgs/box2.png)
+<!-- ![](imgs/box2.png) -->
 
 
 ::: details 点击查看代码
@@ -4757,7 +4757,7 @@ for (let i = 0; i < labelName.length; i++) {
     margin: 50px;
     /*background: linear-gradient(lightGreen, skyblue, lightYellow);*/
     background-size: cover;
-    
+
 }
 .title {
     position: absolute;
@@ -4769,7 +4769,7 @@ for (let i = 0; i < labelName.length; i++) {
     border: 1px solid #000;
     transition: all 0.5s ease;
     opacity: 1;
-    animation: move 1s ease infinite; 
+    animation: move 1s ease infinite;
 }
 ```
 :::
@@ -4781,7 +4781,7 @@ for (let i = 0; i < labelName.length; i++) {
 
 ### ChinaMap1
 
-![](./imgs/ChinaMap1.png)
+<!-- ![](./imgs/ChinaMap1.png) -->
 
 
 ::: details 点击查看代码
@@ -5123,7 +5123,7 @@ option = {
 
 ### ChinaMap2
 
-![](./imgs/echarts/ChinaMap2.png)
+<!-- ![](./imgs/echarts/ChinaMap2.png) -->
 
 ::: details 点击查看代码
 ```javascript

@@ -46,12 +46,13 @@ class Main {
 
 [![DocSearch][1]][2]
 
-[1]: ./static/img/docsearch-logo.svg
+<!-- [1]: ./static/img/docsearch-logo.svg -->
 [2]: https://docsearch.algolia.com/
 
 ### 图片
 
-![demo1]()
+<!-- ![demo1]() -->
+
 
 
 

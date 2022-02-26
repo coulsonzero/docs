@@ -1,7 +1,8 @@
-<div align='center' >
-	<font size='70'>折线图</font><br/>
-</div>
+<!-- <div align='center' > -->
+<!-- <font size='70'>折线图</font><br/> -->
+<!-- </div> -->
 
+# 折线图
 
 
 
@@ -35,7 +36,7 @@ step: 'start',  //'middle', 'end'
 ```
 #### 堆叠(多条线)
 ```
-stack: 'Total',  
+stack: 'Total',
 ```
 #### 折线样式
 ```

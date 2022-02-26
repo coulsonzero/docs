@@ -142,7 +142,7 @@ splitLine: {
 	lineStyle: {
 		width: 2,
         color: '#999'
-    },  
+    },
     distance
 },
 ```
@@ -172,7 +172,7 @@ data: [{
 }]
 ```
 
-<img src="imgs/echarts/gaugeData.png" style="zoom:50%;" />
+<!-- <img src="imgs/echarts/gaugeData.png" style="zoom:50%;" /> -->
 
 #### detail [数据详情]
 

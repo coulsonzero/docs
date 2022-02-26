@@ -29,7 +29,7 @@ option = {
 option = {
     let xdata = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
     let ydata = [120, 200, 150, 80, 70, 110, 130];
-    
+
     //背景色
     //backgroundColor: "#1A253A",
     //标题
@@ -40,7 +40,7 @@ option = {
     xAxis: [{type, data}],
     //y轴
     yAxis: [{type, name, splitLine}],
-        
+
     //选项
     legend: {data}
 	//悬浮提示
@@ -60,7 +60,7 @@ title: {
 	subtext: "副标题",
 	textStyle: {color: 'orange'}	//字体颜色
 	//居中显示
-	//left: 'center', 
+	//left: 'center',
     //垂直居中
     //top: 'center',
 },
@@ -73,7 +73,7 @@ subtextStyle: {
 }
 ```
 
-<img src="imgs/title.png" style="zoom:100%" />
+<!-- <img src="imgs/title.png" style="zoom:100%" /> -->
 
 
 
@@ -95,11 +95,11 @@ series: [{
 }],
 ```
 
-<img src="imgs/barWidth.png" style="zoom:100%" />
+<!-- <img src="imgs/barWidth.png" style="zoom:100%" /> -->
 
 #### 1. 宽度 barWidth
 ```typescript
-barWidth: 16,	
+barWidth: 16,
 ```
 
 #### 2. 圆角、颜色 itemStyle
@@ -127,11 +127,11 @@ itemStyle: {
 - 鼠标悬停（hover样式）: 其他柱体隐藏
 ```typescript
 itemStyle: {
-	emphasis: {focus: 'series'},	
+	emphasis: {focus: 'series'},
 },
 //水平柱状图圆角：[0, 8, 8, 0]
 ```
-<img src="imgs/barWidth.png" style="zoom:100%" />
+<!-- <img src="imgs/barWidth.png" style="zoom:100%" /> -->
 
 #### 3. 渐变色 itemStyle
 ```typescript
@@ -157,13 +157,13 @@ yAxis: [{
 }]
 ```
 
-<img src="imgs/stack.png" style="zoom:100%" />
+<!-- <img src="imgs/stack.png" style="zoom:100%" /> -->
 
 #### 5. y轴高度自适应
 ```typescript
 yAxisIndex: 1,
 ```
-<img src="imgs/height.png" style="zoom:50%" /> <img src="imgs/yAxisIndex.png" style="zoom:50%" />
+<!-- <img src="imgs/height.png" style="zoom:50%" /> <img src="imgs/yAxisIndex.png" style="zoom:50%" /> -->
 
 
 
@@ -177,7 +177,7 @@ markLine: {
 	data: [{type: 'average',name: 'Avg'}]
 }
 ```
-<img src="imgs/max-min.png" style="zoom:140%" />
+<!-- <img src="imgs/max-min.png" style="zoom:140%" /> -->
 
 
 #### 7. 背景悬浮框
@@ -188,7 +188,7 @@ backgroundStyle: {
 	color: 'rgba(180, 180, 180, 0.2)'
 }
 ```
-<img src="imgs/showBackground.png" style="zoom:140%" />
+<!-- <img src="imgs/showBackground.png" style="zoom:140%" /> -->
 
 #### 8. 柱体顶部椭圆
 ```typescript
@@ -271,14 +271,14 @@ xAxis: [{
 	type: 'category',
     data: xdata,	//数据
 }],
-    
+
 yAxis: [
   {
 	type: 'value',
 	name: 'Precipitation',
     splitLine: {show: false},		//不显示线条
   },
-  {	
+  {
 	type: 'value',
 	name: 'Evaporation',
     splitLine: {show: false},		//不显示线条
@@ -295,7 +295,7 @@ legend: {
 splitLine: {show: false},
 ```
 
-<img src="imgs/showSplitLine.png" style="zoom:100%" />
+<!-- <img src="imgs/showSplitLine.png" style="zoom:100%" /> -->
 
 
 
@@ -315,7 +315,7 @@ yAxis: [{
     axisLabel: {color: '#ffffff'},     //inside: true  字体置于柱内
     axisLine: {lineStyle: {color: "#c1c1c1"}}
 },
-    
+
 series: [{
     itemStyle: {
 	normal: {barBorderRadius: [8, 8, 0, 0],	color: 'skyblue'},
@@ -327,7 +327,7 @@ title: {
 	textStyle: {color: 'orange'}	//字体颜色
 },
 ```
-<img src="imgs/background-color.png" style="zoom:100%" />
+<!-- <img src="imgs/background-color.png" style="zoom:100%" /> -->
 
 
 
@@ -341,7 +341,7 @@ yAxis: [{
     axisLabel: {formatter: '{value} ml'},  //单位
 }],
 ```
-<img src="imgs/yValue.png" style="zoom:100%" />
+<!-- <img src="imgs/yValue.png" style="zoom:100%" /> -->
 
 
 
@@ -358,7 +358,7 @@ yAxis: {
   data: ['Brazil', 'Indonesia', 'USA', 'India', 'China', 'World']
 },
 ```
-<img src="imgs/horizontalBarChart.png" style="zoom:100%" />
+<!-- <img src="imgs/horizontalBarChart.png" style="zoom:100%" /> -->
 
 
 
@@ -395,7 +395,7 @@ tooltip: {
 },
 ```
 
-<img src="imgs/toolTip.png" width=140% />
+<!-- <img src="imgs/toolTip.png" width=140% /> -->
 
 ------
 
@@ -413,7 +413,7 @@ toolbox: {
     }
 },
 ```
-<img src="imgs/toolBox.png" style="zoom:100%" width=120% />
+<!-- <img src="imgs/toolBox.png" style="zoom:100%" width=120% /> -->
 
 ------
 
@@ -459,7 +459,7 @@ legend: {
     icon: "circle", 	//圆形单选框
     textStyle: {fontSize: 12, color: "#000000"}, //字体样式设置
 },
-    
+
 series: [
     {
       name: 'Evaporation',
@@ -480,7 +480,7 @@ series: [
   ],
 ```
 
-<img src="imgs/legend.png" style="zoom:110%"/>
+<!-- <img src="imgs/legend.png" style="zoom:110%"/> -->
 
 ### Ⅶ grid 布局
 
@@ -503,7 +503,7 @@ dataZoom: {
 },
 ```
 
-<img src="imgs/dataZoom.png" style="zoom:100%"/>
+<!-- <img src="imgs/dataZoom.png" style="zoom:100%"/> -->
 
 ### Ⅸ 时间轴 timeline
 #### 基础设置
@@ -566,7 +566,7 @@ label: {
 ```
 currentIndex: 0,
 ```
-#### 点 
+#### 点
 ##### 大小
 symbolSize
 

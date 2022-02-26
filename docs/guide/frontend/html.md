@@ -21,8 +21,8 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
 </head>
-<body> 
-    
+<body>
+
 </body>
 </html>
 ```
@@ -82,7 +82,7 @@ import Vue
 </ol>
 
 <!--表格-->
-<table>  
+<table>
     <caption>Table Title</caption>
     <tr>
         <th>Header 1</th>
@@ -218,7 +218,7 @@ import Vue
 ### Table  <表格>
 
 ```
-<table>  
+<table>
     <caption>Table Title</caption>
     <tr>
         <th>Header 1</th>
@@ -256,18 +256,18 @@ import Vue
 #### 表格---线&宽高
 
 ```html
-<table border="1" width=600px height=300px cellpadding="2" cellspacing="1">  
+<table border="1" width=600px height=300px cellpadding="2" cellspacing="1">
 <!-- 默认值：cellpadding="2" cellspacing="1" -->
 ```
 #### 单元格---背景色
 ```html
-<td bgcolor="red"></td>   
+<td bgcolor="red"></td>
 ```
 #### 单元格---合并
 
 ```html
-<td colspan="2"><br /></td>   
-<td rowspan="3"><br /></td> 
+<td colspan="2"><br /></td>
+<td rowspan="3"><br /></td>
 ```
 #### 单元格---class
 
@@ -400,7 +400,7 @@ import Vue
   <!--Frame-->
   <fieldset>
    <legend>Personal information:</legend>
-   
+
    </fieldset>
 </form>
 ```
@@ -428,7 +428,7 @@ frameborder="0": 移除边框
 
 ### RGB
 
-<img src="../img/RGB.png" style="zoom:100%" />
+<!-- <img src="../img/RGB.png" style="zoom:100%" /> -->
 
 # HTML 5
 
