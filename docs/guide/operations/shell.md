@@ -1,7 +1,5 @@
 # Shell
 
-
-
 ## Overview
 
 ### Hello World
@@ -26,7 +24,7 @@ echo "Hello ${name}";
 
 ### 执行Bash shell脚本
 
-```ssh
+```sh
 source shellFile.sh
 ```
 
@@ -49,25 +47,36 @@ mv style.css ~/Downloads
 
 #### rm
 > 删除文件(夹)
-> linux没有回收期，一旦删除非常难恢复，请谨慎操作
+
+::: tip
+`-i`:  确认是否删除
+
+`-f`:  强制删除
+
+`-rf`: 递归强制删除, 不易恢复
+:::
+
+:::danger
+linux没有回收期，一旦删除非常难恢复，请谨慎操作
+:::
 
 ```sh
-# 向用户确认是否删除
-rm -i file.txt
-# 强制删除
-rm -f file.txt
-# 递归删除文件夹(著名操作)
-rm -rf ...
+# 删除文件
+rm <filename>
+rm -i file.txt  # 确认是否删除
+rm -f file.txt  # 强制删除
 
 # 删除目录
-rm -r vuepress-satrter
+rm -r <foldername>
+rm -rf ...      # 递归删除文件夹(著名操作)
 ```
 
 ### 目录
 #### mkdir
+
 > 新建目录
 ```shell
-mkdir Shell-Learning
+mkdir vue-project
 ```
 ### 文件命令
 #### touch

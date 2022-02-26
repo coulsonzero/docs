@@ -1,14 +1,12 @@
----
-1
----
-
 # MarkDown
 
 ## 目录
------
-[TOC]
 
-***
+```md
+[[TOC]]
+```
+
+[[TOC]]
 
 ### 代码块
 
@@ -21,14 +19,15 @@ class Main {
 ```
 ### 无序列表
 
-- list1
-- list2
-- list3
-+ list 4
-+ list 5
-* list 6
+```md
+- list 1
+* list 2
++ list 3
+```
 
-* list 7
+- list 1
+* list 2
++ list 3
 
 ### 有序列表
 
@@ -36,127 +35,106 @@ class Main {
 2. list2
 
 ### 链接
+```md
+[Github](https://www.github.com/)
+[Github][3]
+[![DocSearch][1]][2]
+
+[1]: ./static/img/docsearch-logo.svg
+[2]: https://docsearch.algolia.com/
+[3]: https://www.github.com/
+```
 
 [Github](https://www.github.com/)
 
-[Github][3]
+[![Vue][1]][2]
 
-
-[3]: https://www.github.com/
-
-[![DocSearch][1]][2]
-
-<!-- [1]: ./static/img/docsearch-logo.svg -->
-[2]: https://docsearch.algolia.com/
+[1]: https://v3.cn.vuejs.org/logo.png
+[2]: https://v3.cn.vuejs.org
 
 ### 图片
+```md
+![bar1](../../.vuepress/public/assets/echarts/bar/bar1.png)
 
-<!-- ![demo1]() -->
-
-
-
-
-### 流程图
-```mermaid
-graph TD
-A[模块A] -->|A1| B(模块B)
-B --> C{判断条件C}
-C -->|条件C1| D[模块D]
-C -->|条件C2| E[模块E]
-C -->|条件C3| F[模块F]
+![bar1][5]
+[5]: ../../.vuepress/public/assets/echarts/bar/bar1.png
 ```
+
+![bar1](../../.vuepress/public/assets/echarts/bar/bar1.png)
+
 
 ### 表格
 
-|      |      |      |
-| :--- | ---- | ---- |
-|      |      |      |
-|      |      |      |
-|      |      |      |
+```md
+|     |       |     |
+| :-- | :---: | --: |
+|     |       |     |
+|     |       |     |
+|     |       |     |
+```
 
-
-| 左对齐 | 右对齐 | 居中对齐 |
-| :-----| ----- | :----- |
+| 左对齐 | 居中对齐 | 右对齐 |
+|  :--  | :---: |  --:  |
 | 单元格 | 单元格 | 单元格 |
 | 单元格 | 单元格 | 单元格 |
-
-
-### Sequence
-~~~gfm
-```sequence
-Alice->Bob: Hello Bob, how are you?
-Note right of Bob: Bob thinks
-Bob-->Alice: I am good thanks!
-```
-~~~
-
-
-```sequence
-Alice->Bob: Hello Bob, how are you?
-Note right of Bob: Bob thinks
-Bob-->Alice: I am good thanks!
-```
-
-### Flowchart
-```flow
-st=>start: Start
-op=>operation: Your Operation
-cond=>condition: Yes or No?
-e=>end
-
-st->op->cond
-cond(yes)->e
-cond(no)->op
-```
-
-```mermaid
-graph LR
-A[Hard edge] -->B(Round edge)
-    B --> C{Decision}
-    C -->|One| D[Result one]
-    C -->|Two| E[Result two]
-```
-
-```mermaid
-%% Example of sequence diagram
-  sequenceDiagram
-    Alice->>Bob: Hello Bob, how are you?
-    alt is sick
-    Bob->>Alice: Not so good :(
-    else is well
-    Bob->>Alice: Feeling fresh like a daisy
-    end
-    opt Extra response
-    Bob->>Alice: Thanks for asking
-    end
-```
 
 $\color{red}{✗}$
 $\color{green}{✓}$
 
-
-
-
 **Markdown扩展**
+
+```md
 ::: tip
 这是一个提示
 :::
+```
+
+```md
+::: tip
+这是一个提示
+:::
+```
+
+::: tip
+这是一个提示
+:::
+
+```md
+::: warning
+这是一个警告
+:::
+```
 
 ::: warning
 这是一个警告
 :::
 
+```md
+::: danger
+这是一个危险警告
+:::
+```
+
 ::: danger
 这是一个危险警告
 :::
 
-::: details 点击查看代码
 
-```js
-console.log('你好，VuePress！')
-```
 
+
+```md
+:::: code-group
+
+::: code-group-item Python
+...
 :::
+
+::: code-group-item JavaScript
+...
+:::
+
+::::
+```
 
 :::: code-group
 ::: code-group-item Python
@@ -166,6 +144,7 @@ print("hello")
 ```
 
 :::
+
 ::: code-group-item JavaScript
 
 ```javascript
@@ -174,3 +153,4 @@ console.log('hello!')
 
 :::
 ::::
+

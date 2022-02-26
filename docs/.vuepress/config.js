@@ -4,7 +4,18 @@ module.exports = {
 	description: "文档管理中心",
 	port: 80,
 	themeConfig: {
+		// 导航栏
 		logo: "https://vuejs.org/images/logo.png",
+		repo: "coulsonzero/docs",
+		// 是否编辑
+		editLinks: true,
+		editLinkText: "Edit this page",
+		docsRepo: "https://github.com/coulsonzero/docs",
+		docsDir: "docs",
+		docsBranch: "master",
+		editLinkPattern: ":repo/edit/:branch/:path",
+		smoothScroll: true,
+		// 顶部导航栏
 		navbar: [
 			{text: "主页", link: "/"},
 			{text: "Bing", link: "https://cn.bing.com"},
@@ -47,5 +58,6 @@ module.exports = {
 		],
 		repo: "https://github.com/coulsonzero/docs",
 	},
-	plugins: ['@vuepress/plugin-search']
+	// 搜索栏
+	plugins: ["@vuepress/plugin-search"],
 };
