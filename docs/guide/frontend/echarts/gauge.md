@@ -6,7 +6,19 @@
 
 ### @基础仪表盘
 
+```ts {3}
+option = {
+  series: [{
+      type: 'gauge',
+      data: [
+        { value: 50, name: 'SCORE'}
+      ],
+    }
+  ]
+};
 ```
+
+```ts
 option = {
   tooltip: {
     formatter: '{a} <br/>{b} : {c}%'

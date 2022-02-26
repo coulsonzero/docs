@@ -6,11 +6,10 @@
 
 ### 基础饼图
 
-```ts
+```ts {3}
 option = {
   series: [{
       type: 'pie',
-      radius: '50%',
       data: [
         { value: 1048, name: 'Search Engine' },
         { value: 735, name: 'Direct' },
@@ -18,13 +17,7 @@ option = {
         { value: 484, name: 'Union Ads' },
         { value: 300, name: 'Video Ads' }
     ],
-  }],
-  tooltip: {
-    trigger: 'item'
-  },
-  legend: {
-    orient: 'vertical'
-  }
+  }]
 };
 ```
 
@@ -384,7 +377,7 @@ formatter: function(name) {
 	}
 }
  */
- 
+
 formatter: function(name) {
 	if (chartdata.length) {
 		const item = chartdata.filter((item) => item.name === name)[0];

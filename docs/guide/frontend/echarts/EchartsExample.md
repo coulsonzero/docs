@@ -6,13 +6,10 @@
 [bar6]: ../../../.vuepress/public/assets/echarts/bar/bar6.png
 [bar7]: ../../../.vuepress/public/assets/echarts/bar/bar7.png
 
-
-
 [line1]: ../../../.vuepress/public/assets/echarts/line/line1.png
 [line2]: ../../../.vuepress/public/assets/echarts/line/line2.png
 [line3]: ../../../.vuepress/public/assets/echarts/line/line3.png
 [line4]: ../../../.vuepress/public/assets/echarts/line/line4.png
-
 
 [pie1]: ../../../.vuepress/public/assets/echarts/pie/pie1.png
 [pie2]: ../../../.vuepress/public/assets/echarts/pie/pie2.png
@@ -21,15 +18,12 @@
 [pie5]: ../../../.vuepress/public/assets/echarts/pie/pie5.png
 [pie6]: ../../../.vuepress/public/assets/echarts/pie/pie6.png
 
-
 [radar1]: ../../../.vuepress/public/assets/echarts/radar/radar1.png
 [radar2]: ../../../.vuepress/public/assets/echarts/radar/radar2.png
 
 [gauge1]: ../../../.vuepress/public/assets/echarts/gauge/gauge1.png
 [gauge2]: ../../../.vuepress/public/assets/echarts/gauge/gauge2.png
 [gauge3]: ../../../.vuepress/public/assets/echarts/gauge/gauge3.png
-
-
 
 [map1]: ../../../.vuepress/public/assets/echarts/map/map1.png
 [map2]: ../../../.vuepress/public/assets/echarts/map/map2.png
@@ -38,10 +32,8 @@
 
 [lines1]: ../../../.vuepress/public/assets/echarts/lines/lines1.png
 
+
 # EchartsExample
-
-
-
 ## Bar
 
 ### bar1
@@ -49,6 +41,7 @@
 ![bar1]
 
 ::: details 点击查看代码
+
 ```typescript
 option = {
     tooltip: {
@@ -160,6 +153,7 @@ var seriesData = [{
     }
 }]
 ```
+
 :::
 
 ### bar2
@@ -167,6 +161,7 @@ var seriesData = [{
 ![bar2]
 
 ::: details 点击查看代码
+
 ```typescript
 var data1 = [709, 1999, 709, 2299, 3299, 2299, 1999, 2999, 1999, 709, 1999, 709];
 var xData = function() {
@@ -306,6 +301,7 @@ option = {
 ![bar3]
 
 ::: details 点击查看代码
+
 ```typescript
 var ydata = [{
     value: 1105,

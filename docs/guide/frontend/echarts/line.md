@@ -7,7 +7,8 @@
 
 
 ## 基础折线图
-```javascript
+
+```javascript {2,6,12}
 option = {
   xAxis: {
     type: 'category',
@@ -27,19 +28,22 @@ option = {
 ## Ⅰ Series
 ### A. 线
 #### 平滑曲线
-```
+
+```ts
 smooth: true
 ```
 #### 阶级线
-```
+
+```ts
 step: 'start',  //'middle', 'end'
 ```
 #### 堆叠(多条线)
-```
+
+```ts
 stack: 'Total',
 ```
 #### 折线样式
-```
+```ts
 lineStyle: {
     width: 0,
     color: 'red'

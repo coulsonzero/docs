@@ -3,25 +3,10 @@
 
 
 ## For Example
-```javascript
+
+```javascript {2-3, 25}
 option = {
-    //backgroundColor: '323232',
-    title: {
-        text: '基础雷达图'
-    },
-    tooltip: {},
-    legend: {
-        data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
-    },
     radar: {
-        name: {
-            textStyle: {
-                color: '#fff',
-                backgroundColor: '#999',
-                borderRadius: 3,
-                padding: [3, 5]
-            }
-        },
         indicator: [{
             name: '销售（sales）',
             max: 6500
@@ -68,7 +53,7 @@ legend: {
     left: '400px',
     bottom: '450',
     //列表样式
-    icon: 'circle',    
+    icon: 'circle',
 },
 ```
 

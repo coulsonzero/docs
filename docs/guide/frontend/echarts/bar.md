@@ -5,7 +5,8 @@
 
 ## Overview
 ### 基础条形图
-```
+
+```typescript {2,6,12}
 option = {
   xAxis: {
     type: 'category',
