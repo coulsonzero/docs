@@ -1,9 +1,12 @@
 # Java
 
-### Introduce
+## Introduce
+
+::: tip
 Java 可运行于多个平台，如Windows, Mac OS，及其他多种UNIX版本的系统。
 Java 是平台独立的语言，用Java编写的应用程序不用修改就可以在不同的平台上运行。
 Java 具有简单性、面向对象、分布式、健壮性、安全性、平台独立与可移植性、多线程、动态性等特点，能够适应几乎任何类型的应用程序的需求。
+:::
 
 ### HelloWorld
 
@@ -28,15 +31,17 @@ public class Main {
  * @author coulsonzero
  * @version ${YEAR}-${MONTH}-${DAY} ${TIME}
  */
- ```
+
+```
 
 ### Output
 
 ```java
 System.out.print()                   // 不换行
 System.out.println()                 // 换行
-System.out.printf(str, var1, var2);  // 格式化字符串
+System.out.printf(str, var1, var2)  // 格式化字符串
 ```
+
 
 ### Input
 
@@ -106,15 +111,15 @@ System.out.println((int)b); //42
 * 变量是对对象的引用
 
 * 局部变量(方法内)：声明数据类型+初始化
-- 全局变量(类内)：声明数据类型，有默认值，可静态初始化
-- 变量名不可重复，大小写敏感, 不能以数字开头，不能是关键字
-- 标志符：字母、数字、美元符$、下划线_
-- 源文件名：源文件名必须和类名相同,文件名的后缀为.java。
+
+* 全局变量(类内)：声明数据类型，有默认值，可静态初始化
+* 变量名不可重复，大小写敏感, 不能以数字开头，不能是关键字
+* 标志符：字母、数字、美元符$、下划线_
+* 源文件名：源文件名必须和类名相同,文件名的后缀为.java。
 
 ### 运算符
 
 #### Math算术 (+ - * / %)
-
 
 ```java
 1 + 2 + "hello" = "3hello"
@@ -142,19 +147,19 @@ x++    (先赋值再递增)
 
 int x = 34;
 int y = ++x; //y is 35
----------------------------
 int i = 34;
 int j = i++; //j is 34
 ```
 
 #### 逻辑(&& || !)
 
-```java
+:::tip
+```
 短路原理
 && 当左侧为Fasle，则不再执行右侧
 || 当左侧为True， 则不再执行右侧
 ```
-
+:::
 #### 关系运算(== != >  >=  <  <=   ?)
 
 ```java
@@ -231,7 +236,7 @@ chars => String: new String(chars)
 str instanceof String
 ```
 
-### StringBuilder/StringBuffer
+#### StringBuilder/StringBuffer
 
 ```java
 // 字符串构造器（减少耗时，节约空间）
@@ -266,6 +271,8 @@ return new StringBuilder(str).reverse().toString();
 ```
 
 ### 数组Array(collection of variables of same type: list)
+
+#### init
 
 ```java
 int[]   arr = new int[length];
@@ -304,10 +311,14 @@ binarySeach(arr, start, end, *** v)
 空指针异常：NullPointerException
 ```
 
-### ArrayList<T>: 数组列表 （存储和访问数据更快）
+#### List
 
+:::tip
+```
+ArrayList<T>: 数组列表 （存储和访问数据更快）
 LikedList<String>：链表 （操作数据更快：插入/删除/修改）
-
+```
+:::
 
 ```java
 import java.until.ArrayList;
@@ -326,7 +337,13 @@ LikedList<String>  list = new LikedList<String>();
 //LikedList存储内存地址(或链接到)跟随它的元素，因为每个元素都包含一个链接到邻近的元素。
 ```
 
-### HashMap<Key, value>: 哈希表 （存储键 : 值）
+#### HashMap
+
+:::tip
+```
+<Key, value>: 哈希表 （存储键 : 值）
+```
+:::
 
 ```java
 import java.util.HashMap;
@@ -341,7 +358,11 @@ HashMap<Integer, Integer> dict = new HashMap<Integer, Integer>();
 containsKey(),containsValue()
 ```
 
-### HashSet<String>: 集合 （无重复元素的无序集合）
+#### HashSet
+
+```
+< String>: 集合 （无重复元素的无序集合）
+```
 
 ```java
 import java.util.HashSet;
@@ -352,9 +373,9 @@ size()
 //哈希表通过散列机制存储信息，哈希代码是用于确定唯一值的关键信息内容。基本上，HashSet中的每个元素都以其独特的哈希代码关联。
 ```
 
-### LikedHashSet: 集合（可以记住元素插入次序的集合）
+#### LikedHashSet: 集合（可以记住元素插入次序的集合）
 
-### List/Map/Set的使用方法
+#### List/Map/Set的使用方法
 
 #### Collections
 
@@ -693,8 +714,6 @@ void func(){}        //父类有public子类也得有
 public void func() {}    //去掉public也可以
 ```
 
-
-
 ### 包package(文件夹)
 
 ```java
@@ -771,7 +790,6 @@ public static void main(String[]args){
 * 继承关系
 * 方法重写
 * 父类引用指向多个子类对象
-
 
 ```java
 原始：Cat c = new Cat();
@@ -897,7 +915,6 @@ Animal cat = new Cat();
 
 ### 类中类的几种形式
 
-
 #### 1.匿名类(Anonymous Classes)
 
 ```java
@@ -990,7 +1007,6 @@ class Myclass {
 
 ### 枚举Enum(定义常量的集合，使用switch检查)
 
-
 ```java
 //枚举Enums (定义常量的集合，使用switch检查)
 enum Color {
@@ -1008,7 +1024,6 @@ class EnumsDemo {
     }
 }
 ```
-
 
 ## Exceptions, Lists, Thread & Files
 
@@ -1175,7 +1190,6 @@ fileMenu.add(copy);
 fileMenu.addSeparator(); //分割线
 ```
 
-
 ```java
 * @Dialog（对话框）
 showMessageDialog    //WARNING_MESSAGE, 无输出
@@ -1199,7 +1213,6 @@ button.addActionListener(new ActionListener() {
 });
 
 ```
-
 
 ```java
 @Button
@@ -1248,7 +1261,6 @@ setLinewrap(boolean);
 setWrapStayleWord(boolean);
 ```
 
-
 ## 文件操作
 
 * read File
@@ -1271,7 +1283,6 @@ crateFile()
 creatDirectory()
 fp.getName()
 ```
-
 
 ### 读取文件
 
@@ -1323,10 +1334,9 @@ try {
 ## 多线程
 
 * extends Thread
-  * new ClassName()
+* new ClassName()
 * implement Runnable
-  * new Thread(new ClassName)
-
+* new Thread(new ClassName)
 
 ### Runnable 接口（推荐）
 
@@ -1402,9 +1412,6 @@ try {
 //wait()
 ```
 
-
-
-
 ### Thread.sleep()
 
 ```java
@@ -1428,7 +1435,3 @@ System.out.printf("执行时间%d ms\n", end-start);
 
 //wait()
 ```
-
-
-
-
