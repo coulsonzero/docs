@@ -13,7 +13,7 @@ module.exports = {
 		docsRepo: "https://github.com/coulsonzero/docs",
 		docsDir: "docs",
 		docsBranch: "master",
-		editLinkPattern: ":repo/edit/:branch/:path",
+		// editLinkPattern: ":repo/edit/:branch/:path",
 		smoothScroll: true,
 		// 顶部导航栏
 		navbar: [
