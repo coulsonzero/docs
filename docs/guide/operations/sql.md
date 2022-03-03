@@ -1,42 +1,48 @@
 # SQL
 
-
 ## Database
+
 ### 查询数据库
 
-```
+```sql
 show databases;
 ```
 ### 使用数据库
 
-```
+```sql
 use database 数据库名;
 ```
 ### 新建数据库
-```
+
+```sql
 create dabatase 数据库名;
 ```
 ### 删除数据库
-```
+
+```sql
 drop database 数据库名;
 ```
 ## Table
+
 ### 查询数据表
+
 #### 所有表
-```
+```sql
 show tables;
 ```
 #### 表结构
-```
+
+```sql
 desc ...;
 ```
 #### 表内容
-```
+
+```sql
 select * from ...;
 ```
 ### 新建数据表
 
-```
+```sql
 create table [if not exists] table_name
 (
     column_name1 data_type(size),    
@@ -50,32 +56,33 @@ create table [if not exists] table_name
 
 #### 同时复制表内容和结构
 
-```
+```sql
 CREATE TABLE new_table SELECT * FROM new_table;
 ```
 #### 复制表内容
-```
+
+```sql
 INSERT INTO new_table SELECT * FROM new_table; 
 ```
 #### 复制表结构
-```
+```sql
 CREATE TABLE new_table LIKE new_table;
 ```
 ### 删除表
 
 #### 删除表数据，保留结构(不可回滚)
 
-```
+```sql
 truncate table 表名;
 ```
 #### 不保留表结构，完全删除表(可回滚)
 
-```
+```sql
 drop table [if exists] ...;
 ```
 ### 修改表名
 
-```
+```sql
 alter table ... rename as ...;
 rename table 旧的表名 to 新的表名;
 ```
@@ -83,47 +90,53 @@ rename table 旧的表名 to 新的表名;
 
 ### 增
 
-```
+```sql
 alter table 表名 add 字段名 字段类型;
 ```
 ### 删
-```
+
+```sql
 alter table 表名 drop 字段名;
 ```
 ### 查
-```
+```sql
 desc 表名;
 ```
 ### 改
+
 #### 修改字段名
-```
+```sql
 alter table 表名 change 旧的字段名 新的字段名 字段类型;
 ```
 #### 修改字段类型
-```
+```sql
 alter table 表名 modify 字段名 新的字段类型;
 ```
 ## Data
+
 ### 增(末尾插入)
-```
+```sql
 insert [ignore] into 表名(字段1,字段2) values(value1, value2);
 ```
 ### 删
-```
+
+```sql
 Delete from 表名 where ...;
 truncate table 表名;
 ```
 ### 查
-```
+
+```sql
 select 字段名 from 表名 where ...;
 ```
 ### 改
-```
+
+```sql
 update 表名 set 字段 = 修改后的内容 where ...;
 ```
 ## Index
 
-```
+```sql
 create [unique] index ... on table_name(column_name);
 Alter table ... add [unique] index ...(column_name);
 ```

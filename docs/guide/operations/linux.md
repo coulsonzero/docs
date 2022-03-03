@@ -31,7 +31,6 @@ window中设置“打开鼠标指针轨迹“，并设置为”最短"
 
 ## 3. 使用linux终端
 
-
 ## 3. linux常用命令
 
 - ls (列出所有目录和文件)----ls -a
@@ -70,7 +69,6 @@ window中设置“打开鼠标指针轨迹“，并设置为”最短"
 - id (查询用户信息)
 - who/whoami (查看当前用户名)/users
 - passwd (修改密码)
-- su (切换用户)
 - echo (输出命令)/printf
 - history (查看命令历史记录)
 - dig (域名解析)
@@ -80,7 +78,41 @@ window中设置“打开鼠标指针轨迹“，并设置为”最短"
 
 ### Commands 命令大全
 
-### `ls`
+### 目录
+
+```
+列举：ls
+切换：cd
+查看：pwd
+树列：tree
+
+增：mkdir
+删：rm
+查：find
+改：mv、cp
+```
+
+文件
+
+```
+增：touch
+删：rm
+查：cat、tail、more、less
+改：vim、vi
+```
+
+解压
+
+```
+压缩：tar
+解压：unzip
+```
+
+
+
+
+
+
 
 
 
