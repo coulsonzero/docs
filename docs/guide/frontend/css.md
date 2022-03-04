@@ -110,7 +110,7 @@ white-space: nowrap/inherit/pre/pre-line/pre-warp;
 /* 溢出：隐藏/滚动 */
 overflow-x: hidden;
 overflow-y: scroll;
-overflow-y:
+overflow
 /* 小型大写 */
 font-variant: small-caps;
 
