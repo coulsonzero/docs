@@ -9,17 +9,18 @@
 ```
 
 ### jquery加载DOM元素
+
 ```js
 $(function() {...}
 $(document).ready(function () {...}
-``` 
+```
 
 ### 快速开始
 
 ```javascript
 // 原生js写法
 window.onload = function(){
-	document.getElementById("start").innerHTML= "Go!";
+  document.getElementById("start").innerHTML= "Go!";
 }
 
 // jQuery写法
@@ -93,8 +94,8 @@ $(this).val()
 ```js
 $(this).css('color', 'red')
 $("div").css({
-	"color": "red", 
-	"font-size": "200%"
+  "color": "red", 
+  "font-size": "200%"
 })
 ```
 
@@ -125,6 +126,7 @@ $(this).hide()
 ```
 
 ### DOM
+
 ```js
 // Add text() Content
 $(this).append(`...`)
@@ -143,229 +145,21 @@ $("selector").children()
 $("selector").siblings()
 $("selector").next()/nextAll()
 $("selector").prev()/prevAll()
-$("selector").eq(index)				
+$("selector").eq(index)
 ```
 
 ```js
 $("div").parents().css("border", "2px solid red")
 $("p").eq(2).remove()
-$("selector").empty()	
+$("selector").empty()
 ```
 
-## Attributes and Content  => HTML 
-
-### Attr methods
-
-```
-.attr("href", "https://....com")    //修改属性
-.removeAttr("class")  
-```
-#### 1. output Attr
-```javascript
-<a href="www.sololearn.com">Click here</a>
-
-$(function() {
-	var val = $("a").attr("href");
-	alert(val);
-	//$("a").attr("href", "https://www.baidu.com");
-});
-```
-#### 2. change Attr
-```javascript
-$("img").attr("src", "cat.png");
-```
-#### 3. remove Attr
-```javascript
-$("#test").removeAttr("border");
-```
-
-### Content
-
-```js
-$("selector").text()
-$("selector").html()
-```
-#### 1. text ( )
-
-```html
-<div class="test">
-	<p>hello</p>
-<div>
-
-<script>
-$(function() {
-	alert($(".test").text());         //output
-	//$(".test").text("hey");  //change 
-});
-</script>
-
-<!-- hello -->
-```
-
-#### 2. html ( )
-
-```html
-$(".test").html());   	 //output
-//$("#demo").html("<p>hey</p>")  //change
-<!-- <p>hello</p> -->
-```
-
-#### 3. val ( )
-
-```html
-<input type="text" id="name" value="Your Name">
-
-$("#name").val();
-```
-
-### Add Content
-
-#### 1. Add text() Content
-
-##### a.  append
-
-```html
-<p id="demo">Hi </p>
-
-$(function()) {
-	$("#demo").append("David");
-});
-
-<!-- Hi David -->
-```
-
-##### b.  prepend
-```js
-$("#demo").prepend("Woo, ");
-
-// Woo, Hi David
-```
-
-#### 2. Add html() Content
-
-##### c.  after
-```html
-<p id="demo">Hi </p>
-
-$("#demo").after("<b>Welcome</b>");
-
-/*
- Hi 
- Welcome
- */
-```
-##### d.  before
-```js
-var txt = $("<p></p>").text("Hello")
-$("#demo").before("<i>Some Title</i>");
-//$("#demo").after(txt);
-
-/*
- Some Title
- Hi 
- //Hello
- */
-```
-
-## Manipulating CSS => css
-
-
-
-### selfClass
-
-#### 1. Class
-
-##### a. addClass ( )
-
-```html
-<div>Some text</div>
-<button>Toggle Class</button>
-
-<style>
-.header {
-	color: red;
-	font-size: x-large;
-	font-weight: bold;
-}
-</style>
-
-<script>
-$(function() {
-	$("button").click(function() {
-	//$("div").addClass("header");
-	//$("div").removeClass("header");
-});
-</script>
-```
-
-##### b. removeClass ( )
-```
-<div class="a b"></div>
-$("div").addClass("c");
-$("div").removeClass("a c");
-
-//class="b"
-```
-##### c. toggleClass ( )
-```html
-<div>Some text</div>
-<button>Toggle Class</button>
-
-<style>
-.header {
-	color: red;
-	font-weight: bold;
-}
-</style>
-
-<script>
-$(function() {
-	$("button").click(function() {
-		$("div").toggleClass("header");
-	});
-});
-</script>
-```
-
-#### 2. css ( )
-
-```js
-$("div").css("border", "2px solid red");
-$("div").css({"color": "red", "font-size": "200%});
-```
-#### 3. width()、innerWidth()、outerWidth()、height()、...
-```
-innerWidth() = padding*2 + width
-outerWidth() = padding*2 + width + border-width*2
-```
-```js
-$("div").width(100);
-```
-
-### OtherClass
-#### 1. Methods
-```
-$("selector").parent()
-$("selector").parents()
-$("selector").children()
-$("selector").siblings()
-$("selector").next()/nextAll()
-$("selector").prev()/prevAll()
-$("selector").eq(index)				
-```
-#### 2. apply
-```
-$("div").parents().css("border", "2px solid red")
-$("p").eq(2).remove()
-$("selector").empty()	
-```
-
-------
 
 ## Events
 
 ### Methods
-```
+
+```js
 //Mouse Events
 $("selector").click(function() {})		  //单击
 dbclick		  //双击
@@ -391,6 +185,7 @@ scroll
 ```
 
 ### Event
+
 ```
 event.pageX
 event.pageY
