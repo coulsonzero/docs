@@ -133,6 +133,7 @@ select 字段名 from 表名 where ...;
 
 ```sql
 update 表名 set 字段 = 修改后的内容 where ...;
+update 表名 set 字段1 = 新内容1, 字段2 = 新内容2 where ...;
 ```
 ## Index
 
