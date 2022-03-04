@@ -1,87 +1,156 @@
 # JQuery
 
+## OverView
 
-
-## Overview
-
-### inport javaScript library "jQuery"
+### 导包
 
 ```html
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 ```
 
-### first jQuery program
+### jquery加载DOM元素
+```js
+$(function() {...}
+$(document).ready(function () {...}
+``` 
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jQuery</title>
-    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-    <script src="JQdemo.js"></script>
-</head>
-<body>
-    <p id="start">hello</p>
-</body>
-</html>
-```
+### 快速开始
 
 ```javascript
-/*
-原生js写法
+// 原生js写法
 window.onload = function(){
 	document.getElementById("start").innerHTML= "Go!";
 }
-*/
 
-//jQuery写法
+// jQuery写法
 $(function() {
     $("#start").html("Go");
 });
 
-/*
+// jQuery写法2
 $(document).ready(function () {
     $("#start").html("Go");
 });
-*/
 ```
 
-### Syntax
+## 语法Syntax
 
-```javascript
-$(function() {
-//$(document).ready(function () {
-	$("selector").action()
-});
+### 选择器
 
-/*
+```js
 $("div")
 $("#id")
 $(".class")
 $(div p)
 $(div, p)
-$(div > *)
-
-//html
-.attr("href", "https://....com")    //修改属性
-.removeAttr("class") 
-.text()  //内容：     "This"
-.html()  //内容+标记："<p>This</p>"
-.val()
-
-//css
-.addClass()
-   
-.style.color
-.hide()
-.show()
-*/
+$(div > p)
+$(div ~ p)
+$(this)
 ```
 
-------
+### jquery操作HTML
+
+* innerHTML
+  
+```js
+// 获取
+$(this).html()
+$(this).text()
+
+// 修改
+$(this).html('test')
+```
+
+* class
+  
+```js
+$(this).addClass('active')
+$(this).removeClass('active')
+$(this).toggleClass('active')
+```
+
+* attr等属性
+
+```js
+// 获取
+$(this).attr("href")
+// 修改
+$(this).attr("href", "https://www.baidu.com") 
+$("img").attr("src", "cat.png");
+
+// 删除
+$("#test").removeAttr("border");
+```
+
+* input的value
+  
+```js
+$(this).val()
+```
+
+### jquery操作CSS
+
+```js
+$(this).css('color', 'red')
+$("div").css({
+	"color": "red", 
+	"font-size": "200%"
+})
+```
+
+* width()、innerWidth()、outerWidth()、height()、...
+  
+```
+innerWidth() = padding*2 + width
+outerWidth() = padding*2 + width + border-width*2
+```
+
+```js
+$("div").width(100);
+```
+
+### jquery操作js
+
+* 遍历
+
+```js
+$('.link').each(function() {...})
+```
+
+* 显示隐藏
+
+```js
+$(this).show()
+$(this).hide()
+```
+
+### DOM
+```js
+// Add text() Content
+$(this).append(`...`)
+$(this).prepend("Woo, ")  // Woo, ...
+
+// Add html() Content
+$(this).after("bye")  // ... bye
+$(this).before("hello") //hello ...
+```
+
+
+```js
+$("selector").parent()
+$("selector").parents()
+$("selector").children()
+$("selector").siblings()
+$("selector").next()/nextAll()
+$("selector").prev()/prevAll()
+$("selector").eq(index)				
+```
+
+```js
+$("div").parents().css("border", "2px solid red")
+$("p").eq(2).remove()
+$("selector").empty()	
+```
 
 ## Attributes and Content  => HTML 
 
