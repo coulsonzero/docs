@@ -71,6 +71,7 @@ module.exports = {
 					{text: "Java", link: "/guide/backend/java"},
 					{text: "Python", link: "/guide/backend/python"},
 					{text: "Go", link: "/guide/backend/go"},
+					{text: "Kotlin", link: "/guide/backend/kotlin"},
 					{text: "Swift", link: "/guide/backend/swift"},
 					{
 						text: "框架",
