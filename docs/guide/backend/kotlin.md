@@ -195,10 +195,10 @@ for (num in nums) {
 }
 ```
 
-**arr.forEach()**
+**arr.forEach**
 
 :::tip
-arr.forEach(...)
+arr.forEach
 kotlin porvides an `it` keyword for name elements in forEach.
 :::
 
