@@ -22,26 +22,56 @@ module.exports = {
 			{
 				text: "前端",
 				children: [
-					{text: "html", link: "/guide/frontend/html"},
-					{text: "css", link: "/guide/frontend/css"},
-					{text: "javascript", link: "/guide/frontend/javascript"},
-					{text: "scss", link: "/guide/frontend/scss"},
-					{text: "jquery", link: "/guide/frontend/jquery"},
-					{text: "vue", link: "https://v3.cn.vuejs.org/"},
-					{text: "react", link: "https://react.docschina.org/"},
-					{text: "webpack", link: "https://www.webpackjs.com/"},
-					{text: "vite", link: "https://cn.vitejs.dev/"},
-					{text: "echarts", link: "/guide/frontend/echarts/echarts"},
-					{text: "swiper", link: "https://swiperjs.com/demos"},
-					{text: "scroolreveal", link: "https://scrollrevealjs.org/"},
-					{text: "vuepress", link: "https://v2.vuepress.vuejs.org/zh/"},
+					{text: "HTML5", link: "/guide/frontend/html"},
+					{text: "CSS3", link: "/guide/frontend/css"},
+					{text: "JavaScript(ES6)", link: "/guide/frontend/javascript"},
+					{
+						text: "扩展",
+						children: [
+							{text: "SCSS", link: "/guide/frontend/scss"},
+							{text: "TypeScript", link: "https://www.tslang.cn"},
+						],
+					},
+					{
+						text: "web库",
+						children: [
+							{text: "Echarts", link: "/guide/frontend/echarts/echarts"},
+							{text: "Swiper", link: "https://swiperjs.com/demos"},
+							{text: "ScroolReveal", link: "https://scrollrevealjs.org/"},
+						],
+					},
+					{
+						text: "web框架",
+						children: [
+							{text: "jQuery", link: "/guide/frontend/jquery"},
+							{text: "Vue", link: "https://v3.cn.vuejs.org/"},
+							{text: "React", link: "https://react.docschina.org/"},
+						],
+					},
+					{
+						text: "打包工具",
+						children: [
+							{text: "Webpack", link: "https://www.webpackjs.com/"},
+							{text: "Vite", link: "https://cn.vitejs.dev/"},
+						],
+					},
+					{
+						text: "文档管理",
+						children: [
+							{text: "VuePress", link: "https://v2.vuepress.vuejs.org/zh/"},
+						],
+					},
 				],
 			},
 			{
 				text: "后端",
 				children: [
 					{text: "java", link: "/guide/backend/java"},
-					{text: "python", link: "/guide/backend/python"},
+					{
+						text: "python",
+						link: "/guide/backend/python",
+						children: [{text: "pyside6", link: "/guide/backend/pyside6"}],
+					},
 					{text: "go", link: "/guide/backend/go"},
 					{text: "swift", link: "/guide/backend/swift"},
 				],
@@ -52,7 +82,15 @@ module.exports = {
 					{text: "sql", link: "/guide/operations/sql"},
 					{text: "linux", link: "/guide/operations/linux"},
 					{text: "shell", link: "/guide/operations/shell"},
-					{text: "Markdown", link: "/guide/operations/markdown.md"},
+					{text: "Markdown", link: "/guide/operations/markdown"},
+				],
+			},
+			{
+				text: "算法",
+				children: [
+					{text: "字符串", link: "/guide/algorithm/String/README.md"},
+					{text: "链表", link: "/guide/algorithm/ListNode/README.md"}
+
 				],
 			},
 		],
