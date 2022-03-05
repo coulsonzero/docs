@@ -1,302 +1,165 @@
 # JQuery
 
+## OverView
 
-
-## Overview
-
-### inport javaScript library "jQuery"
+### 导包
 
 ```html
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 ```
 
-### first jQuery program
+### jquery加载DOM元素
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jQuery</title>
-    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-    <script src="JQdemo.js"></script>
-</head>
-<body>
-    <p id="start">hello</p>
-</body>
-</html>
+```js
+$(function() {...}
+$(document).ready(function () {...}
 ```
 
-```javascript
-/*
-原生js写法
-window.onload = function(){
-	document.getElementById("start").innerHTML= "Go!";
-}
-*/
+### 快速开始
 
-//jQuery写法
+```javascript
+// 原生js写法
+window.onload = function(){
+  document.getElementById("start").innerHTML= "Go!";
+}
+
+// jQuery写法
 $(function() {
     $("#start").html("Go");
 });
 
-/*
+// jQuery写法2
 $(document).ready(function () {
     $("#start").html("Go");
 });
-*/
 ```
 
-### Syntax
+## 语法Syntax
 
-```javascript
-$(function() {
-//$(document).ready(function () {
-	$("selector").action()
-});
+### 选择器
 
-/*
+```js
 $("div")
 $("#id")
 $(".class")
 $(div p)
 $(div, p)
-$(div > *)
-
-//html
-.attr("href", "https://....com")    //修改属性
-.removeAttr("class") 
-.text()  //内容：     "This"
-.html()  //内容+标记："<p>This</p>"
-.val()
-
-//css
-.addClass()
-   
-.style.color
-.hide()
-.show()
-*/
+$(div > p)
+$(div ~ p)
+$(this)
 ```
 
-------
+### jquery操作HTML
 
-## Attributes and Content  => HTML 
+* innerHTML
+  
+```js
+// 获取
+$(this).html()
+$(this).text()
 
-### Attr methods
-
+// 修改
+$(this).html('test')
 ```
-.attr("href", "https://....com")    //修改属性
-.removeAttr("class")  
-```
-#### 1. output Attr
-```javascript
-<a href="www.sololearn.com">Click here</a>
 
-$(function() {
-	var val = $("a").attr("href");
-	alert(val);
-	//$("a").attr("href", "https://www.baidu.com");
-});
+* class
+  
+```js
+$(this).addClass('active')
+$(this).removeClass('active')
+$(this).toggleClass('active')
 ```
-#### 2. change Attr
-```javascript
+
+* attr等属性
+
+```js
+// 获取
+$(this).attr("href")
+// 修改
+$(this).attr("href", "https://www.baidu.com") 
 $("img").attr("src", "cat.png");
-```
-#### 3. remove Attr
-```javascript
+
+// 删除
 $("#test").removeAttr("border");
 ```
 
-### Content
+* input的value
+  
+```js
+$(this).val()
+```
+
+### jquery操作CSS
 
 ```js
-$("selector").text()
-$("selector").html()
-```
-#### 1. text ( )
-
-```html
-<div class="test">
-	<p>hello</p>
-<div>
-
-<script>
-$(function() {
-	alert($(".test").text());         //output
-	//$(".test").text("hey");  //change 
-});
-</script>
-
-<!-- hello -->
+$(this).css('color', 'red')
+$("div").css({
+  "color": "red", 
+  "font-size": "200%"
+})
 ```
 
-#### 2. html ( )
-
-```html
-$(".test").html());   	 //output
-//$("#demo").html("<p>hey</p>")  //change
-<!-- <p>hello</p> -->
-```
-
-#### 3. val ( )
-
-```html
-<input type="text" id="name" value="Your Name">
-
-$("#name").val();
-```
-
-### Add Content
-
-#### 1. Add text() Content
-
-##### a.  append
-
-```html
-<p id="demo">Hi </p>
-
-$(function()) {
-	$("#demo").append("David");
-});
-
-<!-- Hi David -->
-```
-
-##### b.  prepend
-```js
-$("#demo").prepend("Woo, ");
-
-// Woo, Hi David
-```
-
-#### 2. Add html() Content
-
-##### c.  after
-```html
-<p id="demo">Hi </p>
-
-$("#demo").after("<b>Welcome</b>");
-
-/*
- Hi 
- Welcome
- */
-```
-##### d.  before
-```js
-var txt = $("<p></p>").text("Hello")
-$("#demo").before("<i>Some Title</i>");
-//$("#demo").after(txt);
-
-/*
- Some Title
- Hi 
- //Hello
- */
-```
-
-## Manipulating CSS => css
-
-
-
-### selfClass
-
-#### 1. Class
-
-##### a. addClass ( )
-
-```html
-<div>Some text</div>
-<button>Toggle Class</button>
-
-<style>
-.header {
-	color: red;
-	font-size: x-large;
-	font-weight: bold;
-}
-</style>
-
-<script>
-$(function() {
-	$("button").click(function() {
-	//$("div").addClass("header");
-	//$("div").removeClass("header");
-});
-</script>
-```
-
-##### b. removeClass ( )
-```
-<div class="a b"></div>
-$("div").addClass("c");
-$("div").removeClass("a c");
-
-//class="b"
-```
-##### c. toggleClass ( )
-```html
-<div>Some text</div>
-<button>Toggle Class</button>
-
-<style>
-.header {
-	color: red;
-	font-weight: bold;
-}
-</style>
-
-<script>
-$(function() {
-	$("button").click(function() {
-		$("div").toggleClass("header");
-	});
-});
-</script>
-```
-
-#### 2. css ( )
-
-```js
-$("div").css("border", "2px solid red");
-$("div").css({"color": "red", "font-size": "200%});
-```
-#### 3. width()、innerWidth()、outerWidth()、height()、...
+* width()、innerWidth()、outerWidth()、height()、...
+  
 ```
 innerWidth() = padding*2 + width
 outerWidth() = padding*2 + width + border-width*2
 ```
+
 ```js
 $("div").width(100);
 ```
 
-### OtherClass
-#### 1. Methods
+### jquery操作js
+
+* 遍历
+
+```js
+$('.link').each(function() {...})
 ```
+
+* 显示隐藏
+
+```js
+$(this).show()
+$(this).hide()
+```
+
+### DOM
+
+```js
+// Add text() Content
+$(this).append(`...`)
+$(this).prepend("Woo, ")  // Woo, ...
+
+// Add html() Content
+$(this).after("bye")  // ... bye
+$(this).before("hello") //hello ...
+```
+
+
+```js
 $("selector").parent()
 $("selector").parents()
 $("selector").children()
 $("selector").siblings()
 $("selector").next()/nextAll()
 $("selector").prev()/prevAll()
-$("selector").eq(index)				
-```
-#### 2. apply
-```
-$("div").parents().css("border", "2px solid red")
-$("p").eq(2).remove()
-$("selector").empty()	
+$("selector").eq(index)
 ```
 
-------
+```js
+$("div").parents().css("border", "2px solid red")
+$("p").eq(2).remove()
+$("selector").empty()
+```
+
 
 ## Events
 
 ### Methods
-```
+
+```js
 //Mouse Events
 $("selector").click(function() {})		  //单击
 dbclick		  //双击
@@ -322,6 +185,7 @@ scroll
 ```
 
 ### Event
+
 ```
 event.pageX
 event.pageY
