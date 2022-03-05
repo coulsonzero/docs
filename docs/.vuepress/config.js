@@ -66,20 +66,33 @@ module.exports = {
 			{
 				text: "后端",
 				children: [
-					{text: "java", link: "/guide/backend/java"},
+					{text: "C", link: '/guide/backend/c'},
+					{text: "C++", link: '/guide/backend/c++'},
+					{text: "Java", link: "/guide/backend/java"},
+					{text: "Python", link: "/guide/backend/python"},
+					{text: "Go", link: "/guide/backend/go"},
+					{text: "Swift", link: "/guide/backend/swift"},
 					{
-						text: "python",
-						link: "/guide/backend/python",
+						text: "框架",
+						children: [
+							{
+								text: "SpringBoot",
+								link: "https://spring.io/projects/spring-boot#learn",
+							},
+							{text: "Django", link: "https://www.djangoproject.com/"},
+							{text: "flask", link: "https://flask.net.cn"},
+						],
+					},
+					{
+						text: "类库",
 						children: [{text: "pyside6", link: "/guide/backend/pyside6"}],
 					},
-					{text: "go", link: "/guide/backend/go"},
-					{text: "swift", link: "/guide/backend/swift"},
 				],
 			},
 			{
 				text: "运维",
 				children: [
-					{text: "sql", link: "/guide/operations/sql"},
+					{text: "SQL", link: "/guide/operations/sql"},
 					{text: "linux", link: "/guide/operations/linux"},
 					{text: "shell", link: "/guide/operations/shell"},
 					{text: "Markdown", link: "/guide/operations/markdown"},
@@ -89,8 +102,7 @@ module.exports = {
 				text: "算法",
 				children: [
 					{text: "字符串", link: "/guide/algorithm/String/README.md"},
-					{text: "链表", link: "/guide/algorithm/ListNode/README.md"}
-
+					{text: "链表", link: "/guide/algorithm/ListNode/README.md"},
 				],
 			},
 		],
