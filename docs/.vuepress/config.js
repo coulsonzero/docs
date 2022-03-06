@@ -101,6 +101,7 @@ module.exports = {
 			{
 				text: "算法",
 				children: [
+					{text: "Leetcode算法", link: "https://coulsonzero.github.io/leetcode-1/"},
 					{text: "字符串", link: "/guide/algorithm/String/README.md"},
 					{text: "链表", link: "/guide/algorithm/ListNode/README.md"},
 				],
