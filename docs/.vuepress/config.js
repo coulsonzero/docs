@@ -45,7 +45,7 @@ module.exports = {
 						children: [
 							{text: "jQuery", link: "/guide/frontend/jquery"},
 							{text: "Vue", link: "https://v3.cn.vuejs.org/"},
-							{text: "React", link: "https://react.docschina.org/"},
+							{text: "React", link: "/guide/frontend/react"},
 						],
 					},
 					{
@@ -66,8 +66,8 @@ module.exports = {
 			{
 				text: "后端",
 				children: [
-					{text: "C", link: '/guide/backend/c'},
-					{text: "C++", link: '/guide/backend/c++'},
+					{text: "C", link: "/guide/backend/c"},
+					{text: "C++", link: "/guide/backend/c++"},
 					{text: "Java", link: "/guide/backend/java"},
 					{text: "Python", link: "/guide/backend/python"},
 					{text: "Go", link: "/guide/backend/go"},
