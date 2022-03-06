@@ -1,5 +1,7 @@
 # Mac快捷键
 
+[Mac键盘快捷键](https://support.apple.com/zh-cn/HT201236)
+
 Command（或 Cmd）⌘
 Shift ⇧
 Option（或 Alt）⌥
