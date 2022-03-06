@@ -95,8 +95,7 @@ module.exports = {
 				children: [
 					{text: "SQL", link: "/guide/operations/sql"},
 					{text: "linux", link: "/guide/operations/linux"},
-					{text: "shell", link: "/guide/operations/shell"},
-					{text: "Markdown", link: "/guide/operations/markdown"},
+					{text: "shell", link: "/guide/operations/shell"}
 				],
 			},
 			{
@@ -104,6 +103,13 @@ module.exports = {
 				children: [
 					{text: "字符串", link: "/guide/algorithm/String/README.md"},
 					{text: "链表", link: "/guide/algorithm/ListNode/README.md"},
+				],
+			},
+			{
+				text: "其它",
+				children: [
+					{text: "Markdown", link: "/guide/other/markdown"},
+					{text: "Mac使用指南", link: "/guide/other/mac/README.md"}
 				],
 			},
 		],
