@@ -30,7 +30,7 @@ fun main(args: Array<String>) {
 :::
 
 ```kotlin
-var num: int = 12
+var num: Int = 12
 var course: String = "Kotlin"
 ```
 
