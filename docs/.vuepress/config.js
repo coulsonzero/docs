@@ -30,6 +30,7 @@ module.exports = {
 						children: [
 							{text: "SCSS", link: "/guide/frontend/scss"},
 							{text: "TypeScript", link: "https://www.tslang.cn"},
+							{text: "Canvas", link: "/guide/frontend/canvas"}
 						],
 					},
 					{

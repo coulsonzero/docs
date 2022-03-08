@@ -89,12 +89,6 @@ $\color{green}{✓}$
 :::
 ```
 
-```md
-::: tip
-这是一个提示
-:::
-```
-
 ::: tip
 这是一个提示
 :::
@@ -114,12 +108,20 @@ $\color{green}{✓}$
 这是一个危险警告
 :::
 ```
-
 ::: danger
 这是一个危险警告
 :::
 
+```md
+::: details 点击查看代码
 
+:::
+```
+::: details 点击查看代码
+```js
+console.log("Hello javascript!")
+```
+:::
 
 
 ```md
@@ -153,4 +155,5 @@ console.log('hello!')
 
 :::
 ::::
+
 
