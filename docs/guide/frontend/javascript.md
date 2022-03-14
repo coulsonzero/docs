@@ -175,20 +175,41 @@ arr.push()       // 末尾添加
 arr.pop()        // 末尾删除
 arr.shift()     // 首部删除
 arr.unshift(v)  // 首部添加
-arr.sort()
-arr.sort((a,b) => a-b)
-arr.sort((a,b) => b-a)
+
+// 原地排序
+arr.sort()              // 按字符名称排序
+arr.sort((a,b) => a-b)  // 从小到大
+arr.sort((a,b) => b-a)  // 从大到小
 arr.reverse()
+
 arr.join(' ')    // 数组->字符串
-arr.slice(-1)   // 切片
 arr.concat()    // 合并为一维数组
+
+arr.slice(-1)   // 切片
 arr.indexOf(v, [i])
 arr.lastIndexOf(v, [i])
+
 arr.forEach((item, index) => {...})
 arr.map(v => v + 2)     // 返回新数组
-nums.filter(n => n%2==0).map(el => sum += el); //统计偶数和
+arr.filter(n => n%2==0).map(el => sum += el); //统计偶数和
 ```
 
+::: details 数组原地排序的区别
+```js
+let arr = [1, 5, 3, 9, 2, 10, 12];
+arr.sort((a, b) => a - b)
+console.log(arr)  // [1, 2, 3, 5, 9, 10, 12]
+
+arr.sort((a, b) => b - a)
+console.log(arr)  // [12, 10, 9, 5, 3, 2, 1]
+
+arr.sort()
+console.log(arr)  // [1, 10, 12, 2, 3, 5, 9]
+
+arr.reverse()
+console.log(arr)  // [9, 5, 3, 2, 12, 10, 1]
+```
+:::
 
 ::: details arr.map()、for loop、forEach()的区别
 `arr.map()`: 返回新数组
@@ -214,7 +235,6 @@ console.log(nums)   // [4, 5, 7, 3]
 // forEach(v => {}): 不改变原数组
 nums.forEach(v => v += 2)
 console.log(nums)   //[ 2, 3, 5, 1 ]
-
 
 // forEach((v, i) => {}): 不直接改变原数组，需要通过arr[i]才能改变原数组
 nums.forEach((v, i) => nums[i] += 2)
@@ -345,32 +365,50 @@ const printOdds = (arr) => {
 ```javascript
 const func = () => ...;
 ```
+
 #### 2. 单参
 ```javascript
 const func = x => ...;
 ```
+
 #### 3. 多参
 ```javascript
 const func = (x, y) => {}
 ```
+
 #### 4. 固定数组参数
 ```javascript
 const func = (nums) => {}
 ```
-#### 5. 可变数组参数
+
+#### 5. 可变数组参数!!
 ```javascript
 const func = (...nums) => {}
 ```
-#### 6.参数默认值
+
+#### 6.参数默认值!!
 ```javascript
 function test(a, b = 3, c = 42) {return a + b + c;}
 const test = (a, b = 3, c = 42) => a + b + c;
 ```
+
 #### 7. 单例模式
+> ES5单例模式
 ```javascript
-//单例模式
-let printArray = (function() {
+var printArray = (function() {
     arr.forEach (v => console.log(v))
+})();
+```
+
+> ES6单例模式
+```js
+const getDate = (() => {
+    const d = new Date()
+    const year = d.getFullYear()
+    const month = d.getMonth() + 1
+    const day = d.getDate()
+    const date = `${year}-${month}-${day}`
+    console.log(date)
 })();
 ```
 ------
