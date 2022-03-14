@@ -919,3 +919,35 @@ screen.pixelDepth
 document.cookie
 ```
 
+## Module
+
+### Date
+```js
+function printTime() {
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth() + 1;
+    var day = d.getDate();
+    var hours = d.getHours();
+    var mins = d.getMinutes();
+    var secs = d.getSeconds();
+    // var mins = mins < 10 ? `0${mins}` : mins;
+    // var secs = secs < 10 ? `0${secs}` : secs;
+    var date = `${year}-${month}-${day}`;
+    var time = `${hours}:${mins}:${secs}`;
+    console.log(date + ' ' + time)
+
+    // var dateTime = hours < 12 ? `${date} ${time} AM` : `${date} ${time} PM`;
+    // var weekDay = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+    // var dateTime = hours < 12 ? `${date} ${time} AM` : `${date} ${time} PM ${weekDay[d.getDay()]}`;
+    // console.log(dateTime);      //2022-1-25 9:49:04 AM
+
+    // $("#cmp4c744dlabel").html(dateTime);
+}
+setInterval(printTime, 1000);
+
+
+const dateTime = new Date();
+console.log(dateTime.toLocaleString())  // 2022/1/12 下午1:45:36
+// console.log(dateTime.toDateString()) // Tue Jan 25 2022
+```
