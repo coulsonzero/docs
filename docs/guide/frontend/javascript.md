@@ -170,11 +170,16 @@ let arr = ['One', 'Two', ...newArr, 'Five'];
 ```
 
 ```js
+// 查
 arr.length
-arr.push()       // 末尾添加
+arr.slice(-1)     // 返回指定索引元素，切片
+arr.index(e, [startIndex])   //返回元素所在索引, 不存在则返回-1
+
+// 增删
+arr.push(e)      // 末尾添加
 arr.pop()        // 末尾删除
-arr.shift()     // 首部删除
-arr.unshift(v)  // 首部添加
+arr.unshift(e)   // 首部添加
+arr.shift()      // 首部删除
 
 // 原地排序
 arr.sort()              // 按字符名称排序
@@ -182,13 +187,14 @@ arr.sort((a,b) => a-b)  // 从小到大
 arr.sort((a,b) => b-a)  // 从大到小
 arr.reverse()
 
-arr.join(' ')    // 数组->字符串
-arr.concat()    // 合并为一维数组
+// 数组---字符串  相互转换
+arr.join(' ')    // 数组->字符串, 返回原数组拼接的新字符串
+str.split('/')   // 字符串->数组, 返回原字符串分割的新数组
 
-arr.slice(-1)   // 切片
-arr.indexOf(v, [i])
-arr.lastIndexOf(v, [i])
+// 数组---数组
+arr.concat()     // 数组合并，返回一个新数组
 
+// 遍历
 arr.forEach((item, index) => {...})
 arr.map(v => v + 2)     // 返回新数组
 arr.filter(n => n%2==0).map(el => sum += el); //统计偶数和
@@ -922,6 +928,8 @@ document.cookie
 ## Module
 
 ### Date
+
+::: details 获取日期格式
 ```js
 function printTime() {
     var d = new Date();
@@ -951,3 +959,4 @@ const dateTime = new Date();
 console.log(dateTime.toLocaleString())  // 2022/1/12 下午1:45:36
 // console.log(dateTime.toDateString()) // Tue Jan 25 2022
 ```
+:::
