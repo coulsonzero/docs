@@ -131,13 +131,13 @@ console.log(5 === '5');  //false，先比较类型
 ```javascript
 let arr = [2, 3, 7, 8];
 
-for (let i=0; i < arr.length; i++) {}
+for (let i = 0; i < arr.length; i++) {}
 for (let v of str)  {}
 for (let v of list) {}
 for (let v in dict) {}
 arr.forEach (function(v) {});
 arr.forEach (v => {});
-
+arr.forEach ((v, i) => {});
 //索引越界 -> "undefined"
 ```
 
@@ -185,11 +185,43 @@ arr.concat()    // 合并为一维数组
 arr.indexOf(v, [i])
 arr.lastIndexOf(v, [i])
 arr.forEach((item, index) => {...})
-
+arr.map(v => v + 2)     // 返回新数组
 nums.filter(n => n%2==0).map(el => sum += el); //统计偶数和
 ```
 
 
+::: details arr.map()、for loop、forEach()的区别
+`arr.map()`: 返回新数组
+```js
+var nums = [2, 3, 5, 1]
+console.log(nums.map(v => v + 2))       // [4, 5, 7, 3]
+console.log(nums.map(v => v = v + 2))
+console.log(nums)                       // [2, 3, 5, 1]
+console.log(nums.map((v, i) => v + i)) // [2, 4, 7, 4]
+```
+
+`for Loop`: 改变原数组
+```js
+var nums = [2, 3, 5, 1]
+for (var i = 0; i < nums.length; i++) {
+    nums[i] += 2
+}
+console.log(nums)   // [4, 5, 7, 3]
+```
+
+`forEach()`: 不直接改变原数组，需要通过`arr[i]`才能改变原数组
+```js
+// forEach(v => {}): 不改变原数组
+nums.forEach(v => v += 2)
+console.log(nums)   //[ 2, 3, 5, 1 ]
+
+
+// forEach((v, i) => {}): 不直接改变原数组，需要通过arr[i]才能改变原数组
+nums.forEach((v, i) => nums[i] += 2)
+console.log(nums)   //[ 4, 5, 7, 3]
+```
+
+:::
 
 #### 3. 字典
 
