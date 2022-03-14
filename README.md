@@ -9,7 +9,7 @@ $ yarn docs:dev
 * 项目打包
 
 ```sh
-$ yarn build
+$ yarn docs:build
 ```
 
 * 项目部署
