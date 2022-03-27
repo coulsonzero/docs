@@ -26,19 +26,11 @@ module.exports = {
 					{text: "CSS3", link: "/guide/frontend/css"},
 					{text: "JavaScript(ES6)", link: "/guide/frontend/javascript"},
 					{
-						text: "扩展",
+						text: "语法扩展",
 						children: [
 							{text: "SCSS", link: "/guide/frontend/scss"},
 							{text: "TypeScript", link: "https://www.tslang.cn"},
-							{text: "Canvas", link: "/guide/frontend/canvas"}
-						],
-					},
-					{
-						text: "web库",
-						children: [
-							{text: "Echarts", link: "/guide/frontend/echarts/echarts"},
-							{text: "Swiper", link: "https://swiperjs.com/demos"},
-							{text: "ScroolReveal", link: "https://scrollrevealjs.org/"},
+							{text: "Canvas", link: "/guide/frontend/canvas"},
 						],
 					},
 					{
@@ -47,6 +39,14 @@ module.exports = {
 							{text: "jQuery", link: "/guide/frontend/jquery"},
 							{text: "Vue", link: "https://v3.cn.vuejs.org/"},
 							{text: "React", link: "/guide/frontend/react"},
+						],
+					},
+					{
+						text: "web库",
+						children: [
+							{text: "Echarts", link: "/guide/frontend/echarts/echarts"},
+							{text: "Swiper", link: "https://swiperjs.com/demos"},
+							{text: "ScroolReveal", link: "https://scrollrevealjs.org/"},
 						],
 					},
 					{
@@ -96,13 +96,16 @@ module.exports = {
 				children: [
 					{text: "SQL", link: "/guide/operations/sql"},
 					{text: "linux", link: "/guide/operations/linux"},
-					{text: "shell", link: "/guide/operations/shell"}
+					{text: "shell", link: "/guide/operations/shell"},
 				],
 			},
 			{
 				text: "算法",
 				children: [
-					{text: "Leetcode算法", link: "https://coulsonzero.github.io/leetcode-1/"},
+					{
+						text: "Leetcode算法",
+						link: "https://coulsonzero.github.io/leetcode-1/",
+					},
 					{text: "字符串", link: "/guide/algorithm/String/README.md"},
 					{text: "链表", link: "/guide/algorithm/ListNode/README.md"},
 				],
@@ -111,7 +114,7 @@ module.exports = {
 				text: "其它",
 				children: [
 					{text: "Markdown", link: "/guide/other/markdown"},
-					{text: "Mac使用指南", link: "/guide/other/mac/README.md"}
+					{text: "Mac使用指南", link: "/guide/other/mac/README.md"},
 				],
 			},
 		],
