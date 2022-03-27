@@ -1,5 +1,15 @@
 # React
 
+## 快速开始 ？
+
+```sh
+yarn
+```
+
+```sh
+yarn add sass
+```
+
 ## React快速入门
 
 * 创建一个新的React项目
@@ -312,5 +322,29 @@ const Contact = (props) => {
 ## Other
 
 NPM: Node Package Manager
+
 JSX: JavaScript XML
+
 Virtual DOM: Virtual Document Object Model
+
+
+## FAQ
+
+1. Error: Node Sass does not yet support your current environment
+
+问题来源：执行下述代码在react项目中安装node-sass报错
+
+```sh
+$ yarn add node-sass@4
+```
+
+问题解决方案：首先由于M1的架构，Node Sass不能很好的支持，也许可以用Rosetta实现；或者，放弃Node Sass改用Sass（dart-sass）
+
+```sh
+$ yarn remove node-sass
+$ yarn add sass
+```
+
+2. yarn add [package] --save 与 yarn add [package]的区别 ？
+
+--save会将该包加入到package.json依赖文件中，下次yarn add时将自动添加！
