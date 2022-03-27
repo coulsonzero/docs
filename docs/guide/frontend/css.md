@@ -487,3 +487,20 @@ body::-webkit-scrollbar-thumb {
 }
 ```
 
+
+文字不可选中复制
+```css
+user-select: none
+```
+
+图片不可拖动
+```css
+img {
+    user-drag: none;
+}
+```
+
+按钮禁用事件 
+```css
+pointer-events: none;
+```
