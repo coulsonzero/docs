@@ -245,6 +245,26 @@ export default Navbar;
 
 ## Hooks (Only in React function)
 
+
+Hook 是 React 16.8 的新增特性。
+Hook 可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
+React Native 从 0.59 版本开始支持 Hook
+Hook 和现有代码可以同时工作，你可以渐进式地使用他们
+没有计划从 React 中移除 class,将继续为 class 组件提供支持
+
+基础 Hook
+    useState
+    useEffect
+    useContext
+额外的 Hook
+    useReducer
+    useCallback
+    useMemo
+    useRef
+    useImperativeHandle
+    useLayoutEffect
+    useDebugValue
+
 * useState
 
 ```jsx
