@@ -7,7 +7,7 @@ yarn
 ```
 
 ```sh
-yarn add react-icons sass 
+yarn add react-icons sass
 ```
 
 ## React快速入门
@@ -67,7 +67,7 @@ const App = () => {
 }
 ```
 
-* img
+* <img />
 
 > 注意需要加斜杠 '/' !!
 
@@ -119,6 +119,40 @@ const App = () => {
 }
 ```
 
+```jsx
+export default function Expenses() {
+  const data = [
+    {
+      logo: expenseLogo1,
+      name: "Amazon",
+      price: "-$5K",
+    },
+    {
+      logo: expenseLogo2,
+      name: "Spotify",
+      price: "-$50",
+    },
+    {
+      logo: expenseLogo3,
+      name: "Netflix",
+      price: "-$200",
+    },
+  ];
+  return (
+    <div className="container">
+        {data.map((expense) => {
+            return (
+            <div className="expense">
+                <img src={expense.logo} alt="" />
+                <h4 className="expense__title">{expense.name}</h4>
+                <h6 className="expense__price">{expense.price}</h6>
+            </div>
+            );
+        })}
+    </div>
+  );
+```
+
 ## 参数Props
 
 ```jsx
@@ -132,6 +166,18 @@ const App = (props) => {
   return (
     <div>{props.name}</div>
   )
+}
+```
+
+```jsx
+const App = (props) => {
+    const [contacts, setContacts] = useState(props.data)
+    return (
+        <div>
+            <AddPersonForm />
+            <PropleList data={contacts}></PropleList>
+        </div>
+    )
 }
 ```
 
@@ -166,6 +212,7 @@ class Header extends React.Component {
 
 export default Header
 ```
+
 
 ## State (Only in React class)
 
