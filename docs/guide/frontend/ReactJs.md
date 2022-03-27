@@ -7,7 +7,7 @@ yarn
 ```
 
 ```sh
-yarn add sass
+yarn add react-icons sass 
 ```
 
 ## React快速入门
