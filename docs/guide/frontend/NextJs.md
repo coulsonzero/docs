@@ -299,3 +299,11 @@ export default function HomePage() {
 ```sh
 $ npm run dev
 ```
+
+
+11. NextJs
+
+```sh
+$ npx next-create-app nextjs-app-learning
+http://localhost:3000/api/hello
+```
