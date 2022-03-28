@@ -415,3 +415,28 @@ $ yarn add sass
 2. yarn add [package] --save 与 yarn add [package]的区别 ？
 
 --save会将该包加入到package.json依赖文件中，下次yarn add时将自动添加！
+
+
+3. React常见生命周期的过程大致如下：
+
+（挂载阶段）
+挂载阶段，首先执行constructor构造方法，来创建组件
+创建完成之后，就会执行render方法，该方法会返回需要渲染的内容
+随后，React会将需要渲染的内容挂载到DOM树上
+挂载完成之后就会执行componentDidMount生命周期函数
+
+(更新阶段)
+如果我们给组件创建一个props（用于组件通信）、调用setState（更改state中的数据）、调用forceUpdate（强制更新组件）时，都会重新调用render函数
+render函数重新执行之后，就会重新进行DOM树的挂载
+挂载完成之后就会执行componentDidUpdate生命周期函数
+
+(卸载阶段)
+当移除组件时，就会执行componentWillUnmount生命周期函数
+
+
+4. Effect
+
+::: details
+useEffect = componentDidMount, componentDidUpdate, componentWillUnmount 这三个函数的组合
+effect 的清除阶段在每次重新渲染时都会执行，而不是只在卸载组件的时候执行一次
+:::
