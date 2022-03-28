@@ -7,7 +7,9 @@ yarn
 ```
 
 ```sh
-yarn add react-icons sass
+yarn add react-icons
+yarn add -D sass
+yarn add --dev typescript @types/react @types/node
 ```
 
 ## React快速入门

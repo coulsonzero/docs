@@ -301,9 +301,74 @@ $ npm run dev
 ```
 
 
-11. NextJs
+### 4. NextJs
 
 ```sh
 $ npx next-create-app nextjs-app-learning
-http://localhost:3000/api/hello
+$ yarn dev
+```
+
+<http://localhost:3000/>
+<http://localhost:3000/api/hello>
+
+
+#### Head
+
+> 浏览器窗口标题
+
+```jsx
+import Link from "next/link";
+export default function FirstPost() {
+  return (
+    <>
+    <Head>
+      <title>First Post</title>
+    </Head>
+    </>
+  );
+}
+```
+
+#### Link
+
+```jsx
+// http://localhost:3000/posts/first-post
+import Link from "next/link";
+export default function FirstPost() {
+ return (
+  <>
+    <Link href="/"><a>Back to home</a></Link>
+  </>
+ );
+}
+
+```
+
+#### Image
+
+```jsx
+// http://localhost:3000/posts/first-post
+import Image from "next/image";
+export default function FirstPost() {
+  return (
+    // ...
+    <Image src="/images/universe.jpeg" height={144} width={144} alt="universe" />
+  )
+}
+```
+
+```jsx
+// http://localhost:3000/posts/first-post
+import Link from "next/link";
+import Image from "next/image";
+export default function FirstPost() {
+ return (
+  <>
+   <h1>First Post</h1>
+   <Image src="/images/universe.jpeg" height={144} width={144} alt="universe" />
+   <h2><Link href="/"><a>Back to home</a></Link></h2>
+  </>
+ );
+}
+
 ```
