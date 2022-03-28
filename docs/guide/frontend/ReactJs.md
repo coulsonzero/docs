@@ -433,3 +433,10 @@ render函数重新执行之后，就会重新进行DOM树的挂载
 (卸载阶段)
 当移除组件时，就会执行componentWillUnmount生命周期函数
 
+
+4. Effect
+
+::: details
+useEffect = componentDidMount, componentDidUpdate, componentWillUnmount 这三个函数的组合
+effect 的清除阶段在每次重新渲染时都会执行，而不是只在卸载组件的时候执行一次
+:::
