@@ -433,8 +433,8 @@ LikedList<String>：链表 （操作数据更快：插入/删除/修改）
 import java.until.ArrayList;
 import java.until.LikedList;
 
-ArrayList<Integer> list = new ArrayList<Integer>();
-LikedList<String>  list = new LikedList<String>();
+ArrayList<Integer> list = new ArrayList<>();
+LikedList<String>  list = new LikedList<>();
 
 增：add()
 删：remove(), clear()
@@ -445,6 +445,14 @@ LikedList<String>  list = new LikedList<String>();
 
 //LikedList存储内存地址(或链接到)跟随它的元素，因为每个元素都包含一个链接到邻近的元素。
 ```
+
+::: details 点击查看示例
+```java
+
+
+```
+:::
+
 
 #### HashMap
 
