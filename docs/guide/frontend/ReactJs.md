@@ -4,6 +4,7 @@
 
 ```sh
 yarn
+yarn start
 ```
 
 ```sh
@@ -20,7 +21,12 @@ yarn add --dev typescript @types/react @types/node
 npx create-react-app react-app
 ```
 
+
+
+
 * React项目结构
+
+::: details 查看React项目结构
 
 ```md
 $ tree
@@ -40,6 +46,8 @@ $ tree
 └── README.md
 ```
 
+:::
+
 * Imported modules
 
 ```jsx
@@ -55,9 +63,15 @@ const App = () => {
 export default App
 ```
 
+
+
+
+
 ## React语法规则
 
 * className
+
+::: details 点击查看代码
 
 ```jsx
 const App = () => {
@@ -68,6 +82,8 @@ const App = () => {
     );
 }
 ```
+
+:::
 
 * <img />
 
@@ -113,7 +129,7 @@ const App = () => {
         {id: 2, name: 'Blog'},
         {id: 3, name: 'Docs'}
     ]
-    const list = links.map((item) => <li key={item.id}>{item.name}</li>)
+    const list = links.map((item, index) => <li key={index}>{item.name}</li>)
 
     return (
         <ul>{list}</ul>
@@ -385,6 +401,12 @@ const Contact = (props) => {
         <button onClick={handleClick}>{value}</button>
     )
 }
+```
+
+
+## React with Redux
+```js
+import 
 ```
 
 
