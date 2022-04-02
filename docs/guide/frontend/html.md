@@ -487,14 +487,27 @@ frameborder="0": 移除边框
 
 # HTML 5
 
-### Video
+### Video (视频)
 
 ```HTML
-<video controls width="320" height="240">
+<video width="320" height="240" controls autoplay loop>
 	<source src="demo1.mp4" type="video/mp4">
+    <source src="movie.ogg" type="video/ogg">
 </video>
 ```
-### Audio
+
+```js
+var myVideo=document.getElementById("video1"); 
+function playPause(){
+ if (myVideo.paused)
+   myVideo.play();
+ else
+   myVideo.pause();
+}
+```
+
+### Audio (音频)
+
 ```html
 <!-- 音频Audio -->
 <audio controls>
