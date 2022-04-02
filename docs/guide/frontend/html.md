@@ -1,9 +1,6 @@
 # HTML
 
 
-
-
-
 ------
 
 ## Overview
@@ -19,10 +16,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
 </head>
 <body>
-
+    <script src="script.js"></script>
 </body>
 </html>
 ```
@@ -171,53 +167,81 @@ import Vue
 ------
 
 ### button  按钮
+
 ```html
 <button>Click Me !</button>
 ```
-### Link    <链接>
+### 链接
 
 ```html
-<a href="#">Twitter</a>
+<a href="#"></a>
+<a href="https://github.com/">github</a>
 ```
 
-- **`target="_blank"`**: 新窗口打开
-- **`rel="nofollow"`**  : 链接域，搜索引擎忽略该链接
+参数说明
+:::tip
+`href="#"` : 链接地址
+
+`target="_blank"`:  新窗口链接
+
+`rel="nofollow"`:  链接域，搜索引擎忽略该链接
+
+`download=""`: 下载链接
+:::
+
 ```html
-<a href="https://github.com/">github</a>
+<!-- 新窗口打开链接 -->
 <a href="https://www.runoob.com/" target="_blank"></a>
 <a href="https://www.runoob.com/" target="_blank" rel="nofollow"></a>
+<!-- 点击链接按钮下载文件 -->
+<a href="**.pdf" download=""></a>
 ```
-### img  <图片>
+
+### 图像
 
 ```html
 <img src="https://mimo.app/i/cat.png">
 ```
 
+:::tip
+图片描述: `alt="Cat"`
+:::
 ```html
-<img src="demo.png" alt="discription">
+
+<img src="cat.png" alt="Cat">
 <img src="demo.png" alt="discription" loading="lazy" width="300" height="200">
 ```
 ------
 
-### List  <列表>
+### 列表
+
+- 无序列表
+
+```html
+<!-- 无序列表Unordered List -->
+<ol>
+    <li>item 1</li>
+    <li>item 2</li>
+    <li>ietm 3</li>
+</ol>
+```
+
+- 有序列表
 
 ```html
 <!-- 有序列表Ordered List -->
 <ul>
-	<li>Home</li>
-	<li>About</li>
-	<li>Contact</li>
+    <li>item 1</li>
+    <li>item 2</li>
+    <li>ietm 3</li>
 </ul>
-
-<!-- 无序列表Unordered List -->
-<ol>
-  ...
-</ol>
 ```
+
+
 
 ### Table  <表格>
 
-```
+```html
 <table>
     <caption>Table Title</caption>
     <tr>
@@ -278,54 +302,85 @@ import Vue
 
 ### input
 
-#### 文本框 (默认)
+:::tip
 ```html
-<input type="text" placeholder="Email"><br>
+placeholder="Email"
+size="50"
+name="username"
+value="Click me"
 ```
+:::
+
 ```html
-<input type="email" placeholder="Email">
-```
-#### 密码框
-```html
-<input type="password" placeholder="Password"><br>
+<!-- 文本框 (默认) -->
+<input type="text">
+
+<!-- 密码框 -->
+<input type="password">
+
+<!-- 复选框 -->
+<input type="checkbox">
 ```
 
-#### 复选框
-```html
-<input type="checkbox"><em>Remember Me</em></input><br>
-```
 #### other
+
 ```html
-<!--单行输入框-->
-<input type="tel">					 <br/>
-<input type="url">				   <br/>
-<input type="datetime">			 <br/>
-<input type="number">				 <br/>
-<input type="search">				 <br/>
+<!--===== 单行输入框 =====-->
+<input type="text">
+<input type="email">                    <br/>
+<input type="tel">					    <br/>
+<input type="url">				        <br/>
+<input type="datetime">			        <br/>
+<!-- 密码，隐藏输入显示 -->
+<input type="password">
+<!-- 数字，有增减按钮 -->
+<input type="number">				    <br/>
+<!-- 搜索，有删除按钮 -->
+<input type="search">				    <br/>
+
+
 <!--多行输入框-->
 <textarea></textarea>
-<!--选取框-->
-<input type="range">				 <br/>
-<input type="color">				 <br/>
-<input type="date">					 <br/>
-<input type="month">				 <br/>
-<input type="week">					 <br/>
-<input type="time">					 <br/>
-<!--按钮-->
-<input type="radio">Dog				         <br/>
-<input type="checkbox">Cat			       <br/>
-<input type="button" value="click me"> <br/>
-<button type="button2">click me</button><br/>
-<input type="file">					            <br/>
-<input type="submit" id="submit">	      <br/>
-<input type="reset">				            <br/>
 
+
+<!--===== 选取框 =====-->
+<!-- 范围 -->
+<input type="range">				    <br/>
+<!-- 颜色 -->
+<input type="color">				    <br/>
+<!-- 年-月-日 -->
+<input type="date">					    <br/>
+<!-- 年-月 -->
+<input type="month">				    <br/>
+<!-- 年-周 -->
+<input type="week">					    <br/>
+<!-- 时-分 -->
+<input type="time">					    <br/>
+
+
+<!--====== 按钮 ======-->
+
+<!-- 单选框 -->
+<input type="radio">				    <br/>
+<!-- 复选框 -->
+<input type="checkbox">			        <br/>
+<!-- 按钮 -->
+<input type="button" value="Click me">  <br/>
+<button type="button">click me</button> <br/>
+<!-- 下载按钮 -->
+<a download="" href="html.md">下载</a>   <br/>
+<!-- 文件选择 -->
+<input type="file">					    <br/>
+<!-- 表单处理 -->
+<input type="submit">            	    <br/>
+<input type="reset">				    <br/>
 ```
 
 #### 单行文本框
+
 ```html
 <input type="text" name="username"><br>
-<input type="text" name="username"  size="50">
+<input type="text" name="username" size="50">
 ```
 #### 多行文本框
 ```html
