@@ -60,7 +60,7 @@ db.dropDatabase()
 ### 查
 
 ```
-show tables 
+show tables
 show collections  # 推荐
 ```
 ```sql
@@ -96,7 +96,7 @@ true
 ## 数据
 ### 查
 
-> Find(<query>)： query为筛选条件
+> Find([query])： query为筛选条件
 
 ```
 db.[collection].find()
@@ -117,7 +117,7 @@ db.[collection].find().sort({KEY:-1})  # 排序: 1 为升序，-1降序
 >>> db.student.find({"likes": {$gt:50}, $or: [{"by": "菜鸟教程"},{"title": "MongoDB 教程"}]}).pretty()
 
 # order by likes desc
->>> db.student.find({},{"title":1,_id:0}).sort({"likes": -1}) 
+>>> db.student.find({},{"title":1,_id:0}).sort({"likes": -1})
 ```
 
 
@@ -140,10 +140,10 @@ db.[collection].insertMany()
 ```sql
 >>> db.student.insert({title: 'MongoDB 教程',
 	      description: 'MongoDB 是一个 Nosql 数据库',
-				by: 'MongoDB中文网', 
-				url: 'http://www.mongodb.org.cn', 
+				by: 'MongoDB中文网',
+				url: 'http://www.mongodb.org.cn',
 				tags: ['mongodb', 'database', 'NoSQL'],
-				likes: 100  
+				likes: 100
 })
 WirteResult( {"nInserted": 1} )
 ```
@@ -152,10 +152,10 @@ WirteResult( {"nInserted": 1} )
 ```sql
 >>> option = ({title: 'MongoDB 教程',
 	      description: 'MongoDB 是一个 Nosql 数据库',
-				by: 'MongoDB中文网', 
-				url: 'http://www.mongodb.org.cn', 
+				by: 'MongoDB中文网',
+				url: 'http://www.mongodb.org.cn',
 				tags: ['mongodb', 'database', 'NoSQL'],
-				likes: 100  
+				likes: 100
 })
 >>> db.student.insert(option)
 ```
