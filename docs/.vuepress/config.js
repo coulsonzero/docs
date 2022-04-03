@@ -97,6 +97,7 @@ module.exports = {
 					{text: "SQL", link: "/guide/operations/sql"},
 					{text: "linux", link: "/guide/operations/linux"},
 					{text: "shell", link: "/guide/operations/shell"},
+					{text: "MongoDB", link: "/guide/operations/mongodb"},
 				],
 			},
 			{
