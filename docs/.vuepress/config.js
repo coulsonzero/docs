@@ -18,7 +18,7 @@ module.exports = {
 		// 顶部导航栏
 		navbar: [
 			{text: "主页", link: "/"},
-			{text: "Bing", link: "https://cn.bing.com"},
+			{text: "Home", link: "https://coulsonzero.github.io"},
 			{
 				text: "前端",
 				children: [
@@ -98,7 +98,7 @@ module.exports = {
 					{text: "linux", link: "/guide/operations/linux"},
 					{text: "shell", link: "/guide/operations/shell"},
 					{text: "MongoDB", link: "/guide/operations/mongodb"},
-					{text: "Redis", link: "/guide/operations/redis"}
+					{text: "Redis", link: "/guide/operations/redis"},
 				],
 			},
 			{
