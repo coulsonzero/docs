@@ -1,18 +1,26 @@
 # Vuepress Document
 
-* 启动项目
+## 文档效果
+
+![](./display.png)
+
+## 快速开始
+
+- 启动项目
 
 ```sh
-$ yarn docs:dev
+$ yarn start
 ```
 
-* 项目打包
+## 项目部署
+
+- 项目打包
 
 ```sh
-$ yarn docs:build
+$ yarn build
 ```
 
-* 项目部署
+- 项目部署
 
 ```sh
 $ yarn deploy
