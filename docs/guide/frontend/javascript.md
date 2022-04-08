@@ -196,6 +196,7 @@ Array.form(str, [func])  // 字符串->数组
 // 数组---数组
 arr.concat()            // 数组合并，返回一个新数组
 arr.map(v => v + 2)     // 返回新数组
+[...arr, arr2]
 
 // 遍历
 arr.forEach((item, index) => {...})
