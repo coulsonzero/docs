@@ -6,9 +6,9 @@
 
 [合并两个有序链表][3]
 
-[删除链表的倒数第n个结点][4]
+[删除链表中的节点][4]
 
-[删除链表中的节点][5]
+[删除链表的倒数第n个结点][5]
 
 [删除排序链表中的重复元素][6]
 
@@ -20,8 +20,8 @@
 [1]: ./ListNode.md
 [2]: ./reverseList.md
 [3]: ./mergeTwoSortedLists.md
-[4]: ./removeNthFromEnd.md
-[5]: ./deleteNode.md
+[4]: ./deleteNode.md
+[5]: ./removeNthFromEnd.md
 [6]: ./deleteDuplicates.md
 [7]: ./hasCycle.md
 [8]: ./isPalindrome.md

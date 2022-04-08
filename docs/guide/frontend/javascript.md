@@ -172,8 +172,9 @@ let arr = ['One', 'Two', ...newArr, 'Five'];
 ```js
 // 查
 arr.length
-arr.slice(-1)     // 返回指定索引元素，切片
-arr.index(e, [startIndex])   //返回元素所在索引, 不存在则返回-1
+arr.slice(-1)                 // 返回索引元素，切片
+arr.indexOf(e, [startIndex])  // 返回元素索引, 不存在则返回-1
+arr.includes(e)               // true/fasle
 
 // 增删
 arr.push(e)      // 末尾添加
@@ -181,26 +182,28 @@ arr.pop()        // 末尾删除
 arr.unshift(e)   // 首部添加
 arr.shift()      // 首部删除
 
-// 原地排序
+// 排序
 arr.sort()              // 按字符名称排序
 arr.sort((a,b) => a-b)  // 从小到大
 arr.sort((a,b) => b-a)  // 从大到小
 arr.reverse()
 
-// 数组---字符串  相互转换
-arr.join(' ')    // 数组->字符串, 返回原数组拼接的新字符串
-str.split('/')   // 字符串->数组, 返回原字符串分割的新数组
+// 数组---字符串
+arr.join('')     // 数组->字符串，默认','
+str.split('')    // 字符串->数组
+Array.form(str, [func])  // 字符串->数组
 
 // 数组---数组
-arr.concat()     // 数组合并，返回一个新数组
+arr.concat()            // 数组合并，返回一个新数组
+arr.map(v => v + 2)     // 返回新数组
 
 // 遍历
 arr.forEach((item, index) => {...})
-arr.map(v => v + 2)     // 返回新数组
 arr.filter(n => n%2==0).map(el => sum += el); //统计偶数和
 ```
 
 ::: details 数组原地排序的区别
+
 ```js
 let arr = [1, 5, 3, 9, 2, 10, 12];
 arr.sort((a, b) => a - b)
@@ -245,6 +248,21 @@ console.log(nums)   //[ 2, 3, 5, 1 ]
 // forEach((v, i) => {}): 不直接改变原数组，需要通过arr[i]才能改变原数组
 nums.forEach((v, i) => nums[i] += 2)
 console.log(nums)   //[ 4, 5, 7, 3]
+```
+
+:::
+
+::: details join(), split(), Array.from()
+
+```javascript
+console.log('foo'.split())     // ["foo"]
+console.log('foo'.split(''))   // ["f", "o", "o"]
+
+console.log(Array.from('foo')) // ["f", "o", "o"]
+console.log(Array.from([1, 2, 3], x => x + x))  // 2, 4, 6]
+
+console.log(["f", "o", "o"].join())    // "f,o,o"
+console.log(["f", "o", "o"].join(''))  // "foo"
 ```
 
 :::
