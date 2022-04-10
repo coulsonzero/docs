@@ -1374,6 +1374,129 @@ export default connect(null, mapDipatchToProps)(AddPeosonForm)
 :::
 ::::
 
+## react-route-dom
+::: tip
+[login](http://localhost:3000/login)
+http://localhost:3000/login
+
+[App](http://localhost:3000/)
+http://localhost:3000/
+
+[Navbar](http://localhost:3000/navbar)
+http://localhost:3000/navbar
+:::
+
+```sh
+$ pwd
+react-route-page
+
+$ tree
+├── package.json
+└── src
+    ├── index.js
+    ├── App.jsx
+    ├── components
+    │   └── Navbar.jsx
+    ├── pages
+    │   └── login.jsx
+    └── router
+        └── index.jsx
+```
+
+
+**Code**
+:::: code-group
+::: code-group-item index.js
+```js
+import React from "react"
+import ReactDOM from "react-dom"
+import Router from "./router"
+
+ReactDOM.render(
+	<React.StrictMode>
+		<Router />
+	</React.StrictMode>,
+	document.getElementById("root")
+)
+```
+:::
+
+::: code-group-item index.jsx
+```jsx
+// src/router/index.jsx
+
+iimport App from "../App"
+import Login from "../pages/Login"
+import Navbar from '../components/Navbar'
+// HashRouter & BrowserRouter
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+
+const BaseRoute = () => {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/login" element={<Login />}></Route>
+                <Route path="/" element={<App />}>
+                    <Route path="/navbar" element={<Navbar />}></Route>
+                </Route>
+            </Routes>
+        </Router>
+    )
+}
+
+export default BaseRoute
+```
+:::
+
+::: code-group-item Login.jsx
+```jsx
+// src/pages/Login.jsx
+
+import React from 'react'
+
+export default function Login() {
+  return (
+    <div>login</div>
+  )
+}
+
+```
+:::
+
+::: code-group-item App.jsx
+```jsx
+import React from 'react'
+import {Outlet} from 'react-router-dom'
+
+const App = () => {
+  return (
+		<>
+			<div>App</div>
+            <Outlet />
+		</>
+	)
+}
+
+export default App
+```
+:::
+
+::: code-group-item Navbar.jsx
+```jsx
+// src/components/Navbar.jsx
+import React from 'react'
+
+const Navbar = () => {
+  return (
+    <div>Navbar</div>
+  )
+}
+
+export default Navbar
+```
+:::
+
+::::
 
 
 
