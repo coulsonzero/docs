@@ -110,6 +110,8 @@ const App = () => {
 * List in React
 
 ```jsx
+import React from "react"
+
 const App = () => {
     const links = ['Home', 'About', 'Docs']
     const list = links.map((item, index) => <li key={index}>{item}</li>)
@@ -118,6 +120,8 @@ const App = () => {
         <ul>{list}</ul>
     )
 }
+
+export default App
 ```
 
 * Object in React
@@ -136,6 +140,35 @@ const App = () => {
     )
 }
 ```
+
+```jsx
+import React from "react";
+
+const App = () => {
+	const data = [
+		{name: "Amazon", price: "-$5K"},
+		{name: "Spotify", price: "-$50"},
+		{name: "Netflix", price: "-$200"}
+	];
+	const list = data.map((expense) => {
+		return (
+			<div className="expense">
+				<div className="expense__title">{expense.name}</div>
+				<div className="expense__price">{expense.price}</div>
+			</div>
+		)
+	});
+
+	return (
+		<div className="container">{list}</div>
+	);
+};
+
+export default App;
+
+```
+
+::: details 点击查看代码
 
 ```jsx
 export default function Expenses() {
@@ -170,6 +203,8 @@ export default function Expenses() {
     </div>
   );
 ```
+
+:::
 
 ## 参数Props
 
@@ -270,6 +305,7 @@ class App extends React.Component {
 }
 ```
 
+
 * Lifecycle Methods
     - Mounting()
     - Unmounting()
@@ -308,6 +344,51 @@ class Navbar extends React.Component {
 export default Navbar;
 ```
 
+```jsx
+import React from 'react';
+
+class State extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            count: 0
+        }
+    }
+    // 会在组件挂载后（插入 DOM 树中）立即调用, 如需通过网络请求获取数据，此处是实例化请求的好地方
+    componentDidMount() {
+        this.setState({
+            count: 5
+        })
+    }
+
+    // 加载时不触发，每次更新触发
+    componentDidUpdate () {
+        alert(this.state.count)
+    }
+
+    // 在组件卸载及销毁之前直接调用。在此方法中执行必要的清理操作,
+    // 例如，清除 timer，取消网络请求或清除在 componentDidMount() 中创建的订阅等
+    componentWillUnmount = () => this.state.count = 0
+
+    increment = () => {
+        this.setState({
+            count: this.state.count + 1
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <p>{this.state.count}</p>
+                <button onClick={this.increment}>+</button>
+            </div>
+        )
+    }
+}
+
+export default State;
+```
+
 ## Hooks (Only in React function)
 
 
@@ -333,23 +414,25 @@ Hook 和现有代码可以同时工作，你可以渐进式地使用他们
 * useState
 
 ```jsx
-import React, {useState} from 'react'
+import React, {useState} from "react";
 
 const App = () => {
-  // 创建一个变量为counter, 并初始化为0
-  const [counter, setCounter] = useState(0)
-  // 方法
-  const increment = () => setCounter(counter + 1)
+	// 创建一个变量为counter, 并初始化为0
+	const [counter, setCounter] = useState(0);
 
-  return (
-  <div>
-   <p>{counter}</p>
-   <button onClick={increment}>+</button>
-  </div>
- );
-}
+	// 方法
+	const increment = () => setCounter(counter + 1);                // 新值替代初始值
+	// const increment = () => setCounter(counter => counter + 1);  // 新值替代旧值, 用useEffect时使用
 
-export default App
+	return (
+		<div>
+			<p>{counter}</p>
+			<button onClick={increment}>+</button>
+		</div>
+	);
+};
+
+export default App;
 ```
 
 * useEffect
@@ -379,6 +462,114 @@ const Header = () => {
 export default Header
 ```
 
+
+* useRef
+
+> 用于获取元素或组件
+
+```jsx
+// 1. 引入useRef, 用于获取元素或组件
+import React, {useState, useRef} from "react";
+
+const App = () => {
+	const [counter, setCounter] = useState(0);
+	// 2. 初始化null
+	const e = useRef(null)
+
+	const increment = () => {
+		// 3. 打印元素或组件
+		console.log(e)
+	}
+
+	return (
+		<div>
+			<p>{counter}</p>
+			{/* 定义ref属性 */}
+			<button className="add-btn" onClick={increment} ref={e}>+</button>
+		</div>
+	);
+};
+
+export default App;
+```
+
+* createContext
+
+> 通过createContext跨组件传值
+
+```jsx
+import React, {useState, createContext} from "react";
+
+const numContext = createContext()
+
+function Sub() {
+	const res = (num) => <div>{num}</div>
+	return (
+		<numContext.Consumer>
+			{res}
+		</numContext.Consumer>
+	);
+}
+
+function Father() {
+	return (
+		<Sub />
+	)
+}
+
+
+export default function App() {
+	const [num, setNum] = useState(1);
+	return (
+		<numContext.Provider value={num}>
+			<Father />
+		</numContext.Provider>
+	);
+}
+
+```
+
+* useContext
+
+> 解构createContext跨组件传值和方法
+
+```jsx
+import React, {useState, createContext, useContext} from "react";
+
+const numContext = createContext()
+
+function Sub() {
+	const {num, childFun} = useContext(numContext)
+	return (
+		<>
+			<div>{num}</div>
+			<button onClick={() => childFun(2)}>+</button>
+		</>
+	);
+}
+
+function Father() {
+	return (
+		<Sub />
+	)
+}
+
+
+export default function App() {
+	const [num, setNum] = useState(1);
+	function childFun(n) {
+		setNum(num + n);
+	}
+	return (
+		<numContext.Provider value={{num, childFun}}>
+			<Father />
+		</numContext.Provider>
+	);
+}
+```
+
+
+
 ## Event Handles
 
 ```jsx
@@ -403,11 +594,788 @@ const Contact = (props) => {
 }
 ```
 
+## 组件通信
+
+* 父传子
+
+> 通过props传值
+
+::: details 固定值
+```jsx
+import React, {useState} from "react";
+
+function Sub(props) {
+	return(
+        <>
+		    <div>{props.num}</div>
+        </>
+	);
+}
+
+export default function App() {
+	return (
+		<>
+			<Sub num={9}/>
+		</>
+	);
+}
+```
+:::
+
+
+> 使用useState初始化传值
+```jsx
+import React, {useState} from "react";
+
+function Sub(props) {
+	return(
+        <>
+		    <div>{props.num}</div>
+        </>
+	);
+}
+
+export default function App() {
+	const [num, setNum] = useState(2);
+	return (
+		<>
+			<Sub num={num}/>
+		</>
+	);
+}
+```
+
+
+* 子传父
+
+> 通过调用父组件方法，将参数返回
+> 子组件写父组件方法的具体实现
+```jsx
+import React, {useState} from "react";
+
+function Sub(props) {
+	return (
+		<>
+			<div>{props.num}</div>
+			<button onClick={() => props.setNum(props.num + 1)}>+</button>
+		</>
+	);
+}
+
+export default function App() {
+	const [num, setNum] = useState(2);
+	return (
+		<>
+			<Sub num={num} setNum={setNum} />
+		</>
+	);
+}
+
+```
+
+
+> 父组件写具体方法实现，子组件传参给父组件
+```jsx
+import React, {useState} from "react";
+
+function Sub(props) {
+	return (
+		<>
+			<div>{props.num}</div>
+			<button onClick={() => props.childFun(2)}>+</button>
+		</>
+	);
+}
+
+export default function App() {
+	const [num, setNum] = useState(2);
+	function childFun(n) {
+		setNum(num + n);
+	}
+	return (
+		<>
+			<Sub num={num} childFun={childFun} />
+		</>
+	);
+}
+
+```
+
+* 跨多个层级组件通信
+
+> 通过多个props传值和方法
+::: details 点击查看代码
+```jsx
+import React, {useState} from "react";
+
+function Sub(props) {
+	return (
+		<>
+			<div>{props.num}</div>
+			<button onClick={() => props.childFun(3)}>+</button>
+		</>
+	);
+}
+
+function Father(props) {
+	return (
+		<>
+			<Sub num={props.num} childFun={props.childFun}/>
+		</>
+	)
+}
+
+
+export default function App() {
+	const [num, setNum] = useState(2);
+	function childFun(n) {
+		setNum(num + n);
+	}
+	return (
+		<>
+			<Father num={num} childFun={childFun}/>
+		</>
+	);
+}
+
+```
+:::
+
+> 通过createContext跨组件传值
+::: details 点击查看代码
+```jsx
+import React, {useState, createContext} from "react";
+
+const numContext = createContext()
+
+function Sub() {
+	const res = (num) => <div>{num}</div>
+	return (
+		<numContext.Consumer>
+			{res}
+		</numContext.Consumer>
+	);
+}
+
+function Father() {
+	return (
+		<Sub />
+	)
+}
+
+
+export default function App() {
+	const [num, setNum] = useState(1);
+	return (
+		<numContext.Provider value={num}>
+			<Father />
+		</numContext.Provider>
+	);
+}
+
+```
+:::
+
+> createContext, 使用对象传方法
+> 对象没有顺序问题，数组有索引，需要特定顺序！
+::: details 点击查看代码
+```jsx
+import React, {useState, createContext} from "react";
+
+const numContext = createContext()
+
+function Sub() {
+	const res = ({num, setNum}) => {
+		return (
+			<>
+				<div>{num}</div>
+				<button onClick={() => setNum(num + 1)}>+</button>
+			</>
+		);
+	}
+	return (
+		<numContext.Consumer>
+			{res}
+		</numContext.Consumer>
+	);
+}
+
+function Father() {
+	return (
+		<Sub />
+	)
+}
+
+
+export default function App() {
+	const [num, setNum] = useState(1);
+	return (
+		<numContext.Provider value={{num, setNum}}>
+			<Father />
+		</numContext.Provider>
+	);
+}
+```
+:::
+
+::: details 点击查看代码
+```jsx
+import React, {useState, createContext} from "react";
+
+const numContext = createContext()
+
+function Sub() {
+	const res = ({num, childFun}) => {
+		return (
+			<>
+				<div>{num}</div>
+				<button onClick={() => childFun(2)}>+</button>
+			</>
+		);
+	}
+	return (
+		<numContext.Consumer>
+			{res}
+		</numContext.Consumer>
+	);
+}
+
+function Father() {
+	return (
+		<Sub />
+	)
+}
+
+
+export default function App() {
+	const [num, setNum] = useState(1);
+	function childFun(n) {
+		setNum(num + n);
+	}
+	return (
+		<numContext.Provider value={{num, childFun}}>
+			<Father />
+		</numContext.Provider>
+	);
+}
+
+```
+:::
+
+**useContext**
+> 解构createContext
+```jsx
+import React, {useState, createContext, useContext} from "react";
+
+const numContext = createContext()
+
+function Sub() {
+	const {num, childFun} = useContext(numContext)
+	return (
+		<>
+			<div>{num}</div>
+			<button onClick={() => childFun(2)}>+</button>
+		</>
+	);
+}
+
+function Father() {
+	return (
+		<Sub />
+	)
+}
+
+
+export default function App() {
+	const [num, setNum] = useState(1);
+	function childFun(n) {
+		setNum(num + n);
+	}
+	return (
+		<numContext.Provider value={{num, childFun}}>
+			<Father />
+		</numContext.Provider>
+	);
+}
+```
+
 
 ## React with Redux
-```js
-import 
+
+> 安装redux包
+
+```sh
+$ yarn add --save redux react-redux
 ```
+
+* 使用state显示reducer数据
+:::: code-group
+::: code-group-item reducer.js
+```js
+// src/store/reducer.js
+const data = {
+    msg: "hello, redux"
+}
+
+// eslint-disable-next-line
+export default (state=data, action) => {
+    return state
+}
+```
+:::
+
+::: code-group-item index.js
+```js
+// src/store/index.js
+import {createStore} from 'redux'
+import reducer from './reducer'
+
+const store = createStore(reducer)
+
+export default store
+```
+:::
+
+::: code-group-item index.js
+```js
+// index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+// 1. import
+import {Provider} from 'react-redux'
+import store from './store'
+
+ReactDOM.render(
+	<React.StrictMode>
+    {/* 2. use <Provider></Provider> */}
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</React.StrictMode>,
+	document.getElementById("root")
+);
+```
+:::
+
+::: code-group-item App.js
+```js
+import React from 'react'
+
+// 1.import connect
+import {connect} from "react-redux";
+
+const App = (props) => {
+  return (
+	// 4. return
+	<div>{props.msg}</div>
+  )
+}
+
+// 3. mapStateToProps(state)
+const mapStateToProps = (state) => {
+	return {
+		msg: state.msg
+	}
+}
+
+
+// 2. connect(mapStateToProps)(Provider)
+export default connect(mapStateToProps)(App)
+```
+:::
+::::
+
+* 使用action修改state数据
+
+:::: code-group
+::: code-group-item reducer.js
+```js
+// src/store/reducer.js
+const data = {
+    msg: "hello, redux"
+}
+
+// eslint-disable-next-line
+export default (state=data, action) => {
+    let newState = JSON.parse(JSON.stringify(state))
+    if (action.type ==  "UPDATE") {
+        newState.msg = action.value
+    }
+    /*
+    switch (action.type) {
+        case "UPDATE":
+           newState.msg = action.value;
+           break;
+        default:
+            break;
+    }
+    */
+    return newState
+}
+```
+:::
+
+::: code-group-item index.js
+```js
+// src/store/index.js
+import {createStore} from 'redux'
+import reducer from './reducer'
+
+const store = createStore(reducer)
+
+export default store
+```
+:::
+
+::: code-group-item index.js
+```js
+//index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+// 1. import
+import {Provider} from 'react-redux'
+import store from './store'
+
+ReactDOM.render(
+	<React.StrictMode>
+    {/* 2. use <Provider></Provider> */}
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</React.StrictMode>,
+	document.getElementById("root")
+);
+```
+:::
+
+::: code-group-item App.js
+```js
+// App.js
+import React from 'react'
+
+
+import {connect} from "react-redux";
+
+const App = (props) => {
+  return (
+		<>
+			<div>{props.msg}</div>
+			<button onClick={props.setMsg}>update</button>
+		</>
+	);
+}
+
+const mapStateToProps = (state) => {
+	return {
+		msg: state.msg
+	}
+}
+
+// 2. mapDispatchToProps(dispatch)
+const mapDispatchToProps = (dispatch) => {
+	return {
+		setMsg() {
+			const action = {type: "UPDATE", value: "ok,  updated state..."};
+			dispatch(action)
+		}
+	}
+}
+
+// 1. mapDispatchToProps
+export default connect(mapStateToProps, mapDispatchToProps)(App)
+```
+:::
+::::
+
+* redux 实现哈希字典数据
+
+```md
+totalPrice: $10
+name: Lemon, cost: 3
+name: Banana, cost: 4
+name: Mango, cost: 5
+```
+:::: code-group
+::: code-group-item reducer.js
+```js
+// src/store/reducer.js
+const initialState = {
+    fruits: [
+        {key: 1, name: 'Lemon', cost: 3},
+        {key: 2, name: 'Banana', cost: 4},
+        {key: 3, name: 'Mango', cost: 5}
+    ],
+    totalPrice: 10
+}
+
+// eslint-disable-next-line
+export default (state = initialState, action) => {
+    return state
+}
+```
+:::
+
+::: code-group-item index.js
+```js
+// src/store/index.js
+import {createStore} from 'redux'
+import reducer from './reducer'
+
+const store = createStore(reducer)
+
+export default store
+```
+:::
+
+::: code-group-item index.js
+```js
+// index.js
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./App"
+// 1. import
+import {Provider} from "react-redux"
+import store from "./store"
+
+ReactDOM.render(
+	<React.StrictMode>
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</React.StrictMode>,
+	document.getElementById("root")
+)
+```
+:::
+
+::: code-group-item App.js
+```js
+import React from "react"
+import {connect} from "react-redux"
+
+const App = (props) => {
+	const list = props.fruits.map((item, index) => (
+		<li key={index}>
+			name: {item.name}, cost: {item.cost}
+		</li>
+	))
+	return (
+		<>
+			<div>totalPrice: ${props.totalPrice}</div>
+			<ul>{list}</ul>
+		</>
+	)
+}
+
+const mapStateToProps = (state) => {
+	return {
+		fruits: state.fruits,
+		totalPrice: state.totalPrice,
+	}
+}
+
+export default connect(mapStateToProps)(App)
+
+```
+:::
+::::
+
+
+
+* redux实现todo-list
+![redux-todolist](../../.vuepress/public/assets/react/redux-todolist.png)
+```sh
+$ tree
+src
+│
+├── components
+│   ├── AddPeosonForm.jsx
+│   └── PeopleList.jsx
+├── store
+│   ├── actions.js
+│   ├── index.js
+│   └── reducer.js
+├── App.js
+└── index.js
+```
+
+
+:::: code-group
+::: code-group-item index.js
+```js
+// src/store/index.js
+import {createStore} from 'redux'
+import reducer from './reducer'
+
+const store = createStore(reducer)
+
+export default store
+```
+:::
+
+::: code-group-item index.js
+```js
+// index.js
+
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./App"
+// 1. import redux
+import {Provider} from "react-redux"
+import store from "./store"
+
+ReactDOM.render(
+	<React.StrictMode>
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</React.StrictMode>,
+	document.getElementById("root")
+)
+```
+:::
+
+::: code-group-item App.js
+```jsx
+import React from "react"
+import PropleList from "./components/PeopleList"
+import AddPeosonForm from "./components/AddPeosonForm"
+
+function App() {
+	return (
+		<>
+			<PropleList />
+			<AddPeosonForm />
+		</>
+	)
+}
+
+export default App
+```
+:::
+
+::: code-group-item reducer.js
+```js
+// src/store/reducer.js
+
+const initialState = {
+    contacts: ["James Smith", "Thomas Anderson", "Bruce Wayne"]
+}
+
+// eslint-disable-next-line
+export default (state = initialState, action) => {
+    switch (action.type) {
+        case "ADD_PERSON":
+            return {...state, contacts: [...state.contacts, action.data]}
+        default:
+            return state
+    }
+
+   /*
+    if(action.type === "ADD_PERSON") {
+        return {...state, contacts: [...state.contacts, action.data]}
+    }
+    return state
+    */
+}
+```
+:::
+
+::: code-group-item actions.js
+```js
+export function addPerson(person) {
+    return {
+        type: "ADD_PERSON",
+        data: person
+    }
+}
+```
+:::
+
+::: code-group-item PeopleList.jsx
+```jsx
+import React from "react"
+import {connect} from "react-redux"
+
+function PeopleList(props) {
+	const list = props.contacts.map((item, index) => <li key={index}>{item}</li>)
+	return (
+		<>
+			<ul>{list}</ul>
+		</>
+	)
+}
+
+function mapStateToProps(state) {
+	return {
+		contacts: state.contacts,
+	}
+}
+
+export default connect(mapStateToProps)(PeopleList)
+
+```
+:::
+
+::: code-group-item AddPeosonForm.jsx
+```jsx
+import React, {useState} from "react"
+import {connect} from "react-redux"
+import {addPerson} from "../store/actions"
+
+function AddPeosonForm(props) {
+	const [person, setPerson] = useState("")
+
+	function handleChange(e) {
+		setPerson(e.target.value)
+	}
+
+	function handleSubmit(e) {
+		e.preventDefault()
+		if (person !== "") {
+			props.addPerson(person)
+			setPerson("")
+		}
+	}
+
+	return (
+		<form onSubmit={handleSubmit}>
+			<input
+				type="text"
+				value={person}
+				placeholder="Add"
+				onChange={handleChange}
+			/>
+			<button type="submit">Add</button>
+		</form>
+	)
+}
+
+const mapDipatchToProps = {
+	addPerson,
+}
+
+
+/*
+function mapDipatchToProps(dispatch) {
+	return {
+		addPerson(person) {
+			dispatch({type: "ADD_PERSON", data: person})
+		},
+	}
+}
+*/
+
+export default connect(null, mapDipatchToProps)(AddPeosonForm)
+
+```
+:::
+::::
+
+
+
 
 
 ## Other
@@ -463,4 +1431,16 @@ render函数重新执行之后，就会重新进行DOM树的挂载
 ::: details
 useEffect = componentDidMount, componentDidUpdate, componentWillUnmount 这三个函数的组合
 effect 的清除阶段在每次重新渲染时都会执行，而不是只在卸载组件的时候执行一次
+:::
+
+5. 多个react项目如何使用共同的npm包 ？
+::: tip
+多个react项目时可使用共同的父级node_modules目录
+package.json
+```json
+	"scripts": {
+		"start": "node ../node_modules/.bin/react-scripts start ./src/index.js",
+		"build": "ode ../node_modules/.bin/react-scripts build ./src/index.js"
+	},
+```
 :::
