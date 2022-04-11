@@ -22,16 +22,16 @@ public class TreeNode {
 ```java{10}
 class Solution {
     private List<Integer> list;
-    public List<Integer> preorderTraversal(TreeNode root) {
-        list = new ArrayList<>();
-        preOrder(root);
-        return list;
-    }
     private void preOrder(TreeNode root) {
         if (root == null) return;
         list.add(root.val);
         preOrder(root.left);
         preOrder(root.right);
+    }
+    public List<Integer> preorderTraversal(TreeNode root) {
+        list = new ArrayList<>();
+        preOrder(root);
+        return list;
     }
 }
 ```
@@ -41,16 +41,16 @@ class Solution {
 ```java{11}
 class Solution {
     private List<Integer> list;
-    public List<Integer> inorderTraversal(TreeNode root) {
-        list = new ArrayList<>();
-        inOrder(root);
-        return list;
-    }
     public void inOrder(TreeNode root) {
         if(root == null) return;
         inOrder(root.left);
         list.add(root.val);
         inOrder(root.right);
+    }
+    public List<Integer> inorderTraversal(TreeNode root) {
+        list = new ArrayList<>();
+        inOrder(root);
+        return list;
     }
 }
 ```
@@ -60,16 +60,16 @@ class Solution {
 ```java{12}
 class Solution {
     private List<Integer> list;
-    public List<Integer> postorderTraversal(TreeNode root) {
-        list = new ArrayList<>();
-        postOrder(root);
-        return list;
-    }
     public void postOrder(TreeNode root) {
         if(root == null) return;
         postOrder(root.left);
         postOrder(root.right);
         list.add(root.val);
+    }
+    public List<Integer> postorderTraversal(TreeNode root) {
+        list = new ArrayList<>();
+        postOrder(root);
+        return list;
     }
 }
 
