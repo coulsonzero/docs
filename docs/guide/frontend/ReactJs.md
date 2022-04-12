@@ -1425,7 +1425,7 @@ ReactDOM.render(
 ```jsx
 // src/router/index.jsx
 
-iimport App from "../App"
+import App from "../App"
 import Login from "../pages/Login"
 import Navbar from '../components/Navbar'
 // HashRouter & BrowserRouter
