@@ -1,11 +1,11 @@
 # Javascript
 
-[[TOC]]
+[Devdocs/JavaScript](https://devdocs.io/javascript/)
 ## QuickStart
 
 
 <CodeGroup>
-  <CodeGroupItem title="yarn">
+  <CodeGroupItem title="yarn" active>
 
 ```bash:no-line-numbers
 yarn add
@@ -13,7 +13,7 @@ yarn add
 
   </CodeGroupItem>
 
-  <CodeGroupItem title="npm" active>
+  <CodeGroupItem title="npm">
 
 ```bash:no-line-numbers
 npm install
@@ -25,14 +25,31 @@ npm install
 
 ### Ⅰ. html中导入javascript文件的方式
 
+**导入方法一**
+> 常用于导入外部包
+
+:::: code-group
+::: code-group-item index.html
 ```html
 <head>
-	<script src="hello.js"></script>
+	<script src="script.js"></script>
 </head>
+```
+:::
 
+::: code-group-item script.js
+```js
+window.onload = function() {
+    //...
+}
+```
+:::
+::::
+
+**导入方法二(推荐)**
+```
 <body>
-	<script>
-    </script>
+	<script src="main.js"></script>
 </body>
 ```
 
@@ -42,21 +59,23 @@ npm install
 
 ```javascript
 class Person {
-    /* 构造器 */
     constructor(name, age) {
         this.name = name;
         this.age = age;
     }
-    /* 成员方法 */
+
     say() {
         console.log(`hi, my name is ${this.name}.`);
     }
-    /* ES6 */
+
     // say = () => console.log(`hi, my name is ${this.name}.`);
 
     /* 静态成员方法 */
     static staticSay = (name) => console.log(`hi, my name is ${name}.`)
 }
+
+
+
 
 /* 类的继承 */
 class Student extends Person {
@@ -64,11 +83,14 @@ class Student extends Person {
         super(name);
         this.number = number;
     }
+
     /* 方法重写 */
     say() {
         console.log(`hey, I'm ${this.name}.`)
     }
+
     hello() {
+        // 调用父类方法
         super.say();
         console.log(`my school number is ${this.number}.`);
     }
@@ -88,18 +110,178 @@ class Student extends Person {
  * s.hello()
  */
 ```
+#### constructor
+```js
+class Rectangle {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}
+```
+
+**不定参**
+
+```js
+class Polygon {
+  constructor(...sides) {
+    this.sides = sides;
+  }
+  // Method
+  *getSides() {
+    for(const side of this.sides){
+      yield side;
+    }
+  }
+}
+
+const pentagon = new Polygon(1,2,3,4,5);
+
+console.log([...pentagon.getSides()]); // [1,2,3,4,5]
+```
+
+**示例**
+```js
+class Polygon {
+  constructor({name="pole", age}) {
+    this.name = name;
+    this.age = age
+  }
+  sayHello = () => {
+    console.log(`Hello, ${this.name} I'm ${this.age} years old.`)
+  }
+}
+
+const option = {
+  age: 23
+}
+const poly = new Polygon(option);
+poly.sayHello()
+
+
+```
+#### static
+
+```js
+class Person {
+    constructor(name) {
+        this.name = name
+    }
+
+    say() {
+        return `Hello, ${this.name}`
+    }
+}
+
+const person = new Person("John")
+console.log(person.say())
+// Output: "Hello, John"
+```
+
+**静态变量和方法**
+
+
+```js
+class Person {
+    static name = "John"
+    static staticSay = () => {
+        return `Hello, ${this.name}`
+    }
+}
+
+console.log(Person.name)
+// Output: "John"
+console.log(Person.staticSay())
+// Output: "Hello, John"
+```
+#### private
+```js
+class PrivateStaticField {
+  static #PRIVATE_STATIC_FIELD
+
+  static #privateMethod() {
+    return 'hello world';
+  }
+
+  static basePublicStaticMethod() {
+    this.#PRIVATE_STATIC_FIELD = 42
+    return this.#PRIVATE_STATIC_FIELD
+  }
+}
+
+console.log(PrivateStaticField.publicStaticMethod()
+// Output: 42
+
+```
+
+::: details private
+```js
+class Base {
+  static #privateStaticMethod() {
+    return 42;
+  }
+  static publicStaticMethod1() {
+    return Base.#privateStaticMethod();
+  }
+  static publicStaticMethod2() {
+    return this.#privateStaticMethod();
+  }
+}
+
+class Derived extends Base {}
+
+console.log(Base.publicStaticMethod1())
+// 42
+console.log(Base.publicStaticMethod2())
+// 42
+
+console.log(Derived.publicStaticMethod1());
+// 42
+console.log(Derived.publicStaticMethod2());
+// Error: Receiver must be class Base
+```
+:::
+
+#### getter & setter
+::: tip
+```js
+get func() {}
+set func() {}
+```
+:::
+
+```js
+class ClassWithPrivateAccessor {
+  #message;
+
+  get #decoratedMessage() {
+    return `🎬${this.#message}🛑`;
+  }
+  set #decoratedMessage(msg) {
+    this.#message = msg;
+  }
+
+  constructor() {
+    this.#decoratedMessage = 'hello world';
+    console.log(this.#decoratedMessage);
+  }
+}
+
+new ClassWithPrivateAccessor();
+// 🎬hello world🛑
+```
 
 ------
 
-#### variable
+### variable
 
 ```javascript
-var
-let
-const
+var    // 全局变量
+let    // 局部变量
+const  // 常量
 ```
 
-#### Input
+### Input
 
 ```javascript
 readLine();
@@ -107,7 +289,7 @@ readLine();
 parseInt(readLine, 10)  //string => int
 ```
 
-#### Output
+### Output
 
 ```javascript
 documents.write()   // webpage, <br />换行, 其他'\n'
@@ -118,7 +300,7 @@ prompt()            // 输入框   OK/Cannle -> value/null
 confirm()           // 确认框   OK/Cannel -> true/false
 ```
 
-#### Operators
+### Operators
 
 ```javascript
 ===比较数据类型, ==比较值
@@ -126,7 +308,7 @@ console.log(5 ==  '5');  //true， 转换成同类型后比较值
 console.log(5 === '5');  //false，先比较类型
 ```
 
-#### For Loops
+### For Loops
 
 ```javascript
 let arr = [2, 3, 7, 8];
@@ -143,7 +325,7 @@ arr.forEach ((v, i) => {});
 
 ------
 
-###  Ⅲ. 数组类型
+###  Ⅲ. 数据类型
 
 #### 1. String
 
@@ -979,3 +1161,217 @@ console.log(dateTime.toLocaleString())  // 2022/1/12 下午1:45:36
 // console.log(dateTime.toDateString()) // Tue Jan 25 2022
 ```
 :::
+
+:::: code-group
+::: code-group-item DateTime.js
+```js{4}
+/**
+ * 日期格式化
+ */
+function getTime({format=false, displayTime=false, displayWeek=false} = {}) {
+	const d = new Date()
+	let [month, day, year] = [d.getMonth() + 1, d.getDate(), d.getFullYear()]
+	let [hours, mins, secs] = [d.getHours(), d.getMinutes(), d.getSeconds()]
+	let weekDay = ["日", "一", "二", "三", "四", "五", "六"]
+	let week = ''
+    // 格式化日期时间
+	if (format) {
+		month = month < 10 ? `0${month}` : month
+		day = day     < 10 ? `0${day}`   : day
+		hours = hours < 10 ? `0${hours}` : hours
+		mins = mins   < 10 ? `0${mins}`  : mins
+		secs = secs   < 10 ? `0${secs}`  : secs
+		week = hours < 12 ? `AM` : `PM`
+	}
+
+	let date = `${year}-${month}-${day}`
+	let time = `${hours}:${mins}:${secs}`
+
+	// 1. 默认日期： 年-月-日
+	res = date
+
+	// 2. 显示具体时间：时-分-秒
+	if (displayTime) res = `${date} ${time}`
+
+	// 3. 显示上午还是下午，星期几
+	if (displayWeek) {
+		res = `${date} ${time} ${week} 星期${weekDay[d.getDay()]}`
+	}
+
+	return res
+}
+
+module.exports = {getTime}
+// exports.getTime() {}
+
+```
+:::
+
+::: code-group-item DateTimeDemo.js
+```js
+/*
+const date = require("./DateTime")
+console.log(date.getTime())
+*/
+
+const option = {
+	format: true,
+	displayTime: false,
+	displayWeek: true
+}
+
+const { getTime } = require("./DateTime")
+console.log(getTime())
+console.log(getTime(option))
+
+```
+
+:::
+
+::: code-group-item DateTimeClass.js
+```js
+/**
+ * 日期格式化
+ */
+
+class DateTime {
+	constructor({format=false, displayTime=false, displayWeek=false} = {}) {
+		this.format = format,
+        this.displayTime = displayTime,
+		this.displayWeek = displayWeek
+	}
+	getTime() {
+		const d = new Date()
+		let [month, day, year] = [d.getMonth() + 1, d.getDate(), d.getFullYear()]
+		let [hours, mins, secs] = [d.getHours(), d.getMinutes(), d.getSeconds()]
+		let weekDay = ["日", "一", "二", "三", "四", "五", "六"]
+		let week = ""
+		// 格式化日期时间
+		if (this.format) {
+			month = month < 10 ? `0${month}` : month
+			day = day < 10 ? `0${day}` : day
+			hours = hours < 10 ? `0${hours}` : hours
+			mins = mins < 10 ? `0${mins}` : mins
+			secs = secs < 10 ? `0${secs}` : secs
+			week = hours < 12 ? `AM` : `PM`
+		}
+
+		let date = `${year}-${month}-${day}`
+		let time = `${hours}:${mins}:${secs}`
+
+		// 1. 默认日期： 年-月-日
+		let res = date
+
+		// 2. 显示具体时间：时-分-秒
+		if (this.displayTime) res = `${date} ${time}`
+
+		// 3. 显示上午还是下午，星期几
+		if (this.displayWeek) {
+			res = `${date} ${time} ${week} 星期${weekDay[d.getDay()]}`
+		}
+
+		return res
+	}
+}
+module.exports = {DateTime}
+// exports.getTime() {}
+```
+:::
+
+::: code-group-item DateTimeClassTest.js
+```js
+const {DateTime} = require('./test')
+
+
+// const date = new DateTime()
+const date = new DateTime({
+    format: true,
+	displayTime: true,
+	displayWeek: true,
+})
+
+console.log(date.getTime())
+```
+:::
+
+::: code-group-item MyDateTime.js
+```js
+/**
+ * 日期格式化
+ */
+
+class DateTime {
+    constructor(root, {format=false, displayTime=false, displayWeek=false} = {}) {
+        this.root = root,
+        this.format = format,
+        this.displayTime = displayTime,
+        this.displayWeek = displayWeek
+        this.setTime()
+    }
+	getTime() {
+		const d = new Date()
+		let [month, day, year] = [d.getMonth() + 1, d.getDate(), d.getFullYear()]
+		let [hours, mins, secs] = [d.getHours(), d.getMinutes(), d.getSeconds()]
+		let weekDay = ["日", "一", "二", "三", "四", "五", "六"]
+		let week = ""
+		// 格式化日期时间
+		if (this.format) {
+			month = month  < 10 ? `0${month}` : month
+			day   = day    < 10 ? `0${day}`   : day
+			hours = hours  < 10 ? `0${hours}` : hours
+			mins  = mins   < 10 ? `0${mins}`  : mins
+			secs  = secs   < 10 ? `0${secs}`  : secs
+			week  = hours  < 12 ? `AM` : `PM`
+		}
+
+		let date = `${year}-${month}-${day}`
+		let time = `${hours}:${mins}:${secs}`
+
+		// 1. 默认日期： 年-月-日
+		let res = date
+
+		// 2. 显示具体时间：时-分-秒
+		if (this.displayTime) res = `${date} ${time}`
+
+		// 3. 显示上午还是下午，星期几
+		if (this.displayWeek) {
+			res = `${date} ${time} ${week} 星期${weekDay[d.getDay()]}`
+		}
+
+		return res
+        // document.querySelector(root).innerHTML = res
+	}
+    setTime() {
+        const dateTimeLabel = document.createElement('div')
+		document.body.appendChild(dateTimeLabel)
+		dateTimeLabel.id = this.root
+
+		setInterval(() => {
+			dateTimeLabel.innerHTML = this.getTime()
+		}, 1000)
+
+    }
+}
+// module.exports = {DateTime}
+export default DateTime
+```
+:::
+
+:::code-group-item index.html
+```ts
+<script type="module" src="./MyDateTime.js"></script>
+<script type="module">
+    import DateTime from "./MyDateTime.js"
+
+    const date = new DateTime("DateTime", {
+        format: true,
+        displayTime: true,
+        displayWeek: true,
+    })
+</script>
+```
+:::
+
+::::
+
+

@@ -163,4 +163,7 @@ module.exports = {
 	},
 	// 搜索栏
 	plugins: ["@vuepress/plugin-search"],
-};
+	markdown: {
+		lineNumbers: true, //代码显示行号
+	},
+}

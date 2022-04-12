@@ -596,7 +596,7 @@ const Contact = (props) => {
 
 ## 组件通信
 
-* 父传子
+### 父传子
 
 > 通过props传值
 
@@ -646,7 +646,7 @@ export default function App() {
 ```
 
 
-* 子传父
+### 子传父
 
 > 通过调用父组件方法，将参数返回
 > 子组件写父组件方法的具体实现
@@ -701,7 +701,69 @@ export default function App() {
 
 ```
 
-* 跨多个层级组件通信
+### 兄弟组件通信
+```jsx
+/**
+ * 兄弟组件通信：通过子传父，再父传子的方法实现
+ */
+
+import React, {useState, Component} from "react"
+
+const SonA = (props) => {
+	return <div>{props.message}</div>
+}
+
+const SonB = (props) => {
+	const [username, setUsername] = useState("")
+	function handleInput(e) {
+		setUsername((username) => e.target.value)
+	}
+	function handleClick() {
+        props.getMsg(username)
+	}
+	return (
+		<>
+			<input
+				type="text"
+				placeholder="username"
+				value={username}
+				onChange={handleInput}
+			/>
+			<button onClick={handleClick}>Click</button>
+		</>
+	)
+}
+
+export class PropsBrother extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			message: "",
+		}
+	}
+
+	getMsg = (msg) => {
+		// console.log(msg)
+		this.setState({
+			message: msg,
+		})
+	}
+
+	render() {
+		return (
+			<>
+				<SonB getMsg={this.getMsg} />
+				<SonA message={this.state.message} />
+			</>
+		)
+	}
+}
+
+export default PropsBrother
+
+```
+
+### 跨组件通信
 
 > 通过多个props传值和方法
 ::: details 点击查看代码
@@ -862,8 +924,166 @@ export default function App() {
 ```
 :::
 
+
+```jsx
+/**
+ * 跨组件通信：使用createContext， 解构成Provider传值, Consumer接受值
+ */
+
+import React, {createContext, Component} from "react"
+
+const {Provider, Consumer} = createContext()
+
+function ComA() {
+	return (
+        <>
+            <div>ComA</div>
+            <ComB />
+        </>
+    )
+}
+
+function ComB() {
+	return (
+		<div style={{color: 'red', display: 'flex', flexDirection: 'row'}}>
+			<span>ComB: </span>
+			<Consumer>{(value) => <div>{value}</div>}</Consumer>
+		</div>
+	)
+}
+
+class CrossComponent extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            message: "test"
+        }
+    }
+
+	render() {
+		return (
+            <Provider value={this.state.message}>
+                <ComA />
+            </Provider>
+        )
+	}
+}
+
+export default CrossComponent
+
+```
+
+
 **useContext**
 > 解构createContext
+
+::: tip
+
+```jsx
+import React, {createContext, useContext, Component} from "react"
+```
+
+**跨组件传值**
+1. Step 1
+
+```jsx
+const context = createContext()
+```
+
+2. Step 2
+
+```jsx
+<context.Provider value={this.state.message}>
+</context.Provider>
+```
+
+3. Step 3
+
+```jsx
+const msg = useContext(context)
+```
+
+:::
+
+
+::: details 点击查看代码
+```jsx
+/**
+ * 跨组件通信：使用createContext， 解构成Provider传值, Consumer接受值
+ */
+
+import React, {createContext, useContext, Component} from "react"
+
+const context = createContext()
+
+function ComA() {
+	return (
+		<>
+			<div>ComA</div>
+			<ComB />
+		</>
+	)
+}
+
+function ComB() {
+    const msg = useContext(context)
+	return (
+		<div>
+			<span>ComB: {msg}</span>
+		</div>
+	)
+}
+
+class CrosscomUsecontext extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			message: "hello",
+		}
+	}
+
+	render() {
+		return (
+			<context.Provider value={this.state.message}>
+				<ComA />
+			</context.Provider>
+		)
+	}
+}
+
+export default CrosscomUsecontext
+
+```
+:::
+
+::: tip
+**跨组件传递值和方法**
+```jsx
+import React, {createContext, useContext, Component} from "react"
+```
+
+1. Step 1
+
+```jsx
+const context = createContext()
+```
+
+2. Step 2
+
+```jsx
+<context.Provider value={{this.state.message, this.setMessage}}>
+</context.Provider>
+```
+
+3. Step 3
+
+```jsx
+const [msg, setMsg] = useContext(context)
+```
+
+:::
+
+::: details 点击查看代码
 ```jsx
 import React, {useState, createContext, useContext} from "react";
 
@@ -898,6 +1118,7 @@ export default function App() {
 	);
 }
 ```
+:::
 
 
 ## React with Redux
@@ -1567,3 +1788,93 @@ package.json
 	},
 ```
 :::
+
+6. Context
+Context提供了一个无需为每层组件手动添加props, 就能在组件树间进行数据传递的方法
+
+
+## React进阶
+
+### Children
+```jsx
+import React from "react"
+
+function ComA(props) {
+	return (
+        <div>Children: {props.children}</div>
+    )
+}
+
+export default class Children extends React.Component {
+    getName = () => {
+        console.log("hello, react-child")
+    }
+	render() {
+		return (
+			<ComA>
+				<div>hello, react!</div>
+				<a href="https://react.docschina.org"></a>
+				<button onClick={this.getName}>Click</button>
+			</ComA>
+		)
+	}
+}
+
+```
+### 数据校验：PropTypes
+::: tip
+```sh
+yarn add prop-types
+```
+:::
+
+
+示例
+:::: code-group
+::: code-group-item PropsTypeList.jsx
+```jsx {3,11-13}
+import React from "react"
+// 数据类型校验
+import PropTypes from "prop-types"
+
+const List = (props) => {
+	const list = props.links.map((item, index) => <li key={index}>{item}</li>)
+	return <ul>{list}</ul>
+}
+
+// 校验方法
+List.propTypes = {
+    links: PropTypes.array
+}
+
+
+
+const PropsTypeList = () => {
+    const links = ["Home", "About", "Docs"]
+    return (
+        <List links={links}/>
+    )
+}
+
+
+export default PropsTypeList
+
+```
+:::
+::: code-group-item App.jsx
+```jsx
+import React from 'react'
+
+import PropsTypeList from './components/PropsTypeList'
+
+export default function App() {
+  return (
+    <>
+      <PropsTypeList/>
+    </>
+  )
+}
+
+```
+:::
+::::
