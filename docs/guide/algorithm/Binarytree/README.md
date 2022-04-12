@@ -172,3 +172,20 @@ class Solution:
 :::
 
 ::::
+
+::: tip 前序遍历
+
+```python
+class Solution:
+    def preorderTraversal(self, root):
+        self.a = []
+        self.preorder(root)
+        return self.a
+
+    def preorder(self, root):
+        if root == None: return
+        self.a.append(root.val)
+        self.preorder(root.left)
+        self.preorder(root.right)
+```
+:::

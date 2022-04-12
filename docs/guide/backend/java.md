@@ -189,7 +189,35 @@ Math.min()
 Math.PI
 ```
 
-### 字符串String
+
+## 字符串
+
+| API | String | StringBulid | api |
+| :-- | :----- | :---------: | :---------: |
+| 长度 | length()      | length()   |
+| 输出 |               | toString() | 查 |
+| 字符 | charAt() |    append()/insert() | 增 |
+| 索引 | indexOf() |   delete   | 删 |
+| 包含 | contains() |  reverse() | 反转 |
+| 子串 | substring() |
+| 拼接 | contact()/String.join() |
+| 分割 | split() |
+| 替换 | replace() | replace | 改
+| 重复 | repeat() |
+| 除空 | strip()/trim() |
+| 开头 | startsWith() |
+| 结尾 | endsWith() |
+| 相等 | equals()/equalsIgnoreCase()  |
+| 为空 | isEmpty()/Blank() |
+| 大写 | toUpperCase() |
+| 小写 | toLowCase() |
+| 转字符数组   | toCharArray() |
+| 整数转字符串 | String.valueOf()/Integer.toString() |
+| 字符串转整数 | Integer.parseInt() |
+
+
+
+### String
 
 :::tip
 String不可变：内容不可变，引用可变 ==> 节省内存占用
@@ -365,8 +393,27 @@ s.toString();
 return new StringBuilder(str).reverse().toString();
 ```
 
-### 数组Array
-> collection of variables of same type: list
+## 数组
+
+|    | Array |  List     | HashMap | HashSet |
+| :--  | :-- | :--      | :---:   | --:     |
+| 长度  | length | size()   | size()  | size()  |
+| 增   |     | add()    | `put()`   | add()   |
+| 删   |     | remove() |  remove() |     |
+| 查   | arr[i] |   get()    | get()      |     |
+| 改   | `arr[i] = v`<br/>fill(v) |set()    |       |     |
+| 包含 |          | `contains()` | `containsKey()`<br/>`containsValue()`    |    |
+| 排序 | `Arrays.sort(arr)` | Collections.sort(list) |
+
+### Array
+> 数组是一种存储同一类型值的集合
+
+::: warning
+> 数组长度不能更改，需要经常扩展数组大小时，应该使用**数组列表**-List
+>
+> 长度为0的数组与null并不相同
+:::
+
 
 #### 创建数组
 
@@ -377,11 +424,13 @@ int[][] arr = {{1,2,3}, {4,5,6}};
 ```
 
 **导包**
+
 ```java
 import java.util.Arrays;
 ```
 
 **数组遍历**
+
 ```java
 for(int i = 0; i < nums.length; i++) {
     System.out.println(nums[i])
@@ -420,7 +469,8 @@ binarySeach(arr, start, end, *** v)
 空指针异常：`NullPointerException`
 :::
 
-#### List
+
+### List
 
 :::tip
 ```
@@ -446,15 +496,8 @@ LikedList<String>  list = new LikedList<>();
 //LikedList存储内存地址(或链接到)跟随它的元素，因为每个元素都包含一个链接到邻近的元素。
 ```
 
-::: details 点击查看示例
-```java
 
-
-```
-:::
-
-
-#### HashMap
+### HashMap
 
 :::tip
 ```
@@ -474,7 +517,7 @@ HashMap<Integer, Integer> dict = new HashMap<Integer, Integer>();
 查：size()、get(key)、containsKey(), containsValue()
 ```
 
-#### HashSet
+### HashSet
 
 ```
 < String>: 集合 （无重复元素的无序集合）
@@ -489,11 +532,11 @@ size()
 //哈希表通过散列机制存储信息，哈希代码是用于确定唯一值的关键信息内容。基本上，HashSet中的每个元素都以其独特的哈希代码关联。
 ```
 
-#### LikedHashSet: 集合（可以记住元素插入次序的集合）
+### LikedHashSet
+> 集合（可以记住元素插入次序的集合）
 
-#### List/Map/Set的使用方法
 
-#### Collections
+### Collections
 
 ```java
 import java.util.Collections;
@@ -505,7 +548,7 @@ Collections.max(Collection c);
 Collections.min(Collection c);
 ```
 
-#### Iterator
+### Iterator
 
 ```java
 import java.util.Iterator;
@@ -523,9 +566,10 @@ remove()
 
 ## Ⅱ  Conditions and Loops
 
-流程控制
+### 1. 陈述语句
 
-### if statement
+:::: code-group
+::: code-group-item if
 
 ```java
 if (condition) {
@@ -545,18 +589,9 @@ if (condition) {
  * condition: 为了使变量能够在循环外重复使用，变量类型一般在循环外定义！
  */
 ```
-
-### switch statement
-:::tip
-```md
-开始->case 1->case 2->case n->结束🔚
-存在case ... 符合条件则跳出，否则继续往下判断
-`没有break则继续穿透`
-default可选,总是位于最后一段.如果所有case都为   False，则执行default
-```
 :::
 
-
+::: code-group-item switch
 ```java
 switch (expression) {
     case value1:
@@ -573,8 +608,9 @@ switch (expression) {
         break;
 }
 ```
+:::
 
-**示例**
+::: code-group-item switch2
 ```java
 int day = 2;
 String dayType = switch(day) {
@@ -583,9 +619,24 @@ String dayType = switch(day) {
     default -> "Invalid";
 };
 ```
+:::
+::::
 
 
-### For Loops
+::: warning
+Switch
+> 开始->case 1->case 2->case n->结束🔚
+>
+> 存在case ... 符合条件则跳出，否则继续往下判断
+>
+> `没有break则继续穿透`
+>
+> default可选,总是位于最后一段.如果所有case都为   False，则执行default
+:::
+
+
+### 2. 循环语句
+#### For Loops
 
 ```java
 for (init; condition; increment) {
@@ -601,7 +652,7 @@ for(int i = 0; i < s.length; i++) {}
 for (int l = 0, r = s.length-1; l < r; l++, r--) {}    // 双指针
 ```
 
-### for each
+#### for each
 
 ```java
 for (int v : nums) {
@@ -609,7 +660,7 @@ for (int v : nums) {
 }
 ```
 
-### while loops
+#### while loops
 
 ```java
 int i = 0;
@@ -619,7 +670,7 @@ while (condition) {
 }
 ```
 
-### do...while loops
+#### do...while loops
 :::tip
 至少执行一次
 :::
@@ -631,7 +682,8 @@ do {
 while condition;
 ```
 
-### for, while, do...while的区别
+
+#### for, while, do...while的区别
 
 :::warning
 ```
@@ -641,7 +693,7 @@ while condition;
 3) 而while loops 变量在循环语句外，变量还可再次使用。
 ```
 :::
-### Loop Control Statements
+#### Loop Control Statements
 
 ```
 break    //跳出循环体
