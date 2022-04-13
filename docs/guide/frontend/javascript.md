@@ -1375,3 +1375,15 @@ export default DateTime
 ::::
 
 
+JSON
+
+```js
+// 将json字符串转换成json对象
+JSON.parse(str)
+eval("(" + str + ")")
+
+// 将json对象转换为json字符串
+JSON.stringify(obj)
+```
+
+
