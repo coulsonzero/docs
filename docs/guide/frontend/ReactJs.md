@@ -1822,14 +1822,22 @@ export default class Children extends React.Component {
 
 ```
 ### 数据校验：PropTypes
+> 通过数据校验检查数据类型是否正确
 ::: tip
+> 导包
 ```sh
 yarn add prop-types
 ```
+> 说明
+```jsx
+常见类型: number、string、bool、array、func、object
+必填项: isRequired
+PropTypes.string
+PropTypes.number
+```
 :::
 
-
-示例
+::::: details 示例
 :::: code-group
 ::: code-group-item PropsTypeList.jsx
 ```jsx {3,11-13}
@@ -1878,3 +1886,168 @@ export default function App() {
 ```
 :::
 ::::
+:::::
+
+
+### props参数默认值： defaultProps
+> 父组件未传参时可使用默认值
+::::: tip
+> 1. class组件: 使用static变量初始化
+>
+> 2. func组件: 在函数组件参数中设置默认值 ｜ 使用defaultProps设置默认值
+
+
+:::: code-group
+::: code-group-item defaultProps
+```jsx
+List.defaultProps = {
+	text: "Default Value !",
+}
+```
+:::
+::: code-group-item 函数参数默认值
+```jsx
+const List = ({text="Hello, React !"}) => {
+	return <div>{text}</div>
+}
+```
+:::
+::: code-group-item class静态变量初始化
+```jsx
+class List extends React.Component {
+    // 设置静态变量初始化默认值
+    static defaultProps = {
+        text: "Hello, React !"
+    }
+    render() {
+        return <div>{this.props.text}</div>
+    }
+}
+```
+:::
+::::
+:::::
+
+
+::::: details 查看示例
+:::: code-group
+
+::: code-group-item DefaultProps.jsx
+```jsx{5,20}
+import React from "react"
+import PropTypes from "prop-types"
+
+// 3. 父组件没有写参数,在此设置参数默认值
+const List = ({text="Hello, React !"}) => {
+	// 2. 子组件使用了参数
+	return <div>{text}</div>
+}
+
+// 数据类型校验
+List.propTypes = {
+	text: PropTypes.string,
+}
+
+const DefaultProps = () => {
+	return (
+		<>
+			<List text="Hello React !" />
+			{/* 1.没有设置参数 */}
+			<List />
+		</>
+	)
+}
+
+export default DefaultProps
+
+```
+:::
+
+::: code-group-item DefaultProps2.jsx
+```jsx{14-15,23}
+import React from "react"
+import PropTypes from "prop-types"
+
+const List = (props) => {
+	// 2. 子组件使用了参数
+	return <ul>{props.text}</ul>
+}
+
+List.propTypes = {
+    text: PropTypes.string
+}
+
+// 3.设置参数默认值
+List.defaultProps = {
+    text: "Default Value !"
+}
+
+const DefaultProps2 = () => {
+	return (
+		<>
+			<List text="Hello React !" />
+			{/* 1.父组件没有传递参数 */}
+			<List />
+		</>
+	)
+}
+
+export default DefaultProps2
+```
+:::
+
+
+::: code-group-item DefaultPropsStatic
+```jsx
+import React from "react"
+import PropTypes from "prop-types"
+
+
+class List extends React.Component {
+    // 设置静态变量初始化默认值
+    static defaultProps = {
+        text: "Hello, React !"
+    }
+    render() {
+        return <div>{this.props.text}</div>
+    }
+}
+
+
+
+const DefaultPropsStatic = () => {
+	return (
+		<>
+			<List text="Hello, React !" />
+			{/* 1.没有设置参数 */}
+			<List />
+		</>
+	)
+}
+
+export default DefaultPropsStatic
+
+```
+:::
+
+
+::: code-group-item App.jsx
+```jsx
+import React from "react"
+
+import DefaultProps from "./components/DefaultProps"
+
+export default function App() {
+	return (
+		<>
+			<DefaultProps />
+		</>
+	)
+}
+
+```
+:::
+::::
+:::::
+
+
