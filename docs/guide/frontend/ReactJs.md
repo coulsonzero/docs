@@ -2174,6 +2174,187 @@ export default function App() {
 [Ant Designer Pro 展示面板](https://preview.pro.ant.design/dashboard/analysis)
 
 ![Ant Designer Pro](../../.vuepress/public/assets/react/AntDesingerPro.png)
+
+::::: tip
+> 1. 新建React项目，导入antd包 `$ yarn add antd`
+> 2. 引入Antd静态资源`import { Button } from "antd"`
+> 3. 引入Antd全局样式`@import '~antd/dist/antd.css';`
+:::: code-group
+::: code-group-item 终端
+```sh{3}
+$ npx create-react-app react-antd
+$ cd react-antd
+$ yarn add antd
+$ yarn start
 ```
+:::
+
+::: code-group-item App.css
+```css
+@import '~antd/dist/antd.css';
+```
+:::
+
+::: code-group-item AntdButton.jsx
+```jsx{2,7}
+import React from "react"
+import { Button } from "antd"
+
+function AntdButton() {
+	return (
+		<>
+			<Button type="primary">Primary Button</Button>
+		</>
+	)
+}
+
+export default AntdButton
 
 ```
+:::
+
+::: code-group-item App.jsx
+```jsx
+import React from "react"
+import './App.css'
+import AntdButton from "./components/AntdButton"
+
+class App extends React.Component {
+	render() {
+		return (
+			<>
+				<AntdButton />
+			</>
+		)
+	}
+}
+
+export default App
+
+```
+:::
+
+::::
+:::::
+
+::::: warning
+> 在上级目录下共享node_modules包，需修改以下配置:
+
+:::: code-group
+::: code-group-item package.json
+
+```json
+{
+	"scripts": {
+		"start": "node ../node_modules/.bin/react-scripts start ./src/index.js",
+		"build": "ode ../node_modules/.bin/react-scripts build ./src/index.js"
+	},
+}
+```
+:::
+
+::: code-group-item 终端
+```sh
+$ cd ..
+$ yarn add antd
+$ cd react-antd
+$ yarn start
+```
+:::
+::::
+:::::
+
+
+### Button
+:::: code-group
+::: code-group-item 普通按钮
+```jsx
+import React from "react"
+import {Button} from "antd"
+
+class AntdButton extends React.Component {
+	render() {
+		return (
+			<>
+				<Button type="primary">Primary Button</Button>
+			</>
+		)
+	}
+}
+
+export default AntdButton
+```
+:::
+::: code-group-item 下载按钮
+```jsx
+import React from "react"
+import {Button} from "antd"
+import {DownloadOutlined} from "@ant-design/icons"
+
+class AntdButton extends React.Component {
+	state = {
+		size: "large"
+	}
+	render() {
+		const {size} = this.state
+		return (
+			<>
+				<Button
+					type="primary"
+					shape="circle"
+					icon={<DownloadOutlined />}
+					size={size}
+				/>
+				<Button
+					type="primary"
+					shape="round"
+					icon={<DownloadOutlined />}
+					size={size}>
+					Download
+				</Button>
+			</>
+		)
+	}
+}
+
+export default AntdButton
+```
+:::
+
+::: code-group-item 按钮加载动画
+```jsx
+import React from "react"
+import {Button} from "antd"
+import {PoweroffOutlined} from "@ant-design/icons"
+
+class AntdButton extends React.Component {
+	state = {
+		loadings: []
+	}
+	render() {
+		const {loadings} = this.state
+		return (
+			<>
+				<Button
+					type="primary"
+					loading={loadings[0]}
+					onClick={() => this.enterLoading(0)}>
+					Click me!
+				</Button>
+				<Button
+					type="primary"
+					icon={<PoweroffOutlined />}
+					loading={loadings[1]}
+					onClick={() => this.enterLoading(1)}>
+					Click me!
+				</Button>
+			</>
+		)
+	}
+}
+
+export default AntdButton
+```
+:::
+
+::::
