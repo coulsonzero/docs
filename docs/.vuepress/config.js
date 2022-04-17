@@ -161,8 +161,25 @@ module.exports = {
 		},
 		*/
 	},
+	head: [
+		[
+			"script",
+			{src: "https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js"},
+		],
+		[
+			"script",
+			{
+				src: "https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js",
+			},
+		],
+		["script", {src: "https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"}],
+		[
+			"script",
+			{src: "https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"},
+		],
+	],
 	// 搜索栏
-	plugins: ["@vuepress/plugin-search"],
+	plugins: ["@vuepress/plugin-search", "demo-block"],
 	markdown: {
 		lineNumbers: true, //代码显示行号
 	},

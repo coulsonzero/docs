@@ -1,5 +1,8 @@
+username = "coulsonzero"
+
+
 # 确保脚本抛出遇到的错误
-# set -e
+set -e
 
 # 生成静态文件
 yarn build
@@ -11,14 +14,17 @@ cd docs/.vuepress/dist
 # echo 'www.example.com' > CNAME
 
 git init
-git add .
-git commit -m 'deploy'
+git add -A
+git commit -m 'deploy docs'
 
 # 如果发布到https://<USERNAME>.github.io
 # git push -f git@github.com:coulsonzero/docs.git
 
 
 # 如果发布到https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:coulsonzero/docs.git master:gh-pages
+# git push -f git@github.com:coulsonzero/docs.git master:gh-pages
+git push -f git@github.com:${username}/docs.git master:gh-pages
 
 cd -
+
+rm -rf docs/.vuepress/dist
