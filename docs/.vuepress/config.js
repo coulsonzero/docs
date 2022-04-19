@@ -108,6 +108,7 @@ module.exports = {
 						text: "Leetcode算法",
 						link: "https://coulsonzero.github.io/leetcode-1/",
 					},
+					{text: "排序算法", link: "/guide/algorithm/Sort/README.md"},
 					{text: "字符串", link: "/guide/algorithm/String/README.md"},
 					{text: "链表", link: "/guide/algorithm/ListNode/README.md"},
 					{text: "二叉树", link: "/guide/algorithm/Binarytree/README.md"},
