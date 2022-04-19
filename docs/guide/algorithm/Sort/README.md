@@ -17,7 +17,7 @@
 
 ::: code-group-item 分类
 
-<img src="./assets/sortMind.jpg" alt="" style="transform: translateY(34px); width: 750px;">
+<img src="./assets/sortMind.jpg" alt="" style="transform: translateY(24px); width: 750px;">
 
 :::
 
