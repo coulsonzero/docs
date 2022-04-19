@@ -273,20 +273,69 @@ new ClassWithPrivateAccessor();
 
 ------
 
-### variable
+## Overview
+### Your First Program
+:::: code-group
+::: code-group-item script.js
+```js
+console.log("Hello World!")
+```
+:::
+::: code-group-item index.html
+```html
+<script>
+    document.write("Hello World!")
+</script>
+```
+:::
+::::
+
+### Variables
 
 ```javascript
-var    // 全局变量
-let    // 局部变量
-const  // 常量
+var num = 2      // 全局变量
+let x = "Pol"    // 局部变量
+const PI = 3.14  // 常量
+```
+
+### Comments
+
+```js
+// single line comment
+
+/*
+this is a multi line comment
+*/
+
+/**
+ * this is a document comment
+ * @return string
+ */
+```
+
+### DataType
+::: tip
+boolean:
+```js
+false(0/null/undefined/"")
+```
+:::
+
+```js
+var num = 12            // number
+var price = 42.3        // number
+var name = "Coulson"    // string
+var isActive = false    // boolean
+array
 ```
 
 ### Input
 
 ```javascript
-readLine();
-
-parseInt(readLine, 10)  //string => int
+// 暂不支持
+var name = readLine()
+var age = parseInt(readLine, 10)  //string => int
+var height = parseFloat(readLine(), 10)
 ```
 
 ### Output
@@ -300,13 +349,102 @@ prompt()            // 输入框   OK/Cannle -> value/null
 confirm()           // 确认框   OK/Cannel -> true/false
 ```
 
+::::: details prompt & confirm
+:::: code-group
+::: code-group-item prompt
+```js
+<script>
+    var name = prompt("Please enter your name")
+    alert(name)
+</script>
+```
+:::
+::: code-group-item confirm
+```js
+<script>
+    var res = confirm("Are you sure ?")
+    if (res) {
+        alert("Closed")
+    } else {
+        alert("Stay...")
+    }
+</script>
+```
+:::
+::::
+:::::
+
+## Basic Concepts
+
 ### Operators
 
 ```javascript
 ===比较数据类型, ==比较值
 console.log(5 ==  '5');  //true， 转换成同类型后比较值
-console.log(5 === '5');  //false，先比较类型
+console.log(5 === '5');  //false，先比较类型是否相同，严格模式
 ```
+
+## Conditional and Loops
+### If Statement
+
+```js
+if (condition) {
+    // statement(s)
+} else if (condition) {
+    // statement(s)
+} else if (condition) {
+    // statement(s)
+} else {
+    // statement(s)
+}
+```
+
+### Switch Statement
+
+```js
+switch (expression) {
+    case n1:
+        // statement(s)
+        break
+    case n2:
+        // statement(s)
+        break
+    default:
+        // statement(s)
+}
+```
+::: details 点击查看示例
+```js
+var day = 2
+switch (day) {
+	case 1:
+        console.log("Monday")
+        break
+	case 2:
+		console.log("Tuesday")
+        break
+    case 3:
+        console.log("Wednesday")
+        break
+    case 4:
+        console.log("Thursday")
+        break
+    case 5:
+        console.log("Friday")
+        break
+    case 6:
+        console.log("Saturday")
+        break
+    case 7:
+        console.log("Sunday")
+        break
+    default:
+        console.log("Invalid day")
+}
+
+```
+:::
+
 
 ### For Loops
 
@@ -323,11 +461,279 @@ arr.forEach ((v, i) => {});
 //索引越界 -> "undefined"
 ```
 
+### While Loop
+
+```js
+while(condition) {
+    // code block
+}
+```
+
+### Do While Loop
+
+```js
+do {
+    // code block
+} while (condition)
+```
+
+### Break & Continue
+
+```js
+for (var i = 0; i < arr.length; i++) {
+    if (arr[i] > 10) break
+    console.log(arr[i])
+}
+```
+
+```js
+for (var i = 0; i < arr.length; i++) {
+    if (i == 5) continue
+    console.log(arr[i])
+}
+```
+
 ------
 
-###  Ⅲ. 数据类型
 
-#### 1. String
+## Function
+
+### Define
+
+:::: code-group
+::: code-group-item ES5
+```js
+function main() {
+    // code
+}
+
+main()
+```
+:::
+::: code-group-item ES6
+```js
+const main = () => {
+    // code
+}
+
+main()
+```
+:::
+::::
+
+**单例模式**
+> ES5单例模式
+```javascript
+var printArray = (function() {
+    arr.forEach (v => console.log(v))
+})();
+```
+
+> ES6单例模式
+```js
+const getDate = (() => {
+    const d = new Date()
+    const year = d.getFullYear()
+    const month = d.getMonth() + 1
+    const day = d.getDate()
+    const date = `${year}-${month}-${day}`
+    console.log(date)
+})();
+```
+
+### Params
+
+```js
+function showInfo(name, age) {
+    // code
+}
+
+showInfo("coulson", 20)
+```
+
+
+
+**ES6不同参数写法**
+:::: code-group
+::: code-group-item 1. 无参
+
+```javascript
+const func = () => ...;
+```
+:::
+
+::: code-group-item 2. 单参
+```javascript
+const func = x => ...;
+```
+:::
+::: code-group-item 3. 多参
+```javascript
+const func = (x, y) => {}
+```
+:::
+
+::: code-group-item 4. 固定数组参数
+```javascript
+const func = (nums) => {}
+```
+:::
+::: code-group-item 5. 可变参数!!
+```javascript
+const func = (...nums) => {}
+```
+:::
+::: code-group-item 6.参数默认值!!
+```javascript
+function test(a, b = 3, c = 42) {return a + b + c;}
+const test = (a, b = 3, c = 42) => a + b + c;
+```
+:::
+::::
+
+**不定参**
+::::: details ES5 & ES6 不定参示例
+:::: code-group
+::: code-group-item ES5 不定参
+
+```javascript{2}
+function containsAll(arr) {
+    for (var k = 1; k < arguments.length; k++) {
+        var num = arguments[k];
+        if (arr.indexOf(num) === -1) {
+            return false;
+        }
+    }
+    return true;
+}
+var x = [2, 4, 6, 7];
+console.log(containsAll(x, 2, 4, 7));
+```
+:::
+
+::: code-group-item ES6 不定参
+```javascript{2}
+//统计偶数和
+const magic = (...nums) => {
+    let sum = 0;
+    nums.filter(n => n%2==0).map(el => sum += el);
+    return sum;
+}
+console.log(magic(...nums));
+```
+:::
+::::
+:::::
+
+### Return
+
+```js
+function showInfo(name, age) {
+    // code
+    return `name: ${name}\nage: ${age}`
+}
+
+console.log(showInfo("coulson", 20))
+/*
+name: coulson
+age: 20
+*/
+```
+
+::: tip
+`undefined`: 函数没有返回值
+
+```js
+function check(name) {
+    var res = "My name is " + name
+}
+
+console.log(check("coulson"))
+// Output: undefined
+```
+:::
+
+------
+
+## Object
+
+
+
+### Define
+
+```js
+// 定义实例对象(初始化对象)
+var person = {
+    name: "John",
+    age: 20
+}
+
+// 访问对象数据
+console.log(person[age])   // 20
+console.log(person.age)    // 20
+console.log(person.name)   // "John"
+console.log(person.name.length) // 4
+```
+
+### Create Object
+```js
+function person(name, age) {
+    this.name = name   // this指代当前对象
+    this.age = age
+}
+
+var p = new person("John", 20)
+console.log(`name: ${p.name}, age: ${p.age}`)
+```
+
+### Object Methods
+
+:::: code-group
+::: code-group-item 内部声明方法
+```js{4-6,10}
+function person(name, age) {
+	this.name = name // this指代当前对象
+	this.age = age
+    this.setName = function(name) {
+        this.name = name
+    }
+}
+
+var p = new person("John", 20)
+p.setName("Tom")        // name: Tom
+
+```
+:::
+
+::: code-group-item 引用外部方法
+
+```js{4,7-9,12}
+function person(name, age) {
+	this.name = name // this指代当前对象
+	this.age = age
+	this.setName = changeName
+}
+
+function changeName(name) {
+    return this.name = name
+}
+
+var p = new person("John", 20)
+p.setName("Tom")
+console.log(p.name)     // name: Tom
+```
+
+:::
+::::
+
+
+
+
+
+
+## Core Objects
+
+### 1. String
 
 ```javascript
 let str = "hello";
@@ -341,14 +747,76 @@ const str = `my name is ${name}`    // 格式化
 
 
 
-#### 2. Array
+### 2. Array
+
+**定义数组**
+:::: code-group
+::: code-group-item 简化
+```js
+let arr = ["HTML", "CSS", "JS", "C++"]
+```
+:::
+
+::: code-group-item 原始
+```js
+var arr = new Array("HTML", "CSS", "JS", "C++")
+```
+:::
+
+::: code-group-item 原始2
+```js
+// var arr = new Array(4)
+// 数组长度可以不声明
+var arr = new Array()
+
+arr[0] = "HTML"
+arr[1] = "CSS"
+arr[2] = "JS"
+arr[3] = "C++"
+```
+:::
+
+::: code-group-item 多次声明变量
+```js
+var str1 = "HTML"
+var str2 = "CSS"
+var str3 = "JS"
+var str4 = "C++"
+```
+:::
+::::
+
+**访问数组**
+```js
+const nums = [1, 3, 6, 9, 15]
+
+nums[0]   // 1
+nums[1]   // 3
+nums[5]   // undefined
+```
+
+**数组属性与方法**
+```js
+const nums = [1, 3, 6, 9, 15]
+
+nums.length          // 长度: 5
+nums.concat([2, 7])  // 数组合并
+```
 
 ```javascript
-let arr = ["HTML", "CSS", "JS", "C++"];
-
 //数组合并
-let newArr = ['Three', 'Four'];
-let arr = ['One', 'Two', ...newArr, 'Five'];
+let newArr = ['Three', 'Four']
+let arr = ['One', 'Two', ...newArr, 'Five']
+```
+
+**数组对象**
+
+```js
+var person = []
+person["name"] = "John"
+person["age"] = 20
+
+console.log(person["age"])   // 20
 ```
 
 ```js
@@ -450,7 +918,7 @@ console.log(["f", "o", "o"].join(''))  // "foo"
 
 :::
 
-#### 3. 字典
+### 3. 字典
 
 ```javascript
 let a = {x: 1, x: 2, x: 3, x: 4};
@@ -486,7 +954,7 @@ let newStudent = Object.assign({}, person, student);
 console.log(newStudent.name, newStudent.age, newStudent.sex, newStudent.xp);   //Bob 20 male 2
 ```
 
-#### 3. Set
+### 3. Set
 
 ```javascript
 let set = new Set([1, 2, 4, 2, 59, 9, 4, 9, 1]);
@@ -506,7 +974,7 @@ has()
 values()
 ```
 
-#### 4. Map
+### 4. Map
 
 ```javascript
 let map = new Map([['k1', 'v1'], ['k2', 'v2']]);
@@ -531,10 +999,120 @@ values()
 entries()
 ```
 
-### Ⅳ. Function
-
-#### ES5
+## 库函数
+### Math
 ```javascript
+Math.PI/E/LN2/LN10/LOG2E/LOG10E
+Math.abs(x)/sqrt(x)/ceil(x)/round(x)/floor(x)/exp(x)/pow(x,y)/random()
+```
+
+```js
+Math.random()  // [0-1) 之间的随机小数
+```
+
+### Date
+```js
+setInterval()
+clearInterval()
+setTimeOut()
+```
+
+```javascript
+function printTime() {
+    var d = new Date()
+    var year = d.getFullYear()
+    var month = d.getMonth() + 1
+    var day = d.getDate()
+    var hours = d.getHours()
+    var mins = d.getMinutes()
+    var secs = d.getSeconds()
+    var weekDay = ["日", "一", "二", "三", "四", "五", "六"]
+    var week = '周' + weekDay[d.getDay()]
+    document.body.innerHTML = hours+":"+mins+":"+secs
+}
+setInterval(printTime, 1000);
+```
+
+------
+
+## ES6
+> 区别与ES5(2015年以前的javascript语法)
+
+### var & let & const
+```js
+// ES5
+var num = 12
+// ES6
+let age = 20
+const PI = 3.14
+```
+### Format Output
+```js
+let name = "John"
+// ES5
+var msg = "Hello" + name + "!"
+// ES6
+let msg = `Hello ${this.name}!`
+```
+
+### Object
+```js
+let person = {
+    name: "John",
+    age: 20,
+    sex: "male"
+}
+
+let student = {
+    name: "Bob",
+    age: 18,
+    xp: "2"
+}
+
+let s = Object.assign({}, person, student)
+console.log(s.name)  // "Bob"
+console.log(s.age)   // 18
+console.log(s.sex)   // "male"
+console.log(s.xp)    // "2"
+```
+
+### 解构
+:::: code-group
+::: code-group-item Array
+```js
+let arr = [1, 2, 3]
+let [a, b, c] = arr
+// a: 1, b: 2, c: 3
+```
+:::
+::: code-group-item Object
+```js
+let person = {
+    name: "John",
+    age: 20
+}
+
+let {name, s} = person
+console.log(name) // "John"
+console.log(age)  // 20
+```
+:::
+::::
+
+### Rest Params
+:::: code-group
+::: code-group-item ES6 ...arr
+```js
+const magic = (...nums) => {
+    let sum = 0;
+    nums.filter(n => n%2==0).map(el => sum += el);
+    return sum;
+}
+console.log(magic(...nums));
+```
+:::
+::: code-group-item ES5 arguments
+```js
 function containsAll(arr) {
     for (var k = 1; k < arguments.length; k++) {
         var num = arguments[k];
@@ -547,99 +1125,39 @@ function containsAll(arr) {
 var x = [2, 4, 6, 7];
 console.log(containsAll(x, 2, 4, 7));
 ```
-#### ES6
-```javascript
-//统计偶数和
-const magic = (...nums) => {
-    let sum = 0;
-    nums.filter(n => n%2==0).map(el => sum += el);
-    return sum;
-}
-console.log(magic(...nums));
-```
+:::
+::::
 
-```javascript
-// 数组遍历
-const printOdds = (arr) => {
-  arr.forEach(num => {
-    if (num/2 != 0) console.log(num);
-  });
-}
-```
-
-#### 1. 无参
-
-```javascript
-const func = () => ...;
-```
-
-#### 2. 单参
-```javascript
-const func = x => ...;
-```
-
-#### 3. 多参
-```javascript
-const func = (x, y) => {}
-```
-
-#### 4. 固定数组参数
-```javascript
-const func = (nums) => {}
-```
-
-#### 5. 可变数组参数!!
-```javascript
-const func = (...nums) => {}
-```
-
-#### 6.参数默认值!!
-```javascript
-function test(a, b = 3, c = 42) {return a + b + c;}
-const test = (a, b = 3, c = 42) => a + b + c;
-```
-
-#### 7. 单例模式
-> ES5单例模式
-```javascript
-var printArray = (function() {
-    arr.forEach (v => console.log(v))
-})();
-```
-
-> ES6单例模式
+### Spread Operator
 ```js
-const getDate = (() => {
-    const d = new Date()
-    const year = d.getFullYear()
-    const month = d.getMonth() + 1
-    const day = d.getDate()
-    const date = `${year}-${month}-${day}`
-    console.log(date)
-})();
-```
-------
-
-#### Math
-```javascript
-Math.PI/E/LN2/LN10/LOG2E/LOG10E
-Math.abs(x)/sqrt(x)/ceil(x)/round(x)/floor(x)/exp(x)/pow(x,y)/random()
-```
-
-#### Date
-```javascript
-function printTime() {
-    var d = new Date();
-    var hours = d.getHours();
-    var mins = d.getMinutes();
-    var secs = d.getSeconds();
-    document.body.innerHTML = hours+":"+mins+":"+secs;
+function func(a, b, c) {
+    console.log(a + b + c)
 }
-setInterval(printTime, 1000);
+
+let nums = [1, 2]
+func(nums.concat(4))    // 1,2,4undefinedundefined
+func(1, 2, 4)           // 7
+func.apply(null, nums)  // NaN
+func.apply(null, [1, 2, 4])       // 7
+func.apply(null, nums.concat(4))  // 7
+func(...nums, 4)   // 7
+let arr = [4, 6, ...nums, 9]  // [4, 6, 1, 2, 9]
 ```
 
-------
+```js
+const sum = (...nums) => {
+    let sum = 0
+    arr.forEach(v => sun += v)
+    return sum
+}
 
+console.log(sum(1, 2, 3))       // 6
+console.log(sum(3, 6, 7, 9))    // 25
+```
+
+### ES6 Classes
+
+### Map & Set
 ### Ⅴ. html与javascript交互
 
 ```javascript
@@ -749,7 +1267,7 @@ clearInterval(setInterval(func, 100))
         }
         console.log(arr)
     }
-</script>
+</>
 ```
 
 
