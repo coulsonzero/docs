@@ -155,6 +155,7 @@ if __name__ == '__main__':
 :::
 
 ::: code-group-item Java
+
 ```java
 public static void quickSort(int[] arr){
     qsort(arr, 0, arr.length-1);
@@ -180,9 +181,11 @@ private static int partition(int[] arr, int low, int high){
     return low;
 }
 ```
+
 :::
 
 ::: code-group-item C
+
 ```cpp
 #快速排序
 //接口调整
