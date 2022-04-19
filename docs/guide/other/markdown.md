@@ -47,7 +47,8 @@ class Main {
 
 [Github](https://www.github.com/)
 
-[![Vue][1]][2]
+<!-- [![Vue][1]][2] -->
+[<img src="https://v3.cn.vuejs.org/logo.png" style="width: 40px; height: 40px" alt="" />][2]
 
 [1]: https://v3.cn.vuejs.org/logo.png
 [2]: https://v3.cn.vuejs.org
