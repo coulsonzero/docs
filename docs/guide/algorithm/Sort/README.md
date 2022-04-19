@@ -48,12 +48,41 @@
 :::
 ![BubbleSort]
 
+::: details code
+
+```Python
+def bubble_sort(arr):
+    for i in range(len(arr)-1, 0, -1):
+        for j in range(i):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+
+```
+
+:::
+
+
 ## 选择排序
 
 ::: tip
 遍历全部后一个一个比较排序（1:全部）
 :::
 ![SelectSort]
+
+::: details code
+
+```python
+def select_sort(arr):
+    for k in range(len(arr)):
+        m = k
+        for j in range(k + 1, len(arr)):
+            if arr[m] > arr[j]:
+                m = j
+        arr[k], arr[m] = arr[m], arr[k]
+
+```
+
+:::
 
 ## 插入排序
 
@@ -71,8 +100,42 @@
 
 ![QuickSort]
 
-::: details 快速排序Code
+::::: details 快速排序Code
 
+:::: code-group
+
+::: code-group-item Python
+
+```python
+from random import randint
+
+def quicksort(arr, l, r):
+    if l < r:
+        p = randint(l, r)
+        arr[r], arr[p] = arr[p], arr[r]
+        k = partition(arr, l, r)
+        quicksort(arr, l, k-1)
+        quicksort(arr, k+1, r)
+
+def partition(arr, l, r):
+    m = l -1
+    for i in range(l, r):
+        if arr[i] < arr[r]:
+            m += 1
+            arr[m], arr[i] = arr[i], arr[m]
+    arr[m+1], arr[r] = arr[r], arr[m+1]
+    return m + 1
+
+if __name__ == '__main__':
+    nums = [7, 2, 15, 1, 11, 5, 9]
+    quicksort(nums, 0, len(nums)-1)
+    print(nums)
+    # Output: [1, 2, 5, 7, 9, 11, 15]
+```
+
+:::
+
+::: code-group-item C
 ```cpp
 #快速排序
 //接口调整
@@ -116,6 +179,8 @@ void quicksort(int a[], int left, int right)
 ```
 
 :::
+::::
+:::::
 
 ## 堆排序
 
