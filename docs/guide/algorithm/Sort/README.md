@@ -30,11 +30,12 @@
 ::: code-group-item 记忆
 
 ```
-- 时间复杂度记忆-
-- 冒泡、选择、直接 排序需要两个 for 循环，每次只关注一个元素，平均时间复杂度为 O(n\*2)（一遍找元素 O(n)，一遍找位置 O(n）)
-- 快速、归并、希尔、堆基于二分思想，log 以 2 为底，平均时间复杂度为 O(nlogn)（一遍找元素 O(n)，一遍找位置 O(nlogn))
-- 稳定性记忆-“快希选堆”（快牺牲稳定性）
-- 排序算法的稳定性：排序前后相同元素的相对位置不变，则称排序算法是稳定的 0；否则排序算法是不稳定的。
+时间复杂度记忆
+冒泡、选择、直接 排序需要两个 for 循环，每次只关注一个元素，平均时间复杂度为 O(n\*2)（一遍找元素 O(n)，一遍找位置 O(n）)
+快速、归并、希尔、堆基于二分思想，log 以 2 为底，平均时间复杂度为 O(nlogn)（一遍找元素 O(n)，一遍找位置 O(nlogn))
+
+稳定性记忆-“快希选堆”（快牺牲稳定性）
+排序算法的稳定性：排序前后相同元素的相对位置不变，则称排序算法是稳定的 0；否则排序算法是不稳定的。
 ```
 
 :::
@@ -48,9 +49,10 @@
 :::
 ![BubbleSort]
 
-::: details code
-
-```Python
+::::: details 冒泡排序code
+:::: code-group
+::: code-group-item Python
+```python
 def bubble_sort(arr):
     for i in range(len(arr)-1, 0, -1):
         for j in range(i):
@@ -58,8 +60,25 @@ def bubble_sort(arr):
                 arr[j], arr[j+1] = arr[j+1], arr[j]
 
 ```
-
 :::
+::: code-group-item Java
+```java
+public static void bubbleSort(int[] arr) {
+    int temp = 0;
+    for (int i = arr.length - 1; i > 0; i--) {
+        for (int j = 0; j < i; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+```
+:::
+::::
+:::::
 
 
 ## 选择排序
@@ -133,6 +152,34 @@ if __name__ == '__main__':
     # Output: [1, 2, 5, 7, 9, 11, 15]
 ```
 
+:::
+
+::: code-group-item Java
+```java
+public static void quickSort(int[] arr){
+    qsort(arr, 0, arr.length-1);
+}
+private static void qsort(int[] arr, int low, int high){
+    if (low >= high)
+        return;
+    int pivot = partition(arr, low, high);        //将数组分为两部分
+    qsort(arr, low, pivot-1);                   //递归排序左子数组
+    qsort(arr, pivot+1, high);                  //递归排序右子数组
+}
+private static int partition(int[] arr, int low, int high){
+    int pivot = arr[low];     //基准
+    while (low < high){
+        while (low < high && arr[high] >= pivot) --high;
+        arr[low]=arr[high];             //交换比基准大的记录到左端
+        while (low < high && arr[low] <= pivot) ++low;
+        arr[high] = arr[low];           //交换比基准小的记录到右端
+    }
+    //扫描完成，基准到位
+    arr[low] = pivot;
+    //返回的是基准的位置
+    return low;
+}
+```
 :::
 
 ::: code-group-item C
