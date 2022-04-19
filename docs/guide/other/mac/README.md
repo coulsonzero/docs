@@ -1,5 +1,8 @@
 # Mac使用指南
 
+
+[面试](../../algorithm/Interview/README.md)
+
 [Mac触控板手势](./gestures.md)
 
 [Mac快捷键](./shortcuts.md)

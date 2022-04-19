@@ -112,7 +112,7 @@ module.exports = {
 					{text: "字符串", link: "/guide/algorithm/String/README.md"},
 					{text: "链表", link: "/guide/algorithm/ListNode/README.md"},
 					{text: "二叉树", link: "/guide/algorithm/Binarytree/README.md"},
-					{text: "Interview", link: "/guide/algorithm/interview/README.md"},
+					
 				],
 			},
 			{

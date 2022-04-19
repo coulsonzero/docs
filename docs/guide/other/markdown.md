@@ -81,7 +81,9 @@ class Main {
 $\color{red}{✗}$
 $\color{green}{✓}$
 
-**Markdown扩展**
+
+## Markdown扩展
+### 提示
 
 ```md
 ::: tip
@@ -92,7 +94,7 @@ $\color{green}{✓}$
 ::: tip
 这是一个提示
 :::
-
+### 警告
 ```md
 ::: warning
 这是一个警告
@@ -103,15 +105,18 @@ $\color{green}{✓}$
 这是一个警告
 :::
 
+### 危险
 ```md
 ::: danger
 这是一个危险警告
 :::
 ```
+
 ::: danger
 这是一个危险警告
 :::
 
+### 点击查看代码
 ```md
 ::: details 点击查看代码
 
@@ -128,11 +133,11 @@ console.log("Hello javascript!")
 :::: code-group
 
 ::: code-group-item Python
-...
+
 :::
 
 ::: code-group-item JavaScript
-...
+
 :::
 
 ::::
@@ -157,3 +162,36 @@ console.log('hello!')
 ::::
 
 
+```md
+::::: details 点击查看代码
+:::: code-group
+
+::: code-group-item Python
+
+:::
+
+::: code-group-item JavaScript
+
+:::
+
+::::
+:::::
+```
+
+
+::::: details 示例
+:::: code-group
+
+::: code-group-item Python
+```python
+print("Hello World!")
+```
+:::
+
+::: code-group-item JavaScript
+```js
+console.log("Hello world!")
+```
+:::
+
+::::

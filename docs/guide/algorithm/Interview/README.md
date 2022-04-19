@@ -1,5 +1,137 @@
 # 面试题
 
+## 字节跳动 2022-04-08
+
+::::: details 点击查看代码
+:::: code-group
+::: code-group-item 第一题
+```js
+<div class="container">
+    <div class="sidebar"></div>
+    <div class="main"></div>
+</div>
+<style>
+    :root {
+        --sidebar-width: 15rem;
+        --sidebar-bg: rgb(34, 34, 34);
+        --main-bg: hsl(240, 100%, 95%);
+    }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    html {
+        font-size: 62.5%;
+    }
+    .container{
+        width: 100%;
+        min-height: 100vh;
+    }
+    .sidebar{
+        width: var(--sidebar-width);
+        height: 100%;
+        float: left;
+        background-color: var(--sidebar-bg);
+    }
+    .main{
+        height: 100%;
+        width: calc(100% - var(--sidebar-width));
+        float: left;
+        background-color: var(--main-bg);
+    }
+</style>
+```
+:::
+::: code-group-item 第二题
+```js
+// 你的代码
+const sameNumbers = (arr1, arr2) => {
+    if(!(arr1 instanceof Array) || !(arr2 instanceof Array) ||arr1 == undefined || arr2 == undefined) {
+        return [];
+    }
+    let res = [];
+    let maxLength = Math.max(arr1.length, arr2.length)
+    for (let i = 0; i < maxLength; i++) {
+        let e = parseInt(arr2[arr2.indexOf(parseInt(arr1[i]))]);
+        if (!isNaN(e)) {
+            res.push(e);
+        }
+    }
+    res.sort((a,b) => (a-b))
+    return res;
+};
+
+
+
+// console.log(sameNumbers([-1, 6, 2, 3], [5, 2, '6', 7, -1]))  //[1, 2, 6]
+
+
+const sameNumbers2 = (arr1, arr2) => {
+	if (
+		!(arr1 instanceof Array) ||
+		!(arr2 instanceof Array) ||
+		arr1 == undefined ||
+		arr2 == undefined
+	) {
+		return [];
+	}
+	let newArr = arr1.concat(arr2);
+    newArr.filter()
+	newArr.sort((a, b) => a - b);
+	let res = [];
+	for (let i = 1; i < newArr.length; i++) {
+		if (newArr[i] == newArr[i - 1]) {
+			res.push(parseInt(newArr[i]));
+		}
+	}
+	return res;
+};
+
+console.log(sameNumbers2([-1, 6, 'a', 2, 3], [5, 2, '6', 7, -1]))
+```
+:::
+
+::: code-group-item 第三题
+```js
+function compare(a, b) {
+	if (a == b) return 0;
+	let number;
+	let arr1 = a.split(".");
+	let arr2 = b.split(".");
+	for (let i = 0; i < 3; i++) {
+		if (arr1[i] > arr2[i]) {
+			return 1;
+		} else if (arr1[i] < arr2[i]) {
+			return -1;
+		}
+	}
+	if (arr1.length > arr2.length) {
+		return -1;
+	} else if (arr1.length < arr2.length) {
+		return 1;
+	}
+	let arrIndex = "alpha|beta|rc".split("|");
+	// console.log(arrIndex);
+	if (arrIndex.indexOf(arr1[3]) > arrIndex.indexOf(arr2[3])) {
+		return 1;
+	} else if (arrIndex.indexOf(arr1[3] < arrIndex.indexOf(arr2[3]))) {
+		return -1;
+	} else {
+		if (arr1[4 > arr2[4]]) {
+			return 1;
+		} else {
+			return -1;
+		}
+	}
+	return number
+}
+console.log(compare("1.2.5.alpha", "1.2.5.rc"))     // -1
+
+```
+:::
+::::
+:::::
 ## 睿企 2022-04-13
 
 ::::: details 点击查看代码
@@ -327,3 +459,4 @@ public class Solution3 {
 
 ::::
 :::::
+
