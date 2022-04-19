@@ -163,6 +163,7 @@ module.exports = {
 		},
 		*/
 	},
+	/*
 	head: [
 		[
 			"script",
@@ -180,6 +181,7 @@ module.exports = {
 			{src: "https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"},
 		],
 	],
+	*/
 	// 搜索栏
 	plugins: ["@vuepress/plugin-search", "demo-block"],
 	markdown: {

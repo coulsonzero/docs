@@ -1,6 +1,186 @@
 # 面试题
 
-## 华为机考 2022/04/17
+## 睿企 2022-04-13
+
+::::: details 点击查看代码
+:::: code-group
+::: code-group-item 题目
+```js
+const pathList = ["/a/b", "/a/2/c", "/d"]
+
+/**
+ * 如上，输入是一个一维String数组pathList，里面记录了由"/"分隔的字符串，表示了用户在系统中存储的目录结构
+ * 现在需要将这个目录结构进行结构化，方便使用Echarts等可视化组件进行绘制
+ * 结构化的要求：将目录结构以嵌套对象的形式表现出来，如最后23~31行的注释
+ *
+ * 实现要求：请实现下面的pathFormat方法，完成这个结构化的过程
+ */
+
+function pathFormat(pathList) {
+	const answer = {}
+	// todo: 将pathList转化成目标结构，更新到answer中
+
+	return answer
+}
+
+console.log(JSON.stringify(pathFormat(pathList), null, 2))
+
+/*
+{
+  "a": {
+    "2": {
+      "c": {}
+    },
+    "b": {}
+  },
+  "d": {}
+}
+*/
+
+```
+:::
+
+::: code-group-item 解答
+```js
+const pathList = ["/a/b", "/a/2/c", "/d"]
+
+function pathFormat(pathList) {
+	const answer = {}
+	var array = []
+	for (let i = 0; i < pathList.length; i++) {
+		// step1. '/a/2/c' => ['a', '2', 'c]
+		let arr = pathList[i].split("/").filter((n) => n !== "")
+		// setp2. ['a', '2', 'c] => {"a": {"2": {"c": {}}}}
+		let res = "{"
+		for (let j = 0; j < arr.length; j++) {
+			res += '"' + arr[j] + '": {'
+			var sep = "}".repeat(j + 1)
+		}
+		res += sep + "}"
+		// step3. [{"a": {"2": {"c": {}}}}, {"a": {"b"{}}}, ...]
+		array.push(JSON.parse(res))
+	}
+
+	for (let i = 0; i < array.length; i++) {
+		for (let v in array[i]) {
+			// 4. 解构
+			answer[v] = {...array[i][v], ...answer[v]}
+		}
+	}
+
+	return answer
+}
+
+console.log(JSON.stringify(pathFormat(pathList), null, 2))
+
+```
+:::
+::::
+:::::
+
+## 阿里 2022-04-13
+::::: details 点击查看代码
+:::: code-group
+::: code-group-item 题一
+```javascript
+const array = [
+	{value: 6},
+	{value: 2},
+	{value: 3},
+	{value: 5},
+	{value: 2},
+	{value: 5},
+]
+
+function multiple(array) {
+    /*
+	let res = 1
+    let arr = []
+	for(let v of array) {
+		// if(arr.indexOf(v.value) === -1) arr.push(v.value)
+		if(!arr.includes(v.value)) arr.push(v.value)
+	}
+	arr.map(v => res *= v)
+	return res
+    */
+}
+
+console.log(multiple(array)) // 应该输出180
+
+```
+:::
+
+:::code-group-item 题二
+```html
+<div id="vue-app">
+    <form>
+        <label>省份:</label>
+      	<select v-model="form.province">
+            <option value="" disabled>请选择</option>
+            <option></option>
+        </select>
+      	<label>城市:</label>
+        <select v-model="form.city">
+            <option value="" disabled>请选择</option>
+            <option></option>
+        </select>
+        <button @click.prevent="submitForm">提交</button>
+      <form>
+</div>
+```
+
+```js
+import Vue from "vue@2.6.14/dist/vue.js"
+
+const ProvinceList = [
+	{
+		id: 100,
+		name: "河北",
+		children: [
+			{id: 10001, name: "石家庄"},
+			{id: 10002, name: "廊坊"},
+			{id: 10003, name: "秦皇岛"},
+		],
+	},
+	{
+		id: 174,
+		name: "浙江",
+		children: [
+			{id: 17401, name: "杭州"},
+			{id: 17402, name: "宁波"},
+			{id: 17403, name: "温州"},
+		],
+	},
+]
+
+new Vue({
+	el: "#vue-app",
+	data() {
+		return {
+			ProvinceList,
+			form: {
+				province: "",
+				city: "",
+			},
+		}
+	},
+	methods: {
+		submitForm() {
+			const {province, city} = this.form
+			if (!province || !city) {
+				alert("请选择完整地址！")
+				return
+			}
+			alert(`提交成功！地址编码是：${province}-${city}`)
+		},
+	},
+})
+
+```
+:::
+::::
+:::::
+## 华为机考 2022-04-17
 
 ::::: details 点击查看代码
 :::: code-group
