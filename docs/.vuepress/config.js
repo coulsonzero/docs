@@ -81,7 +81,7 @@ module.exports = {
 								text: "SpringBoot",
 								link: "https://spring.io/projects/spring-boot#learn",
 							},
-							{text: "Django", link: "https://www.djangoproject.com/"},
+							{text: "Django", link: "/guide/backend/django.md"},
 							{text: "flask", link: "https://flask.net.cn"},
 						],
 					},
@@ -112,7 +112,7 @@ module.exports = {
 					{text: "字符串", link: "/guide/algorithm/String/README.md"},
 					{text: "链表", link: "/guide/algorithm/ListNode/README.md"},
 					{text: "二叉树", link: "/guide/algorithm/Binarytree/README.md"},
-					
+
 				],
 			},
 			{
