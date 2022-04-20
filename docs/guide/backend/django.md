@@ -4,23 +4,23 @@
 
 ## 快速启动
 
-- 安装 Django
+**1.安装 Django**
 
 ```shell
 $ pip install Django
 ```
 
-- 创建并启动 Django 项目
+**2.创建并启动 Django 项目**
 
-```shell
-django-admin startproject mysite
-cd mysite
-python manage.py runserver
+```sh
+$ django-admin startproject mysite
+$ cd mysite
+$ python manage.py runserver
 ```
 
 [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
-- 创建超级管理员账户并登录后台管理系统
+**3.创建超级管理员账户并登录后台管理系统**
 
 ```shell
 # 创建超级管理员账户
