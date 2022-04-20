@@ -463,6 +463,29 @@ console.log(check("coulson"))
 
 :::
 
+### 闭包
+
+> 闭包是指有权访问另外一个函数作用域中的变量的函数
+> 在 Javascript 中，如果一个对象不再被引用，那么这个对象就会被 GC 回收，否则这个对象一直会保存在内存中
+> 当我们需要在模块中定义一些变量，并希望这些变量一直保存在内存中但又不会 “污染” 全局的变量时，就可以用闭包来定义这个模块
+
+```html
+<p>局部变量计数。</p>
+<button type="button" onclick="myFunction()">计数!</button>
+<p id="demo">0</p>
+
+<script>
+const add = (function () {
+    let counter = 0
+    return function () {return counter += 1}
+})()
+
+function myFunction(){
+    document.getElementById("demo").innerHTML = add()
+}
+</script>
+```
+
 ---
 
 ## Object
@@ -947,6 +970,17 @@ function printTime() {
 	document.body.innerHTML = hours + ":" + mins + ":" + secs
 }
 setInterval(printTime, 1000)
+```
+
+### JSON
+
+```js
+// 将json字符串转换成json对象
+JSON.parse(str)
+eval("(" + str + ")")
+
+// 将json对象转换为json字符串
+JSON.stringify(obj)
 ```
 
 ---
@@ -2072,13 +2106,4 @@ export default DateTime
 
 ::::
 
-JSON
 
-```js
-// 将json字符串转换成json对象
-JSON.parse(str)
-eval("(" + str + ")")
-
-// 将json对象转换为json字符串
-JSON.stringify(obj)
-```
