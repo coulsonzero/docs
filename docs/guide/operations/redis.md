@@ -29,7 +29,7 @@ not connected> quit
 ```
 > 4.关闭服务
 ```sh
-$ brew services stop redis  
+$ brew services stop redis
 
 # 强行终止
 # $ sudo pkill redis-server
@@ -49,7 +49,7 @@ $ ps axu | grep redis
 
 ## 简介
 
-> REmote DIctionary Server(Redis)  
+> REmote DIctionary Server(Redis)
 >
 > Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件
 >
@@ -121,7 +121,7 @@ redis>>> GET name
 "Coulson Zero"
 redis>>> GETRANGE name 1 3
 "oul"
-redis>>> STRLEN name 
+redis>>> STRLEN name
 (integer) 7
 redis>>> exists name
 (integer) 1
@@ -166,7 +166,7 @@ lpop mylist
 lrange mylist 0 -1
 ```
 
-#### LINDEX 
+#### LINDEX
 ```sql
 # 返回数组索引对应的值,空为nil
 lindex mylist 0
@@ -201,7 +201,7 @@ hdel myhash age
 ```
 
 ### 查
-#### HGETALL 
+#### HGETALL
 ```sql
 # 返回hash所有的字段和值
 hgetall [key]
@@ -228,7 +228,7 @@ hmget myhash name age country
 hget [key]
 ```
 ```sql
-hkeys myhash 
+hkeys myhash
 ```
 
 #### HVALS
@@ -491,10 +491,30 @@ redis> save
 ```sql
 # 返回客户端列表
 CLIENT LIST
-# 返回当前客户端连接的名称 
+# 返回当前客户端连接的名称
 CLIENT SETNAME
 # 挂起客户端连接
 CLIENT PAUSE
 # 关闭客户端连接
 CLIENT KILL
 ```
+
+## FAQ
+
+- Redis数据类型
+
+```
+String: 字符串
+List: 列表
+Hash: 哈希
+Set: 集合
+Zset: 有序集合
+```
+
+- Redis持久化机制
+
+```
+RDB: 将数据库快照以二进制的方式保存到磁盘中
+AOF: 以协议文本的方式，将所有对数据库进行写入的命令和参数记录到AOF文件，从而记录数据库状态
+```
+
