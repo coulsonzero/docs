@@ -1,6 +1,6 @@
 # Flask
 
-[flask官网](https://flask.net.cn)
+[Flask官网](https://flask.net.cn)
 
 ## 快速启动
 

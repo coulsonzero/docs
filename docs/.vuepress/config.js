@@ -82,7 +82,7 @@ module.exports = {
 								link: "https://spring.io/projects/spring-boot#learn",
 							},
 							{text: "Django", link: "/guide/backend/django.md"},
-							{text: "flask", link: "/guide/backend/flask.md"},
+							{text: "Flask", link: "/guide/backend/flask.md"},
 						],
 					},
 					{
@@ -95,8 +95,8 @@ module.exports = {
 				text: "运维",
 				children: [
 					{text: "SQL", link: "/guide/operations/sql"},
-					{text: "linux", link: "/guide/operations/linux"},
-					{text: "shell", link: "/guide/operations/shell"},
+					{text: "Linux", link: "/guide/operations/linux"},
+					{text: "Shell", link: "/guide/operations/shell"},
 					{text: "MongoDB", link: "/guide/operations/mongodb"},
 					{text: "Redis", link: "/guide/operations/redis"},
 				],
