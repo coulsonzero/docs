@@ -1,292 +1,69 @@
 # Javascript
 
 [Devdocs/JavaScript](https://devdocs.io/javascript/)
+
 ## QuickStart
 
-
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-```bash:no-line-numbers
-yarn add
-```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-```bash:no-line-numbers
-npm install
-```
-
-  </CodeGroupItem>
-</CodeGroup>
+### Ⅰ. 在 html 中引入 javascript
 
 
-### Ⅰ. html中导入javascript文件的方式
 
-**导入方法一**
-> 常用于导入外部包
+**body末尾导入(推荐)**
 
-:::: code-group
-::: code-group-item index.html
 ```html
-<head>
-	<script src="script.js"></script>
-</head>
-```
-:::
-
-::: code-group-item script.js
-```js
-window.onload = function() {
-    //...
-}
-```
-:::
-::::
-
-**导入方法二(推荐)**
-```
 <body>
 	<script src="main.js"></script>
 </body>
 ```
 
-------
+**head中导入**
 
-### Ⅱ.  Class
+> 常用于导入外部包
 
-```javascript
-class Person {
-    constructor(name, age) {
-        this.name = name;
-        this.age = age;
-    }
+:::: code-group
+::: code-group-item index.html
 
-    say() {
-        console.log(`hi, my name is ${this.name}.`);
-    }
-
-    // say = () => console.log(`hi, my name is ${this.name}.`);
-
-    /* 静态成员方法 */
-    static staticSay = (name) => console.log(`hi, my name is ${name}.`)
-}
-
-
-
-
-/* 类的继承 */
-class Student extends Person {
-    constructor(name, number) {
-        super(name);
-        this.number = number;
-    }
-
-    /* 方法重写 */
-    say() {
-        console.log(`hey, I'm ${this.name}.`)
-    }
-
-    hello() {
-        // 调用父类方法
-        super.say();
-        console.log(`my school number is ${this.number}.`);
-    }
-}
-
-
-/*
- * 创建类对象
- * const p = new Person("tom")
- * p.say()
- *
- * 调用类的静态方法
- * Person.staticSay("coke")
- *
- * 继承
- * const s = new Student("jacker", "1002")
- * s.hello()
- */
-```
-#### constructor
-```js
-class Rectangle {
-  constructor(height, width) {
-    this.height = height;
-    this.width = width;
-  }
-}
+```html
+<head>
+	<script src="script.js"></script>
+</head>
 ```
 
-**不定参**
-
-```js
-class Polygon {
-  constructor(...sides) {
-    this.sides = sides;
-  }
-  // Method
-  *getSides() {
-    for(const side of this.sides){
-      yield side;
-    }
-  }
-}
-
-const pentagon = new Polygon(1,2,3,4,5);
-
-console.log([...pentagon.getSides()]); // [1,2,3,4,5]
-```
-
-**示例**
-```js
-class Polygon {
-  constructor({name="pole", age}) {
-    this.name = name;
-    this.age = age
-  }
-  sayHello = () => {
-    console.log(`Hello, ${this.name} I'm ${this.age} years old.`)
-  }
-}
-
-const option = {
-  age: 23
-}
-const poly = new Polygon(option);
-poly.sayHello()
-
-
-```
-#### static
-
-```js
-class Person {
-    constructor(name) {
-        this.name = name
-    }
-
-    say() {
-        return `Hello, ${this.name}`
-    }
-}
-
-const person = new Person("John")
-console.log(person.say())
-// Output: "Hello, John"
-```
-
-**静态变量和方法**
-
-
-```js
-class Person {
-    static name = "John"
-    static staticSay = () => {
-        return `Hello, ${this.name}`
-    }
-}
-
-console.log(Person.name)
-// Output: "John"
-console.log(Person.staticSay())
-// Output: "Hello, John"
-```
-#### private
-```js
-class PrivateStaticField {
-  static #PRIVATE_STATIC_FIELD
-
-  static #privateMethod() {
-    return 'hello world';
-  }
-
-  static basePublicStaticMethod() {
-    this.#PRIVATE_STATIC_FIELD = 42
-    return this.#PRIVATE_STATIC_FIELD
-  }
-}
-
-console.log(PrivateStaticField.publicStaticMethod()
-// Output: 42
-
-```
-
-::: details private
-```js
-class Base {
-  static #privateStaticMethod() {
-    return 42;
-  }
-  static publicStaticMethod1() {
-    return Base.#privateStaticMethod();
-  }
-  static publicStaticMethod2() {
-    return this.#privateStaticMethod();
-  }
-}
-
-class Derived extends Base {}
-
-console.log(Base.publicStaticMethod1())
-// 42
-console.log(Base.publicStaticMethod2())
-// 42
-
-console.log(Derived.publicStaticMethod1());
-// 42
-console.log(Derived.publicStaticMethod2());
-// Error: Receiver must be class Base
-```
 :::
 
-#### getter & setter
-::: tip
-```js
-get func() {}
-set func() {}
-```
-:::
+::: code-group-item script.js
 
 ```js
-class ClassWithPrivateAccessor {
-  #message;
-
-  get #decoratedMessage() {
-    return `🎬${this.#message}🛑`;
-  }
-  set #decoratedMessage(msg) {
-    this.#message = msg;
-  }
-
-  constructor() {
-    this.#decoratedMessage = 'hello world';
-    console.log(this.#decoratedMessage);
-  }
+window.onload = function () {
+	//...
 }
-
-new ClassWithPrivateAccessor();
-// 🎬hello world🛑
 ```
 
-------
+:::
+::::
+
+---
 
 ## Overview
+
 ### Your First Program
+
 :::: code-group
 ::: code-group-item script.js
+
 ```js
 console.log("Hello World!")
 ```
+
 :::
 ::: code-group-item index.html
+
 ```html
 <script>
-    document.write("Hello World!")
+	document.write("Hello World!")
 </script>
 ```
+
 :::
 ::::
 
@@ -304,8 +81,8 @@ const PI = 3.14  // 常量
 // single line comment
 
 /*
-this is a multi line comment
-*/
+ this is a multi line comment
+ */
 
 /**
  * this is a document comment
@@ -314,11 +91,14 @@ this is a multi line comment
 ```
 
 ### DataType
+
 ::: tip
 boolean:
+
 ```js
-false(0/null/undefined/"")
+false(0 / null / undefined / "")
 ```
+
 :::
 
 ```js
@@ -326,7 +106,12 @@ var num = 12            // number
 var price = 42.3        // number
 var name = "Coulson"    // string
 var isActive = false    // boolean
-array
+// 数组
+var nums = [1, 2, 3, 4, 5]
+// 实例对象(字典)
+var person = {name: 'Jack', age: 24}
+// 集合
+let set = new Set([1, 2, 4, 2, 59, 9, 4, 9, 1])
 ```
 
 ### Input
@@ -334,42 +119,39 @@ array
 ```javascript
 // 暂不支持
 var name = readLine()
-var age = parseInt(readLine, 10)  //string => int
+var age = parseInt(readLine, 10) //string => int
 var height = parseFloat(readLine(), 10)
 ```
 
 ### Output
 
 ```javascript
-documents.write()   // webpage, <br />换行, 其他'\n'
-console.log()       // 标准输出 OK
+documents.write() // webpage, <br />换行, 其他'\n'
+console.log() // 标准输出 OK
 /* 弹窗 */
-alert()             // 提示框   OK
-prompt()            // 输入框   OK/Cannle -> value/null
-confirm()           // 确认框   OK/Cannel -> true/false
+alert() // 提示框   OK
+prompt() // 输入框   OK/Cannle -> value/null
+confirm() // 确认框   OK/Cannel -> true/false
 ```
 
 ::::: details prompt & confirm
 :::: code-group
 ::: code-group-item prompt
+
 ```js
-<script>
-    var name = prompt("Please enter your name")
-    alert(name)
-</script>
+<script>var name = prompt("Please enter your name") alert(name)</script>
 ```
+
 :::
 ::: code-group-item confirm
+
 ```js
 <script>
-    var res = confirm("Are you sure ?")
-    if (res) {
-        alert("Closed")
-    } else {
-        alert("Stay...")
-    }
+	var res = confirm("Are you sure ?") if (res) {alert("Closed")} else{" "}
+	{alert("Stay...")}
 </script>
 ```
+
 :::
 ::::
 :::::
@@ -385,17 +167,18 @@ console.log(5 === '5');  //false，先比较类型是否相同，严格模式
 ```
 
 ## Conditional and Loops
+
 ### If Statement
 
 ```js
 if (condition) {
-    // statement(s)
+	// statement(s)
 } else if (condition) {
-    // statement(s)
+	// statement(s)
 } else if (condition) {
-    // statement(s)
+	// statement(s)
 } else {
-    // statement(s)
+	// statement(s)
 }
 ```
 
@@ -403,69 +186,73 @@ if (condition) {
 
 ```js
 switch (expression) {
-    case n1:
-        // statement(s)
-        break
-    case n2:
-        // statement(s)
-        break
-    default:
-        // statement(s)
+	case n1:
+		// statement(s)
+		break
+	case n2:
+		// statement(s)
+		break
+	default:
+	// statement(s)
 }
 ```
+
 ::: details 点击查看示例
+
 ```js
 var day = 2
 switch (day) {
 	case 1:
-        console.log("Monday")
-        break
+		console.log("Monday")
+		break
 	case 2:
 		console.log("Tuesday")
-        break
-    case 3:
-        console.log("Wednesday")
-        break
-    case 4:
-        console.log("Thursday")
-        break
-    case 5:
-        console.log("Friday")
-        break
-    case 6:
-        console.log("Saturday")
-        break
-    case 7:
-        console.log("Sunday")
-        break
-    default:
-        console.log("Invalid day")
+		break
+	case 3:
+		console.log("Wednesday")
+		break
+	case 4:
+		console.log("Thursday")
+		break
+	case 5:
+		console.log("Friday")
+		break
+	case 6:
+		console.log("Saturday")
+		break
+	case 7:
+		console.log("Sunday")
+		break
+	default:
+		console.log("Invalid day")
 }
-
 ```
-:::
 
+:::
 
 ### For Loops
 
 ```javascript
-let arr = [2, 3, 7, 8];
+let arr = [2, 3, 7, 8]
 
 for (let i = 0; i < arr.length; i++) {}
-for (let v of str)  {}
-for (let v of list) {}
-for (let v in dict) {}
-arr.forEach (function(v) {});
-arr.forEach (v => {});
-arr.forEach ((v, i) => {});
+for (let v of str) {
+}
+for (let v of list) {
+}
+for (let v in dict) {
+}
+arr.forEach(function (v) {})
+arr.forEach((v) => {})
+arr.forEach((v, i) => {})
 //索引越界 -> "undefined"
 ```
 
 ### While Loop
 
 ```js
-while(condition) {
-    // code block
+while (condition) {
+	// code block
 }
 ```
 
@@ -473,7 +260,7 @@ while(condition) {
 
 ```js
 do {
-    // code block
+	// code block
 } while (condition)
 ```
 
@@ -481,20 +268,19 @@ do {
 
 ```js
 for (var i = 0; i < arr.length; i++) {
-    if (arr[i] > 10) break
-    console.log(arr[i])
+	if (arr[i] > 10) break
+	console.log(arr[i])
 }
 ```
 
 ```js
 for (var i = 0; i < arr.length; i++) {
-    if (i == 5) continue
-    console.log(arr[i])
+	if (i == 5) continue
+	console.log(arr[i])
 }
 ```
 
-------
-
+---
 
 ## Function
 
@@ -502,92 +288,110 @@ for (var i = 0; i < arr.length; i++) {
 
 :::: code-group
 ::: code-group-item ES5
+
 ```js
 function main() {
-    // code
+	// code
 }
 
 main()
 ```
+
 :::
 ::: code-group-item ES6
+
 ```js
 const main = () => {
-    // code
+	// code
 }
 
 main()
 ```
+
 :::
 ::::
 
 **单例模式**
-> ES5单例模式
+
+> ES5 单例模式
+
 ```javascript
-var printArray = (function() {
-    arr.forEach (v => console.log(v))
-})();
+var printArray = (function () {
+	arr.forEach((v) => console.log(v))
+})()
 ```
 
-> ES6单例模式
+> ES6 单例模式
+
 ```js
 const getDate = (() => {
-    const d = new Date()
-    const year = d.getFullYear()
-    const month = d.getMonth() + 1
-    const day = d.getDate()
-    const date = `${year}-${month}-${day}`
-    console.log(date)
-})();
+	const d = new Date()
+	const year = d.getFullYear()
+	const month = d.getMonth() + 1
+	const day = d.getDate()
+	const date = `${year}-${month}-${day}`
+	console.log(date)
+})()
 ```
 
 ### Params
 
 ```js
 function showInfo(name, age) {
-    // code
+	// code
 }
 
 showInfo("coulson", 20)
 ```
 
-
-
-**ES6不同参数写法**
+**ES6 不同参数写法**
 :::: code-group
 ::: code-group-item 1. 无参
 
 ```javascript
 const func = () => ...;
 ```
+
 :::
 
 ::: code-group-item 2. 单参
+
 ```javascript
 const func = x => ...;
 ```
+
 :::
 ::: code-group-item 3. 多参
+
 ```javascript
 const func = (x, y) => {}
 ```
+
 :::
 
 ::: code-group-item 4. 固定数组参数
+
 ```javascript
 const func = (nums) => {}
 ```
+
 :::
 ::: code-group-item 5. 可变参数!!
+
 ```javascript
 const func = (...nums) => {}
 ```
+
 :::
 ::: code-group-item 6.参数默认值!!
+
 ```javascript
-function test(a, b = 3, c = 42) {return a + b + c;}
-const test = (a, b = 3, c = 42) => a + b + c;
+function test(a, b = 3, c = 42) {
+	return a + b + c
+}
+const test = (a, b = 3, c = 42) => a + b + c
 ```
+
 :::
 ::::
 
@@ -609,9 +413,11 @@ function containsAll(arr) {
 var x = [2, 4, 6, 7];
 console.log(containsAll(x, 2, 4, 7));
 ```
+
 :::
 
 ::: code-group-item ES6 不定参
+
 ```javascript{2}
 //统计偶数和
 const magic = (...nums) => {
@@ -621,6 +427,7 @@ const magic = (...nums) => {
 }
 console.log(magic(...nums));
 ```
+
 :::
 ::::
 :::::
@@ -629,8 +436,8 @@ console.log(magic(...nums));
 
 ```js
 function showInfo(name, age) {
-    // code
-    return `name: ${name}\nage: ${age}`
+	// code
+	return `name: ${name}\nage: ${age}`
 }
 
 console.log(showInfo("coulson", 20))
@@ -645,41 +452,41 @@ age: 20
 
 ```js
 function check(name) {
-    var res = "My name is " + name
+	var res = "My name is " + name
 }
 
 console.log(check("coulson"))
 // Output: undefined
 ```
+
 :::
 
-------
+---
 
 ## Object
-
-
 
 ### Define
 
 ```js
 // 定义实例对象(初始化对象)
 var person = {
-    name: "John",
-    age: 20
+	name: "John",
+	age: 20,
 }
 
 // 访问对象数据
-console.log(person[age])   // 20
-console.log(person.age)    // 20
-console.log(person.name)   // "John"
+console.log(person[age]) // 20
+console.log(person.age) // 20
+console.log(person.name) // "John"
 console.log(person.name.length) // 4
 ```
 
 ### Create Object
+
 ```js
 function person(name, age) {
-    this.name = name   // this指代当前对象
-    this.age = age
+	this.name = name // this指代当前对象
+	this.age = age
 }
 
 var p = new person("John", 20)
@@ -690,6 +497,7 @@ console.log(`name: ${p.name}, age: ${p.age}`)
 
 :::: code-group
 ::: code-group-item 内部声明方法
+
 ```js{4-6,10}
 function person(name, age) {
 	this.name = name // this指代当前对象
@@ -703,6 +511,7 @@ var p = new person("John", 20)
 p.setName("Tom")        // name: Tom
 
 ```
+
 :::
 
 ::: code-group-item 引用外部方法
@@ -726,44 +535,42 @@ console.log(p.name)     // name: Tom
 :::
 ::::
 
-
-
-
-
-
 ## Core Objects
 
 ### 1. String
 
 ```javascript
-let str = "hello";
+let str = "hello"
 
-const str = `my name is ${name}`    // 格式化
+const str = `my name is ${name}` // 格式化
 ```
 
 ```
 .toFixed(2);  // 保留小数点位数
 ```
 
-
-
 ### 2. Array
 
 **定义数组**
 :::: code-group
 ::: code-group-item 简化
+
 ```js
 let arr = ["HTML", "CSS", "JS", "C++"]
 ```
+
 :::
 
 ::: code-group-item 原始
+
 ```js
 var arr = new Array("HTML", "CSS", "JS", "C++")
 ```
+
 :::
 
-::: code-group-item 原始2
+::: code-group-item 原始 2
+
 ```js
 // var arr = new Array(4)
 // 数组长度可以不声明
@@ -774,39 +581,44 @@ arr[1] = "CSS"
 arr[2] = "JS"
 arr[3] = "C++"
 ```
+
 :::
 
 ::: code-group-item 多次声明变量
+
 ```js
 var str1 = "HTML"
 var str2 = "CSS"
 var str3 = "JS"
 var str4 = "C++"
 ```
+
 :::
 ::::
 
 **访问数组**
+
 ```js
 const nums = [1, 3, 6, 9, 15]
 
-nums[0]   // 1
-nums[1]   // 3
-nums[5]   // undefined
+nums[0] // 1
+nums[1] // 3
+nums[5] // undefined
 ```
 
 **数组属性与方法**
+
 ```js
 const nums = [1, 3, 6, 9, 15]
 
-nums.length          // 长度: 5
-nums.concat([2, 7])  // 数组合并
+nums.length // 长度: 5
+nums.concat([2, 7]) // 数组合并
 ```
 
 ```javascript
 //数组合并
-let newArr = ['Three', 'Four']
-let arr = ['One', 'Two', ...newArr, 'Five']
+let newArr = ["Three", "Four"]
+let arr = ["One", "Two", ...newArr, "Five"]
 ```
 
 **数组对象**
@@ -816,7 +628,7 @@ var person = []
 person["name"] = "John"
 person["age"] = 20
 
-console.log(person["age"])   // 20
+console.log(person["age"]) // 20
 ```
 
 ```js
@@ -856,49 +668,53 @@ arr.filter(n => n%2==0).map(el => sum += el); //统计偶数和
 ::: details 数组原地排序的区别
 
 ```js
-let arr = [1, 5, 3, 9, 2, 10, 12];
+let arr = [1, 5, 3, 9, 2, 10, 12]
 arr.sort((a, b) => a - b)
-console.log(arr)  // [1, 2, 3, 5, 9, 10, 12]
+console.log(arr) // [1, 2, 3, 5, 9, 10, 12]
 
 arr.sort((a, b) => b - a)
-console.log(arr)  // [12, 10, 9, 5, 3, 2, 1]
+console.log(arr) // [12, 10, 9, 5, 3, 2, 1]
 
 arr.sort()
-console.log(arr)  // [1, 10, 12, 2, 3, 5, 9]
+console.log(arr) // [1, 10, 12, 2, 3, 5, 9]
 
 arr.reverse()
-console.log(arr)  // [9, 5, 3, 2, 12, 10, 1]
+console.log(arr) // [9, 5, 3, 2, 12, 10, 1]
 ```
+
 :::
 
 ::: details arr.map()、for loop、forEach()的区别
 `arr.map()`: 返回新数组
+
 ```js
 var nums = [2, 3, 5, 1]
-console.log(nums.map(v => v + 2))       // [4, 5, 7, 3]
-console.log(nums.map(v => v = v + 2))
-console.log(nums)                       // [2, 3, 5, 1]
+console.log(nums.map((v) => v + 2)) // [4, 5, 7, 3]
+console.log(nums.map((v) => (v = v + 2)))
+console.log(nums) // [2, 3, 5, 1]
 console.log(nums.map((v, i) => v + i)) // [2, 4, 7, 4]
 ```
 
 `for Loop`: 改变原数组
+
 ```js
 var nums = [2, 3, 5, 1]
 for (var i = 0; i < nums.length; i++) {
-    nums[i] += 2
+	nums[i] += 2
 }
-console.log(nums)   // [4, 5, 7, 3]
+console.log(nums) // [4, 5, 7, 3]
 ```
 
 `forEach()`: 不直接改变原数组，需要通过`arr[i]`才能改变原数组
+
 ```js
 // forEach(v => {}): 不改变原数组
-nums.forEach(v => v += 2)
-console.log(nums)   //[ 2, 3, 5, 1 ]
+nums.forEach((v) => (v += 2))
+console.log(nums) //[ 2, 3, 5, 1 ]
 
 // forEach((v, i) => {}): 不直接改变原数组，需要通过arr[i]才能改变原数组
-nums.forEach((v, i) => nums[i] += 2)
-console.log(nums)   //[ 4, 5, 7, 3]
+nums.forEach((v, i) => (nums[i] += 2))
+console.log(nums) //[ 4, 5, 7, 3]
 ```
 
 :::
@@ -906,14 +722,14 @@ console.log(nums)   //[ 4, 5, 7, 3]
 ::: details join(), split(), Array.from()
 
 ```javascript
-console.log('foo'.split())     // ["foo"]
-console.log('foo'.split(''))   // ["f", "o", "o"]
+console.log("foo".split()) // ["foo"]
+console.log("foo".split("")) // ["f", "o", "o"]
 
-console.log(Array.from('foo')) // ["f", "o", "o"]
-console.log(Array.from([1, 2, 3], x => x + x))  // 2, 4, 6]
+console.log(Array.from("foo")) // ["f", "o", "o"]
+console.log(Array.from([1, 2, 3], (x) => x + x)) // 2, 4, 6]
 
-console.log(["f", "o", "o"].join())    // "f,o,o"
-console.log(["f", "o", "o"].join(''))  // "foo"
+console.log(["f", "o", "o"].join()) // "f,o,o"
+console.log(["f", "o", "o"].join("")) // "foo"
 ```
 
 :::
@@ -921,8 +737,8 @@ console.log(["f", "o", "o"].join(''))  // "foo"
 ### 3. 字典
 
 ```javascript
-let a = {x: 1, x: 2, x: 3, x: 4};
-console.log(a.x); // 4
+let a = {x: 1, x: 2, x: 3, x: 4}
+console.log(a.x) // 4
 ```
 
 ```javascript
@@ -956,41 +772,64 @@ console.log(newStudent.name, newStudent.age, newStudent.sex, newStudent.xp);   /
 
 ### 3. Set
 
+**创建集合**
 ```javascript
-let set = new Set([1, 2, 4, 2, 59, 9, 4, 9, 1]);
-
-let set = new Set();
-set.add(5).add(9).add(59).add(9);
-console.log(set.has(9));
-for (let v of set.values())
-    console.log(v);
-
-//API
-size()
-add()
-delete()
-clear()
-has()
-values()
+let set = new Set([1, 2, 4, 2, 59, 9, 4, 9, 1])
+let set = new Set()
 ```
+
+::: tip
+支持`链式编程`
+```js
+//API
+长度：size
+增：add(v)
+删：delete(v)
+删：clear()
+查：has(v)
+查：values()
+遍历: forEach() or for(let v of set)
+```
+:::
+
+::: details 查看Set示例
+```js
+let set = new Set([1, 2, 2, 4, 3, 1])
+// 增
+set.add(5).add(7)
+// 删
+set.delete(2)
+set.clear()
+// 查
+console.log(set.has(9))
+
+// 集合遍历1
+set.forEach(v => console.log(v))
+// 集合遍历2
+for (let v of set.values()) {
+    console.log(v);
+}
+```
+:::
 
 ### 4. Map
 
 ```javascript
-let map = new Map([['k1', 'v1'], ['k2', 'v2']]);
+let map = new Map([
+	["k1", "v1"],
+	["k2", "v2"],
+])
 
-let map = new Map();
-map.set('k1', 'v1').set('k2', 'v2');
-console.log(map.get('k1')); // v1
-console.log(map.has('k2')); // true
-for (let kv of map.entries())
-    console.log(kv[0] + " : " + kv[1]);
-
+let map = new Map()
+map.set("k1", "v1").set("k2", "v2")
+console.log(map.get("k1")) // v1
+console.log(map.has("k2")) // true
+for (let kv of map.entries()) console.log(kv[0] + " : " + kv[1])
 
 //API
 size()
 set(key, value)
-delete(key)
+delete key
 clear()
 get(key)
 has(key)
@@ -1000,17 +839,27 @@ entries()
 ```
 
 ## 库函数
+
 ### Math
+
 ```javascript
-Math.PI/E/LN2/LN10/LOG2E/LOG10E
-Math.abs(x)/sqrt(x)/ceil(x)/round(x)/floor(x)/exp(x)/pow(x,y)/random()
+Math.PI / E / LN2 / LN10 / LOG2E / LOG10E
+Math.abs(x) /
+	sqrt(x) /
+	ceil(x) /
+	round(x) /
+	floor(x) /
+	exp(x) /
+	pow(x, y) /
+	random()
 ```
 
 ```js
-Math.random()  // [0-1) 之间的随机小数
+Math.random() // [0-1) 之间的随机小数
 ```
 
 ### Date
+
 ```js
 setInterval()
 clearInterval()
@@ -1019,26 +868,28 @@ setTimeOut()
 
 ```javascript
 function printTime() {
-    var d = new Date()
-    var year = d.getFullYear()
-    var month = d.getMonth() + 1
-    var day = d.getDate()
-    var hours = d.getHours()
-    var mins = d.getMinutes()
-    var secs = d.getSeconds()
-    var weekDay = ["日", "一", "二", "三", "四", "五", "六"]
-    var week = '周' + weekDay[d.getDay()]
-    document.body.innerHTML = hours+":"+mins+":"+secs
+	var d = new Date()
+	var year = d.getFullYear()
+	var month = d.getMonth() + 1
+	var day = d.getDate()
+	var hours = d.getHours()
+	var mins = d.getMinutes()
+	var secs = d.getSeconds()
+	var weekDay = ["日", "一", "二", "三", "四", "五", "六"]
+	var week = "周" + weekDay[d.getDay()]
+	document.body.innerHTML = hours + ":" + mins + ":" + secs
 }
-setInterval(printTime, 1000);
+setInterval(printTime, 1000)
 ```
 
-------
+---
 
 ## ES6
-> 区别与ES5(2015年以前的javascript语法)
+
+> 区别与 ES5(2015 年以前的 javascript 语法)
 
 ### var & let & const
+
 ```js
 // ES5
 var num = 12
@@ -1046,7 +897,9 @@ var num = 12
 let age = 20
 const PI = 3.14
 ```
+
 ### Format Output
+
 ```js
 let name = "John"
 // ES5
@@ -1056,109 +909,342 @@ let msg = `Hello ${this.name}!`
 ```
 
 ### Object
+
 ```js
 let person = {
-    name: "John",
-    age: 20,
-    sex: "male"
+	name: "John",
+	age: 20,
+	sex: "male",
 }
 
 let student = {
-    name: "Bob",
-    age: 18,
-    xp: "2"
+	name: "Bob",
+	age: 18,
+	xp: "2",
 }
 
 let s = Object.assign({}, person, student)
-console.log(s.name)  // "Bob"
-console.log(s.age)   // 18
-console.log(s.sex)   // "male"
-console.log(s.xp)    // "2"
+console.log(s.name) // "Bob"
+console.log(s.age) // 18
+console.log(s.sex) // "male"
+console.log(s.xp) // "2"
 ```
 
 ### 解构
+
 :::: code-group
 ::: code-group-item Array
+
 ```js
 let arr = [1, 2, 3]
 let [a, b, c] = arr
 // a: 1, b: 2, c: 3
 ```
+
 :::
 ::: code-group-item Object
+
 ```js
 let person = {
-    name: "John",
-    age: 20
+	name: "John",
+	age: 20,
 }
 
 let {name, s} = person
 console.log(name) // "John"
-console.log(age)  // 20
+console.log(age) // 20
 ```
+
 :::
 ::::
 
 ### Rest Params
+
 :::: code-group
 ::: code-group-item ES6 ...arr
+
 ```js
 const magic = (...nums) => {
-    let sum = 0;
-    nums.filter(n => n%2==0).map(el => sum += el);
-    return sum;
+	let sum = 0
+	nums.filter((n) => n % 2 == 0).map((el) => (sum += el))
+	return sum
 }
-console.log(magic(...nums));
+console.log(magic(...nums))
 ```
+
 :::
 ::: code-group-item ES5 arguments
+
 ```js
 function containsAll(arr) {
-    for (var k = 1; k < arguments.length; k++) {
-        var num = arguments[k];
-        if (arr.indexOf(num) === -1) {
-            return false;
-        }
-    }
-    return true;
+	for (var k = 1; k < arguments.length; k++) {
+		var num = arguments[k]
+		if (arr.indexOf(num) === -1) {
+			return false
+		}
+	}
+	return true
 }
-var x = [2, 4, 6, 7];
-console.log(containsAll(x, 2, 4, 7));
+var x = [2, 4, 6, 7]
+console.log(containsAll(x, 2, 4, 7))
 ```
+
 :::
 ::::
 
 ### Spread Operator
+
 ```js
 function func(a, b, c) {
-    console.log(a + b + c)
+	console.log(a + b + c)
 }
 
 let nums = [1, 2]
-func(nums.concat(4))    // 1,2,4undefinedundefined
-func(1, 2, 4)           // 7
-func.apply(null, nums)  // NaN
-func.apply(null, [1, 2, 4])       // 7
-func.apply(null, nums.concat(4))  // 7
-func(...nums, 4)   // 7
-let arr = [4, 6, ...nums, 9]  // [4, 6, 1, 2, 9]
+func(nums.concat(4)) // 1,2,4undefinedundefined
+func(1, 2, 4) // 7
+func.apply(null, nums) // NaN
+func.apply(null, [1, 2, 4]) // 7
+func.apply(null, nums.concat(4)) // 7
+func(...nums, 4) // 7
+let arr = [4, 6, ...nums, 9] // [4, 6, 1, 2, 9]
 ```
 
 ```js
 const sum = (...nums) => {
-    let sum = 0
-    arr.forEach(v => sun += v)
-    return sum
+	let sum = 0
+	arr.forEach((v) => (sun += v))
+	return sum
 }
 
-console.log(sum(1, 2, 3))       // 6
-console.log(sum(3, 6, 7, 9))    // 25
+console.log(sum(1, 2, 3)) // 6
+console.log(sum(3, 6, 7, 9)) // 25
 ```
 
-### ES6 Classes
+### ES6 Class
+
+```javascript
+class Person {
+	constructor(name, age) {
+		this.name = name
+		this.age = age
+	}
+
+	say() {
+		console.log(`hi, my name is ${this.name}.`)
+	}
+
+	// say = () => console.log(`hi, my name is ${this.name}.`);
+
+	/* 静态成员方法 */
+	static staticSay = (name) => console.log(`hi, my name is ${name}.`)
+}
+
+/* 类的继承 */
+class Student extends Person {
+	constructor(name, number) {
+		super(name)
+		this.number = number
+	}
+
+	/* 方法重写 */
+	say() {
+		console.log(`hey, I'm ${this.name}.`)
+	}
+
+	hello() {
+		// 调用父类方法
+		super.say()
+		console.log(`my school number is ${this.number}.`)
+	}
+}
+
+/*
+ * 创建类对象
+ * const p = new Person("tom")
+ * p.say()
+ *
+ * 调用类的静态方法
+ * Person.staticSay("coke")
+ *
+ * 继承
+ * const s = new Student("jacker", "1002")
+ * s.hello()
+ */
+```
+
+#### constructor
+
+```js
+class Rectangle {
+	constructor(height, width) {
+		this.height = height
+		this.width = width
+	}
+}
+```
+
+**不定参**
+
+```js
+class Polygon {
+	constructor(...sides) {
+		this.sides = sides
+	}
+	// Method
+	*getSides() {
+		for (const side of this.sides) {
+			yield side
+		}
+	}
+}
+
+const pentagon = new Polygon(1, 2, 3, 4, 5)
+
+console.log([...pentagon.getSides()]) // [1,2,3,4,5]
+```
+
+**示例**
+
+```js
+class Polygon {
+	constructor({name = "pole", age}) {
+		this.name = name
+		this.age = age
+	}
+	sayHello = () => {
+		console.log(`Hello, ${this.name} I'm ${this.age} years old.`)
+	}
+}
+
+const option = {
+	age: 23,
+}
+const poly = new Polygon(option)
+poly.sayHello()
+```
+
+#### static
+
+```js
+class Person {
+	constructor(name) {
+		this.name = name
+	}
+
+	say() {
+		return `Hello, ${this.name}`
+	}
+}
+
+const person = new Person("John")
+console.log(person.say())
+// Output: "Hello, John"
+```
+
+**静态变量和方法**
+
+```js
+class Person {
+	static name = "John"
+	static staticSay = () => {
+		return `Hello, ${this.name}`
+	}
+}
+
+console.log(Person.name)
+// Output: "John"
+console.log(Person.staticSay())
+// Output: "Hello, John"
+```
+
+#### private
+
+```js
+class PrivateStaticField {
+  static #PRIVATE_STATIC_FIELD
+
+  static #privateMethod() {
+    return 'hello world';
+  }
+
+  static basePublicStaticMethod() {
+    this.#PRIVATE_STATIC_FIELD = 42
+    return this.#PRIVATE_STATIC_FIELD
+  }
+}
+
+console.log(PrivateStaticField.publicStaticMethod()
+// Output: 42
+
+```
+
+::: details private
+
+```js
+class Base {
+	static #privateStaticMethod() {
+		return 42
+	}
+	static publicStaticMethod1() {
+		return Base.#privateStaticMethod()
+	}
+	static publicStaticMethod2() {
+		return this.#privateStaticMethod()
+	}
+}
+
+class Derived extends Base {}
+
+console.log(Base.publicStaticMethod1())
+// 42
+console.log(Base.publicStaticMethod2())
+// 42
+
+console.log(Derived.publicStaticMethod1())
+// 42
+console.log(Derived.publicStaticMethod2())
+// Error: Receiver must be class Base
+```
+
+:::
+
+#### getter & setter
+
+::: tip
+
+```js
+get func() {}
+set func() {}
+```
+
+:::
+
+```js
+class ClassWithPrivateAccessor {
+	#message
+
+	get #decoratedMessage() {
+		return `🎬${this.#message}🛑`
+	}
+	set #decoratedMessage(msg) {
+		this.#message = msg
+	}
+
+	constructor() {
+		this.#decoratedMessage = "hello world"
+		console.log(this.#decoratedMessage)
+	}
+}
+
+new ClassWithPrivateAccessor()
+// 🎬hello world🛑
+```
+
+---
 
 ### Map & Set
-### Ⅴ. html与javascript交互
+
+### Ⅴ. html 与 javascript 交互
 
 ```javascript
 parent
@@ -1270,133 +1356,143 @@ clearInterval(setInterval(func, 100))
 </>
 ```
 
-
-
-#### 2. js动画
+#### 2. js 动画
 
 ```css
 #container {
-    width: 200px;
-    height: 200px;
-    background: green;
-    position: relative;
+	width: 200px;
+	height: 200px;
+	background: green;
+	position: relative;
 }
 #box {
-    width: 50px;
-    height: 50px;
-    background: red;
-    position: absolute;
+	width: 50px;
+	height: 50px;
+	background: red;
+	position: absolute;
 }
 ```
 
-
 ```javascript
-window.onload = function() {
-     var pos = 0;
-    //our box element
-    var box = document.getElementById('box');
-    var t = setInterval(move, 10);
+window.onload = function () {
+	var pos = 0
+	//our box element
+	var box = document.getElementById("box")
+	var t = setInterval(move, 10)
 
-    function move() {
-        if(pos >= 150) {
-            clearInterval(t);
-        }
-        else {
-            pos += 1;
-            box.style.left = pos+'px';
-        }
-    }
-};
+	function move() {
+		if (pos >= 150) {
+			clearInterval(t)
+		} else {
+			pos += 1
+			box.style.left = pos + "px"
+		}
+	}
+}
 ```
+
 #### 3. 表单验证
 
 ```html
 <form onsubmit="return validate()" method="post">
-    Number: <input type="text" name="num1" id="num1" /><br />
-    Repeat: <input type="text" name="num2" id="num2" /><br />
-    <input type="submit" value="Submit" />
+	Number:
+	<input type="text" name="num1" id="num1" />
+	<br />
+	Repeat:
+	<input type="text" name="num2" id="num2" />
+	<br />
+	<input type="submit" value="Submit" />
 </form>
 
 <script>
-function validate() {
-    var n1 = document.getElementById('num1');
-    var n2 = document.getElementById('num2');
-    if(n1.value != '' && n2.value != '') {
-        if(n1.value == n2.value) {
-            return true;
-        }
-    }
-    alert("The values should be equal and not blank");
-    return false;
-}
+	function validate() {
+		var n1 = document.getElementById("num1")
+		var n2 = document.getElementById("num2")
+		if (n1.value != "" && n2.value != "") {
+			if (n1.value == n2.value) {
+				return true
+			}
+		}
+		alert("The values should be equal and not blank")
+		return false
+	}
 </script>
 ```
 
-#### 4. active按钮切换
+#### 4. active 按钮切换
 
 ```html
 <div class="side-menu">
-	<a class="sidebar-link discover is-active"><svg></svg>Discover</a>
-    <a class="sidebar-link trending"><svg></svg>Trending</a>
-    <a class="sidebar-link streaming"><svg></svg>Streaming</a>
+	<a class="sidebar-link discover is-active">
+		<svg></svg>
+		Discover
+	</a>
+	<a class="sidebar-link trending">
+		<svg></svg>
+		Trending
+	</a>
+	<a class="sidebar-link streaming">
+		<svg></svg>
+		Streaming
+	</a>
 </div>
 ```
 
-
-
 ```javascript
 $(".sidebar-link").click(function () {
-    $(".sidebar-link").removeClass("is-active");
-    $(this).addClass("is-active");
-});
+	$(".sidebar-link").removeClass("is-active")
+	$(this).addClass("is-active")
+})
 ```
 
-#### 5. 滚动页面header阴影切换
+#### 5. 滚动页面 header 阴影切换
 
 ```html
 <div class="header"></div>
 <div class="wrapper"></div>
 
 <style>
-.header-shadow {
-    box-shadow: 0 4px 20px rgb(88 99 148 / 17%);
-    z-index: 1;
-}
+	.header-shadow {
+		box-shadow: 0 4px 20px rgb(88 99 148 / 17%);
+		z-index: 1;
+	}
 </style>
 
 <script>
-	const wrapper = document.querySelector(".wrapper");
-    const header = document.querySelector(".header");
-    wrapper.addEventListener("scroll", (e) => {
-        e.target.scrollTop > 30 ?
-            header.classList.add("header-shadow") :
-            header.classList.remove("header-shadow");
-    });
+	const wrapper = document.querySelector(".wrapper")
+	const header = document.querySelector(".header")
+	wrapper.addEventListener("scroll", (e) => {
+		e.target.scrollTop > 30
+			? header.classList.add("header-shadow")
+			: header.classList.remove("header-shadow")
+	})
 </script>
 ```
 
 ```javascript
 function scrollHeader() {
-    const header = document.getElementById('header')
-    // When the scroll is greater than 50 viewport height, add the scroll-header class to the header tag
-    if(this.scrollY >= 50) header.classList.add('scroll-header'); else header.classList.remove('scroll-header')
-    // this.scrollY >= 50 ? header.classList.add('scroll-header') : header.classList.remove('scroll-header')
+	const header = document.getElementById("header")
+	// When the scroll is greater than 50 viewport height, add the scroll-header class to the header tag
+	if (this.scrollY >= 50) header.classList.add("scroll-header")
+	else header.classList.remove("scroll-header")
+	// this.scrollY >= 50 ? header.classList.add('scroll-header') : header.classList.remove('scroll-header')
 }
-window.addEventListener('scroll', scrollHeader)
+window.addEventListener("scroll", scrollHeader)
 ```
+
 ```css
 .scroll-header {
-  box-shadow: 0 1px 4px hsla(0, 4%, 15%, .1);
+	box-shadow: 0 1px 4px hsla(0, 4%, 15%, 0.1);
 }
 ```
+
 ```html
-<header class="header" id="header">
-</header>
+<header class="header" id="header"></header>
 ```
 
-### Ⅵ架构
+### Ⅵ 架构
 
-#### 1.html结构
+#### 1.html 结构
 
 ```
 app
@@ -1420,52 +1516,57 @@ app
 
 ```html
 <div class="app">
-    <div class="header">
-        <div class="logo">
-            <svg></svg>
-            Title
-        </div>
-        <div class="header-menu">
-            <a href="#" class="menu-link is-active">Home</a>
-            <a href="#" class="menu-link">About</a>
-            <a href="#" class="menu-link">Concact</a>
-        </div>
-        <div class="user-settings">
-        	<div class="dark-light"></div>
-        </div>
-    </div>
-    <div class="wrapper">
-        <div class="main-container">
-            <div class="content-wrapper">
-                <div class="content-section"></div>
-            </div>
-        </div>
-    </div>
+	<div class="header">
+		<div class="logo">
+			<svg></svg>
+			Title
+		</div>
+		<div class="header-menu">
+			<a href="#" class="menu-link is-active">Home</a>
+			<a href="#" class="menu-link">About</a>
+			<a href="#" class="menu-link">Concact</a>
+		</div>
+		<div class="user-settings">
+			<div class="dark-light"></div>
+		</div>
+	</div>
+	<div class="wrapper">
+		<div class="main-container">
+			<div class="content-wrapper">
+				<div class="content-section"></div>
+			</div>
+		</div>
+	</div>
 </div>
 ```
 
 ```html
 <!-- 主题切换按钮svg -->
-<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<svg
+	viewBox="0 0 24 24"
+	stroke="currentColor"
+	stroke-width="1.5"
+	fill="none"
+	stroke-linecap="round"
+	stroke-linejoin="round"
+>
 	<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
 </svg>
 ```
 
-
-
-#### 2.css样式
+#### 2.css 样式
 
 ```css
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 
-    font-family: 'Poppins', sans-serif;
-    outline: none;
-    list-style: none;
-    background-repeat: no-repeat;
+	font-family: "Poppins", sans-serif;
+	outline: none;
+	list-style: none;
+	background-repeat: no-repeat;
 }
 /*
 body {
@@ -1478,67 +1579,67 @@ body {
 
 /* 顶部导航栏 */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-shrink: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-shrink: 0;
 
-    padding: 0 40px;
-    white-space: nowrap;
+	padding: 0 40px;
+	white-space: nowrap;
 
-    height: 60px;
-    width: 100%;
-    background-color: var(--header-bg-color);
+	height: 60px;
+	width: 100%;
+	background-color: var(--header-bg-color);
 
-    font-size: 14px;
-    transition: box-shadow 0.3s;
+	font-size: 14px;
+	transition: box-shadow 0.3s;
 }
 .header-shadow {
-    box-shadow: 0 4px 20px rgb(88 99 148 / 17%);
-    z-index: 1;
+	box-shadow: 0 4px 20px rgb(88 99 148 / 17%);
+	z-index: 1;
 }
 
 /* 主题背景切换按钮svg */
 .dark-light svg {
-  margin-right: 8px;
-  width: 22px;
-  cursor: pointer;
-  fill: transparent;
-  transition: 0.5s;
+	margin-right: 8px;
+	width: 22px;
+	cursor: pointer;
+	fill: transparent;
+	transition: 0.5s;
 }
 
 .dark-mode .dark-light svg {
-  fill: #ffce45;
-  stroke: #ffce45;
+	fill: #ffce45;
+	stroke: #ffce45;
 }
 ```
 
-#### 3.js事件
+#### 3.js 事件
 
 ```javascript
-window.onload = function() {
+window.onload = function () {
 	// header阴影滚动显示
-    const wrapper = document.querySelector(".wrapper");
-    const header = document.querySelector(".header");
-    wrapper.addEventListener("scroll", (e) => {
-        e.target.scrollTop > 30 ?
-            header.classList.add("header-shadow") :
-            header.classList.remove("header-shadow");
-    });
+	const wrapper = document.querySelector(".wrapper")
+	const header = document.querySelector(".header")
+	wrapper.addEventListener("scroll", (e) => {
+		e.target.scrollTop > 30
+			? header.classList.add("header-shadow")
+			: header.classList.remove("header-shadow")
+	})
 
 	// 按钮切换active
-    $(function () {
-        $(".menu-link").click(function () {
-            $(".menu-link").removeClass("is-active");
-            $(this).addClass("is-active");
-        });
-    });
+	$(function () {
+		$(".menu-link").click(function () {
+			$(".menu-link").removeClass("is-active")
+			$(this).addClass("is-active")
+		})
+	})
 
 	// dark-light点击按钮切换主题背景色
-    const toggleButton = document.querySelector(".dark-light");
-    toggleButton.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-    });
+	const toggleButton = document.querySelector(".dark-light")
+	toggleButton.addEventListener("click", () => {
+		document.body.classList.toggle("dark-mode")
+	})
 }
 ```
 
@@ -1578,8 +1679,6 @@ document.replaceChild(element)
 childNodes[0]
 ```
 
-
-
 ### Event
 
 ```
@@ -1603,22 +1702,24 @@ resize
 
 ### 浏览器宽高
 
->   （浏览器窗口（浏览器视口）不包括工具栏和滚动条）
+> （浏览器窗口（浏览器视口）不包括工具栏和滚动条）
 
 ```html
 <p id="demo"></p>
 
 <script>
-var w = window.innerWidth
-|| document.documentElement.clientWidth
-|| document.body.clientWidth;
+	var w =
+		window.innerWidth ||
+		document.documentElement.clientWidth ||
+		document.body.clientWidth
 
-var h = window.innerHeight
-|| document.documentElement.clientHeight
-|| document.body.clientHeight;
+	var h =
+		window.innerHeight ||
+		document.documentElement.clientHeight ||
+		document.body.clientHeight
 
-var x = document.getElementById("demo");
-x.innerHTML = "浏览器内窗宽度：" + w + "，高度：" + h + "。";
+	var x = document.getElementById("demo")
+	x.innerHTML = "浏览器内窗宽度：" + w + "，高度：" + h + "。"
 </script>
 ```
 
@@ -1649,39 +1750,41 @@ document.cookie
 ### Date
 
 ::: details 获取日期格式
+
 ```js
 function printTime() {
-    var d = new Date();
-    var year = d.getFullYear();
-    var month = d.getMonth() + 1;
-    var day = d.getDate();
-    var hours = d.getHours();
-    var mins = d.getMinutes();
-    var secs = d.getSeconds();
-    // var mins = mins < 10 ? `0${mins}` : mins;
-    // var secs = secs < 10 ? `0${secs}` : secs;
-    var date = `${year}-${month}-${day}`;
-    var time = `${hours}:${mins}:${secs}`;
-    console.log(date + ' ' + time)
+	var d = new Date()
+	var year = d.getFullYear()
+	var month = d.getMonth() + 1
+	var day = d.getDate()
+	var hours = d.getHours()
+	var mins = d.getMinutes()
+	var secs = d.getSeconds()
+	// var mins = mins < 10 ? `0${mins}` : mins;
+	// var secs = secs < 10 ? `0${secs}` : secs;
+	var date = `${year}-${month}-${day}`
+	var time = `${hours}:${mins}:${secs}`
+	console.log(date + " " + time)
 
-    // var dateTime = hours < 12 ? `${date} ${time} AM` : `${date} ${time} PM`;
-    // var weekDay = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
-    // var dateTime = hours < 12 ? `${date} ${time} AM` : `${date} ${time} PM ${weekDay[d.getDay()]}`;
-    // console.log(dateTime);      //2022-1-25 9:49:04 AM
+	// var dateTime = hours < 12 ? `${date} ${time} AM` : `${date} ${time} PM`;
+	// var weekDay = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+	// var dateTime = hours < 12 ? `${date} ${time} AM` : `${date} ${time} PM ${weekDay[d.getDay()]}`;
+	// console.log(dateTime);      //2022-1-25 9:49:04 AM
 
-    // $("#cmp4c744dlabel").html(dateTime);
+	// $("#cmp4c744dlabel").html(dateTime);
 }
-setInterval(printTime, 1000);
+setInterval(printTime, 1000)
 
-
-const dateTime = new Date();
-console.log(dateTime.toLocaleString())  // 2022/1/12 下午1:45:36
+const dateTime = new Date()
+console.log(dateTime.toLocaleString()) // 2022/1/12 下午1:45:36
 // console.log(dateTime.toDateString()) // Tue Jan 25 2022
 ```
+
 :::
 
 :::: code-group
 ::: code-group-item DateTime.js
+
 ```js{4}
 /**
  * 日期格式化
@@ -1723,9 +1826,11 @@ module.exports = {getTime}
 // exports.getTime() {}
 
 ```
+
 :::
 
 ::: code-group-item DateTimeDemo.js
+
 ```js
 /*
 const date = require("./DateTime")
@@ -1735,28 +1840,28 @@ console.log(date.getTime())
 const option = {
 	format: true,
 	displayTime: false,
-	displayWeek: true
+	displayWeek: true,
 }
 
-const { getTime } = require("./DateTime")
+const {getTime} = require("./DateTime")
 console.log(getTime())
 console.log(getTime(option))
-
 ```
 
 :::
 
 ::: code-group-item DateTimeClass.js
+
 ```js
 /**
  * 日期格式化
  */
 
 class DateTime {
-	constructor({format=false, displayTime=false, displayWeek=false} = {}) {
-		this.format = format,
-        this.displayTime = displayTime,
-		this.displayWeek = displayWeek
+	constructor({format = false, displayTime = false, displayWeek = false} = {}) {
+		;(this.format = format),
+			(this.displayTime = displayTime),
+			(this.displayWeek = displayWeek)
 	}
 	getTime() {
 		const d = new Date()
@@ -1794,38 +1899,44 @@ class DateTime {
 module.exports = {DateTime}
 // exports.getTime() {}
 ```
+
 :::
 
 ::: code-group-item DateTimeClassTest.js
-```js
-const {DateTime} = require('./test')
 
+```js
+const {DateTime} = require("./test")
 
 // const date = new DateTime()
 const date = new DateTime({
-    format: true,
+	format: true,
 	displayTime: true,
 	displayWeek: true,
 })
 
 console.log(date.getTime())
 ```
+
 :::
 
 ::: code-group-item MyDateTime.js
+
 ```js
 /**
  * 日期格式化
  */
 
 class DateTime {
-    constructor(root, {format=false, displayTime=false, displayWeek=false} = {}) {
-        this.root = root,
-        this.format = format,
-        this.displayTime = displayTime,
-        this.displayWeek = displayWeek
-        this.setTime()
-    }
+	constructor(
+		root,
+		{format = false, displayTime = false, displayWeek = false} = {}
+	) {
+		;(this.root = root),
+			(this.format = format),
+			(this.displayTime = displayTime),
+			(this.displayWeek = displayWeek)
+		this.setTime()
+	}
 	getTime() {
 		const d = new Date()
 		let [month, day, year] = [d.getMonth() + 1, d.getDate(), d.getFullYear()]
@@ -1834,12 +1945,12 @@ class DateTime {
 		let week = ""
 		// 格式化日期时间
 		if (this.format) {
-			month = month  < 10 ? `0${month}` : month
-			day   = day    < 10 ? `0${day}`   : day
-			hours = hours  < 10 ? `0${hours}` : hours
-			mins  = mins   < 10 ? `0${mins}`  : mins
-			secs  = secs   < 10 ? `0${secs}`  : secs
-			week  = hours  < 12 ? `AM` : `PM`
+			month = month < 10 ? `0${month}` : month
+			day = day < 10 ? `0${day}` : day
+			hours = hours < 10 ? `0${hours}` : hours
+			mins = mins < 10 ? `0${mins}` : mins
+			secs = secs < 10 ? `0${secs}` : secs
+			week = hours < 12 ? `AM` : `PM`
 		}
 
 		let date = `${year}-${month}-${day}`
@@ -1857,25 +1968,26 @@ class DateTime {
 		}
 
 		return res
-        // document.querySelector(root).innerHTML = res
+		// document.querySelector(root).innerHTML = res
 	}
-    setTime() {
-        const dateTimeLabel = document.createElement('div')
+	setTime() {
+		const dateTimeLabel = document.createElement("div")
 		document.body.appendChild(dateTimeLabel)
 		dateTimeLabel.id = this.root
 
 		setInterval(() => {
 			dateTimeLabel.innerHTML = this.getTime()
 		}, 1000)
-
-    }
+	}
 }
 // module.exports = {DateTime}
 export default DateTime
 ```
+
 :::
 
 :::code-group-item index.html
+
 ```ts
 <script type="module" src="./MyDateTime.js"></script>
 <script type="module">
@@ -1888,10 +2000,10 @@ export default DateTime
     })
 </script>
 ```
+
 :::
 
 ::::
-
 
 JSON
 
@@ -1903,5 +2015,3 @@ eval("(" + str + ")")
 // 将json对象转换为json字符串
 JSON.stringify(obj)
 ```
-
-
