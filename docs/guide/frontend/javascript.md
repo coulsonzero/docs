@@ -112,6 +112,8 @@ var nums = [1, 2, 3, 4, 5]
 var person = {name: 'Jack', age: 24}
 // 集合
 let set = new Set([1, 2, 4, 2, 59, 9, 4, 9, 1])
+// Map
+let map = new Map([["k1", "v1"], ["k2", "v2"]])
 ```
 
 ### Input
@@ -777,7 +779,7 @@ console.log(newStudent.name, newStudent.age, newStudent.sex, newStudent.xp);   /
 let set = new Set([1, 2, 4, 2, 59, 9, 4, 9, 1])
 let set = new Set()
 ```
-
+**API**
 ::: tip
 支持`链式编程`
 ```js
@@ -814,6 +816,8 @@ for (let v of set.values()) {
 
 ### 4. Map
 
+**创建Map**
+
 ```javascript
 let map = new Map([
 	["k1", "v1"],
@@ -821,22 +825,85 @@ let map = new Map([
 ])
 
 let map = new Map()
-map.set("k1", "v1").set("k2", "v2")
-console.log(map.get("k1")) // v1
-console.log(map.has("k2")) // true
-for (let kv of map.entries()) console.log(kv[0] + " : " + kv[1])
+```
 
+::: tip
+```js
 //API
-size()
-set(key, value)
-delete key
-clear()
-get(key)
-has(key)
+长度: size
+
+增: set(key, value)
+
+删: delete(key)
+删: clear()
+
+查: get(key)
+查: has(key)
 keys()
 values()
 entries()
+
+遍历:
+console.log(map)    // Map(2) { 'k1' => 'v1', 'k2' => 'v2' }
+map.forEach((k, v) => console.log(k, v))
+/*
+v1 k1
+v2 k2
+*/
+for (let item of map.entries()) {
+    console.log(item)
+}
+/*
+[ 'k1', 'v1' ]
+[ 'k2', 'v2' ]
+*/
+
+for (let item of map.entries()) {
+    console.log(item[0], item[1])
+}
+/*
+k1 v1
+k2 v2
+*/
+
 ```
+:::
+
+
+::: details 查看Map示例
+```js
+let map = new Map([
+	["k1", "v1"],
+	["k2", "v2"],
+])
+
+
+
+console.log(map)    // Map(2) { 'k1' => 'v1', 'k2' => 'v2' }
+map.forEach((k, v) => console.log(k, v))
+for (let item of map.entries()) {
+    console.log(item)
+}
+/*
+[ 'k1', 'v1' ]
+[ 'k2', 'v2' ]
+*/
+
+for (let item of map.entries()) {
+    console.log(item[0], item[1])
+}
+/*
+k1 v1
+k2 v2
+*/
+
+map.set("k3", "v3").set("k4", "v4")
+map.delete("k3")
+map.clear()
+console.log(map.get("k2"))  // undefined
+console.log(map.has("k3"))  // false
+```
+:::
 
 ## 库函数
 
