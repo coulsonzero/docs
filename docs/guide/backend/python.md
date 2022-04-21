@@ -72,7 +72,9 @@ this is a multi-line comment
 ## 常用数据类型
 
 ### List
+
 ```
+
 ```
 
 ## Control Structures
@@ -125,6 +127,7 @@ def func()
 ```python
 str(12)     # '12'
 ```
+
 ### Range
 
 ```python
