@@ -120,7 +120,6 @@ module.exports = {
 					{text: "Markdown", link: "/guide/other/markdown"},
 					{text: "Mac使用指南", link: "/guide/other/mac/README.md"},
 					{text: "interview", link: "/guide/other/Interview.md"},
-					{text: "历史事件时间线", link: "/guide/other/Timeline.md"}
 				],
 			},
 		],
