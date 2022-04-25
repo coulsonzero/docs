@@ -108,3 +108,124 @@ window中设置“打开鼠标指针轨迹“，并设置为”最短"
 解压：unzip
 ```
 
+
+## Bash Shell 命令
+### 常规命令
+
+#### ls
+
+> 列出所有目录和文件
+
+### 目录/文件
+
+#### mv
+
+> 移动(重命名)文件/目录
+
+```sh
+# 重命名文件(夹)
+mv test.css style.css
+# 移动文件(夹)
+mv style.css ~/Downloads
+```
+
+#### rm
+
+> 删除文件(夹)
+
+::: tip
+`-i`: 确认是否删除
+
+`-f`: 强制删除
+
+`-rf`: 递归强制删除, 不易恢复
+:::
+
+:::danger
+linux 没有回收期，一旦删除非常难恢复，请谨慎操作
+:::
+
+```sh
+# 删除文件
+rm <filename>
+rm -i file.txt  # 确认是否删除
+rm -f file.txt  # 强制删除
+
+# 删除目录
+rm -r <foldername>
+rm -rf ...      # 递归删除文件夹(著名操作)
+```
+
+### 目录
+
+#### mkdir
+
+> 新建目录
+
+```shell
+mkdir vue-project
+```
+
+### 文件命令
+
+#### touch
+
+> 新建空文件
+
+```sh
+touch file.sh
+```
+
+#### cat
+
+> 查看文件内容，适合于小文件
+
+```sh
+cat file.txt
+```
+
+#### less
+
+> 分页查看文件内容，适合于大文件
+
+```shell
+less file.txt
+```
+
+**快捷键**
+
+- `space键`：下一页
+- `b键`：上一页
+- `return键`：下一行
+- `y键`：上一行
+- `q键`：退出 less 分页查看模式
+- `=键`：显示 less 页面详情
+- `h键`：显示 less 帮助文档
+- `/键`：显示 less 搜索模式，`n键`跳转
+
+#### head
+
+> 显示文件的开头几行
+
+```sh
+# 显示开头3行
+head -n 3 file.txt
+```
+
+**以下会报错**
+
+~~`head -n -3 file.txt`~~
+
+#### tail
+
+> 显示文件的结尾几行(默认后 10 行)
+
+```sh
+# 显示末尾2行
+tail [-n  2] file.txt
+tail [-n -2] file.txt
+# 显示开头2行
+tail [-n +2] file.txt
+# 显示第10行
+tail -n +10 file.txt | head -1
+```

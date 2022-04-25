@@ -11,123 +11,228 @@ echo "Hello World!"
 ### Variable
 
 ```shell
-$name = "shville";
+name="coulsonzero";
 echo "Hello ${name}";
 ```
 
+::: warning
+
+1. 区分大小写
+2. 赋值`=`前后不能有空格
+
+:::
+
+::: tip
+**实用命令**
+
+```sh
+basePath=$(cd `dirname $0`/; pwd)
+echo ${basePath}    # /Users/coulsonzero/Documents/web/docs
+```
+
+:::
 ### Comment
 
 ```shell
-# This is a comment.
+# This is a single-line comment.
 ```
 
+### 执行 Bash shell 脚本
 
-### 执行Bash shell脚本
+```sh
+sh deploy.sh
+```
 
 ```sh
 source shellFile.sh
 ```
 
-## Bash Shell命令
-### 常规命令
-#### ls
-> 列出所有目录和文件
-
-
-### 目录/文件
-#### mv
-> 移动(重命名)文件/目录
+### If Statement
 
 ```sh
-# 重命名文件(夹)
-mv test.css style.css
-# 移动文件(夹)
-mv style.css ~/Downloads
+if [ ] then
+    # statement(s)
+elif [ ] then
+    # statement(s)
+else
+    # statement(s)
+fi
 ```
 
-#### rm
-> 删除文件(夹)
+::: details 查看示例
 
-::: tip
-`-i`:  确认是否删除
+```sh
+name="coulson"
 
-`-f`:  强制删除
+if [ ${name} == "coulsonAlpha" ]
+then
+    echo "hello ${name}"
+elif [ "${name}zero" == "coulsonzero" ]
+then
+    echo "hi ${name}"
+else
+    echo "pass"
+fi
+```
 
-`-rf`: 递归强制删除, 不易恢复
+### Case Statement
+
+```sh
+case ${name} in
+    v1)
+        # statement(s)
+    ;;
+    v2)
+        # statement(s)
+    ;;
+    *)  # other
+        # statement(s)
+    ;;
+esac
+```
+
+::: details 点击查看代码
+
+```sh
+name="coulsonAlpha"
+
+function hello() {
+    case ${name} in
+        "coulsonZero")
+            echo "Zero"
+        ;;
+        "coulsonAlpha")
+            echo "Alpha"
+        ;;
+        *)
+            echo "${name} is not a valid name"
+        ;;
+    esac
+}
+
+function main() {
+    hello
+}
+
+main
+```
+
 :::
 
-:::danger
-linux没有回收期，一旦删除非常难恢复，请谨慎操作
+### Function
+
+```sh
+function main() {
+    echo "Hello"
+}
+
+# 启动函数必须置于底部
+main
+```
+
 :::
 
-```sh
-# 删除文件
-rm <filename>
-rm -i file.txt  # 确认是否删除
-rm -f file.txt  # 强制删除
-
-# 删除目录
-rm -r <foldername>
-rm -rf ...      # 递归删除文件夹(著名操作)
-```
-
-### 目录
-#### mkdir
-
-> 新建目录
-```shell
-mkdir vue-project
-```
-### 文件命令
-#### touch
-> 新建空文件
+### Input
 
 ```sh
-touch file.sh
-```
-#### cat
-> 查看文件内容，适合于小文件
-```sh
-cat file.txt
-```
-#### less
-> 分页查看文件内容，适合于大文件
-
-```shell
-less file.txt
+read -p "请输入name: " read_name
+# echo "Output: ${read_name}"
 ```
 
-**快捷键**
-
-- `space键`：下一页
-- `b键`：上一页
-- `return键`：下一行
-- `y键`：上一行
-- `q键`：退出less分页查看模式
-- `=键`：显示less页面详情
-- `h键`：显示less帮助文档
-- `/键`：显示less搜索模式，`n键`跳转
-
-#### head
-> 显示文件的开头几行
+::: details 示例
 
 ```sh
-# 显示开头3行
-head -n 3 file.txt
+name="coulsonAlpha"
+
+function readUsername() {}
+    read -p "输入用户名(默认：${name})：" read_username
+    if [ ${read_username} ]
+    then
+        name=${read_username}
+    fi
+    echo "您输入的用户名为：${name}"
+}
+
+read_username
 ```
 
-**以下会报错**
+:::
 
-~~`head -n -3 file.txt`~~
-#### tail
-> 显示文件的结尾几行(默认后10行)
+### Output
 
 ```sh
-# 显示末尾2行
-tail [-n  2] file.txt
-tail [-n -2] file.txt
-# 显示开头2行
-tail [-n +2] file.txt
-# 显示第10行
-tail -n +10 file.txt | head -1
+echo "Hello World!"
+```
+
+### 自定义shell执行命令
+
+::: warning
+不可用function main() {}包裹！
+:::
+
+:::: code-group
+::: code-group-item Bash
+
+```sh
+$ sh ./start.sh stop
+> "Close"
+
+$ sh start.sh start
+> "running"
+
+$ sh start.sh deploy
+> "deploy无任何操作"
+```
+
+:::
+
+::: code-group-item start.sh
+
+```sh
+
+if [ ${#} -ge 1 ]
+then
+    case ${1} in
+        "start")
+            echo "Running"
+        ;;
+        "stop")
+            echo "Close"
+        ;;
+        *)
+            echo "${1}无任何操作"
+        ;;
+    esac
+else
+    echo "
+    command如下命令:
+    start: 启动
+    stop: 停止进程
+    示例命令如：sh ./start.sh stop
+    "
+fi
+```
+
+:::
+::::
+
+## FAQ
+
+- name: command not found
+
+```sh
+# 变量赋值"="前后不能现空格
+name="coulsonzero"
+```
+
+- [] & if[ ]: command not found
+
+```sh
+# if [ ]: 中间需要空格
+if [ ${pid} ]
+then
+    echo "great"
+else
+    echo "pope"
+fi
 ```
