@@ -39,13 +39,23 @@ echo ${basePath}    # /Users/coulsonzero/Documents/web/docs
 
 ### 执行 Bash shell 脚本
 
+:::: code-group
+::: code-group-item bash
+
 ```sh
 sh deploy.sh
 ```
 
-```sh
+:::
+
+::: code-group-item zsh
+
+```zsh
 source shellFile.sh
 ```
+
+:::
+::::
 
 ### If Statement
 
@@ -129,8 +139,6 @@ function main() {
 # 启动函数必须置于底部
 main
 ```
-
-:::
 
 ### Input
 
@@ -221,7 +229,7 @@ fi
 - name: command not found
 
 ```sh
-# 变量赋值"="前后不能现空格
+# 变量赋值"="前后不能有空格
 name="coulsonzero"
 ```
 
