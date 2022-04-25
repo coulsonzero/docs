@@ -244,3 +244,11 @@ else
     echo "pope"
 fi
 ```
+
+- linux空格和window空格不一致
+
+```sh
+$ vim start.sh
+# 添加此命令保存
+set ff=unix
+```
