@@ -465,7 +465,12 @@ export default Header
 * useRef
 
 > 用于获取元素或组件
-
+::: tip
+```jsx
+<button className="add-btn" onClick={increment} ref={e}>+</button>
+const e = useRef(null)
+```
+:::
 ```jsx
 // 1. 引入useRef, 用于获取元素或组件
 import React, {useState, useRef} from "react";
