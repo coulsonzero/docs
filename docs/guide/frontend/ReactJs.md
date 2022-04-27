@@ -69,21 +69,19 @@ export default App
 
 ## React语法规则
 
-* className
-
-::: details 点击查看代码
+* style
 
 ```jsx
-const App = () => {
-    const name = 'React'
-
-    return (
-    <div className={name}>Hello, {name}!</div>
-    );
-}
+<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 ```
 
-:::
+* className
+
+```jsx
+<div className="container">
+<div className={this.state.fund_concerned.length === 0 ? "select-options" : 'none'}>
+<div className={this.state.fund_concerned.length === 0 && "select-options"}>
+```
 
 * <img />
 
@@ -92,6 +90,7 @@ const App = () => {
 ```jsx
 <img src="" alt />
 ```
+
 
 ## React中的JSX
 
@@ -491,6 +490,30 @@ const App = () => {
 };
 
 export default App;
+```
+
+::: tip
+```jsx
+<input type="text" ref={this.textInput} />
+// 创建Ref
+this.textInput = React.createRef()
+// 使用ref
+this.textInput.current.focus();
+```
+:::
+
+```jsx
+import React from "react";
+
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.myRef = React.createRef();
+	}
+	render() {
+		return <div ref={this.myRef} />;
+	}
+}
 ```
 
 * createContext
@@ -1792,6 +1815,26 @@ package.json
 6. Context
 Context提供了一个无需为每层组件手动添加props, 就能在组件树间进行数据传递的方法
 
+7. 如何简写this.state.counter为counter ？
+> 解构
+```jsx{2}
+render() {
+	const { counter } = this.state;
+	return <div>counter</div>
+}
+```
+
+8. 如何添加条件样式 ?
+
+**方法一**
+```jsx
+<div className={this.state.list.length === 0 ? 'container' : 'none'}>
+```
+
+**方法二(更优)**
+```jsx
+<div className={this.state.list.length === 0 && 'container'}>
+```
 
 ## React进阶
 
