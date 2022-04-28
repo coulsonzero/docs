@@ -1,30 +1,24 @@
 # React
 
-## 快速开始 ？
+## 运行clone的React项目
 
 ```sh
-yarn
-yarn start
-```
-
-```sh
-yarn add react-icons
-yarn add -D sass
-yarn add --dev typescript @types/react @types/node
+$ git clone https://github.com/coulsonzero/react-app
+$ yarn
+$ yarn start  # or npm start
 ```
 
 ## React快速入门
 
-* 创建一个新的React项目
+### 创建React项目
 
-```shell
-npx create-react-app react-app
+```sh
+$ npx create-react-app react-app
+$ cd react-app
+$ yarn start  # or npm start
 ```
 
-
-
-
-* React项目结构
+### React项目结构
 
 ::: details 查看React项目结构
 
@@ -48,7 +42,7 @@ $ tree
 
 :::
 
-* Imported modules
+### Imported modules
 
 ```jsx
 import React from 'react'
@@ -64,18 +58,17 @@ export default App
 ```
 
 
-
-
-
 ## React语法规则
-
-* style
+:::: code-group
+::: code-group-item style
 
 ```jsx
 <div style={{fontSize: '20px', fontWeight: 'bold'}}>
 ```
 
-* className
+:::
+
+::: code-group-item class
 
 ```jsx
 <div className="container">
@@ -83,20 +76,35 @@ export default App
 <div className={this.state.fund_concerned.length === 0 && "select-options"}>
 ```
 
-* <img />
-
-> 注意需要加斜杠 '/' !!
+:::
+::: code-group-item img
 
 ```jsx
-<img src="" alt />
+<img src="" alt />	// 注意需要加斜杠 '/' !!
 ```
 
-
-## React中的JSX
-
-* String in React
+:::
+::: code-group-item 事件
 
 ```jsx
+<button onclick={handleClick}>Activate Lasers</button>
+<input type="text" placeholder="username" onChange={handleChange} />
+<form onSubmit={handleSubmit}></form>
+
+function handleSubmit(e) {
+    e.preventDefault();
+    console.log('You clicked submit.');
+}
+```
+:::
+::::
+
+## React中的JSX渲染
+
+:::: code-group
+::: code-group-item String
+
+```jsx{5}
 const App = () => {
     const name = 'React'
 
@@ -106,11 +114,11 @@ const App = () => {
 }
 ```
 
-* List in React
+:::
 
-```jsx
-import React from "react"
+::: code-group-item List
 
+```jsx{5,8}
 const App = () => {
     const links = ['Home', 'About', 'Docs']
     const list = links.map((item, index) => <li key={index}>{item}</li>)
@@ -119,13 +127,12 @@ const App = () => {
         <ul>{list}</ul>
     )
 }
-
-export default App
 ```
 
-* Object in React
+:::
+::: code-group-item Object
 
-```jsx
+```jsx{7,10}
 const App = () => {
     const links = [
         {id: 1, name: 'Home'},
@@ -139,35 +146,11 @@ const App = () => {
     )
 }
 ```
+:::
 
-```jsx
-import React from "react";
+::::
 
-const App = () => {
-	const data = [
-		{name: "Amazon", price: "-$5K"},
-		{name: "Spotify", price: "-$50"},
-		{name: "Netflix", price: "-$200"}
-	];
-	const list = data.map((expense) => {
-		return (
-			<div className="expense">
-				<div className="expense__title">{expense.name}</div>
-				<div className="expense__price">{expense.price}</div>
-			</div>
-		)
-	});
-
-	return (
-		<div className="container">{list}</div>
-	);
-};
-
-export default App;
-
-```
-
-::: details 点击查看代码
+::: details Object渲染示例
 
 ```jsx
 export default function Expenses() {
@@ -207,63 +190,49 @@ export default function Expenses() {
 
 ## 参数Props
 
+::: tip
+> Fun: `props.name`
+>
+> Class: `this.props.name`
+:::
+:::: code-group
+::: code-group-item App.jsx
+
 ```jsx
 <App name='React'/>
 ```
 
-* function
+:::
+
+::: code-group-item ChildFun.jsx
 
 ```jsx
-const App = (props) => {
-  return (
-    <div>{props.name}</div>
-  )
-}
-```
-
-```jsx
-const App = (props) => {
-    const [contacts, setContacts] = useState(props.data)
+const ChildFun = (props) => {
     return (
-        <div>
-            <AddPersonForm />
-            <PropleList data={contacts}></PropleList>
-        </div>
+        <div>{props.name}</div>
     )
 }
 ```
 
-* class
+:::
+
+::: code-group-item ChildClass.jsx
 
 ```jsx
-class App extends React.Component {
+class ChildClass extends React.Component {
     render() {
         return (
             <div>{this.props.name}</div>
         )
     }
-
 }
 ```
 
-```jsx
-import React from 'react'
+:::
 
-class Header extends React.Component {
-    /*
-    constructor(props) {
-        super(props)
-    }
-    */
-    render() {
-        return (
-            <img src={this.props.src} alt={this.props.alt} />
-        )
-    }
-}
+::::
 
-export default Header
-```
+
 
 
 ## State (Only in React class)
@@ -1780,6 +1749,11 @@ $ yarn add sass
 
 --save会将该包加入到package.json依赖文件中，下次yarn add时将自动添加！
 
+```sh
+$ yarn add react-icons
+$ yarn add -D sass
+$ yarn add --dev typescript @types/react @types/node
+```
 
 3. React常见生命周期的过程大致如下：
 
