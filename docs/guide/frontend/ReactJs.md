@@ -2589,3 +2589,121 @@ export default AntdButton
 :::
 
 
+### Table
+
+:::: code-group
+::: code-group-item 普通表格
+```jsx
+<Table
+	columns={columns}
+	rowSelection={{ ...rowSelection }}
+	dataSource={data}
+/>
+```
+:::
+
+::: code-group-item 滚动表格
+```jsx{5}
+<Table
+	columns={columns}
+	rowSelection={{ ...rowSelection }}
+	dataSource={data}
+	scroll={{ x: 1500, y: 300 }}
+/>
+```
+:::
+
+::: code-group-item 表格边框
+```jsx{6}
+ <Table
+	columns={columns}
+	rowSelection={{ ...rowSelection }}
+	dataSource={data}
+	scroll={{ x: 1500, y: 300 }}
+	bordered={true}
+/>
+```
+:::
+
+::: code-group-item 表格边框圆角
+```jsx{1-4,12}
+<Card
+	style={{ borderRadius: 15, marginTop: 15, overflow: 'hidden' }}
+	bodyStyle={{ padding: 0 }}
+>
+	<Table
+		columns={columns}
+		rowSelection={{ ...rowSelection }}
+		dataSource={data}
+		scroll={{ x: 1500, y: 300 }}
+		bordered={true}
+	/>
+</Card>
+```
+:::
+
+::: code-group-item 表格底部统计行
+```jsx
+import { Card, Table, Typography } from 'antd';
+import { toMstr } from '@/utils/utils';
+const { Text } = Typography;
+```
+```jsx{11-51}
+<Card
+	style={{ borderRadius: 15, marginTop: 15, overflow: 'hidden' }}
+	bodyStyle={{ padding: 0 }}
+	>
+	<Table
+		columns={columns}
+		rowSelection={{ ...rowSelection }}
+		dataSource={data}
+		scroll={{ x: 1500, y: 300 }}
+		bordered={true}
+		summary={pageData => {
+			let sum_curFinancialFairValue = 0;
+			let sum_projectIRR = 0;
+			pageData.forEach(record => {
+				if (record.curFinancialFairValue != undefined) {
+				sum_curFinancialFairValue += Math.round((record.curFinancialFairValue) * 100) / 100;
+				}
+				if (record.projectIRR != undefined) {
+				sum_projectIRR += Math.round(Number(record.projectIRR) * 100) / 100;
+				}
+			});
+			return (
+				<Table.Summary fixed>
+					<Table.Summary.Row>
+						<Table.Summary.Cell>合计</Table.Summary.Cell>
+						<Table.Summary.Cell>-</Table.Summary.Cell>
+						<Table.Summary.Cell>-</Table.Summary.Cell>
+						<Table.Summary.Cell>-</Table.Summary.Cell>
+						<Table.Summary.Cell>-</Table.Summary.Cell>
+						<Table.Summary.Cell>
+						<Text style={{ fontWeight: 'bolder' }}>
+							${toMstr(sum_curFinancialFairValue)}
+						</Text>
+						</Table.Summary.Cell>
+						<Table.Summary.Cell>
+						<Text style={{ fontWeight: 'bolder' }}>
+							<span>{parseFloat(sum_projectIRR).toFixed(2) + '%'}</span>
+						</Text>
+						</Table.Summary.Cell>
+						<Table.Summary.Cell>-</Table.Summary.Cell>
+						<Table.Summary.Cell>-</Table.Summary.Cell>
+						<Table.Summary.Cell>-</Table.Summary.Cell>
+						<Table.Summary.Cell>-</Table.Summary.Cell>
+						<Table.Summary.Cell>-</Table.Summary.Cell>
+						<Table.Summary.Cell>-</Table.Summary.Cell>
+						<Table.Summary.Cell>-</Table.Summary.Cell>
+						<Table.Summary.Cell>-</Table.Summary.Cell>
+					</Table.Summary.Row>
+				</Table.Summary>
+			);
+		}}
+	/>
+</Card>
+```
+:::
+
+::::
+
