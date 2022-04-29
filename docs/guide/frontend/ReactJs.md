@@ -237,9 +237,10 @@ class ChildClass extends React.Component {
 
 ## State (Only in React class)
 
-* Object
+:::: code-group
+::: code-group-item this.state.var
 
-```jsx
+```jsx{7}
 class App extends React.Component {
     state = {
         name: 'React'
@@ -251,10 +252,10 @@ class App extends React.Component {
     }
 }
 ```
+:::
+::: code-group-item this.setState( )
 
-* function
-
-```jsx
+```jsx{6,11}
 class App extends React.Component {
     state = {
         counter: 0
@@ -264,15 +265,31 @@ class App extends React.Component {
     }
     render() {
         return (
-            <div>
+            <>
                 <p>{this.state.counter}</p>
                 <button onClick={this.increment}>+</button>
-            </div>
+            </>
         )
     }
 }
 ```
+:::
 
+::: code-group-item createRef
+```jsx{4,7}
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.myRef = React.createRef();
+	}
+	render() {
+		return <div ref={this.myRef} />;
+	}
+}
+```
+:::
+
+::::
 
 * Lifecycle Methods
     - Mounting()
@@ -281,23 +298,36 @@ class App extends React.Component {
     - componentDidUpdate()
     - componentWillUnmount()
 
-
-```jsx
+::: details React生命周期函数(Class)
+```jsx{22,25,28}
 import React from 'react';
 
-class Navbar extends React.Component {
+class State extends React.Component {
+	/*
+	constructor(props) {
+        super(props)
+        this.state = {
+            count: 0
+        }
+    }
+	*/
+
     state = {
         counter: 0
     }
+
     increment = () => {
         this.setState({counter: this.state.counter + 1})
     }
 
-    // 加载后修改初始化默认值
+    // 会在组件挂载后（插入 DOM 树中）立即调用, (加载后修改初始化默认值, 网络请求）
     componentDidMount = () => this.state.counter = 3
 
-    // 加载时不触发，每次更新触发
+    // 加载时不触发, 每次更新触发
     componentDidUpdate = () => alert("Counter: " + this.state.counter)
+
+	// 在组件卸载及销毁之前直接调用（取消请求或清理数据）
+	componentWillUnmount = () => this.state.count = 0
 
     render() {
         return (
@@ -309,54 +339,9 @@ class Navbar extends React.Component {
     }
 }
 
-export default Navbar;
+export default State
 ```
-
-```jsx
-import React from 'react';
-
-class State extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            count: 0
-        }
-    }
-    // 会在组件挂载后（插入 DOM 树中）立即调用, 如需通过网络请求获取数据，此处是实例化请求的好地方
-    componentDidMount() {
-        this.setState({
-            count: 5
-        })
-    }
-
-    // 加载时不触发，每次更新触发
-    componentDidUpdate () {
-        alert(this.state.count)
-    }
-
-    // 在组件卸载及销毁之前直接调用。在此方法中执行必要的清理操作,
-    // 例如，清除 timer，取消网络请求或清除在 componentDidMount() 中创建的订阅等
-    componentWillUnmount = () => this.state.count = 0
-
-    increment = () => {
-        this.setState({
-            count: this.state.count + 1
-        })
-    }
-
-    render() {
-        return (
-            <div>
-                <p>{this.state.count}</p>
-                <button onClick={this.increment}>+</button>
-            </div>
-        )
-    }
-}
-
-export default State;
-```
-
+:::
 ## Hooks (Only in React function)
 
 
@@ -379,18 +364,19 @@ Hook 和现有代码可以同时工作，你可以渐进式地使用他们
     useLayoutEffect
     useDebugValue
 
-* useState
+:::: code-group
+::: code-group-item useState
 
-```jsx
+```jsx{1,5,8-9,13}
 import React, {useState} from "react";
 
 const App = () => {
-	// 创建一个变量为counter, 并初始化为0
+	// 1. 创建一个变量为counter, 并初始化为0
 	const [counter, setCounter] = useState(0);
 
-	// 方法
-	const increment = () => setCounter(counter + 1);                // 新值替代初始值
-	// const increment = () => setCounter(counter => counter + 1);  // 新值替代旧值, 用useEffect时使用
+	// 2. 修改变量值
+	const increment = () => setCounter(counter + 1);             // 新值替代初始值
+ // const increment = () => setCounter(counter => counter + 1);  // 新值替代旧值, 用useEffect时使用
 
 	return (
 		<div>
@@ -403,13 +389,15 @@ const App = () => {
 export default App;
 ```
 
-* useEffect
+:::
 
-```md
-useEffect() = componentDidMount() + componentDidUpdate() + componentWillUnmount()
-```
+::: code-group-item useEffect
 
-```jsx
+```jsx{5,12}
+/**
+ * useEffect() = componentDidMount() + componentDidUpdate() + componentWillUnmount()
+ */
+
 import React, {useState, useEffect} from 'react'
 
 const Header = () => {
@@ -429,18 +417,23 @@ const Header = () => {
 
 export default Header
 ```
-
-
-* useRef
-
-> 用于获取元素或组件
-::: tip
-```jsx
-<button className="add-btn" onClick={increment} ref={e}>+</button>
-const e = useRef(null)
-```
 :::
-```jsx
+::: code-group-item useRef
+```jsx{16,21,29}
+/**
+ * 用于获取元素或组件
+ *
+ * 1. Hooks
+ * <button className="add-btn" onClick={increment} ref={e}>+</button>
+ * const e = useRef(null)
+ *
+ * 2. class
+ * <input type="text" ref={this.textInput} />
+ * 创建Ref: this.textInput = React.createRef()
+ * 使用ref: this.textInput.current.focus()
+ */
+
+
 // 1. 引入useRef, 用于获取元素或组件
 import React, {useState, useRef} from "react";
 
@@ -449,10 +442,7 @@ const App = () => {
 	// 2. 初始化null
 	const e = useRef(null)
 
-	const increment = () => {
-		// 3. 打印元素或组件
-		console.log(e)
-	}
+	const increment = () => console.log(e)
 
 	return (
 		<div>
@@ -465,36 +455,13 @@ const App = () => {
 
 export default App;
 ```
-
-::: tip
-```jsx
-<input type="text" ref={this.textInput} />
-// 创建Ref
-this.textInput = React.createRef()
-// 使用ref
-this.textInput.current.focus();
-```
 :::
 
-```jsx
-import React from "react";
 
-class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.myRef = React.createRef();
-	}
-	render() {
-		return <div ref={this.myRef} />;
-	}
-}
-```
 
-* createContext
-
-> 通过createContext跨组件传值
-
-```jsx
+::: code-group-item createContext
+```jsx{2,4,9-11,25-27}
+// 通过createContext跨组件传值
 import React, {useState, createContext} from "react";
 
 const numContext = createContext()
@@ -525,12 +492,10 @@ export default function App() {
 }
 
 ```
-
-* useContext
-
-> 解构createContext跨组件传值和方法
-
-```jsx
+:::
+::: code-group-item useContext
+```jsx{2,4,7,29-31}
+// 解构createContext跨组件传值和方法
 import React, {useState, createContext, useContext} from "react";
 
 const numContext = createContext()
@@ -564,11 +529,15 @@ export default function App() {
 	);
 }
 ```
+:::
+::::
 
 
 
 ## Event Handles
 
+:::: code-group
+::: code-group-item funcHandle
 ```jsx
 const Toggle = () => {
     const [value, setValue] = useState("ON")
@@ -578,6 +547,25 @@ const Toggle = () => {
     )
 }
 ```
+:::
+
+::: code-group-item classHandle
+```jsx
+class Toggle extends React.Component {
+	state = {
+		flag = "ON"
+	}
+
+	toggle = () => this.setState({ flag: (flag == "ON") ? "OFF" : "ON" })
+
+	render () {
+		return <button onClick={this.toggle}>{flag}</button>
+	}
+}
+
+```
+:::
+::::
 
 `e.preventDefault()`
 
