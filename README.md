@@ -2,7 +2,7 @@
 
 ## 文档效果
 
-![](./display.png)
+![display](./display.png)
 
 ## 快速开始
 
