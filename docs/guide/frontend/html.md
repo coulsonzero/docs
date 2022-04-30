@@ -5,16 +5,19 @@
 
 ## Overview
 
+> HTML (Hyper Text Markup Language)
+>
+> 超文本标记语言
+
 ### html基本文档
+
+> 快捷方式：! + Tab
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+		<title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -122,24 +125,32 @@ import Vue
 ```
 #### 格式化
 ```html
+<!-- 加粗 -->
 <b>bold</b>
+<!-- 斜体 -->
 <i>italic</i>
+<!-- 下划线 -->
 <u>underline</u>
+<!-- 删除线 -->
 <s>删除线</s>
 
 <sup>上标</sup>
 <sub>下标</sub>
 
 <!----------------->
-<strong>: 加粗
-<em>: 斜体
-<ins>: 下划线
+<strong></strong>: 加粗
+<em></em>: 斜体
+<ins></ins>: 下划线
 <del>...</del>: 划掉
 ```
 ### other
 #### 注释
 ```html
-<!--注释-->
+<!-- 注释 -->
+
+<!--
+  	 注释多行
+-->
 ```
 #### br 换行符
 
@@ -171,11 +182,19 @@ import Vue
 ```html
 <button>Click Me !</button>
 ```
-### 链接
+### a 链接
 
 ```html
 <a href="#"></a>
+<!-- 链接到id="About" -->
+<a href="#About">github</a>
+<!-- 网页链接 -->
 <a href="https://github.com/">github</a>
+<!-- 新窗口打开链接 -->
+<a href="https://www.runoob.com/" target="_blank"></a>
+<a href="https://www.runoob.com/" target="_blank" rel="nofollow"></a>
+<!-- 点击链接按钮下载文件 -->
+<a href="**.pdf" download=""></a>
 ```
 
 参数说明
@@ -189,15 +208,7 @@ import Vue
 `download=""`: 下载链接
 :::
 
-```html
-<!-- 新窗口打开链接 -->
-<a href="https://www.runoob.com/" target="_blank"></a>
-<a href="https://www.runoob.com/" target="_blank" rel="nofollow"></a>
-<!-- 点击链接按钮下载文件 -->
-<a href="**.pdf" download=""></a>
-```
-
-### 图像
+### img 图像
 
 ```html
 <img src="https://mimo.app/i/cat.png">
@@ -213,7 +224,7 @@ import Vue
 ```
 ------
 
-### 列表
+### li 列表
 
 - 无序列表
 
