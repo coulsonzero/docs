@@ -28,3 +28,5 @@
 [Mac无法打开IDEA?](./openidea.md)
 
 [MacBook激活IDEA2021ARM最新版教程](./idealicence.md)
+
+[Mac查看已连接的wifi密码](./wifipassword.md)
