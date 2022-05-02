@@ -1,7 +1,5 @@
 # [<img src="https://v3.cn.vuejs.org/logo.png" style="width: 40px; height: 40px" alt="vue" />][1] [vue.js][1]
 
-
-
 [1]: https://v3.cn.vuejs.org
 
 ## Overview
@@ -58,3 +56,4 @@
 	Vue.createApp(ListRendering).mount("#app")
 </script>
 ```
+
