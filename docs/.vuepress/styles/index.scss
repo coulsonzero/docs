@@ -1,0 +1,27 @@
+.external-link-icon {
+    display: none;
+}
+
+html:not(.dark) .navbar {
+    background: hsla(0, 0%, 100%, .72);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+.arrow.down {
+    display: none;
+}
+
+html:not(.dark) .sidebar {
+    background-color: #f6feff;
+}
+
+.sidebar-item:not(.sidebar-heading) {
+    padding-left: 1rem;
+}
+
+.sidebar-item.active:not(p.sidebar-heading) {
+    border-left-color: rgb(56 189 248/1);
+    color: #df8681;
+}
+

@@ -1,10 +1,14 @@
-# Vue3
+# [<img src="https://v3.cn.vuejs.org/logo.png" style="width: 40px; height: 40px" alt="vue" />][1] [vue.js][1]
+
+
+
+[1]: https://v3.cn.vuejs.org
 
 ## Overview
 
 ### 元素渲染
 
-```html
+```html{1,8}
 <div id="app">{{ message }}</div>
 
 <script src="https://unpkg.com/vue@next"></script>
@@ -14,7 +18,7 @@
 			return {
 				message: "Hello Vue!",
 			}
-		}
+		},
 	}
 	Vue.createApp(app).mount("#app")
 </script>
@@ -53,5 +57,4 @@
 
 	Vue.createApp(ListRendering).mount("#app")
 </script>
-
 ```

@@ -3,6 +3,8 @@ module.exports = {
 	title: "CoulsonZero",
 	description: "文档管理中心",
 	port: 80,
+	// 搜索栏
+	plugins: ["@vuepress/plugin-search", "demo-block"],
 	themeConfig: {
 		// 导航栏
 		logo: "https://vuejs.org/images/logo.png",
@@ -17,8 +19,7 @@ module.exports = {
 		smoothScroll: true,
 		// 顶部导航栏
 		navbar: [
-			{text: "主页", link: "/"},
-			{text: "Home", link: "https://coulsonzero.github.io"},
+			{text: "🏡 首页", link: "https://coulsonzero.github.io"},
 			{
 				text: "前端",
 				children: [
@@ -37,7 +38,7 @@ module.exports = {
 						text: "web框架",
 						children: [
 							{text: "jQuery", link: "/guide/frontend/jquery"},
-							{text: "Vue", link: "https://v3.cn.vuejs.org/"},
+							{text: "Vue", link: "/guide/frontend/vue"},
 							{text: "React", link: "/guide/frontend/react"},
 						],
 					},
@@ -58,9 +59,7 @@ module.exports = {
 					},
 					{
 						text: "文档管理",
-						children: [
-							{text: "VuePress", link: "https://v2.vuepress.vuejs.org/zh/"},
-						],
+						children: [{text: "VuePress", link: "https://v2.vuepress.vuejs.org/zh/"}],
 					},
 				],
 			},
@@ -182,8 +181,7 @@ module.exports = {
 		],
 	],
 	*/
-	// 搜索栏
-	plugins: ["@vuepress/plugin-search", "demo-block"],
+
 	markdown: {
 		lineNumbers: true, //代码显示行号
 	},
