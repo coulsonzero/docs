@@ -6,9 +6,7 @@
 
 ### Ⅰ. 在 html 中引入 javascript
 
-
-
-**body末尾导入(推荐)**
+**body 末尾导入(推荐)**
 
 ```html
 <body>
@@ -16,7 +14,7 @@
 </body>
 ```
 
-**head中导入**
+**head 中导入**
 
 > 常用于导入外部包
 
@@ -70,9 +68,9 @@ console.log("Hello World!")
 ### Variables
 
 ```javascript
-var num = 2      // 全局变量
-let x = "Pol"    // 局部变量
-const PI = 3.14  // 常量
+var num = 2 // 全局变量
+let x = "Pol" // 局部变量
+const PI = 3.14 // 常量
 ```
 
 ### Comments
@@ -102,18 +100,21 @@ false(0 / null / undefined / "")
 :::
 
 ```js
-var num = 12            // number
-var price = 42.3        // number
-var name = "Coulson"    // string
-var isActive = false    // boolean
+var num = 12 // number
+var price = 42.3 // number
+var name = "Coulson" // string
+var isActive = false // boolean
 // 数组
 var nums = [1, 2, 3, 4, 5]
 // 实例对象(字典)
-var person = {name: 'Jack', age: 24}
+var person = {name: "Jack", age: 24}
 // 集合
 let set = new Set([1, 2, 4, 2, 59, 9, 4, 9, 1])
 // Map
-let map = new Map([["k1", "v1"], ["k2", "v2"]])
+let map = new Map([
+	["k1", "v1"],
+	["k2", "v2"],
+])
 ```
 
 ### Input
@@ -149,8 +150,7 @@ confirm() // 确认框   OK/Cannel -> true/false
 
 ```js
 <script>
-	var res = confirm("Are you sure ?") if (res) {alert("Closed")} else{" "}
-	{alert("Stay...")}
+	var res = confirm("Are you sure ?") if (res) {alert("Closed")} else {alert("Stay...")}
 </script>
 ```
 
@@ -475,14 +475,16 @@ console.log(check("coulson"))
 <p id="demo">0</p>
 
 <script>
-const add = (function () {
-    let counter = 0
-    return function () {return counter += 1}
-})()
+	const add = (function () {
+		let counter = 0
+		return function () {
+			return (counter += 1)
+		}
+	})()
 
-function myFunction(){
-    document.getElementById("demo").innerHTML = add()
-}
+	function myFunction() {
+		document.getElementById("demo").innerHTML = add()
+	}
 </script>
 ```
 
@@ -565,14 +567,298 @@ console.log(p.name)     // name: Tom
 ### 1. String
 
 ```javascript
-let str = "hello"
+let str = "coulsonzero"
 
-const str = `my name is ${name}` // 格式化
+console.log(`hello ${str}`) // hello coulsonzero
+console.log(typeof str)     // string
+length
+charAt()
+indexOf()
+slice()
+substring()
+substr()
+concat()
+split()
+search()
+replace()
+toFixed() // 保留小数点位数
+trim()
+
+includes()
+startsWith()
+endsWith()
+toUpperCase()
+toLowerCase()
+match()
 ```
 
+:::: code-group
+::: code-group-item 创建字符串
+
+```js
+let str1 = "Hello, React !"
+let str2 = new String("Hello, React !")
 ```
-.toFixed(2);  // 保留小数点位数
+
+:::
+::: code-group-item 相等
+
+```js
+/**
+ * ==: 比较值相等
+ * ===: 比较值和类型同时相等
+ */
+
+let str = "Hello, React !"
+let str1 = new String("Hello, React !")
+let str2 = new String("Hello, React !")
+
+console.log(str1 ==  str)    // true:  值相等
+console.log(str1 === str)    // false: 类型不同，对象与字符串
+console.log(str1 ==  str2)   // false: 对象无法比较值
+console.log(str1 === str2)   // false: 对象无法比较值
 ```
+
+:::
+::: code-group-item 检索
+
+```js
+/**
+ * 索引
+ * indexOf(): 可以使用第二个参数指定开始索引
+ * lastIndexOf()
+ * search(): 可以使用正则
+ * match()
+ * replace(): 可以使用正则, 替换字符
+ */
+
+let str = "Hello, React !"
+
+console.log(str.indexOf('e'))		// Output: 1
+console.log(str.lastIndexOf('e'))	// Output: 8
+console.log(str.indexOf('e', 2))	// Output: 8
+console.log(str.search('e'))		// Output: 1
+
+let newStr = "Hello, 3306 world! "
+console.log(newStr.search(/\d+/g))		// Output: 7
+
+var str = "hello3306world8080pop"
+console.log(str.match(/\d+/g))		// [ '3306', '8080' ]
+
+console.log(newStr.replace(/\d/g, ''))	// Hello,  world!
+
+```
+
+:::
+::: code-group-item 切片
+
+```js
+/**
+ * slice(start, end): 可以使用负数
+ * substring(start, end)
+ * substr(start, length): 已移除不推荐使用
+ */
+
+let str = "Hello, React !"
+
+console.log(str.slice(-5, -1))   // act
+console.log(str.slice(3))		 // lo, React !
+console.log(str.slice(3, 5)		 // lo
+console.log(str.substring(3, 5)) // lo
+console.log(str.substr(3, 5))	 // lo, R
+```
+
+:::
+::: code-group-item 拼接
+
+```js
+console.log("Hello" + ", " + "World!")       // "Hello, World!"
+let word1 = "Hello", word2 = "World!"
+console.log(`${word1}, ${word2}`)            // "Hello, World!"
+console.log("Hello".concat("World"))         // "HelloWorld"
+console.log("Hello".concat(", ", "World"))   // "Hello, World"
+```
+
+:::
+::: code-group-item 分割
+
+```js
+var str = '127.0.0.1'
+console.log(str.split('.'))	// [ '127', '0', '0', '1' ]
+console.log(str.split())	// [ '127.0.0.1' ]
+
+var str = "Hello World"
+console.log(str.split())	// [ 'Hello World' ]
+console.log(str.split(""))	// ['H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd']
+console.log(str.split(" ")) // [ 'Hello', 'World' ]
+```
+
+:::
+
+::: code-group-item 判断
+
+```js
+let str = 'script.js'
+console.log(str.includes("hello"))    // false
+console.log(str.startsWith('main'))   // false
+console.log(str.endsWith('js'))       // true
+```
+
+:::
+::::
+
+::: details 示例
+
+```js
+var str = "Hello, React !"
+
+/**
+ * ==: 比较值相等
+ * ===: 比较值和类型同时相等
+ */
+
+
+var str1 = new String("Hello, React !")
+var str2 = new String("Hello, React !")
+console.log(str1 == str)    // true:  值相等
+console.log(str1 === str)   // false: 类型不同，字符串与对象
+console.log(str1 == str2)   // false: 对象无法比较值
+console.log(str1 === str2)  // false: 不同对象
+
+
+console.log(str.length)
+// Output: 14
+
+/**
+ * 索引
+ * indexOf(): 可以使用第二个参数指定开始索引
+ * lastIndexOf()
+ * search(): 可以使用正则
+ *
+ * replace(): 可以使用正则, 替换字符
+ */
+
+console.log(str.indexOf('e'))
+// Output: 1
+
+console.log(str.lastIndexOf('e'))
+// Output: 8
+
+console.log(str.indexOf('e', 2))
+// Output: 8
+
+console.log(str.search('e'))
+// Output: 1
+
+
+var newStr = "Hello, 3306 world! "
+console.log(newStr.search(/\d+/g))
+// Output: 7
+
+
+console.log(newStr.replace(/\d/g, ''))
+// Hello,  world!
+
+
+
+
+/**
+ * slice(start, end): 可以使用负数
+ * substring(start, end)
+ * substr(start, length)
+ */
+
+console.log(str.slice(-5, -1))
+// "act"
+
+console.log(str.slice(3))
+// lo, React !
+
+console.log(str.slice(3, 5))
+// lo
+
+console.log(str.substring(3, 5))
+// lo
+
+console.log(str.substr(3, 5))
+// lo, R
+
+
+
+
+console.log(str.toUpperCase())          // "HELLO, REACT !"
+console.log(str.toLowerCase())          // "hello, react !"
+console.log(str.toLocaleLowerCase())    // "hello, react !"
+
+
+
+console.log("Hello" + ", " + "World!")       // "Hello, World!"
+let word1 = "Hello", word2 = "World!"
+console.log(`${word1}, ${word2}`)            // "Hello, World!"
+console.log("Hello".concat("World"))         // "HelloWorld"
+console.log("Hello".concat(", ", "World"))   // "Hello, World"
+
+
+
+console.log(" Hello,  World".trim())
+// Hello,  World
+
+
+console.log(str.charAt(3))
+// Output: 'l'
+
+
+
+var str = '127.0.0.1'
+console.log(str.split('.'))
+// [ '127', '0', '0', '1' ]
+
+console.log(str.split())
+// [ '127.0.0.1' ]
+
+var str = "Hello World"
+console.log(str.split())
+// [ 'Hello World' ]
+console.log(str.split(""))
+/*
+[
+  'H', 'e', 'l', 'l',
+  'o', ' ', 'W', 'o',
+  'r', 'l', 'd'
+]
+*/
+console.log(str.split(" "))
+// [ 'Hello', 'World' ]
+
+var str = 'script.js'
+console.log(str.startsWith('main'))   // false
+console.log(str.endsWith('js'))       // true
+
+
+
+var str = "hello3306world8080pop"
+console.log(str.match(/\d+/g))
+// [ '3306', '8080' ]
+
+console.log(str.includes("hello"))     // true
+console.log(str.indexOf("hello"))      // 0
+console.log(str.indexOf("hello", 3))   // -1
+
+console.log(str.includes("react")) // false
+console.log(str.indexOf("react"))  // -1
+
+
+
+
+var str = "Hello world"
+console.log(typeof str)   // string
+
+var arr = str.split(" ")
+console.log(typeof arr)           // object
+console.log(Array.isArray(arr))   // true
+console.log(arr instanceof Array) // true
+```
+:::
 
 ### 2. Array
 
@@ -798,13 +1084,16 @@ console.log(newStudent.name, newStudent.age, newStudent.sex, newStudent.xp);   /
 ### 3. Set
 
 **创建集合**
+
 ```javascript
 let set = new Set([1, 2, 4, 2, 59, 9, 4, 9, 1])
 let set = new Set()
 ```
+
 **API**
 ::: tip
 支持`链式编程`
+
 ```js
 //API
 长度：size
@@ -815,9 +1104,11 @@ let set = new Set()
 查：values()
 遍历: forEach() or for(let v of set)
 ```
+
 :::
 
-::: details 查看Set示例
+::: details 查看 Set 示例
+
 ```js
 let set = new Set([1, 2, 2, 4, 3, 1])
 // 增
@@ -829,17 +1120,18 @@ set.clear()
 console.log(set.has(9))
 
 // 集合遍历1
-set.forEach(v => console.log(v))
+set.forEach((v) => console.log(v))
 // 集合遍历2
 for (let v of set.values()) {
-    console.log(v);
+	console.log(v)
 }
 ```
+
 :::
 
 ### 4. Map
 
-**创建Map**
+**创建 Map**
 
 ```javascript
 let map = new Map([
@@ -851,13 +1143,14 @@ let map = new Map()
 ```
 
 ::: tip
+
 ```js
 //API
 长度: size
 
 增: set(key, value)
 
-删: delete(key)
+删: delete key
 删: clear()
 
 查: get(key)
@@ -866,15 +1159,14 @@ keys()
 values()
 entries()
 
-遍历:
-console.log(map)    // Map(2) { 'k1' => 'v1', 'k2' => 'v2' }
+遍历: console.log(map) // Map(2) { 'k1' => 'v1', 'k2' => 'v2' }
 map.forEach((k, v) => console.log(k, v))
 /*
 v1 k1
 v2 k2
 */
 for (let item of map.entries()) {
-    console.log(item)
+	console.log(item)
 }
 /*
 [ 'k1', 'v1' ]
@@ -882,30 +1174,28 @@ for (let item of map.entries()) {
 */
 
 for (let item of map.entries()) {
-    console.log(item[0], item[1])
+	console.log(item[0], item[1])
 }
 /*
 k1 v1
 k2 v2
 */
-
 ```
+
 :::
 
+::: details 查看 Map 示例
 
-::: details 查看Map示例
 ```js
 let map = new Map([
 	["k1", "v1"],
 	["k2", "v2"],
 ])
 
-
-
-console.log(map)    // Map(2) { 'k1' => 'v1', 'k2' => 'v2' }
+console.log(map) // Map(2) { 'k1' => 'v1', 'k2' => 'v2' }
 map.forEach((k, v) => console.log(k, v))
 for (let item of map.entries()) {
-    console.log(item)
+	console.log(item)
 }
 /*
 [ 'k1', 'v1' ]
@@ -913,7 +1203,7 @@ for (let item of map.entries()) {
 */
 
 for (let item of map.entries()) {
-    console.log(item[0], item[1])
+	console.log(item[0], item[1])
 }
 /*
 k1 v1
@@ -923,9 +1213,10 @@ k2 v2
 map.set("k3", "v3").set("k4", "v4")
 map.delete("k3")
 map.clear()
-console.log(map.get("k2"))  // undefined
-console.log(map.has("k3"))  // false
+console.log(map.get("k2")) // undefined
+console.log(map.has("k3")) // false
 ```
+
 :::
 
 ## 库函数
@@ -934,14 +1225,7 @@ console.log(map.has("k3"))  // false
 
 ```javascript
 Math.PI / E / LN2 / LN10 / LOG2E / LOG10E
-Math.abs(x) /
-	sqrt(x) /
-	ceil(x) /
-	round(x) /
-	floor(x) /
-	exp(x) /
-	pow(x, y) /
-	random()
+Math.abs(x) / sqrt(x) / ceil(x) / round(x) / floor(x) / exp(x) / pow(x, y) / random()
 ```
 
 ```js
@@ -1563,9 +1847,7 @@ $(".sidebar-link").click(function () {
 	const wrapper = document.querySelector(".wrapper")
 	const header = document.querySelector(".header")
 	wrapper.addEventListener("scroll", (e) => {
-		e.target.scrollTop > 30
-			? header.classList.add("header-shadow")
-			: header.classList.remove("header-shadow")
+		e.target.scrollTop > 30 ? header.classList.add("header-shadow") : header.classList.remove("header-shadow")
 	})
 </script>
 ```
@@ -1643,14 +1925,7 @@ app
 
 ```html
 <!-- 主题切换按钮svg -->
-<svg
-	viewBox="0 0 24 24"
-	stroke="currentColor"
-	stroke-width="1.5"
-	fill="none"
-	stroke-linecap="round"
-	stroke-linejoin="round"
->
+<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
 	<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
 </svg>
 ```
@@ -1723,9 +1998,7 @@ window.onload = function () {
 	const wrapper = document.querySelector(".wrapper")
 	const header = document.querySelector(".header")
 	wrapper.addEventListener("scroll", (e) => {
-		e.target.scrollTop > 30
-			? header.classList.add("header-shadow")
-			: header.classList.remove("header-shadow")
+		e.target.scrollTop > 30 ? header.classList.add("header-shadow") : header.classList.remove("header-shadow")
 	})
 
 	// 按钮切换active
@@ -1809,15 +2082,9 @@ resize
 <p id="demo"></p>
 
 <script>
-	var w =
-		window.innerWidth ||
-		document.documentElement.clientWidth ||
-		document.body.clientWidth
+	var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
 
-	var h =
-		window.innerHeight ||
-		document.documentElement.clientHeight ||
-		document.body.clientHeight
+	var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
 
 	var x = document.getElementById("demo")
 	x.innerHTML = "浏览器内窗宽度：" + w + "，高度：" + h + "。"
@@ -1883,6 +2150,7 @@ console.log(dateTime.toLocaleString()) // 2022/1/12 下午1:45:36
 
 :::
 
+::::: details 示例
 :::: code-group
 ::: code-group-item DateTime.js
 
@@ -1960,9 +2228,7 @@ console.log(getTime(option))
 
 class DateTime {
 	constructor({format = false, displayTime = false, displayWeek = false} = {}) {
-		;(this.format = format),
-			(this.displayTime = displayTime),
-			(this.displayWeek = displayWeek)
+		;(this.format = format), (this.displayTime = displayTime), (this.displayWeek = displayWeek)
 	}
 	getTime() {
 		const d = new Date()
@@ -2028,14 +2294,8 @@ console.log(date.getTime())
  */
 
 class DateTime {
-	constructor(
-		root,
-		{format = false, displayTime = false, displayWeek = false} = {}
-	) {
-		;(this.root = root),
-			(this.format = format),
-			(this.displayTime = displayTime),
-			(this.displayWeek = displayWeek)
+	constructor(root, {format = false, displayTime = false, displayWeek = false} = {}) {
+		;(this.root = root), (this.format = format), (this.displayTime = displayTime), (this.displayWeek = displayWeek)
 		this.setTime()
 	}
 	getTime() {
@@ -2105,5 +2365,40 @@ export default DateTime
 :::
 
 ::::
+:::::
 
+### 数字金额格式化
 
+::: details 示例
+
+```js
+/**
+ * author: coulsonzero
+ * date: 2022-04-29
+ * 功能: 数值千分位转换
+ * @param {String, Number} num
+ * @returns {String}
+ */
+function moneyFormat(num) {
+	if (num == null || num == undefined || (typeof num != "number" && num != parseFloat(num))) {
+		return "-"
+	}
+	/*
+	let intStr = String(num)
+		.split(".")[0]
+		.replace(/(\d)(?=(?:\d{3})+$)/g, "$1,")
+	let decimalStr = String((Math.round(num * 100) / 100).toFixed(2)).split(".")[1]
+	return intStr + "." + decimalStr
+	*/
+	return parseFloat(num).toLocaleString("zh-CN", {style: "currency", currency: "CNY", minimumFractionDigits: "2"}).slice(1)
+}
+
+console.log(moneyFormat(12319018.975123))
+console.log(moneyFormat("870479.8956"))
+console.log(moneyFormat("870479.8751"))
+console.log(moneyFormat("870479"))
+console.log(moneyFormat("870479a.a123"))
+console.log(moneyFormat("暂无数据"))
+```
+
+:::
