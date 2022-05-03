@@ -11,6 +11,42 @@ html.dark div[class*="language-"] .highlight-lines .highlight-line {
     background-color: #5d6880;
 }
 
+.code-group__nav {
+    background-color: hsla(220, 13%, 18%, 0.878);
+    // background: linear-gradient(rgba(40, 44, 52, 0.878), rgb(72 72 128 / 76%));
+    // background: linear-gradient(rgba(40, 44, 52, 0.878), rgb(62 62 109 / 75%));
+    background: linear-gradient(rgba(40, 44, 52, 0.878), rgba(42, 42, 74, 0.75));
+    // background: linear-gradient(rgba(40, 44, 52, 0.878), rgba(29, 29, 55, 0.76));
+    // background: linear-gradient(rgb(72 72 128 / 76%), rgba(40, 44, 52, 0.878));
+    // background-image: linear-gradient(to right, #868f96 0%, #596164 100%);
+}
+
+
+
+.code-group__li {
+    border-bottom: rgb(125,211,252) 2px solid;
+    color: rgb(125,211,252);
+    // background: #46617e;
+    border: 1px solid #bed6ef;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    box-sizing: border-box;
+    margin-left: 10px;
+}
+.code-group__li,
+.code-group__nav-tab  {
+    border-radius: 50px;
+}
+.code-group__nav-tab {
+    padding: 5px 16px;
+}
+.code-group__nav-tab-active {
+   border-bottom: none;
+   background: #46617e;
+}
+
+// rgb(125, 211, 252)
+
 /* ============ 导航栏 =========== */
 html:not(.dark) .navbar {
     background: hsla(0, 0%, 100%, 0.87);
@@ -33,7 +69,8 @@ html:not(.dark) .navbar {
 
 // 侧边栏标题
 .sidebar-item.sidebar-heading {
-    display: none;
+    // display: none;
+    visibility: hidden;
 }
 
 html:not(.dark) .sidebar {
@@ -52,10 +89,8 @@ html:not(.dark) .sidebar-item {
 // code icon
 .theme-default-content pre,
 .theme-default-content pre[class*="language-"] {
-    padding: 1.8rem 1.5rem 1.25rem;
+    // padding: 1.8rem 1.5rem 1.25rem;
 }
-
-
 
 .sidebar .sidebar-items {
     padding: 1.5rem 0 1.5rem 1.5rem;
@@ -73,4 +108,136 @@ html:not(.dark) .sidebar-item {
 
 .sidebar-item:not(.sidebar-heading) {
     line-height: 1.6;
+}
+
+@media screen and(min-width: 900px) {
+    .toggle-sidebar-button {
+        display: block;
+        top: 4rem;
+        left: 0.5rem;
+    }
+    .sidebar {
+        transform: translate(-100%);
+    }
+    .theme-container.sidebar-open .sidebar {
+        transform: translate(0);
+    }
+    .theme-container:not(.sidebar-open) .page {
+        padding-left: 0;
+        transition: all 0.3s ease-in-out;
+    }
+    .page {
+        transition: 0.3s ease 0.03s;
+    }
+}
+
+
+/*
+// code icon
+.theme-default-content pre,
+.theme-default-content pre[class*="language-"] {
+    padding: 1.8rem 1.5rem 1.25rem;
+}
+
+
+
+div[class*="language-"]::after,
+pre[class*="language-"]::after,
+pre[class*="language-"]::before {
+    content: "";
+    height: 12px;
+    width: 12px;
+    position: absolute;
+    top: 10px;
+    left: 4.1rem;
+    border-radius: 50%;
+    display: inline-block;
+    background:  #3baf71;
+}
+pre[class*="language-"]::before {
+    left: 1.5rem;
+    background:  #ff4742;
+}
+pre[class*="language-"]::after {
+    left: 2.8rem;
+    background: #fcd019;
+}
+*/
+
+
+/*
+div[class*="language-"]:before {
+    content: "";
+    height: 12px;
+    width: 12px;
+    position: absolute;
+    top: 10px;
+    left: 4.1rem;
+    border-radius: 50%;
+    display: inline-block;
+    background:  #3baf71;
+}
+
+div[class*=language-].ext-html:before {
+    content: "";
+}
+*/
+
+
+
+/* ============= code =============== */
+.code-group__nav {
+    position: relative;
+    padding-top: 30px;
+}
+
+.code-group__ul:before,
+.code-group__nav:before,
+.code-group__nav:after  {
+    content: "";
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    top: 1rem;
+    border-radius: 50%;
+    display: inline-block;
+    background: #f4bf4f;
+}
+
+.code-group__nav:before {
+    left: 3.6rem;
+    background: #61c554;
+}
+
+
+.code-group__nav:after {
+    left: 1rem;
+    background: #ed6a5e;
+}
+
+
+.code-group__ul {
+    position: relative;
+}
+.code-group__ul:before {
+    left: 1.7rem;
+    top: -14px;
+    background: #f4bf4f;
+}
+
+
+
+.code-group__nav {
+    padding-top: 40px;
+}
+
+.code-group__ul:before {
+    top: -24px;
+}
+
+.code-group__nav-tab-active {
+    border-bottom: none;
+}
+div[class*=language-] {
+    background-color: #343434;
 }

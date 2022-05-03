@@ -2,12 +2,13 @@
 home: true
 heroImage: /coulsonzero.png
 heroText: CoulsonZero
-tagline: 个人文档
+tagline: 个人文档中心
 actionText: 进入笔记 →
 actionLink: /guide/
 ---
 
-::::: warning 温馨提示
+
+::::: warning Coding
 :::: code-group
 ::: code-group-item yarn
 ```bash
@@ -21,10 +22,13 @@ npm run start
 :::
 :::::
 
-<p style="text-align:center;">MIT Licensed | Copyright ©2022 CoulsonZero</p>
+<p style="text-align:center; color: rgba(0,0,0,.3)">MIT Licensed | Copyright ©2022 CoulsonZero</p>
 
-# Docs
+[![GitHub forks](https://img.shields.io/github/forks/coulsonzero/docs)](https://github.com/coulsonzero/docs/network) [![GitHub stars](https://img.shields.io/github/stars/coulsonzero/docs)](https://github.com/coulsonzero/docs/stargazers)
+[![GitHub license](https://img.shields.io/github/license/coulsonzero/docs)](https://github.com/coulsonzero/docs/blob/master/LICENSE)
 
+
+# 导航书签 🎉
 ## Search
 
 [Bing]

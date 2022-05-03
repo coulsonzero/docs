@@ -7,7 +7,10 @@ module.exports = {
 	description: "文档管理中心",
 	port: 80,
 	// 搜索栏
-	plugins: ["@vuepress/plugin-search", "demo-block"],
+	plugins: [
+		"@vuepress/plugin-search",
+		"demo-block"
+	],
 	themeConfig: {
 		// logo: "https://vuejs.org/images/logo.png",
 		logo: "/coulsonzero.png",
@@ -25,7 +28,7 @@ module.exports = {
 	},
 	markdown: {
 		code: {
-			lineNumbers: 4, // 代码超过4行显示行号, 默认值为true
+			lineNumbers: 10, // 代码超过n行显示行号, 默认值为true
 		},
 	},
 }
