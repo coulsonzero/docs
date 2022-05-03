@@ -1,6 +1,7 @@
 module.exports = {
+	lang: "zh-CN",
 	base: "/docs/",
-	title: "CoulsonZero",
+	title: "Zero",
 	description: "文档管理中心",
 	port: 80,
 	// 搜索栏
@@ -183,6 +184,8 @@ module.exports = {
 	*/
 
 	markdown: {
-		lineNumbers: true, //代码显示行号
+		code: {
+			lineNumbers: 4, // 代码超过4行显示行号, 默认值为true
+		},
 	},
 }

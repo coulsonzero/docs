@@ -571,6 +571,8 @@ let str = "coulsonzero"
 
 console.log(`hello ${str}`) // hello coulsonzero
 console.log(typeof str)     // string
+console.log(typeof(str) === 'string')     // true
+
 length
 charAt()
 indexOf()
@@ -579,8 +581,12 @@ substring()
 substr()
 concat()
 split()
+
 search()
-replace()
+match()
+replace()	// 仅替换第一个
+replaceAll()
+
 toFixed() // 保留小数点位数
 trim()
 
@@ -589,11 +595,14 @@ startsWith()
 endsWith()
 toUpperCase()
 toLowerCase()
-match()
+
+padStart()
+padEnd()	// 自动补全位数
+
 ```
 
 :::: code-group
-::: code-group-item 创建字符串
+::: code-group-item 新建
 
 ```js
 let str1 = "Hello, React !"
@@ -645,7 +654,8 @@ console.log(newStr.search(/\d+/g))		// Output: 7
 var str = "hello3306world8080pop"
 console.log(str.match(/\d+/g))		// [ '3306', '8080' ]
 
-console.log(newStr.replace(/\d/g, ''))	// Hello,  world!
+console.log(newStr.replace(/\d/g, ''))				// Hello, world!
+console.log(str.replace(/(\w+)\s(\w+)/, '$2, $1'))	// Hello, React
 
 ```
 
@@ -849,9 +859,9 @@ console.log(str.indexOf("react"))  // -1
 
 
 
-
 var str = "Hello world"
-console.log(typeof str)   // string
+console.log(typeof(str))               // string
+console.log(typeof(str) === 'string')   // true
 
 var arr = str.split(" ")
 console.log(typeof arr)           // object
