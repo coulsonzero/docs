@@ -2,7 +2,8 @@ const navConf = require("./config/navConf.js")
 
 module.exports = {
 	lang: "zh-CN",
-	base: "/docs/",
+	// 如果设置了域名解析则需要删除base
+	// base: "/docs/",
 	title: "Zero",
 	description: "文档管理中心",
 	port: 80,
