@@ -30,138 +30,76 @@ npm run start
 
 
 # 导航书签 🎉
-## Search
 
-[Bing]
 
-## 工具
 
-[DeepL]
-
-## 技术社区
-
-[Github]
-
-[Codepen]
-
-[Stack Overflow]
-
-[Awwwards]
-
-[CSDN]
-
-[ZhiHu]
-
-[Leetcode]
-
-[Nowcoder]
-
-## UI 设计
-
-[Figma]
-
-[蓝湖]
-
----
-
-## HTML 图标
-
-[Boxicons]
-
-[Font Awesome]
-
-[Iconfont]
-
-## CSS
-
-### CSS 动画
-
-[Animate]
-
-[Animista]
-
-### CSS 字体
-
-[Google Fonts]
-
-### CSS 颜色
-
-[WebGradients]
-
-[Angrytools]
-
-## JavaScript 技术
-
-[Swiper]
-[Swiper-cn] | 轮播图
-
-[ScrollReveal] ｜ 页面平滑效果
-
-[Echarts] ｜ 2D 数据可视化分析
-
-[Make A Pie] | Echarts 技术社区 (已于 2022.1 暂停服务)
-
-[Analysis] | Echarts 技术迁移(新)
-
-[Codesandbox] | web 在线编程 ｜ Echarts 核心开发(沈毅)已入驻
-
-[Vue3.js]
-
-[React.js]
-
-[Three.js] ｜ 3D 可视化
-
-[MapBox] ｜ 3D 地图
-
-[Canvas] | 3D 网页
-
----
-
-## 打包工具
-
-[Webpack]
-
-[Vite]
-
-[Yarn] | package Manage
-
-## 文档管理
-
-[Docsify]
-
-[VuePress]
-
-[Docsearch]
-
-## 分布式版本控制
-
-[Git]
+| 名 称             | 网 址             |  备 注         |
+| :--------------- | :---------------  | :-------------: |
+| Bing             | [Bing]            | 搜索引擎        |
+| Deepl            | [DeepL]           | 翻译工具        |
+| Github           | [Github]          | 技术社区        |
+| Codepen          | [Codepen]         | 技术社区        |
+| Stack Overflow   | [Stack Overflow]  | 技术社区        |
+| Awwwards         | [Awwwards]        | 技术社区        |
+| CSDN             | [CSDN]            | 技术社区        |
+| 知乎              | [ZhiHu]           | 技术社区        |
+| 力扣              | [Leetcode]        | 技术社区        |
+| 牛客网            | [Nowcoder]        | 技术社区        |
+| Figma            | [Figma]           | UI设计         |
+| 蓝湖              | [蓝湖]            | UI设计         |
+| Boxicons         | [Boxicons]        | 图标           |
+| Iconfont         | [Iconfont]        | 图标           |
+| Font Awesome     | [Font Awesome]    | 图标           |
+| Animate          | [Animate]         | CSS动画        |
+| Animista         | [Animate]         | CSS动画        |
+| Google Fonts     | [Google Fonts]    | CSS字体        |
+| WebGradients     | [WebGradients]    | CSS颜色        |
+| Angrytools       | [Angrytools]      | CSS颜色        |
+| Swiper           | [Swiper]          | JS轮播图库      |
+| Swiper-cn        | [Swiper-cn]       | JS中文轮播图库   |
+| ScrollReveal     | [ScrollReveal]    | JS页面平滑效果   |
+| Echarts          | [Echarts]         | JS可视化图表库   |
+| Make A Pie       | [Make A Pie]      | JS图表社区, 停运 |
+| Analysis         | [Analysis]        | JS图表社区      |
+| Codesandbox      | [Codesandbox]     | Web在线编程网站  |
+| Vue              | [Vue3.js]         | Web框架         |
+| React            | [React.js]        | Web框架         |
+| Three            | [Three.js]        | WebGL 3D可视化   |
+| MapBox           | [MapBox]          | Web 3D地图       |
+| Canvas           | [Canvas]          | Web 2D动效       |
+| Webpack          | [Webpack]         | 打包工具          |
+| Vite             | [Vite]            | 打包工具, 启动更快  |
+| Yarn             | [Yarn]            | npm包管理命令行工具 |
+| Docsify          | [Docsify]         | 文档管理           |
+| VuePress         | [VuePress]        | 文档管理           |
+| Git              | [Git]             | 分布式版本控制      |
 
 ## 优秀 2D 网页作品
 
-[Three.js Journey]
+| 网站名称              | 网址                    |
+| -------------------- | ---------------------- |
+| Three.js Journey     | [Three.js Journey]     |
+| orano                | [orano]                |
+| Accueil - Hillstone  | [Accueil - Hillstone]  |
+| fiiiirst             | [fiiiirst]             |
+| Maserati             | [Maserati]             |
+| steelwavellc         | [steelwavellc]         |
+| avexdesigns          | [avexdesigns]          |
 
-[orano]
-
-[Accueil - Hillstone]
-
-[fiiiirst]
-
-[Maserati]
-
-[steelwavellc]
-
-[avexdesigns]
 
 ## 3D 网页作品
 
-[BS]
+| 网站名称              | 网址                    |
+| -------------------- | ---------------------- |
+| BS                   | [BS]                   |
+| Kode Sports Club     | [Kode Sports Club]     |
 
-[Kode Sports Club]
+## 其他 文档 资料
+| 网站名称              | 网址                                           |
+| -------------------- | --------------------------------------------- |
+| Road 2 Coding        | [Road 2 Coding]                               |
+| VuePress文档          | [飞跃高山与大洋的鱼](https://docs.shanyuhai.top) |
 
-## 其他 md 资料
-
-[Road 2 Coding]
 
 <!-- Links -->
 
