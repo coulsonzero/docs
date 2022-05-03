@@ -9,7 +9,6 @@ module.exports = {
 	// 搜索栏
 	plugins: ["@vuepress/plugin-search", "demo-block"],
 	themeConfig: {
-		// 导航栏
 		logo: "https://vuejs.org/images/logo.png",
 		repo: "https://github.com/coulsonzero/docs",
 		// 是否编辑
@@ -23,26 +22,6 @@ module.exports = {
 		// 顶部导航栏
 		navbar: navConf,
 	},
-	/*
-	head: [
-		[
-			"script",
-			{src: "https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js"},
-		],
-		[
-			"script",
-			{
-				src: "https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js",
-			},
-		],
-		["script", {src: "https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"}],
-		[
-			"script",
-			{src: "https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"},
-		],
-	],
-	*/
-
 	markdown: {
 		code: {
 			lineNumbers: 4, // 代码超过4行显示行号, 默认值为true

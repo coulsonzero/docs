@@ -11,7 +11,6 @@ html.dark div[class*="language-"] .highlight-lines .highlight-line {
     background-color: #5d6880;
 }
 
-
 /* ============ 导航栏 =========== */
 html:not(.dark) .navbar {
     background: hsla(0, 0%, 100%, 0.87);
@@ -48,4 +47,30 @@ html:not(.dark) .sidebar-item.active:not(p.sidebar-heading) {
 
 html:not(.dark) .sidebar-item {
     color: #0d0d0d63;
+}
+
+// code icon
+.theme-default-content pre,
+.theme-default-content pre[class*="language-"] {
+    padding: 1.8rem 1.5rem 1.25rem;
+}
+
+
+
+.sidebar .sidebar-items {
+    padding: 1.5rem 0 1.5rem 1.5rem;
+}
+
+// 侧边栏active样式
+.sidebar-item-children li > a.sidebar-item.active:not(p.sidebar-heading) {
+    background: #f3f6f8;
+    width: 90%;
+}
+
+.sidebar-item-children .sidebar-item-children li > a.sidebar-item.active:not(p.sidebar-heading) {
+    background: transparent;
+}
+
+.sidebar-item:not(.sidebar-heading) {
+    line-height: 1.6;
 }
