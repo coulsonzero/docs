@@ -570,8 +570,8 @@ console.log(p.name)     // name: Tom
 let str = "coulsonzero"
 
 console.log(`hello ${str}`) // hello coulsonzero
-console.log(typeof str)     // string
-console.log(typeof(str) === 'string')     // true
+console.log(typeof str) // string
+console.log(typeof str === "string") // true
 
 length
 charAt()
@@ -584,7 +584,7 @@ split()
 
 search()
 match()
-replace()	// 仅替换第一个
+replace() // 仅替换第一个
 replaceAll()
 
 toFixed() // 保留小数点位数
@@ -597,8 +597,7 @@ toUpperCase()
 toLowerCase()
 
 padStart()
-padEnd()	// 自动补全位数
-
+padEnd() // 自动补全位数
 ```
 
 :::: code-group
@@ -622,10 +621,10 @@ let str = "Hello, React !"
 let str1 = new String("Hello, React !")
 let str2 = new String("Hello, React !")
 
-console.log(str1 ==  str)    // true:  值相等
-console.log(str1 === str)    // false: 类型不同，对象与字符串
-console.log(str1 ==  str2)   // false: 对象无法比较值
-console.log(str1 === str2)   // false: 对象无法比较值
+console.log(str1 == str) // true:  值相等
+console.log(str1 === str) // false: 类型不同，对象与字符串
+console.log(str1 == str2) // false: 对象无法比较值
+console.log(str1 === str2) // false: 对象无法比较值
 ```
 
 :::
@@ -643,20 +642,19 @@ console.log(str1 === str2)   // false: 对象无法比较值
 
 let str = "Hello, React !"
 
-console.log(str.indexOf('e'))		// Output: 1
-console.log(str.lastIndexOf('e'))	// Output: 8
-console.log(str.indexOf('e', 2))	// Output: 8
-console.log(str.search('e'))		// Output: 1
+console.log(str.indexOf("e")) // Output: 1
+console.log(str.lastIndexOf("e")) // Output: 8
+console.log(str.indexOf("e", 2)) // Output: 8
+console.log(str.search("e")) // Output: 1
 
 let newStr = "Hello, 3306 world! "
-console.log(newStr.search(/\d+/g))		// Output: 7
+console.log(newStr.search(/\d+/g)) // Output: 7
 
 var str = "hello3306world8080pop"
-console.log(str.match(/\d+/g))		// [ '3306', '8080' ]
+console.log(str.match(/\d+/g)) // [ '3306', '8080' ]
 
-console.log(newStr.replace(/\d/g, ''))				// Hello, world!
-console.log(str.replace(/(\w+)\s(\w+)/, '$2, $1'))	// Hello, React
-
+console.log(newStr.replace(/\d/g, "")) // Hello, world!
+console.log(str.replace(/(\w+)\s(\w+)/, "$2, $1")) // Hello, React
 ```
 
 :::
@@ -682,24 +680,25 @@ console.log(str.substr(3, 5))	 // lo, R
 ::: code-group-item 拼接
 
 ```js
-console.log("Hello" + ", " + "World!")       // "Hello, World!"
-let word1 = "Hello", word2 = "World!"
-console.log(`${word1}, ${word2}`)            // "Hello, World!"
-console.log("Hello".concat("World"))         // "HelloWorld"
-console.log("Hello".concat(", ", "World"))   // "Hello, World"
+console.log("Hello" + ", " + "World!") // "Hello, World!"
+let word1 = "Hello",
+	word2 = "World!"
+console.log(`${word1}, ${word2}`) // "Hello, World!"
+console.log("Hello".concat("World")) // "HelloWorld"
+console.log("Hello".concat(", ", "World")) // "Hello, World"
 ```
 
 :::
 ::: code-group-item 分割
 
 ```js
-var str = '127.0.0.1'
-console.log(str.split('.'))	// [ '127', '0', '0', '1' ]
-console.log(str.split())	// [ '127.0.0.1' ]
+var str = "127.0.0.1"
+console.log(str.split(".")) // [ '127', '0', '0', '1' ]
+console.log(str.split()) // [ '127.0.0.1' ]
 
 var str = "Hello World"
-console.log(str.split())	// [ 'Hello World' ]
-console.log(str.split(""))	// ['H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd']
+console.log(str.split()) // [ 'Hello World' ]
+console.log(str.split("")) // ['H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd']
 console.log(str.split(" ")) // [ 'Hello', 'World' ]
 ```
 
@@ -708,10 +707,10 @@ console.log(str.split(" ")) // [ 'Hello', 'World' ]
 ::: code-group-item 判断
 
 ```js
-let str = 'script.js'
-console.log(str.includes("hello"))    // false
-console.log(str.startsWith('main'))   // false
-console.log(str.endsWith('js'))       // true
+let str = "script.js"
+console.log(str.includes("hello")) // false
+console.log(str.startsWith("main")) // false
+console.log(str.endsWith("js")) // true
 ```
 
 :::
@@ -727,14 +726,12 @@ var str = "Hello, React !"
  * ===: 比较值和类型同时相等
  */
 
-
 var str1 = new String("Hello, React !")
 var str2 = new String("Hello, React !")
-console.log(str1 == str)    // true:  值相等
-console.log(str1 === str)   // false: 类型不同，字符串与对象
-console.log(str1 == str2)   // false: 对象无法比较值
-console.log(str1 === str2)  // false: 不同对象
-
+console.log(str1 == str) // true:  值相等
+console.log(str1 === str) // false: 类型不同，字符串与对象
+console.log(str1 == str2) // false: 对象无法比较值
+console.log(str1 === str2) // false: 不同对象
 
 console.log(str.length)
 // Output: 14
@@ -748,29 +745,24 @@ console.log(str.length)
  * replace(): 可以使用正则, 替换字符
  */
 
-console.log(str.indexOf('e'))
+console.log(str.indexOf("e"))
 // Output: 1
 
-console.log(str.lastIndexOf('e'))
+console.log(str.lastIndexOf("e"))
 // Output: 8
 
-console.log(str.indexOf('e', 2))
+console.log(str.indexOf("e", 2))
 // Output: 8
 
-console.log(str.search('e'))
+console.log(str.search("e"))
 // Output: 1
-
 
 var newStr = "Hello, 3306 world! "
 console.log(newStr.search(/\d+/g))
 // Output: 7
 
-
-console.log(newStr.replace(/\d/g, ''))
+console.log(newStr.replace(/\d/g, ""))
 // Hello,  world!
-
-
-
 
 /**
  * slice(start, end): 可以使用负数
@@ -793,34 +785,25 @@ console.log(str.substring(3, 5))
 console.log(str.substr(3, 5))
 // lo, R
 
+console.log(str.toUpperCase()) // "HELLO, REACT !"
+console.log(str.toLowerCase()) // "hello, react !"
+console.log(str.toLocaleLowerCase()) // "hello, react !"
 
-
-
-console.log(str.toUpperCase())          // "HELLO, REACT !"
-console.log(str.toLowerCase())          // "hello, react !"
-console.log(str.toLocaleLowerCase())    // "hello, react !"
-
-
-
-console.log("Hello" + ", " + "World!")       // "Hello, World!"
-let word1 = "Hello", word2 = "World!"
-console.log(`${word1}, ${word2}`)            // "Hello, World!"
-console.log("Hello".concat("World"))         // "HelloWorld"
-console.log("Hello".concat(", ", "World"))   // "Hello, World"
-
-
+console.log("Hello" + ", " + "World!") // "Hello, World!"
+let word1 = "Hello",
+	word2 = "World!"
+console.log(`${word1}, ${word2}`) // "Hello, World!"
+console.log("Hello".concat("World")) // "HelloWorld"
+console.log("Hello".concat(", ", "World")) // "Hello, World"
 
 console.log(" Hello,  World".trim())
 // Hello,  World
 
-
 console.log(str.charAt(3))
 // Output: 'l'
 
-
-
-var str = '127.0.0.1'
-console.log(str.split('.'))
+var str = "127.0.0.1"
+console.log(str.split("."))
 // [ '127', '0', '0', '1' ]
 
 console.log(str.split())
@@ -840,34 +823,31 @@ console.log(str.split(""))
 console.log(str.split(" "))
 // [ 'Hello', 'World' ]
 
-var str = 'script.js'
-console.log(str.startsWith('main'))   // false
-console.log(str.endsWith('js'))       // true
-
-
+var str = "script.js"
+console.log(str.startsWith("main")) // false
+console.log(str.endsWith("js")) // true
 
 var str = "hello3306world8080pop"
 console.log(str.match(/\d+/g))
 // [ '3306', '8080' ]
 
-console.log(str.includes("hello"))     // true
-console.log(str.indexOf("hello"))      // 0
-console.log(str.indexOf("hello", 3))   // -1
+console.log(str.includes("hello")) // true
+console.log(str.indexOf("hello")) // 0
+console.log(str.indexOf("hello", 3)) // -1
 
 console.log(str.includes("react")) // false
-console.log(str.indexOf("react"))  // -1
-
-
+console.log(str.indexOf("react")) // -1
 
 var str = "Hello world"
-console.log(typeof(str))               // string
-console.log(typeof(str) === 'string')   // true
+console.log(typeof str) // string
+console.log(typeof str === "string") // true
 
 var arr = str.split(" ")
-console.log(typeof arr)           // object
-console.log(Array.isArray(arr))   // true
+console.log(typeof arr) // object
+console.log(Array.isArray(arr)) // true
 console.log(arr instanceof Array) // true
 ```
+
 :::
 
 ### 2. Array
@@ -2122,6 +2102,49 @@ screen.pixelDepth
 ```
 document.cookie
 ```
+
+## BOM
+
+### screen
+
+:::: code-group
+::: code-group-item 全屏
+
+```js
+// 全屏
+document.documentElement.requestFullscreen()
+// 退出全屏
+document.exitFullscreen()
+```
+
+:::
+
+::: code-group-item DOM 示例
+
+```html{11,15}
+<button class="btn" id="fullscr">Go Fullscreen</button>
+
+<script>
+	let fullscreen
+	let fsEnter = document.getElementById("fullscr")
+
+	fsEnter.addEventListener("click", function (e) {
+		e.preventDefault()
+		if (!fullscreen) {
+			fullscreen = true
+			document.documentElement.requestFullscreen()
+			fsEnter.innerHTML = "Exit Fullscreen"
+		} else {
+			fullscreen = false
+			document.exitFullscreen()
+			fsEnter.innerHTML = "Go Fullscreen"
+		}
+	})
+</script>
+```
+
+:::
+::::
 
 ## Module
 
