@@ -9,7 +9,8 @@ module.exports = {
 	// 搜索栏
 	plugins: ["@vuepress/plugin-search", "demo-block"],
 	themeConfig: {
-		logo: "https://vuejs.org/images/logo.png",
+		// logo: "https://vuejs.org/images/logo.png",
+		logo: "/coulsonzero.png",
 		repo: "https://github.com/coulsonzero/docs",
 		// 是否编辑
 		editLinks: true,

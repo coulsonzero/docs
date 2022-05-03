@@ -1,3 +1,28 @@
+---
+home: true
+heroImage: /coulsonzero.png
+heroText: CoulsonZero
+tagline: 个人文档
+actionText: 进入笔记 →
+actionLink: /guide/
+---
+
+::::: warning 温馨提示
+:::: code-group
+::: code-group-item yarn
+```bash
+yarn start
+```
+:::
+::: code-group-item npm
+```bash
+npm run start
+```
+:::
+:::::
+
+<p style="text-align:center;">MIT Licensed | Copyright ©2022 CoulsonZero</p>
+
 # Docs
 
 ## Search
