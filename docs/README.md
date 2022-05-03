@@ -94,11 +94,28 @@ npm run start
 | BS                   | [BS]                   |
 | Kode Sports Club     | [Kode Sports Club]     |
 
-## 其他 文档 资料
+##  文档资料
 | 网站名称              | 网址                                           |
 | -------------------- | --------------------------------------------- |
 | Road 2 Coding        | [Road 2 Coding]                               |
 | VuePress文档          | [飞跃高山与大洋的鱼](https://docs.shanyuhai.top) |
+
+
+## 友情链接
+| 网站名称              | 网址                                           |
+| -------------------- | --------------------------------------------- |
+| imaegoo              | [imaegoo](https://www.imaegoo.com)            |
+| frytea               | [frytea](https://blog.frytea.com)             |
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- Links -->
