@@ -5,8 +5,8 @@
 }
 
 html.dark {
-    // --c-bg-navbar: rgba(24, 26, 29, 0.8);
-    --c-bg-navbar: #161b22ee;;
+    --c-bg-navbar: rgba(24, 26, 29, 0.8);
+    // --c-bg-navbar: #161b22ee;
 }
 
 
@@ -18,6 +18,11 @@ html.dark {
         margin: 10rem;
         padding: 70px 0 40px 0;
         border-bottom: 1px solid black;
+    }
+    html.dark {
+        h1[tabindex="-1"] {
+            border-bottom-color: rgb(85, 95, 95);
+        }
     }
 }
 
@@ -87,3 +92,7 @@ html:not(.dark) {
     right: 0;
     top: -70%;
 }
+
+
+
+
