@@ -1,5 +1,7 @@
 # Vuepress Document
 
+
+![npm](https://img.shields.io/npm/v/vuepress-plugin-auto-sidebar)
 ## 文档效果
 
 ![display](./display.png)
