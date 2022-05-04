@@ -25,7 +25,8 @@ const path = require('path')
 
 ## git
 
-* vscode
+* vscode同步更改报错
+
 ```
 > git pull --tags origin master
 From github.com:coulsonzero/docs
