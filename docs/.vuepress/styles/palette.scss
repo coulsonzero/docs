@@ -12,18 +12,29 @@ html.dark {
     // color: transparent;
 }
 
-h1[tabindex="-1"] {
-    font-size: 3.6rem;
-    text-align: center;
-    text-transform: capitalize;
-    margin: 10rem;
-    padding: 70px 0 40px 0;
-    border-bottom: 1px solid black;
+@media screen and(min-width: 900px) {
+    h1[tabindex="-1"] {
+        font-size: 3.6rem;
+        text-align: center;
+        text-transform: capitalize;
+        margin: 10rem;
+        padding: 70px 0 40px 0;
+        border-bottom: 1px solid black;
+    }
+}
+
+@media screen and(max-width: 480px) {
+    .page {
+        padding-bottom: 0;
+    }
+    .page-nav {
+        border-radius: 0 !important;
+    }
 }
 
 .page-nav {
     /* max-width: initial; */
-    padding-bottom: 1rem;
+    // padding-bottom: 1rem;
     background: #282c34;
     border-radius: 20px;
     margin-top: 30px;
