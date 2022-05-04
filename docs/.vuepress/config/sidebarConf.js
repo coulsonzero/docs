@@ -39,15 +39,15 @@ module.exports = {
       "collapsable": false,
       "sidebarDepth": 1,
       "children": [
-        "deleteNode.md",
+        "README.md",
+        "ListNode.md",
         "deleteDuplicates.md",
+        "deleteNode.md",
         "hasCycle.md",
         "isPalindrome.md",
-        "ListNode.md",
         "mergeTwoSortedLists.md",
-        "reverseList.md",
         "removeNthFromEnd.md",
-        "README.md"
+        "reverseList.md"
       ]
     }
   ],
@@ -69,8 +69,8 @@ module.exports = {
       "collapsable": false,
       "sidebarDepth": 1,
       "children": [
-        "387.字符串中的第一个唯一字符.md",
-        "README.md"
+        "README.md",
+        "387.字符串中的第一个唯一字符.md"
       ]
     }
   ],
@@ -81,18 +81,18 @@ module.exports = {
       "collapsable": false,
       "sidebarDepth": 1,
       "children": [
-        "bigscreen.md",
-        "bar.md",
-        "event.md",
-        "echartsBase.md",
+        "README.md",
         "EchartsExample.md",
+        "bar.md",
+        "bigscreen.md",
+        "echartsBase.md",
+        "event.md",
         "gauge.md",
-        "logSystem.md",
-        "lines.md",
         "line.md",
+        "lines.md",
+        "logSystem.md",
         "pie.md",
         "radar.md",
-        "README.md",
         "scatter.md"
       ]
     }
@@ -104,19 +104,19 @@ module.exports = {
       "collapsable": false,
       "sidebarDepth": 1,
       "children": [
+        "README.md",
         "catport.md",
         "gestures.md",
-        "hosts.md",
         "homebrew.md",
+        "hosts.md",
         "idealicence.md",
         "mysql.md",
         "nslookup.md",
         "openidea.md",
         "rosetta.md",
-        "README.md",
-        "ssh.md",
-        "software.md",
         "shortcuts.md",
+        "software.md",
+        "ssh.md",
         "terminal.md",
         "wifipassword.md"
       ]
@@ -136,8 +136,8 @@ module.exports = {
         "go.md",
         "java.md",
         "kotlin.md",
-        "python.md",
         "pyside6.md",
+        "python.md",
         "swift.md"
       ]
     }
@@ -149,14 +149,14 @@ module.exports = {
       "collapsable": false,
       "sidebarDepth": 1,
       "children": [
-        "css.md",
-        "canvas.md",
-        "html.md",
-        "jquery.md",
-        "javascript.md",
         "NextJs.md",
-        "react.md",
         "ReactJs.md",
+        "canvas.md",
+        "css.md",
+        "html.md",
+        "javascript.md",
+        "jquery.md",
+        "react.md",
         "scss.md",
         "vue.md"
       ]
@@ -172,8 +172,8 @@ module.exports = {
         "linux.md",
         "mongodb.md",
         "redis.md",
-        "sql.md",
-        "shell.md"
+        "shell.md",
+        "sql.md"
       ]
     }
   ],
@@ -184,7 +184,6 @@ module.exports = {
       "collapsable": false,
       "sidebarDepth": 1,
       "children": [
-        "Interview.md",
         "markdown.md"
       ]
     }

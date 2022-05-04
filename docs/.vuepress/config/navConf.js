@@ -3,9 +3,9 @@ module.exports = [
 	{
 		text: "前端",
 		children: [
-			{text: "HTML5", link: "/guide/frontend/html"},
-			{text: "CSS3", link: "/guide/frontend/css"},
-			{text: "JavaScript(ES6)", link: "/guide/frontend/javascript"},
+			{text: "HTML", link: "/guide/frontend/html"},
+			{text: "CSS", link: "/guide/frontend/css"},
+			{text: "JavaScript", link: "/guide/frontend/javascript"},
 			{
 				text: "语法扩展",
 				children: [
@@ -66,7 +66,7 @@ module.exports = [
 			},
 			{
 				text: "类库",
-				children: [{text: "pyside6", link: "/guide/backend/pyside6"}],
+				children: [{text: "Pyside6", link: "/guide/backend/pyside6"}],
 			},
 		],
 	},
@@ -98,7 +98,7 @@ module.exports = [
 		children: [
 			{text: "Markdown", link: "/guide/other/markdown"},
 			{text: "Mac使用指南", link: "/guide/other/mac/README.md"},
-			{text: "interview", link: "/guide/other/Interview.md"},
+			// {text: "interview", link: "/guide/other/Interview.md"},
 		],
 	},
 ]

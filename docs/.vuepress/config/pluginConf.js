@@ -1,13 +1,3 @@
-const sortFn = (a, b) => {
-    /*
-	const lastA = a.filename[0]
-	const lastB = b.filename[0]
-
-	return lastA > lastB ? 1 : -1
-    */
-
-    return a.filename.toLowerCase().charAt(0) > b.filename.toLowerCase().charAt(0) ? 1 : -1
-}
 
 module.exports = [
 	["@vuepress/plugin-search"],
@@ -19,12 +9,19 @@ module.exports = [
 				filename: "config/sidebarConf",
 			},
 			sort: {
-				mode: "custom",
-				fn: sortFn,
+				mode: "asc",
+				readmeFirst: true,
+				readmeFirstForce: false,
 			},
 			git: {
 				trackStatus: "all",
 			},
+			ignore: [
+				{
+					menu: "/guide/other/",
+					regex: "Inter*",
+				},
+			],
 		},
 	],
 ]
