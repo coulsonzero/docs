@@ -19,7 +19,7 @@ module.exports = [
 				children: [
 					{text: "jQuery", link: "/guide/frontend/jquery"},
 					{text: "Vue", link: "/guide/frontend/vue"},
-					{text: "React", link: "/guide/frontend/react"},
+					{text: "React", link: "/guide/frontend/react/"},
 				],
 			},
 			{

@@ -1,15 +1,28 @@
 :root {
     scroll-behavior: smooth;
-    // --c-brand: rgb(75, 174, 219);
     --c-bg-navbar: hsla(0, 0%, 100%, 0.76);
 }
 
 html.dark {
     --c-bg-navbar: rgba(24, 26, 29, 0.8);
-    // --c-bg-navbar: #161b22ee;
 }
 
 
+::selection {
+    background: #57595c;
+}
+
+html:not(.dark) .page {
+    background: rgb(252, 254, 247);
+}
+
+
+
+/**
+ * ----------------------------------------
+ *                Title
+ * ----------------------------------------
+ */
 @media screen and(min-width: 900px) {
     h1[tabindex="-1"] {
         font-size: 3.6rem;
@@ -26,6 +39,21 @@ html.dark {
     }
 }
 
+/**
+ * ----------------------------------------
+ *               link
+ * ----------------------------------------
+ */
+.external-link-icon {
+    display: none;
+}
+
+
+/**
+ * ----------------------------------------
+ *                footer
+ * ----------------------------------------
+ */
 @media screen and(max-width: 480px) {
     .page {
         padding-bottom: 0;
@@ -36,23 +64,10 @@ html.dark {
 }
 
 .page-nav {
-    /* max-width: initial; */
-    // padding-bottom: 1rem;
     background: #282c34;
     border-radius: 20px;
     margin-top: 30px;
 }
-/*
-html:not(.dark) {
-    .page-nav {
-        background: transparent;
-    }
-    .inner .prev a,
-    .inner .next a {
-        color: #323323;
-    }
-}
-*/
 
 .page-nav .inner {
     border-top: none;

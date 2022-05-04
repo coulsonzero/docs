@@ -1,17 +1,11 @@
-::selection {
-    background: #57595c;
-}
 
-html:not(.dark) .page {
-    background: rgb(252, 254, 247);
-}
 
-// 外部链接样式
-.external-link-icon {
-    display: none;
-}
 
-/* ================ 代码 ================ */
+/**
+ * ----------------------------------------
+ *                 code
+ * ----------------------------------------
+ */
 div[class*="language-"] {
     background-color: #343434;
 }
@@ -21,11 +15,9 @@ html.dark {
     }
 }
 html:not(.dark) div[class*="language-"] .highlight-lines .highlight-line {
-    // background-color: rgb(32 108 101);
     background: #5a5a5a;
 }
 html.dark div[class*="language-"] .highlight-lines .highlight-line {
-    // background-color: #5d6880;
     background: #555555;
 }
 .custom-container.details {
@@ -34,13 +26,8 @@ html.dark div[class*="language-"] .highlight-lines .highlight-line {
 
 .code-group__nav {
     background-color: hsla(220, 13%, 18%, 0.878);
-    // background: linear-gradient(rgba(40, 44, 52, 0.878), rgb(72 72 128 / 76%));
-    // background: linear-gradient(rgba(40, 44, 52, 0.878), rgb(62 62 109 / 75%));
     // background: linear-gradient(rgba(40, 44, 52, 0.878), rgba(42, 42, 74, 0.75));
     background: linear-gradient(rgba(40, 44, 52, 0.878), rgb(29 29 34 / 75%));
-    // background: linear-gradient(rgba(40, 44, 52, 0.878), rgba(29, 29, 55, 0.76));
-    // background: linear-gradient(rgb(72 72 128 / 76%), rgba(40, 44, 52, 0.878));
-    // background-image: linear-gradient(to right, #868f96 0%, #596164 100%);
 }
 
 .code-group__li {
@@ -87,14 +74,13 @@ html:not(.dark) {
 }
 
 .code-group__li + .code-group__li {
-    // border-right-width: 0;
     border-left-width: 0
 }
 
 
-
+// code-group radius
 :root {
-    --code-group-radius: 0px;
+    --code-group-radius: 12px;
 }
 .code-group__li {
     overflow-x: hidden;
@@ -107,7 +93,11 @@ html:not(.dark) {
 }
 
 
-/* ============ 导航栏 =========== */
+/**
+ * ----------------------------------------
+ *          navbar
+ * ----------------------------------------
+ */
 html:not(.dark) .navbar {
     background: hsla(0, 0%, 100%, 0.87);
     backdrop-filter: blur(16px) saturate(180%);
@@ -120,7 +110,11 @@ html:not(.dark) .navbar {
     display: none;
 }
 
-/* ============ 侧边栏 =========== */
+/**
+ * ----------------------------------------
+ *          sidebar
+ * ----------------------------------------
+ */
 .sidebar-item:not(.sidebar-heading) {
     padding-left: 1rem;
 }
@@ -210,7 +204,13 @@ html.dark {
     line-height: 1.6;
 }
 
-/* =============== PC侧边栏隐藏展开 ================== */
+
+/**
+ * ----------------------------------------
+ *          sidebar-button
+ * ----------------------------------------
+ */
+
 
 @media screen and(min-width: 900px) {
     .toggle-sidebar-button {
@@ -242,57 +242,14 @@ html.dark {
     }
 }
 
-/*
-// code icon
-.theme-default-content pre,
-.theme-default-content pre[class*="language-"] {
-    padding: 1.8rem 1.5rem 1.25rem;
-}
 
 
+/**
+ * ----------------------------------------
+ *                  code
+ * ----------------------------------------
+ */
 
-div[class*="language-"]::after,
-pre[class*="language-"]::after,
-pre[class*="language-"]::before {
-    content: "";
-    height: 12px;
-    width: 12px;
-    position: absolute;
-    top: 10px;
-    left: 4.1rem;
-    border-radius: 50%;
-    display: inline-block;
-    background:  #3baf71;
-}
-pre[class*="language-"]::before {
-    left: 1.5rem;
-    background:  #ff4742;
-}
-pre[class*="language-"]::after {
-    left: 2.8rem;
-    background: #fcd019;
-}
-*/
-
-/*
-div[class*="language-"]:before {
-    content: "";
-    height: 12px;
-    width: 12px;
-    position: absolute;
-    top: 10px;
-    left: 4.1rem;
-    border-radius: 50%;
-    display: inline-block;
-    background:  #3baf71;
-}
-
-div[class*=language-].ext-html:before {
-    content: "";
-}
-*/
-
-/* ============= code =============== */
 .code-group__nav {
     position: relative;
     padding-top: 30px;

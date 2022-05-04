@@ -97,6 +97,18 @@ module.exports = {
       ]
     }
   ],
+  "/guide/frontend/react/": [
+    {
+      "text": "React",
+      "title": "React",
+      "collapsable": false,
+      "sidebarDepth": 1,
+      "children": [
+        "README.md",
+        "nextjs.md"
+      ]
+    }
+  ],
   "/guide/other/mac/": [
     {
       "text": "Mac",
@@ -149,14 +161,11 @@ module.exports = {
       "collapsable": false,
       "sidebarDepth": 1,
       "children": [
-        "NextJs.md",
-        "ReactJs.md",
         "canvas.md",
         "css.md",
         "html.md",
         "javascript.md",
         "jquery.md",
-        "react.md",
         "scss.md",
         "vue.md"
       ]
