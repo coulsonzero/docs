@@ -263,3 +263,28 @@ div[class*=language-].ext-html:before {
 div[class*=language-] {
     background-color: #343434;
 }
+
+/* 导航栏下拉框列表 */
+@media (min-width: 720px) {
+    .navbar-dropdown-wrapper .navbar-dropdown {
+        box-shadow: 0 0.0625rem 0.3125rem 0.0625rem rgb(0 0 0 / 12%);
+        border-radius: 0.6rem;
+        max-height: 500px;
+        padding: 1rem 0px;
+        // padding: 1rem 0px;
+        list-style: none;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background:hsla(0, 0%, 100%, 0.72);
+        transform: translateX(43%);
+    }
+
+    .navbar-dropdown-wrapper .navbar-dropdown .navbar-dropdown-item a {
+        padding: 3px 45px;
+    }
+    .navbar-dropdown-wrapper .navbar-dropdown .navbar-dropdown-item a:hover {
+        background-color: #f8f9fad8;
+         backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+}
