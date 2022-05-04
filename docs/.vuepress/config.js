@@ -1,5 +1,9 @@
 const navConf = require("./config/navConf.js")
 const sidebarConf = require("./config/sidebarConf.js")
+const pluginConf = require("./config/pluginConf.js")
+
+
+
 
 module.exports = {
 	lang: "zh-CN",
@@ -9,25 +13,7 @@ module.exports = {
 	description: "文档管理中心",
 	port: 80,
 	/* 搜索栏 */
-	plugins: [
-		["@vuepress/plugin-search"],
-		["demo-block"],
-		[
-			"vuepress-plugin-auto-sidebar",
-			{
-				output: {
-					filename: "config/sidebarConf",
-				},
-				sort: {
-					mode: "asc",
-					readmeFirst: true,
-				},
-				git: {
-					trackStatus: "add",
-				},
-			},
-		],
-	],
+	plugins: pluginConf,
 	themeConfig: {
 		// logo: "https://vuejs.org/images/logo.png",
 		logo: "/coulsonzero.png",
