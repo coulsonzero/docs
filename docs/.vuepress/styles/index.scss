@@ -1,3 +1,7 @@
+html:not(.dark) .page {
+    background: rgb(252, 254, 247);
+}
+
 // 外部链接样式
 .external-link-icon {
     display: none;
@@ -114,10 +118,20 @@ html:not(.dark) .sidebar-item {
 
 
 @media screen and(min-width: 900px) {
+
     .toggle-sidebar-button {
         display: block;
         top: 4rem;
         left: 0.5rem;
+        padding: 26px 140px 50px 140px;
+        opacity: .02;
+        transition: opacity 0.15s ease .1s;
+        .icon {
+            transform: scale(1.5);
+        }
+    }
+    .toggle-sidebar-button:hover {
+        opacity: 1;
     }
     .sidebar {
         transform: translate(-100%);
@@ -132,6 +146,9 @@ html:not(.dark) .sidebar-item {
     .page {
         transition: 0.3s ease 0.03s;
     }
+
+
+
 }
 
 

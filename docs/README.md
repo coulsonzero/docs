@@ -6,6 +6,24 @@ tagline: 个人文档中心
 actionText: 进入笔记 →
 actionLink: /guide/
 sidebar: false
+
+# actions:
+#   - text: 快速上手
+#     link: https://v2.vuepress.vuejs.org/zh/guide/getting-started.html
+#     type: primary
+#   - text: 项目简介
+#     link: https://v2.vuepress.vuejs.org/zh/guide/
+#     type: secondary
+# features:
+#   - title: 简洁至上
+#     details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
+#   - title: Vue 驱动
+#     details: 享受 Vue 的开发体验，可以在 Markdown 中使用 Vue 组件，又可以使用 Vue 来开发自定义主题。
+#   - title: 高性能
+#     details: VuePress 会为每个页面预渲染生成静态的 HTML，同时，每个页面被加载的时候，将作为 SPA 运行。
+
+# footer: MIT Licensed | Copyright © 2018-present CoulsonZero
+
 ---
 
 
@@ -23,14 +41,16 @@ npm run start
 :::
 :::::
 
-<p style="text-align:center; color: rgba(0,0,0,.3)">MIT Licensed | Copyright ©2022 CoulsonZero</p>
+<p style="text-align:center; color: rgba(0,0,0,.3)">MIT Licensed | Copyright © 2022 CoulsonZero</p>
+
+
+
+
+# 导航书签 🎉
 
 [![GitHub forks](https://img.shields.io/github/forks/coulsonzero/docs)](https://github.com/coulsonzero/docs/network)
 [![GitHub stars](https://img.shields.io/github/stars/coulsonzero/docs)](https://github.com/coulsonzero/docs/stargazers)
 [![GitHub license](https://img.shields.io/github/license/coulsonzero/docs)](https://github.com/coulsonzero/docs/blob/master/LICENSE)
-
-
-# 导航书签 🎉
 
 
 
