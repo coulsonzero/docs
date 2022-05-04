@@ -1398,7 +1398,7 @@ export default connect(mapStateToProps)(App)
 
 
 * redux实现todo-list
-![redux-todolist](../../.vuepress/public/assets/react/redux-todolist.png)
+![redux-todolist](@/assets/react/redux-todolist.png)
 ```sh
 $ tree
 src
@@ -2073,7 +2073,7 @@ export default function App() {
 
 [React生命周期示意图](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
 
-![React-lifeCycle](../../.vuepress/public/assets/react/react-lifecycle.png)
+![React-lifeCycle](@/assets/react/react-lifecycle.png)
 
 
 ::::: details 点击查看示例
@@ -2190,7 +2190,7 @@ export default function App() {
 
 [Ant Designer Pro 展示面板](https://preview.pro.ant.design/dashboard/analysis)
 
-![Ant Designer Pro](../../.vuepress/public/assets/react/AntDesingerPro.png)
+![Ant Designer Pro](@/assets/react/AntDesingerPro.png)
 
 ::::: tip
 > 1. 新建React项目，导入antd包 `$ yarn add antd`

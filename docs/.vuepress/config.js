@@ -1,7 +1,7 @@
 const navConf = require("./config/navConf.js")
 const sidebarConf = require("./config/sidebarConf.js")
 const pluginConf = require("./config/pluginConf.js")
-
+const path = require('path')
 
 
 
@@ -14,6 +14,10 @@ module.exports = {
 	port: 80,
 	/* 搜索栏 */
 	plugins: pluginConf,
+	/* 静态资源别名 */
+	alias: {
+		"@": path.resolve(__dirname, "./public"),
+	},
 	themeConfig: {
 		/* navbar扩展 */
 		// logo: "https://vuejs.org/images/logo.png",

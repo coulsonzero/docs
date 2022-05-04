@@ -2435,3 +2435,19 @@ console.log(moneyFormat("暂无数据"))
 ```
 
 :::
+
+
+## Error
+
+
+### vuepress
+
+* ReferenceError: path is not defined
+```js
+const path = require('path')
+```
+
+* Error: [vite]: Rollup failed to resolve import "/docs/.vuepress/public/assets/react/AntDesingerPro.png" from "docs/.vuepress/.temp/pages/guide/frontend/react/index.html.vue".
+```js
+静态资源路径错误
+```
