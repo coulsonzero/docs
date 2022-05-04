@@ -7,3 +7,8 @@
 html.dark {
     --c-bg-navbar: rgba(24, 26, 29, 0.8);
 }
+
+
+.external-link[aria-label="Github"] {
+    // color: transparent;
+}

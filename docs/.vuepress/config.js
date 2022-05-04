@@ -19,6 +19,7 @@ module.exports = {
 		// logo: "https://vuejs.org/images/logo.png",
 		logo: "/coulsonzero.png",
 		repo: "https://github.com/coulsonzero/docs",
+		repoLabel: "Github",
 		/* 页脚 */
 		editLinks: true,
 		editLinkText: "在 GitHub 上编辑此页",
