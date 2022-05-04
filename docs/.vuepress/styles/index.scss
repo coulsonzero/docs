@@ -66,6 +66,16 @@ html.dark div[class*="language-"] .highlight-lines .highlight-line {
     background: #46617e;
 }
 
+html:not(.dark) {
+    .code-group {
+        box-shadow: 4px 4px 30px #848484;
+        border-radius: 5px;
+        div[class*="language-"]{
+            border-radius: 0 0 5px 5px;
+        }
+    }
+}
+
 // second
 .code-group__li,
 .code-group__nav-tab {
@@ -80,6 +90,22 @@ html.dark div[class*="language-"] .highlight-lines .highlight-line {
     // border-right-width: 0;
     border-left-width: 0
 }
+
+
+
+:root {
+    --code-group-radius: 0px;
+}
+.code-group__li {
+    overflow-x: hidden;
+}
+.code-group__li:first-child {
+    border-radius: var(--code-group-radius) 0 0 var(--code-group-radius);
+}
+.code-group__li:last-child {
+    border-radius: 0 var(--code-group-radius) var(--code-group-radius) 0;
+}
+
 
 /* ============ 导航栏 =========== */
 html:not(.dark) .navbar {
