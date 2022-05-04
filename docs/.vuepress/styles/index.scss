@@ -79,9 +79,6 @@ html:not(.dark) {
 
 
 // code-group radius
-:root {
-    --code-group-radius: 12px;
-}
 .code-group__li {
     overflow-x: hidden;
 }
@@ -166,11 +163,6 @@ html:not(.dark) .sidebar-item {
     color: #0d0d0d63;
 }
 
-// code icon
-.theme-default-content pre,
-.theme-default-content pre[class*="language-"] {
-    // padding: 1.8rem 1.5rem 1.25rem;
-}
 
 .sidebar .sidebar-items {
     padding: 1.5rem 0 1.5rem 1.5rem;

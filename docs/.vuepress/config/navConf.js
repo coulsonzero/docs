@@ -99,6 +99,7 @@ module.exports = [
 			{text: "Markdown", link: "/guide/other/markdown"},
 			{text: "Mac使用指南", link: "/guide/other/mac/README.md"},
 			// {text: "interview", link: "/guide/other/Interview.md"},
+			{text: "Error报错日志", link: "/guide/other/error.md"}
 		],
 	},
 ]
