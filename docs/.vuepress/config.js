@@ -19,11 +19,11 @@ module.exports = {
 					filename: "config/sidebarConf",
 				},
 				sort: {
-					mode: "created_time_asc",
+					mode: "asc",
 					readmeFirst: true,
 				},
 				git: {
-					trackStatus: "all",
+					trackStatus: "add",
 				},
 			},
 		],
