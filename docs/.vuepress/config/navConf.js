@@ -25,7 +25,7 @@ module.exports = [
 			{
 				text: "web库",
 				children: [
-					{text: "Echarts", link: "/guide/frontend/echarts/echarts"},
+					{text: "Echarts", link: "/guide/frontend/echarts/"},
 					{text: "Swiper", link: "https://swiperjs.com/demos"},
 					{text: "ScroolReveal", link: "https://scrollrevealjs.org/"},
 				],

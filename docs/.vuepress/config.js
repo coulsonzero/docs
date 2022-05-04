@@ -1,22 +1,30 @@
 const navConf = require("./config/navConf.js")
+const sidebarConf = require("./config/sidebarConf.js")
 
 module.exports = {
 	lang: "zh-CN",
-	// 如果设置了域名解析则需要删除base
+	/* 如果设置了域名解析则需要删除base: '/' */
 	// base: "/docs/",
 	title: "Zero",
 	description: "文档管理中心",
 	port: 80,
-	// 搜索栏
+	/* 搜索栏 */
 	plugins: [
-		"@vuepress/plugin-search",
-		"demo-block"
+		["@vuepress/plugin-search"],
+		["demo-block"],
+		[
+			"vuepress-plugin-auto-sidebar",
+			{
+				output: {
+					filename: "config/sidebarConf",
+				}
+			},
+		],
 	],
 	themeConfig: {
 		// logo: "https://vuejs.org/images/logo.png",
 		logo: "/coulsonzero.png",
 		repo: "https://github.com/coulsonzero/docs",
-		// 是否编辑
 		editLinks: true,
 		editLinkText: "Edit this page",
 		docsRepo: "https://github.com/coulsonzero/docs",
@@ -24,8 +32,10 @@ module.exports = {
 		docsBranch: "master",
 		editLinkPattern: ":repo/edit/:branch/:path",
 		smoothScroll: true,
-		// 顶部导航栏
+		/* 导航栏 */
 		navbar: navConf,
+		/* 侧边栏 */
+		sidebar: sidebarConf,
 	},
 	markdown: {
 		code: {

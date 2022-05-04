@@ -5,6 +5,7 @@ heroText: CoulsonZero
 tagline: 个人文档中心
 actionText: 进入笔记 →
 actionLink: /guide/
+sidebar: false
 ---
 
 

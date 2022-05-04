@@ -1,3 +1,14 @@
+---
+prev:
+    text: JavaScript
+    link: /guide/frontend/javascript
+next:
+    text: React
+    link: /guide/frontend/ReactJs
+
+sidebarDepth: 5
+---
+
 # Echarts
 
 ## 快速开始
