@@ -40,14 +40,14 @@ module.exports = {
       "sidebarDepth": 1,
       "children": [
         "README.md",
-        "ListNode.md",
-        "deleteDuplicates.md",
-        "deleteNode.md",
-        "hasCycle.md",
-        "isPalindrome.md",
-        "mergeTwoSortedLists.md",
+        "reverseList.md",
         "removeNthFromEnd.md",
-        "reverseList.md"
+        "mergeTwoSortedLists.md",
+        "isPalindrome.md",
+        "hasCycle.md",
+        "deleteNode.md",
+        "deleteDuplicates.md",
+        "ListNode.md"
       ]
     }
   ],
@@ -82,18 +82,18 @@ module.exports = {
       "sidebarDepth": 1,
       "children": [
         "README.md",
-        "EchartsExample.md",
-        "bar.md",
-        "bigscreen.md",
-        "echartsBase.md",
-        "event.md",
-        "gauge.md",
-        "line.md",
-        "lines.md",
-        "logSystem.md",
-        "pie.md",
+        "scatter.md",
         "radar.md",
-        "scatter.md"
+        "pie.md",
+        "logSystem.md",
+        "lines.md",
+        "line.md",
+        "gauge.md",
+        "event.md",
+        "echartsBase.md",
+        "bigscreen.md",
+        "bar.md",
+        "EchartsExample.md"
       ]
     }
   ],
@@ -105,20 +105,20 @@ module.exports = {
       "sidebarDepth": 1,
       "children": [
         "README.md",
-        "catport.md",
-        "gestures.md",
-        "homebrew.md",
-        "hosts.md",
-        "idealicence.md",
-        "mysql.md",
-        "nslookup.md",
-        "openidea.md",
-        "rosetta.md",
-        "shortcuts.md",
-        "software.md",
-        "ssh.md",
+        "wifipassword.md",
         "terminal.md",
-        "wifipassword.md"
+        "ssh.md",
+        "software.md",
+        "shortcuts.md",
+        "rosetta.md",
+        "openidea.md",
+        "nslookup.md",
+        "mysql.md",
+        "idealicence.md",
+        "hosts.md",
+        "homebrew.md",
+        "gestures.md",
+        "catport.md"
       ]
     }
   ],
@@ -129,16 +129,16 @@ module.exports = {
       "collapsable": false,
       "sidebarDepth": 1,
       "children": [
-        "c.md",
-        "c++.md",
-        "django.md",
-        "flask.md",
-        "go.md",
-        "java.md",
-        "kotlin.md",
-        "pyside6.md",
+        "swift.md",
         "python.md",
-        "swift.md"
+        "pyside6.md",
+        "kotlin.md",
+        "java.md",
+        "go.md",
+        "flask.md",
+        "django.md",
+        "c.md",
+        "c++.md"
       ]
     }
   ],
@@ -149,16 +149,16 @@ module.exports = {
       "collapsable": false,
       "sidebarDepth": 1,
       "children": [
-        "NextJs.md",
-        "ReactJs.md",
-        "canvas.md",
-        "css.md",
-        "html.md",
-        "javascript.md",
-        "jquery.md",
-        "react.md",
+        "vue.md",
         "scss.md",
-        "vue.md"
+        "react.md",
+        "jquery.md",
+        "javascript.md",
+        "html.md",
+        "css.md",
+        "canvas.md",
+        "ReactJs.md",
+        "NextJs.md"
       ]
     }
   ],
@@ -169,11 +169,11 @@ module.exports = {
       "collapsable": false,
       "sidebarDepth": 1,
       "children": [
-        "linux.md",
-        "mongodb.md",
-        "redis.md",
+        "sql.md",
         "shell.md",
-        "sql.md"
+        "redis.md",
+        "mongodb.md",
+        "linux.md"
       ]
     }
   ],
@@ -184,8 +184,8 @@ module.exports = {
       "collapsable": false,
       "sidebarDepth": 1,
       "children": [
-        "Interview.md",
-        "markdown.md"
+        "markdown.md",
+        "Interview.md"
       ]
     }
   ]

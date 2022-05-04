@@ -1,4 +1,4 @@
-script# NextJs
+# NextJs
 
 ### 1. JavaScript DOM
 
