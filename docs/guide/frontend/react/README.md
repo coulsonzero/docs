@@ -1,29 +1,27 @@
-# React
-
-[React官网][1]
+# [React][1]
 
 [NextJs][2]
 
 [1]: https://react.docschina.org/
 [2]: ./nextjs.md
 
-## 运行clone的React项目
+## 一. 快速开始
+### 1.1 运行clone的React项目
 
-```sh
-$ git clone https://github.com/coulsonzero/react-app
+```sh{2-3}
+$ git clone ...
 $ yarn
-$ yarn start  # or npm start
+$ yarn start
 ```
 
-## React快速入门
+### 1.2 创建React项目
 
-### 创建React项目
-
-```sh
+```sh{1}
 $ npx create-react-app react-app
 $ cd react-app
-$ yarn start  # or npm start
+$ yarn start
 ```
+## React快速入门
 
 ### React项目结构
 
@@ -51,6 +49,8 @@ $ tree
 
 ### Imported modules
 
+- 方式一
+
 ```jsx
 import React from 'react'
 import NavBar from './components/Navbar'
@@ -63,6 +63,45 @@ const App = () => {
 
 export default App
 ```
+
+- 方式二
+> 适用于导入多个模块
+
+:::: code-group
+::: code-group-item App.jsx
+```jsx{3}
+import React from 'react';
+import './App.css';
+import { Navbar, Header, About, Contact, Footer } from "./components";
+
+
+const App = () => {
+  return (
+    <div className="App">
+      <Navbar />
+      <main className="main">
+        {/* <Header /> */}
+        {/* <About /> */}
+        {/* <Contact /> */}
+      </main>
+      {/* <Footer /> */}
+    </div>
+  );
+}
+
+export default App;
+```
+:::
+::: code-group-item components/index.js
+```js{1-4}
+export { default as Navbar } from './Navbar';
+export { default as About } from './About';
+export { default as Contact } from './Contact';
+export { default as Footer } from './Footer';
+```
+:::
+::::
+
 
 
 ## React语法规则
@@ -125,7 +164,7 @@ const App = () => {
 
 ::: code-group-item List
 
-```jsx{5,8}
+```jsx{3,6}
 const App = () => {
     const links = ['Home', 'About', 'Docs']
     const list = links.map((item, index) => <li key={index}>{item}</li>)
@@ -587,62 +626,99 @@ const Contact = (props) => {
 ```
 
 ## 组件通信
+::: tip 组件通信方式
+> `父传子`: 调用父组件变量`props.parms`
+>
+> `子传父`: 调用父组件回调函数`props.func()`
+>
+> `兄弟组件通信`: 通过子传父，再父传子
+>
+> `跨组件通信`: `createContext()` && `useContext()`
+:::
 
 ### 父传子
 
 > 通过props传值
 
-::: details 固定值
-```jsx
-import React, {useState} from "react";
 
-function Sub(props) {
-	return(
-        <>
-		    <div>{props.num}</div>
-        </>
-	);
-}
+:::: code-group
+::: code-group-item Class 方式
+```jsx{6}
+// App.jsx
+import React from 'react'
 
-export default function App() {
-	return (
-		<>
-			<Sub num={9}/>
-		</>
-	);
+class ComChild extends React.Component {
+	render() {
+		return <div>{this.props.num}</div>
+	}
+
+export default class App extends React.Component {
+	state = {
+		num: 12
+	}
+
+	render() {
+		return <ComChild num={this.state.num}>
+	}
 }
 ```
 :::
+::: code-group-item Hooks 方式
+```jsx{5}
+// App.jsx
+import React, {useState} from 'react'
 
-
-> 使用useState初始化传值
-```jsx
-import React, {useState} from "react";
-
-function Sub(props) {
-	return(
-        <>
-		    <div>{props.num}</div>
-        </>
-	);
+function ComChild(props) {
+	return <div>{props.num}</div>
 }
 
 export default function App() {
-	const [num, setNum] = useState(2);
-	return (
-		<>
-			<Sub num={num}/>
-		</>
-	);
+	const [num, setNum] = useState(12)
+
+	return <ComChild num={num}/>
 }
 ```
+:::
+::::
 
 
 ### 子传父
 
 > 通过调用父组件方法，将参数返回
+>
 > 子组件写父组件方法的具体实现
-```jsx
+
+
+:::: code-group
+::: code-group-item Class方式
+```jsx{8,21}
+import React from "react"
+
+class Sub extends React.Component {
+	render() {
+		return (
+			<>
+				<div>{this.props.num}</div>
+				<button onClick={() => this.props.setNum(props.num + 1)}>+</button>
+			</>
+		)
+	}
+
+}
+
+export default class App extends React.Component {
+	state = {
+		num: 2
+	}
+	render() {
+		const {num, setNum} = this.state
+		return <Sub num={num} setNum={setNum} />
+	}
+}
+```
+:::
+::: code-group-item Hooks方式
+```jsx{7,14}
 import React, {useState} from "react";
 
 function Sub(props) {
@@ -656,18 +732,12 @@ function Sub(props) {
 
 export default function App() {
 	const [num, setNum] = useState(2);
-	return (
-		<>
-			<Sub num={num} setNum={setNum} />
-		</>
-	);
+	return <Sub num={num} setNum={setNum} />
 }
-
 ```
-
-
-> 父组件写具体方法实现，子组件传参给父组件
-```jsx
+:::
+::: code-group-item Hooks示例2
+```jsx{7,19}
 import React, {useState} from "react";
 
 function Sub(props) {
@@ -690,8 +760,12 @@ export default function App() {
 		</>
 	);
 }
-
 ```
+:::
+::::
+
+
+
 
 ### 兄弟组件通信
 ```jsx
