@@ -3,7 +3,7 @@
 **Java**
 :::: code-group
 ::: code-group-item 前序遍历
-```java{10}
+```java{20}
 /*
 public class TreeNode {
     int val;
@@ -56,7 +56,7 @@ class Solution {
 :::
 
 ::: code-group-item 后序遍历
-```java{12}
+```java{11}
 class Solution {
     private List<Integer> list;
     public void postOrder(TreeNode root) {
