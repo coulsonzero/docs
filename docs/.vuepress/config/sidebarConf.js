@@ -163,6 +163,7 @@ module.exports = {
       "children": [
         "canvas.md",
         "css.md",
+        "eslint.md",
         "html.md",
         "javascript.md",
         "jquery.md",

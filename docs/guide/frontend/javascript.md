@@ -4,6 +4,8 @@
 
 ## QuickStart
 
+> JavaScript 是一个动态的弱类型语言
+
 ### Ⅰ. 在 html 中引入 javascript
 
 **body 末尾导入(推荐)**
