@@ -115,7 +115,7 @@ overflow
 font-variant: small-caps;
 /* 禁止选中 */
 user-select: none;
-
+-webkit-user-select: none;
 ```
 
 
