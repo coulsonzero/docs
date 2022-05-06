@@ -6,7 +6,8 @@
 }
 
 html.dark {
-    --c-bg-navbar: rgba(24, 26, 29, 0.8);
+    // --c-bg-navbar: rgba(42, 44, 46, 0.8);
+    --c-bg-navbar: rgba(28, 27, 29, 0.7);
 }
 
 
@@ -30,9 +31,10 @@ html:not(.dark) .page {
         font-size: 3.6rem;
         text-align: center;
         text-transform: capitalize;
-        margin: 10rem;
+        margin: 10rem 0;
         padding: 70px 0 40px 0;
         border-bottom: 1px solid black;
+        white-space: nowrap;
     }
     html.dark {
         h1[tabindex="-1"] {
