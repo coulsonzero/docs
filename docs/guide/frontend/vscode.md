@@ -13,6 +13,8 @@
 "prettier.printWidth": 200,
 //  #使用带引号替代双引号
 // "prettier.singleQuote": true,
+// 关闭eslint校验
+"eslint.enable": false,
 ```
 
 :::
