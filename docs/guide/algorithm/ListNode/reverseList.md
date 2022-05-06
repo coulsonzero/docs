@@ -1,6 +1,5 @@
 # 反转链表
 
-
 [LeetCode 206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
 
 ## Question
@@ -17,7 +16,8 @@
 
 ## Solution
 
-* 递归
+:::: code-group
+::: code-group-item 递归
 
 ```java
 class Solution {
@@ -34,7 +34,8 @@ class Solution {
 }
 ```
 
-* 迭代
+:::
+::: code-group-item 迭代
 
 ```java
 class Solution {
@@ -51,8 +52,11 @@ class Solution {
 }
 ```
 
+:::
+::::
 
 ::: details 点击显示示例
+
 ```java
 class ReverseList {
     static class ListNode {
@@ -101,3 +105,6 @@ class ReverseList {
     }
 }
 ```
+
+:::
+

@@ -1,12 +1,8 @@
-# LC 21. 合并两个有序链表
-
-
-
-[LeetCode 21. 合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/submissions/)
+# [合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/submissions/)
 
 ## 题目描述
 
-```
+```java
 输入：l1 = [1,2,4], l2 = [1,3,4]
 输出：[1,1,2,3,4,4]
 ```
@@ -14,7 +10,8 @@
 ![](./assets/mergeTwoLists.jpeg)
 
 ## 题解
-
+:::: code-group
+::: code-group-item Java
 ```java
 class Solution {
     public ListNode mergeTwoLists(ListNode linked1, ListNode linked2) {
@@ -25,6 +22,8 @@ class Solution {
     }
 }
 ```
+:::
+::::
 
 
 ::: details 点击查看示例

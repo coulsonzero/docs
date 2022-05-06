@@ -14,6 +14,9 @@
 
 ## 题解
 
+:::: code-group
+::: code-group-item Java
+
 ```java
 class Solution {
     public ListNode getKthFromEnd(ListNode head, int k) {
@@ -29,6 +32,8 @@ class Solution {
     }
 }
 ```
+:::
+::::
 
 ::: details 点击展开代码
 

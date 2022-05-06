@@ -1,8 +1,6 @@
-# LC 237. 删除链表中的节点
+# [删除链表中的节点](https://leetcode-cn.com/problems/delete-node-in-a-linked-list/)
 
 ## 题目描述
-
-[LC 237. 删除链表中的节点](https://leetcode-cn.com/problems/delete-node-in-a-linked-list/)
 ```
 输入：head = [4,5,1,9], node = 5
 输出：[4,1,9]
@@ -11,6 +9,8 @@
 
 ## 题解
 
+:::: code-group
+::: code-group-item Java
 ```java
 class Solution {
     public void deleteNode(ListNode node) {
@@ -19,3 +19,5 @@ class Solution {
     }
 }
 ```
+:::
+::::

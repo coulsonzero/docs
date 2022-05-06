@@ -11,7 +11,8 @@
 
 ## 题解
 
-- 递归
+:::: code-group
+::: code-group-item 递归
 
 ```java
 class Solution {
@@ -27,8 +28,8 @@ class Solution {
     }
 }
 ```
-
-- 迭代
+:::
+::: code-group-item 迭代
 
 ```java
 class Solution {
@@ -47,3 +48,5 @@ class Solution {
     }
 }
 ```
+:::
+::::
