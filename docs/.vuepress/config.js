@@ -12,6 +12,7 @@ module.exports = {
 	title: "Zero",
 	description: "文档管理中心",
 	port: 80,
+	// host: '127.0.0.1',
 	/* 搜索栏 */
 	plugins: pluginConf,
 	/* 静态资源别名 */
