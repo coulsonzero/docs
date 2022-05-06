@@ -113,6 +113,8 @@ overflow-y: scroll;
 overflow
 /* 小型大写 */
 font-variant: small-caps;
+/* 禁止选中 */
+user-select: none;
 
 ```
 
@@ -268,12 +270,25 @@ a:visited
 a:active
 ```
 
+### 图片
 
+```css
+/* 禁止图片推拽 */
+-webkit-user-drag: none;
+```
+
+## 按钮
+
+```css
+/* 禁止事件 */
+pointer-events: none;
+```
 
 ### 鼠标指针样式
 
 ```css
 cursor: pointer;
+cursor: url(https://...) auto auto;
 /**
  * default
  * auto/text 文本输入
@@ -305,7 +320,7 @@ column-gap
 display:grid;
 /* 元素占比 */
 grid-trmplate: 1fr 1fr  1fr/ 60% auto;  /* 3行2列,行等比 */
-grid-template-columns: 50px auto 120px;  /* 2fr */  ; repeat(3, 1fr) 
+grid-template-columns: 50px auto 120px;  /* 2fr */  ; repeat(3, 1fr)
 grid-template-columns: repeat(4, max-content);
 grid-template-columns: repeat(autofill, minmax(200px, 1fr));
 grid-template-rows: 50px 50px 50px;
@@ -500,7 +515,7 @@ img {
 }
 ```
 
-按钮禁用事件 
+按钮禁用事件
 ```css
 pointer-events: none;
 ```

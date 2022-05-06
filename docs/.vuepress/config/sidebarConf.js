@@ -168,6 +168,7 @@ module.exports = {
         "javascript.md",
         "jquery.md",
         "scss.md",
+        "vscode.md",
         "vue.md"
       ]
     }
