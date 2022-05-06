@@ -206,6 +206,7 @@ html.dark {
         padding: 26px 140px 50px 140px;
         opacity: 0.02;
         transition: opacity 0.15s ease 0.1s;
+        -wbkit-transition: opacity 0.15s ease 0.1s;
         .icon {
             transform: scale(1.5);
         }
@@ -222,9 +223,11 @@ html.dark {
     .theme-container:not(.sidebar-open) .page {
         padding-left: 0;
         transition: all 0.3s ease-in-out;
+        -webkit-transition: all 0.3s ease-in-out;
     }
     .page {
         transition: 0.3s ease 0.03s;
+        -webkit-transition: 0.3s ease 0.03s;
     }
 }
 
@@ -370,7 +373,8 @@ html.dark {
 @media (min-width: 720px) {
     html:not(.dark) {
         * {
-            transition: 0.15s ease;
+            // transition: 0.15s ease;
+            // -webkit-transition: 0.15s ease;
         }
         .no-sidebar {
             background: rgb(243, 251, 255);
@@ -393,6 +397,7 @@ html.dark {
         tr:nth-child(2n) {
             background: rgba(75, 75, 75, 0.744);
             transition: all 0.2s ease;
+            -webkit-transition: all 0.2s ease;
         }
         .navbar-dropdown-wrapper .navbar-dropdown .navbar-dropdown-item a:hover {
             color: rgb(141, 214, 245);
