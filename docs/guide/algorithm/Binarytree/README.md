@@ -120,8 +120,6 @@ class Solution:
 ```
 
 :::
-
-
 ::: code-group-item 中序遍历
 ```python
 class Solution:
