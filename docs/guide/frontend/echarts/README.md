@@ -4,7 +4,7 @@ prev:
     link: /guide/frontend/javascript
 next:
     text: React
-    link: /guide/frontend/ReactJs
+    link: /guide/frontend/react/
 
 sidebarDepth: 5
 ---
