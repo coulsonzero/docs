@@ -1,8 +1,10 @@
 # MarkDown
 
+| 网站                                                                     | 网址                                                    |
+| ------------------------------------------------------------------------ | ------------------------------------------------------- |
+| [vuepress-theme-hope](vuepress-theme-hope)                               | https://vuepress-theme-hope.github.io/v2/zh/            |
+| [Markdown 增强](https://vuepress-theme-hope.github.io/v2/md-enhance/zh/) | https://vuepress-theme-hope.github.io/v2/md-enhance/zh/ |
 
-
-[Markdown增强](https://vuepress-theme-hope.github.io/v2/md-enhance/zh/)
 ## 目录
 
 ```md
@@ -20,17 +22,22 @@ class Main {
 	}
 }
 ```
+
 ### 无序列表
 
 ```md
 - list 1
+
 * list 2
-+ list 3
+
+- list 3
 ```
 
 - list 1
+
 * list 2
-+ list 3
+
+- list 3
 
 ### 有序列表
 
@@ -38,6 +45,7 @@ class Main {
 2. list2
 
 ### 链接
+
 ```md
 [Github](https://www.github.com/)
 [Github][3]
@@ -51,12 +59,14 @@ class Main {
 [Github](https://www.github.com/)
 
 <!-- [![Vue][1]][2] -->
+
 [<img src="https://v3.cn.vuejs.org/logo.png" style="width: 40px; height: 40px" alt="" />][2]
 
 [1]: https://v3.cn.vuejs.org/logo.png
 [2]: https://v3.cn.vuejs.org
 
 ### 图片
+
 ```md
 ![bar1](../../.vuepress/public/assets/echarts/bar/bar1.png)
 
@@ -66,27 +76,26 @@ class Main {
 
 ![bar1](../../.vuepress/public/assets/echarts/bar/bar1.png)
 
-
 ### 表格
 
 ```md
-|     |       |     |
-| :-- | :---: | --: |
-|     |       |     |
-|     |       |     |
-|     |       |     |
+|     |     |     |
+| :-- | :-: | --: |
+|     |     |     |
+|     |     |     |
+|     |     |     |
 ```
 
 | 左对齐 | 居中对齐 | 右对齐 |
-|  :--  | :---: |  --:  |
-| 单元格 | 单元格 | 单元格 |
-| 单元格 | 单元格 | 单元格 |
+| :----- | :------: | -----: |
+| 单元格 |  单元格  | 单元格 |
+| 单元格 |  单元格  | 单元格 |
 
 $\color{red}{✗}$
 $\color{green}{✓}$
 
+## Markdown 扩展
 
-## Markdown扩展
 ### 提示
 
 ```md
@@ -98,7 +107,9 @@ $\color{green}{✓}$
 ::: tip
 这是一个提示
 :::
+
 ### 警告
+
 ```md
 ::: warning
 这是一个警告
@@ -112,9 +123,8 @@ $\color{green}{✓}$
 这是一个警告
 :::
 
-
-
 ### 危险
+
 ```md
 ::: danger
 这是一个危险警告
@@ -124,20 +134,22 @@ $\color{green}{✓}$
 ::: danger
 这是一个危险警告
 :::
-
 
 ### 点击查看代码
+
 ```md
 ::: details 点击查看代码
 
 :::
 ```
+
 ::: details 点击查看代码
+
 ```js
 console.log("Hello javascript!")
 ```
-:::
 
+:::
 
 ```md
 :::: code-group
@@ -165,12 +177,11 @@ print("hello")
 ::: code-group-item JavaScript
 
 ```javascript
-console.log('hello!')
+console.log("hello!")
 ```
 
 :::
 ::::
-
 
 ```md
 ::::: details 点击查看代码
@@ -188,20 +199,22 @@ console.log('hello!')
 :::::
 ```
 
-
 ::::: details 示例
 :::: code-group
 
 ::: code-group-item Python
+
 ```python
 print("Hello World!")
 ```
+
 :::
 
 ::: code-group-item JavaScript
+
 ```js
 console.log("Hello world!")
 ```
+
 :::
 ::::
-

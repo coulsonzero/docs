@@ -2,8 +2,7 @@ const navConf = require("./config/navConf.js")
 const sidebarConf = require("./config/sidebarConf.js")
 const pluginConf = require("./config/pluginConf.js")
 const path = require('path')
-
-
+const {mdEnhance} = require("vuepress-plugin-md-enhance")
 
 module.exports = {
 	lang: "zh-CN",
@@ -18,7 +17,7 @@ module.exports = {
 	plugins: pluginConf,
 	/* 静态资源别名 */
 	alias: {
-		"@": path.resolve(__dirname, "./public"),
+		"@": path.resolve(__dirname, "./public")
 	},
 	themeConfig: {
 		/* navbar扩展 */
@@ -39,11 +38,11 @@ module.exports = {
 		/* 导航栏 */
 		navbar: navConf,
 		/* 侧边栏 */
-		sidebar: sidebarConf,
+		sidebar: sidebarConf
 	},
 	markdown: {
 		code: {
-			lineNumbers: 10, // 代码超过n行显示行号, 默认值为true
-		},
-	},
+			lineNumbers: 10 // 代码超过n行显示行号, 默认值为true
+		}
+	}
 }

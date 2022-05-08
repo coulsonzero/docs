@@ -482,15 +482,23 @@ value="Click me"
 
 
 
-### iForm <内联网页>
+### iframe <内联网页>
 
 ```html
 <iframe src="https://www.csdn.net/"></iframe>
 
 <iframe src="https://cn.bing.com/" width=100% height=600px></iframe>
 
+<iframe src="https://stackblitz.com/edit/vue-nkewzs?embed=1&file=src/App.vue&hideNavigation=1" width="100%" height="400px" frameborder="0" style="border-radius:26px; box-shadow: 4px 4px 56px rgba(32,32,32,.5);"></iframe>
+
+<iframe src="https://codepen.io/dilums/pen/ZEBowxX" width="100%" height="400px" frameborder="0" style="border-radius: 20px; box-shadow: 4px 4px 56px rgba(32,32,32,.5);"></iframe>
+
 frameborder="0": 移除边框
 ```
+
+<iframe src="https://stackblitz.com/edit/vue-nkewzs?embed=1&file=src/App.vue&hideNavigation=1" width="100%" height="400px" frameborder="0" style="border-radius:26px; box-shadow: 4px 4px 56px rgba(32,32,32,.5);"></iframe>
+
+<iframe src="https://codepen.io/dilums/pen/ZEBowxX" width="100%" height="400px" frameborder="0" style="border-radius: 20px; box-shadow: 4px 4px 56px rgba(32,32,32,.5);"></iframe>
 
 ### RGB
 
@@ -508,7 +516,7 @@ frameborder="0": 移除边框
 ```
 
 ```js
-var myVideo=document.getElementById("video1"); 
+var myVideo=document.getElementById("video1");
 function playPause(){
  if (myVideo.paused)
    myVideo.play();

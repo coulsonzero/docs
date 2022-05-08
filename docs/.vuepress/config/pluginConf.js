@@ -1,4 +1,3 @@
-
 module.exports = [
 	["@vuepress/plugin-search"],
 	["demo-block"],
@@ -23,6 +22,5 @@ module.exports = [
 				}
 			]
 		}
-	],
-
+	]
 ]
