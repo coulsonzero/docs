@@ -6,22 +6,23 @@ module.exports = [
 		"vuepress-plugin-auto-sidebar",
 		{
 			output: {
-				filename: "config/sidebarConf",
+				filename: "config/sidebarConf"
 			},
 			sort: {
 				mode: "asc",
 				readmeFirst: true,
-				readmeFirstForce: false,
+				readmeFirstForce: false
 			},
 			git: {
-				trackStatus: "all",
+				trackStatus: "all"
 			},
 			ignore: [
 				{
 					menu: "/guide/other/",
-					regex: "Inter*",
-				},
-			],
-		},
+					regex: "Inter*"
+				}
+			]
+		}
 	],
+
 ]

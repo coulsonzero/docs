@@ -16,6 +16,9 @@ div[class*="language-"] .highlight-lines .highlight-line {
     border-left: 4px solid rgb(125, 211, 252);
     // border-left: 4px solid rgb(56, 189, 248);
 }
+div[class*=language-] pre[class*=language-] {
+    margin-top: 18px;
+}
 
 .code-group__nav {
     background-color: hsla(220, 13%, 18%, 0.878);
@@ -40,6 +43,7 @@ div[class*="language-"] .highlight-lines .highlight-line {
 .code-group__nav-tab {
     padding: 5px 16px;
     margin: 0;
+    min-width: 80px;
 }
 .code-group__nav-tab-active {
     border-bottom: none;
@@ -270,6 +274,7 @@ html.dark {
     background: #f4bf4f;
 }
 
+
 .code-group__nav {
     padding-top: 40px;
 }
@@ -281,6 +286,7 @@ html.dark {
 .code-group__nav-tab-active {
     border-bottom: none;
 }
+
 
 /* 导航栏下拉框列表 */
 @media (min-width: 720px) {

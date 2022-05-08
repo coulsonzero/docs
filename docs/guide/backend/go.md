@@ -4,11 +4,10 @@ Designer: `Google` in `2007`
 simple, reliable and efficient software.
 
 
-
 ### Hello World
 
 :::: code-group
-::: code-group-item main/hello.go
+::: code-group-item hello.go
 
 ```go
 //go:build ignore
@@ -17,7 +16,6 @@ simple, reliable and efficient software.
 package main
 
 import "fmt"    /* import ("fmt"; "math") 或不用分号而用换行*/
-
 
 func main() {
     fmt.Println("hello world!")
@@ -71,30 +69,29 @@ const pi = 3.14
 //Relational Operators: == != < > <= >=
 ```
 
-### Input, Output
+### Input & Output
+
+::: warning
+> input暂时无法生效
+:::
 
 :::: code-group
 ::: code-group-item output
 
 ```go
-package main
+// 不换行
+fmt.Print("go>>> ")
+// 换行
+fmt.Println("Hello, World!")
+// 格式化
+fmt.Printf("name: %s, age: %d.\n", "coulson", 20)
 
-import "fmt"
-
-func main() {
-	// 不换行
-	fmt.Print("go>>> ")
-	// 换行
-    fmt.Println("Hello, World!")
-	// 格式化
-	fmt.Printf("name: %s, age: %d.\n", "coulson", 20)
-}
 ```
 
 :::
 ::: code-group-item input
 
-```go
+```
 var str string
 
 fmt.Scanln(&str)
@@ -103,9 +100,16 @@ fmt.Scanln(&str)
 :::
 ::::
 
-### If statement
+### Statement
 
-```go
+::: danger
+> 注意变量作用域, 在condition中声明外部无法访问！
+:::
+
+:::: code-group
+::: code-group-item if
+
+```go{1, 9}
 if x := 42; x > 18 {
     //statement(s)
 } else if x == 18 {
@@ -113,22 +117,23 @@ if x := 42; x > 18 {
 } else {
     //statement(s)
 }
-```
 
-### Switch
+// fmt.Println(x) // error: undefined: x
+```
+:::
+::: code-group-item switch
 
 ```go {2}
 x := 8
-switch y:=x%2; y {
+switch y := x%2; y {
     case ...:
         //statement(s)        //不需要break
-    case ...:
-        //statement(s)
     default:
         //statement(s)
 }
 ```
-
+:::
+::: code-group-item switch2
 ```go
 /* switch版的 if statement */
 x := 2
@@ -139,8 +144,13 @@ switch {
         //statement(s)
 }
 ```
+:::
+::::
 
-### For Loop
+### Loops
+
+:::: code-group
+::: code-group-item for
 
 ```go
 for i := 0; i < 5; i++ {
@@ -151,6 +161,8 @@ for i, v := range nums {
     // statement(s)
 }
 ```
+:::
+::: code-group-item while
 
 ```go
 /* for版的while */
@@ -162,20 +174,25 @@ for sum <= 1000 {
 }
 fmt.Println(res)    //500500
 ```
-
+:::
+::::
 ### Function
 
-```go
-func welcome(name string) {
-    fmt.Println("hello, "+name)
-}
+```go{8}
+package main
+import "fmt"
 
 func main() {
-    welcome("coulson")    //"hello, coulson"
+	welcome("coulson")
 }
+
+func welcome(name string) {
+	fmt.Println("hello, " + name)
+}
+
 ```
 
-```go {4, 9}
+```go {4-5}
 package main
 import "fmt"
 
@@ -287,10 +304,113 @@ func main() {
 
 ### Arrays
 
+#### Array
+:::: code-group
+::: code-group-item 创建数组
 ```go
-var arr [5]int
+// var arr [5]int
+// arr := [5]int{0, 2, 4, 6, 8}
 
-arr := [5]int{0, 2, 4, 6, 8}
+arr := []int {0, 2, 4, 6, 8}
+```
+:::
+::: code-group-item Api
+```go
+len(arr)
+arr
+arr[0]
+arr[1:3]
+```
+:::
+::: code-group-item 遍历
+```go{9}
+for i := range arr {
+    fmt.Println(arr[i])
+}
+
+for i, v := range arr {
+    fmt.Println(i, v)
+}
+
+for _, v := range nums {
+    fmt.Println(v)
+}
+```
+:::
+::: code-group-item sum
+```go{8,11,13}
+package main
+
+import "fmt"
+
+func main() {
+    arr := []int {0, 2, 4, 6, 8}
+
+    fmt.Println(sum(arr...)) // 15
+}
+
+func sum(nums ...int) int {
+	res := 0
+	for _, v := range nums {
+		res += v
+	}
+	fmt.Println(res)
+}
+```
+:::
+::::
+
+::: details Example
+```go
+//go:build ignore
+// +build ignore
+
+package main
+
+import "fmt"
+
+/**
+ * 长度固定
+ * 无法增删改
+ */
+
+func main() {
+	arr := []int{1, 3, 5, 4, 2}
+
+	fmt.Println(arr)      // [1, 3, 5, 4, 2]
+	fmt.Println(len(arr)) // 5
+	fmt.Println(arr[0])   // 1
+	fmt.Println(arr[1:3]) // [3, 5]
+	for i := range arr {
+		fmt.Println(arr[i])
+	}
+
+	for i, v := range arr {
+		fmt.Println(i, v)
+	}
+
+	for _, v := range arr {
+		fmt.Println(v)
+	}
+
+	fmt.Println(sum(arr...)) // 15
+
+}
+
+func sum(nums ...int) int {
+	res := 0
+	for _, v := range nums {
+		res += v
+	}
+	return res
+}
+```
+:::
+
+#### List
+
+```go
+
 arr := make([]int, 3)    //初始默认值为0
 
 
@@ -503,4 +623,13 @@ select {
 ```
 1.终端上执行 go mod init [项目名]/[目录名]
 2.将项目文件夹移动至 GOPATH/src下 会自动配置Mod依赖
+```
+
+
+### main redeclared in this block
+
+```go{1}
+// +build ignore
+
+package main
 ```
