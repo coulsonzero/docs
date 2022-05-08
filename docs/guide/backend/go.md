@@ -1,13 +1,21 @@
-# Go
+# [Golang](https://golang.google.cn)
 
 Designer: `Google` in `2007`
 simple, reliable and efficient software.
 
-[Golang官网](https://golang.google.cn)
+
+
 ### Hello World
 
+:::: code-group
+::: code-group-item main/hello.go
+
 ```go
+//go:build ignore
+// +build ignore
+
 package main
+
 import "fmt"    /* import ("fmt"; "math") 或不用分号而用换行*/
 
 
@@ -16,15 +24,41 @@ func main() {
 }
 ```
 
-### Variables
+:::
+::::
 
-```golang
-i, j := 0,1
+### DataTypes
 
-var i, j int = 0, 1   //var i,j = 0, 1
+> 变量
+
+:::: code-group
+::: code-group-item 推荐方式
+
+```go
+age := 20
+price := 26.9
+flag := true
+name := "hello"
+
+name, age, height, isMale := "coulson", 20, 180.3, true
+```
+
+:::
+::: code-group-item 原始方式
+
+```go
+var i, j int = 0, 1     // var i, j = 0, 1
 var y float32 = 3.14
-var name string = "coulson"
+var name string = "hello"
 var flag bool = true
+```
+
+:::
+::::
+
+> 常量
+
+```go
 const pi = 3.14
 ```
 
@@ -39,11 +73,35 @@ const pi = 3.14
 
 ### Input, Output
 
+:::: code-group
+::: code-group-item output
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	// 不换行
+	fmt.Print("go>>> ")
+	// 换行
+    fmt.Println("Hello, World!")
+	// 格式化
+	fmt.Printf("name: %s, age: %d.\n", "coulson", 20)
+}
+```
+
+:::
+::: code-group-item input
+
 ```go
 var str string
+
 fmt.Scanln(&str)
-fmt.Println(str)
 ```
+
+:::
+::::
 
 ### If statement
 
@@ -71,7 +129,6 @@ switch y:=x%2; y {
 }
 ```
 
-
 ```go
 /* switch版的 if statement */
 x := 2
@@ -86,8 +143,12 @@ switch {
 ### For Loop
 
 ```go
-for i:0; i<5; i++ {
+for i := 0; i < 5; i++ {
     //statement(s)
+}
+
+for i, v := range nums {
+    // statement(s)
 }
 ```
 
@@ -114,7 +175,6 @@ func main() {
 }
 ```
 
-
 ```go {4, 9}
 package main
 import "fmt"
@@ -130,7 +190,7 @@ func main() {
 }
 ```
 
-### defer析构器 (关闭文件、垃圾清理， Stack堆结构：后进先出)
+### defer 析构器 (关闭文件、垃圾清理， Stack 堆结构：后进先出)
 
 ```go
 package main
@@ -149,30 +209,29 @@ func main() {
  * Hey
  * Welcome
  */
- ```
+```
 
-
- ```go
- package main
+```go
+package main
 import "fmt"
 func main() {
-    fmt.Println("start")
+   fmt.Println("start")
 
-    for i := 0; i < 3; i++ {
-        defer fmt.Println(i)  //后进先出
-    }
-    fmt.Println("end")
+   for i := 0; i < 3; i++ {
+       defer fmt.Println(i)  //后进先出
+   }
+   fmt.Println("end")
 }
 
 /*
- * start
- * 2
- * 1
- * end
- */
- ```
+* start
+* 2
+* 1
+* end
+*/
+```
 
-### Pointer指针(浅拷贝)
+### Pointer 指针(浅拷贝)
 
 ```go
 var p *int
@@ -226,7 +285,6 @@ func main() {
 }
 ```
 
-
 ### Arrays
 
 ```go
@@ -242,7 +300,6 @@ var s[] int = arr[1:3]      // 切片查询：s := arr[1:3]
 fmt.Println(arr)            // 输出：[0, 0, 0, 8]
 ```
 
-
 ```go
 arr := make([]int, 3)
 for i, v := range arr {
@@ -255,7 +312,6 @@ for _, c := range s {
     fmt.Println("%c \n",c)     //h, e, l, l, o
 }
 ```
-
 
 ```go
 /数组求和
@@ -284,7 +340,6 @@ s[3] = s[2]+s[0]           //3
 fmt.Println(s[4] % s[3])   //8 % 3 = 2
 ```
 
-
 ### Map
 
 ```go
@@ -298,7 +353,7 @@ delete(m, "James")        //删
 fmt.Println(m["Amy"]) //查：24
 ```
 
-### Goroutines并发线程
+### Goroutines 并发线程
 
 ```go
 package main
@@ -321,7 +376,6 @@ func main() {
 //连续输出0-10
 ```
 
-
 ```go
 package main
 import ("fmt"; "time")
@@ -342,7 +396,7 @@ func main() {
 //并发，不连续
 ```
 
-### Cannels管道传输( return )
+### Cannels 管道传输( return )
 
 ```go
 package main
@@ -367,10 +421,10 @@ func main() {
 //并发，不连续输出
 ```
 
-### Select多管道并发等待
-
+### Select 多管道并发等待
 
 ::: details 点击查看代码
+
 ```go
 package main
 import (
@@ -439,4 +493,14 @@ select {
 171700
 */
 ```
+
 :::
+
+## Error
+
+### GO vscode 的package main红色波浪性问题
+
+```
+1.终端上执行 go mod init [项目名]/[目录名]
+2.将项目文件夹移动至 GOPATH/src下 会自动配置Mod依赖
+```

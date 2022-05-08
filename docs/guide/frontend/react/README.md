@@ -21,9 +21,9 @@ $ npx create-react-app react-app
 $ cd react-app
 $ yarn start
 ```
-## React快速入门
+## 二. React快速入门
 
-### React项目结构
+### 2.1 React项目结构
 
 ::: details 查看React项目结构
 
@@ -47,7 +47,7 @@ $ tree
 
 :::
 
-### Imported modules
+### 2.2 Imported modules
 
 - 方式一
 
@@ -104,7 +104,7 @@ export { default as Footer } from './Footer';
 
 
 
-## React语法规则
+### 2.3 React语法规则
 :::: code-group
 ::: code-group-item style
 
@@ -145,7 +145,8 @@ function handleSubmit(e) {
 :::
 ::::
 
-## React中的JSX渲染
+## 三. React核心概念
+### 3.1 JSX渲染
 
 :::: code-group
 ::: code-group-item String
@@ -234,7 +235,7 @@ export default function Expenses() {
 
 :::
 
-## 参数Props
+### 参数Props
 
 ::: tip
 > Fun: `props.name`
@@ -242,29 +243,11 @@ export default function Expenses() {
 > Class: `this.props.name`
 :::
 :::: code-group
-::: code-group-item App.jsx
-
-```jsx
-<App name='React'/>
-```
-
-:::
-
-::: code-group-item ChildFun.jsx
-
-```jsx
-const ChildFun = (props) => {
-    return (
-        <div>{props.name}</div>
-    )
-}
-```
-
-:::
-
 ::: code-group-item ChildClass.jsx
 
-```jsx
+```jsx{6}
+import React from 'react'
+
 class ChildClass extends React.Component {
     render() {
         return (
@@ -272,6 +255,34 @@ class ChildClass extends React.Component {
         )
     }
 }
+
+export default ChildClass
+```
+
+:::
+
+::: code-group-item ChildFun.jsx
+
+```jsx{5}
+import React from 'react'
+
+const ChildFun = (props) => {
+    return (
+        <div>{props.name}</div>
+    )
+}
+
+export default ChildFun
+```
+
+:::
+
+
+
+::: code-group-item App.jsx
+
+```jsx
+<App name='React'/>
 ```
 
 :::
@@ -281,30 +292,27 @@ class ChildClass extends React.Component {
 
 
 
-## State (Only in React class)
+### State (Only in React class)
+
+::: tip 温馨提示
+> 初始化: `state = {...}` || `constructor(props) {super(props)this.state = {}}`
+>
+> 更改值: `this.setState({...})`
+>
+> 使用值: `this.state.val`
+:::
 
 :::: code-group
-::: code-group-item this.state.var
 
-```jsx{7}
+::: code-group-item this.setState
+
+```jsx{4-7,9,14}
+import React from 'react'
+
 class App extends React.Component {
     state = {
-        name: 'React'
-    }
-    render() {
-        return (
-            <h1>Hello, {this.state.name}!</h1>
-        )
-    }
-}
-```
-:::
-::: code-group-item this.setState( )
-
-```jsx{6,11}
-class App extends React.Component {
-    state = {
-        counter: 0
+        counter: 0,
+		products: ['Apple', 'Orange', 'Banana']
     }
     increment = () => {
         this.setState({counter: this.state.counter + 1});
@@ -318,33 +326,12 @@ class App extends React.Component {
         )
     }
 }
+
+export default App
 ```
 :::
 
-::: code-group-item createRef
-```jsx{4,7}
-class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.myRef = React.createRef();
-	}
-	render() {
-		return <div ref={this.myRef} />;
-	}
-}
-```
-:::
-
-::::
-
-* Lifecycle Methods
-    - Mounting()
-    - Unmounting()
-    - componentDidMount()
-    - componentDidUpdate()
-    - componentWillUnmount()
-
-::: details React生命周期函数(Class)
+::: code-group-item 生命周期函数
 ```jsx{22,25,28}
 import React from 'react';
 
@@ -388,9 +375,34 @@ class State extends React.Component {
 export default State
 ```
 :::
+
+::: code-group-item createRef
+```jsx{4,7}
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.myRef = React.createRef();
+	}
+	render() {
+		return <div ref={this.myRef} />;
+	}
+}
+```
+:::
+
+::::
+
+* Lifecycle Methods
+    - Mounting()
+    - Unmounting()
+    - componentDidMount()
+    - componentDidUpdate()
+    - componentWillUnmount()
+
+
 ## Hooks (Only in React function)
 
-
+::: tip
 Hook 是 React 16.8 的新增特性。
 Hook 可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
 React Native 从 0.59 版本开始支持 Hook
@@ -409,6 +421,7 @@ Hook 和现有代码可以同时工作，你可以渐进式地使用他们
     useImperativeHandle
     useLayoutEffect
     useDebugValue
+:::
 
 :::: code-group
 ::: code-group-item useState

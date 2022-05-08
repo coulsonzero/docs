@@ -11,14 +11,10 @@ html.dark {
         background-color: hsla(0, 0%, 19%, 1);
     }
 }
-html:not(.dark) div[class*="language-"] .highlight-lines .highlight-line {
+div[class*="language-"] .highlight-lines .highlight-line {
     background: #5a5a5a;
-}
-html.dark div[class*="language-"] .highlight-lines .highlight-line {
-    background: #555555;
-}
-.custom-container.details {
-    border-radius: 30px;
+    border-left: 4px solid rgb(125, 211, 252);
+    // border-left: 4px solid rgb(56, 189, 248);
 }
 
 .code-group__nav {
@@ -407,4 +403,44 @@ html.dark {
             border-color: #6a6a6b;
         }
     }
+}
+
+/* ========== tip, warning =========== */
+.custom-container {
+    position: relative;
+}
+
+.custom-container:before {
+    position: absolute;
+    top: 19px;
+    left: -14px;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 700;
+    font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.custom-container.danger:before,
+.custom-container.warning:before,
+.custom-container.tip:before {
+    width: 25px;
+    height: 25px;
+    left: -16px;
+}
+
+.custom-container.tip:before {
+    content: url(https://v3.cn.vuejs.org/images/icons/bulb.svg);
+}
+
+.custom-container.warning:before {
+    content: url(https://v3.cn.vuejs.org/images/icons/danger.svg);
+}
+
+.custom-container.danger:before {
+    content: url(https://v3.cn.vuejs.org/images/icons/stop.svg)
 }

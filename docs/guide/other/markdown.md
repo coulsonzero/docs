@@ -1,5 +1,7 @@
 # MarkDown
 
+
+
 [Markdown增强](https://vuepress-theme-hope.github.io/v2/md-enhance/zh/)
 ## 目录
 
@@ -106,13 +108,11 @@ $\color{green}{✓}$
 :::
 ```
 
-::: warning
+::: warning 注意
 这是一个警告
 :::
 
 
-::: warning 注意
-:::
 
 ### 危险
 ```md
