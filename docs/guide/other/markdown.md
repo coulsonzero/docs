@@ -2,7 +2,7 @@
 
 | 网站                                                                     | 网址                                                    |
 | ------------------------------------------------------------------------ | ------------------------------------------------------- |
-| [vuepress-theme-hope](vuepress-theme-hope)                               | https://vuepress-theme-hope.github.io/v2/zh/            |
+| [vuepress-theme-hope](https://vuepress-theme-hope.github.io/v2/zh/)      | https://vuepress-theme-hope.github.io/v2/zh/            |
 | [Markdown 增强](https://vuepress-theme-hope.github.io/v2/md-enhance/zh/) | https://vuepress-theme-hope.github.io/v2/md-enhance/zh/ |
 
 ## 目录

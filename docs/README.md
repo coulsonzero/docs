@@ -46,89 +46,91 @@ npm run start
 
 <iframe src="https://stackblitz.com/edit/react-ts-eyrm98?ctl=1&embed=1&file=index.tsx&hideNavigation=1&theme=dark" width="100%" height="400px" frameborder="0" style="border-radius:26px; box-shadow: 4px 4px 56px rgba(32,32,32,.5);"></iframe>
 
-
-
 # 导航书签 🎉
 
 [![GitHub forks](https://img.shields.io/github/forks/coulsonzero/docs)](https://github.com/coulsonzero/docs/network)
 [![GitHub stars](https://img.shields.io/github/stars/coulsonzero/docs)](https://github.com/coulsonzero/docs/stargazers)
 [![GitHub license](https://img.shields.io/github/license/coulsonzero/docs)](https://github.com/coulsonzero/docs/blob/master/LICENSE)
 
-| 名 称          | 网 址            |        备 注         |
-| :------------- | :--------------- | :------------------: |
-| Bing           | [Bing]           |       搜索引擎       |
-| Deepl          | [DeepL]          |       翻译工具       |
-| Github         | [Github]         |       技术社区       |
-| Codepen        | [Codepen]        |       技术社区       |
-| Stack Overflow | [Stack Overflow] |       技术社区       |
-| Awwwards       | [Awwwards]       |       技术社区       |
-| CSDN           | [CSDN]           |       技术社区       |
-| 知乎           | [ZhiHu]          |       技术社区       |
-| 力扣           | [Leetcode]       |       技术社区       |
-| 牛客网         | [Nowcoder]       |       技术社区       |
-| Figma          | [Figma]          |       UI 设计        |
-| 蓝湖           | [蓝湖]           |       UI 设计        |
-| Boxicons       | [Boxicons]       |         图标         |
-| Iconfont       | [Iconfont]       |         图标         |
-| Font Awesome   | [Font Awesome]   |         图标         |
-| Animate        | [Animate]        |       CSS 动画       |
-| Animista       | [Animate]        |       CSS 动画       |
-| Google Fonts   | [Google Fonts]   |       CSS 字体       |
-| WebGradients   | [WebGradients]   |       CSS 颜色       |
-| Angrytools     | [Angrytools]     |       CSS 颜色       |
-| Swiper         | [Swiper]         |     JS 轮播图库      |
-| Swiper-cn      | [Swiper-cn]      |   JS 中文轮播图库    |
-| ScrollReveal   | [ScrollReveal]   |   JS 页面平滑效果    |
-| Echarts        | [Echarts]        |   JS 可视化图表库    |
-| Make A Pie     | [Make A Pie]     |  JS 图表社区, 停运   |
-| Analysis       | [Analysis]       |     JS 图表社区      |
-| Codesandbox    | [Codesandbox]    |   Web 在线编程网站   |
-| Vue            | [Vue3.js]        |       Web 框架       |
-| React          | [React.js]       |       Web 框架       |
-| Three          | [Three.js]       |   WebGL 3D 可视化    |
-| MapBox         | [MapBox]         |     Web 3D 地图      |
-| Canvas         | [Canvas]         |     Web 2D 动效      |
-| Webpack        | [Webpack]        |       打包工具       |
-| Vite           | [Vite]           |  打包工具, 启动更快  |
-| Yarn           | [Yarn]           | npm 包管理命令行工具 |
-| Docsify        | [Docsify]        |       文档管理       |
-| VuePress       | [VuePress]       |       文档管理       |
-| Git            | [Git]            |    分布式版本控制    |
+| 网站名称         |        网 址         |
+| :--------------- | :------------------: |
+| [Bing]           |       搜索引擎       |
+| [DeepL]          |       翻译工具       |
+| [Github]         |       技术社区       |
+| [Codepen]        |       技术社区       |
+| [Stack Overflow] |       技术社区       |
+| [Awwwards]       |       技术社区       |
+| [CSDN]           |       技术社区       |
+| [ZhiHu]          |       技术社区       |
+| [Leetcode]       |       技术社区       |
+| [Nowcoder]       |       技术社区       |
+| [Figma]          |       UI 设计        |
+| [蓝湖]           |       UI 设计        |
+| [Pixabay]        |       UI 素材        |
+| [Videvo]         |      Video 素材      |
+| [Boxicons]       |         图标         |
+| [Iconfont]       |         图标         |
+| [Font Awesome]   |         图标         |
+| [Animate]        |       CSS 动画       |
+| [Animista]       |       CSS 动画       |
+| [Google Fonts]   |       CSS 字体       |
+| [WebGradients]   |       CSS 颜色       |
+| [Angrytools]     |       CSS 颜色       |
+| [Swiper]         |     JS 轮播图库      |
+| [Swiper-cn]      |   JS 中文轮播图库    |
+| [Vue-swpier]     |      Vue 轮播图      |
+| [ScrollReveal]   |   JS 页面平滑效果    |
+| [Echarts]        |   JS 可视化图表库    |
+| [Make A Pie]     |  JS 图表社区, 停运   |
+| [Analysis]       |     JS 图表社区      |
+| [Codesandbox]    |   Web 在线编程网站   |
+| [Vue3.js]        |       Web 框架       |
+| [React.js]       |       Web 框架       |
+| [Three.js]       |   WebGL 3D 可视化    |
+| [MapBox]         |     Web 3D 地图      |
+| [Canvas]         |     Web 2D 动效      |
+| [Webpack]        |       打包工具       |
+| [Vite]           |  打包工具, 启动更快  |
+| [Yarn]           | npm 包管理命令行工具 |
+| [Docsify]        |       文档管理       |
+| [VuePress]       |       文档管理       |
+| [Git]            |    分布式版本控制    |
+| [SpringBoot]     |  Java Web 开发框架   |
 
-## 优秀 2D 网页作品
+## 优秀 网页作品
 
-| 网站名称            | 网址                  |
-| ------------------- | --------------------- |
-| Three.js Journey    | [Three.js Journey]    |
-| orano               | [orano]               |
-| Accueil - Hillstone | [Accueil - Hillstone] |
-| fiiiirst            | [fiiiirst]            |
-| Maserati            | [Maserati]            |
-| steelwavellc        | [steelwavellc]        |
-| avexdesigns         | [avexdesigns]         |
-
-## 3D 网页作品
-
-| 网站名称         | 网址               |
-| ---------------- | ------------------ |
-| BS               | [BS]               |
-| Kode Sports Club | [Kode Sports Club] |
-
-## 文档资料
-
-| 网站名称      | 网址                                             |
-| ------------- | ------------------------------------------------ |
-| Road 2 Coding | [Road 2 Coding]                                  |
-| VuePress 文档 | [飞跃高山与大洋的鱼](https://docs.shanyuhai.top) |
+| 2D 网页                                                     | 3D 网页            | 文档资料                                         |
+| ----------------------------------------------------------- | ------------------ | ------------------------------------------------ |
+| [Three.js Journey]                                          | [BS]               | [Road 2 Coding]                                  |
+| [orano]                                                     | [Kode Sports Club] | [飞跃高山与大洋的鱼](https://docs.shanyuhai.top) |
+| [Accueil - Hillstone]                                       |                    | [Devdocs](https://devdocs.io)                    |
+| [Riccardo Zanutta](http://riccardozanutta.com)              |
+| [Riccardo Zanutta](http://riccardozanutta.com/la-francesca) |
+| [fiiiirst]                                                  |
+| [Maserati]                                                  |
+| [steelwavellc]                                              |
+| [avexdesigns]                                               |
+| [•](https://www.impermanence.us)                            |
+| [midwam](https://midwam.com/en)                             |
+| [vanmoof](https://live.vanmoof.com)                         |
+| [speedy](https://speedy.io)                                 |
+| [ussubo](https://utsubo.co)                                 |
+| [visagesdurhon](https://www.visagesdurhone.com)             |
+| [Decor Systems](https://decorsystems.com.au)                |
+| [Daily](https://daily.dev)                                  |
+| [wanderful](https://wanderful.index.studio/en/live/)        |
+| [Caarea](https://www.caarea.com/en/)                        |
+| [steelwavellc]                                              |
+| [avexdesigns](https://avexdesigns.com)                      |
 
 ## 友情链接
 
-| 网站名称  | 网址                                   |
-| --------- | -------------------------------------- |
-| imaegoo   | [imaegoo](https://www.imaegoo.com)     |
-| frytea    | [frytea](https://blog.frytea.com)      |
-| xukaiyyds | [xukaiyyds](https://blog.xukaiyyds.cn) |
-| zhangjiancong |[zhangjiancong](https://blog.zhangjiancong.top) |
+| 网站名称      | 网址                                            |
+| ------------- | ----------------------------------------------- |
+| imaegoo       | [imaegoo](https://www.imaegoo.com)              |
+| frytea        | [frytea](https://blog.frytea.com)               |
+| xukaiyyds     | [xukaiyyds](https://blog.xukaiyyds.cn)          |
+| zhangjiancong | [zhangjiancong](https://blog.zhangjiancong.top) |
 
 <!-- Links -->
 
@@ -146,6 +148,7 @@ npm run start
 [boxicons]: https://boxicons.com
 [iconfont]: https://www.iconfont.cn
 [animate]: https://animate.style
+[animista]: https://animista.net
 [font awesome]: https://fontawesome.com
 [webgradients]: https://webgradients.com
 [docsify]: https://docsify.js.org
@@ -161,6 +164,7 @@ npm run start
 [leetcode]: https://leetcode-cn.com
 [nowcoder]: https://www.nowcoder.com
 [awwwards]: https://www.awwwards.com
+[animate]: https://animate.style/
 [animista]: https://animista.net
 [google fonts]: http://googlefonts.cn/english
 [swiper-cn]: https://github.surmon.me/vue-awesome-swiper/
@@ -181,3 +185,7 @@ npm run start
 [steelwavellc]: https://www.steelwavellc.com
 [avexdesigns]: https://avexdesigns.com/
 [orano]: https://www.orano.group/experience/innovation/en
+[springboot]: https://spring.io/projects/spring-boot#learn
+[vue-swiper]: https://github.surmon.me/vue-awesome-swiperF
+[pixabay]: https://pixabay.com
+[videvo]: https://www.videvo.net
