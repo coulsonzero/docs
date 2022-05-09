@@ -52,6 +52,12 @@ npm run start
 [![GitHub stars](https://img.shields.io/github/stars/coulsonzero/docs)](https://github.com/coulsonzero/docs/stargazers)
 [![GitHub license](https://img.shields.io/github/license/coulsonzero/docs)](https://github.com/coulsonzero/docs/blob/master/LICENSE)
 
+
+[![DeepScan grade](https://deepscan.io/api/teams/9792/projects/17760/branches/417299/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9792&pid=17760&bid=417299)
+![CodeQL](https://github.com/miniapp-tool/mptool/actions/workflows/codeql-analysis.yml/badge.svg)
+[![codecov](https://codecov.io/gh/miniapp-tool/mptool/branch/main/graph/badge.svg?token=TNYMbGlxQ9)](https://codecov.io/gh/miniapp-tool/mptool)
+![Test](https://github.com/miniapp-tool/mptool/actions/workflows/test.yml/badge.svg)
+
 | 网站名称         |        网 址         |
 | :--------------- | :------------------: |
 | [Bing]           |       搜索引擎       |

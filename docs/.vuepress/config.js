@@ -1,8 +1,9 @@
+const {defaultTheme} = require("@vuepress/theme-default")
+
 const navConf = require("./config/navConf.js")
 const sidebarConf = require("./config/sidebarConf.js")
 const pluginConf = require("./config/pluginConf.js")
-const path = require('path')
-const {mdEnhance} = require("vuepress-plugin-md-enhance")
+const path = require("path")
 
 module.exports = {
 	lang: "zh-CN",
@@ -12,16 +13,16 @@ module.exports = {
 	description: "文档管理中心",
 	port: 80,
 	// host: '127.0.0.1',
-	open: true,
+	// open: true,
 	/* 搜索栏 */
 	plugins: pluginConf,
 	/* 静态资源别名 */
 	alias: {
-		"@": path.resolve(__dirname, "./public")
+		"@": path.resolve(__dirname, "./public"),
 	},
-	themeConfig: {
+	theme: defaultTheme({
 		/* navbar扩展 */
-		// logo: "https://vuejs.org/images/logo.png",
+		logo: "https://vuejs.org/images/logo.png",
 		logo: "/coulsonzero.png",
 		repo: "https://github.com/coulsonzero/docs",
 		repoLabel: "Github",
@@ -37,12 +38,13 @@ module.exports = {
 		smoothScroll: true,
 		/* 导航栏 */
 		navbar: navConf,
+		// nav: [{text: "🏡 首页", link: "https://coulsonzero.github.io"}],
 		/* 侧边栏 */
-		sidebar: sidebarConf
-	},
+		sidebar: sidebarConf,
+	}),
 	markdown: {
 		code: {
-			lineNumbers: 10 // 代码超过n行显示行号, 默认值为true
-		}
-	}
+			lineNumbers: 10, // 代码超过n行显示行号, 默认值为true
+		},
+	},
 }
