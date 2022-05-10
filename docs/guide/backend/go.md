@@ -5,6 +5,9 @@ simple, reliable and efficient software.
 
 
 ### Hello World
+::: tip
+Go通过`main`方法启动
+:::
 
 :::: code-group
 ::: code-group-item hello.go
@@ -26,7 +29,29 @@ func main() {
 ::::
 
 ### DataTypes
+::: warning
+> 变量声明: `var num int`
+>
+> 变量初始化:
+>
+> `var num = 12` (全局||局部)
+>
+> `num := 12` (局部)
+>
+> 常量: `const pi = 3.14`
+:::
 
+::: tip
+> 变量类型:
+>
+> int
+>
+> float32、float64
+>
+> string
+>
+> bool
+:::
 > 变量
 
 :::: code-group
@@ -60,6 +85,122 @@ var flag bool = true
 const pi = 3.14
 ```
 
+### Variable
+::: danger
+> **A.变量作用域**:
+>
+> 1.全局变量: `var x = 12` (不能使用 `x := 12`)
+>
+> 2.局部变量: `x := 12`(var x = 12亦可, 推荐前者)
+>
+> **B.变量修改**:
+>
+> a.全局变量: `func change() {x += 1}` (仅无参修改, 使用参数set(x int)无法修改)
+>
+> b.局部变量: `func change_ptr(ptr *int) {*ptr += 1}` (仅指针修改, 使用set(x int)无法修改)
+>
+> 注意其他方式无法修改
+
+:::
+:::: code-group
+::: code-group-item 变量作用域
+```go
+package main
+import "fmt"
+
+func test() {
+	x := 8
+	fmt.Println(x)
+}
+
+var y = 12 // y := 12 会报错, 只能用于局部变量
+
+func main() {
+	//fmt.Println(x) //  undefined: x
+	fmt.Println(y) // 12
+}
+
+```
+:::
+::: code-group-item 全局变量
+```go
+package main
+import "fmt"
+
+var x = 3
+
+func change() {
+	x += 1
+}
+
+func set(x int) {
+	x += 1
+}
+
+func main() {
+	fmt.Println(x) // 3
+	change()
+	fmt.Println(x) // 4
+	set(x)
+	fmt.Println(x) // 4
+}
+```
+:::
+::: code-group-item 局部变量
+```go
+package main
+import "fmt"
+
+func set(val int) {
+	val = 8
+}
+
+func set_ptr(ptr *int) {
+	*ptr = 8
+}
+
+func main() {
+	x := 12
+
+	set(x)
+	fmt.Println(x) // 12
+
+	set_ptr(&x)
+	fmt.Println(x) // 8
+}
+```
+:::
+::: code-group-item 类字段
+```go{9,13}
+package main
+import "fmt"
+
+type Student struct {
+	name string
+	age  int
+}
+
+func (p Student) change() {
+	p.age += 1
+}
+
+func (p *Student) change_ptr() {
+	p.age += 1
+}
+
+func main() {
+	s := Student{"Coulson", 25}
+	fmt.Println(s.age) // 25
+	s.change()
+	fmt.Println(s.age) // 25
+	s.change_ptr()
+	fmt.Println(s.age) // 26
+}
+
+```
+:::
+::::
+
 ### Operators
 
 ```go
@@ -71,32 +212,76 @@ const pi = 3.14
 
 ### Input & Output
 
-::: warning
-> input暂时无法生效
-:::
 
 :::: code-group
 ::: code-group-item output
 
 ```go
-// 不换行
-fmt.Print("go>>> ")
-// 换行
-fmt.Println("Hello, World!")
-// 格式化
-fmt.Printf("name: %s, age: %d.\n", "coulson", 20)
+package main
+import "fmt"
 
+func main() {
+	// 不换行
+	fmt.Print("go>>> ")
+	// 换行
+	fmt.Println("Hello, World!")
+	// 格式化
+	fmt.Printf("name: %s, age: %d.\n", "coulson", 20)
+}
+
+/*
+go>>> Hello, World!
+name: coulson, age: 20.
+*/
 ```
 
 :::
 ::: code-group-item input
 
-```
-var str string
+```go{8}
+package main
 
-fmt.Scanln(&str)
+import "fmt"
+
+func main() {
+	var name string
+	fmt.Print("请输入名称(name): ")
+	fmt.Scanln(&name)
+
+	fmt.Println("Output: " + name)
+}
 ```
 
+:::
+::: code-group-item multiple-inputs
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var n int
+	fmt.Print("请输入数组长度: ")
+	fmt.Scanln(&n)
+
+	nums := make([]int, 0)
+	var input int
+	for i := 0; i < n; i++ {
+		fmt.Print("请输入一个元素: ")
+		fmt.Scanln(&input)
+		nums = append(nums, input)
+	}
+	fmt.Println(nums)
+}
+/*
+请输入数组长度: 4
+请输入一个元素: 1
+请输入一个元素: 3
+请输入一个元素: 5
+请输入一个元素: 6
+[1, 3, 5, 6]
+*/
+```
 :::
 ::::
 
@@ -152,19 +337,23 @@ switch {
 :::: code-group
 ::: code-group-item for
 
-```go
-for i := 0; i < 5; i++ {
-    //statement(s)
+```go{9}
+for i := 0; i < len(nums); i++ {
+    fmt.Println(i, nums[i])
 }
 
 for i, v := range nums {
-    // statement(s)
+    fmt.Println(i, v)
+}
+
+for _, v := range nums {
+    fmt.Println(v)
 }
 ```
 :::
 ::: code-group-item while
 
-```go
+```go{4}
 /* for版的while */
 sum := 1
 res := 0
@@ -178,20 +367,37 @@ fmt.Println(res)    //500500
 ::::
 ### Function
 
-```go{8}
+:::: code-group
+::: code-group-item 无参
+```go{4}
 package main
 import "fmt"
 
-func main() {
-	welcome("coulson")
+func welcome() {
+	fmt.Println("hello, world")
 }
 
-func welcome(name string) {
-	fmt.Println("hello, " + name)
+func main() {
+	welcome()
+}
+```
+:::
+::: code-group-item 有参
+```go{4-5}
+package main
+import "fmt"
+
+func sum(a int, b int) {
+	fmt.Println(a + b)
+}
+
+func main() {
+	sum(12, 8)
 }
 
 ```
-
+:::
+::: code-group-item 返回值
 ```go {4-5}
 package main
 import "fmt"
@@ -206,10 +412,10 @@ func main() {
     fmt.Println(b)
 }
 ```
-
-### defer 析构器 (关闭文件、垃圾清理， Stack 堆结构：后进先出)
-
-```go
+:::
+::: code-group-item defer 析构器
+```go{10}
+// 关闭文件、垃圾清理， Stack 堆结构：后进先出
 package main
 import "fmt"
 
@@ -228,7 +434,7 @@ func main() {
  */
 ```
 
-```go
+```go{7}
 package main
 import "fmt"
 func main() {
@@ -247,38 +453,141 @@ func main() {
 * end
 */
 ```
+:::
+::::
 
 ### Pointer 指针(浅拷贝)
 
-```go
-var p *int
+:::: code-group
+::: code-group-item pointer
+```go{6,10,12,16}
+package main
+import "fmt"
 
-x := 42
-p := &x         //&内存地址
-fmt.Println(p)  //0xc0000b8020  16进制内存地址
-fmt.Println(x)  //0xc0000b8020
-fmt.Println(p)  //42
-fmt.Println(x)  //42
-
-type T struct {
-    var int
-}
-func (p T) a() {
-    p.var += 2
-}
-func (p *T) b() {
-    p.var += 1
-}
 func main() {
-    x := T(5)
-    x.a()
-    x.b()
-    fmt.Println(x.var)    //6
+	x := 12
+	p := &x
+	fmt.Println(&x) // 0xc000018080, 重新运行程序内存地址会不断变化
+	fmt.Println(p)  // 0xc000018080
+	fmt.Println(&p) // 0xc00000e028
+	fmt.Println(*p) // 12
+
+	x += 2
+	fmt.Println(&x) // 0xc000018080
+	fmt.Println(p)  // 0xc000018080
+	fmt.Println(&p) // 0xc00000e028
+	fmt.Println(*p) // 14
 }
 ```
+:::
+::: code-group-item pointer in Func
+```go
+package main
+import "fmt"
+
+func set(val int) {
+	val = 8
+}
+
+func set_ptr(ptr *int) {
+	*ptr = 8
+}
+
+func main() {
+	x := 12
+
+	set(x)
+	fmt.Println(x) // 12
+
+	set_ptr(&x)
+	fmt.Println(x) // 8
+}
+```
+:::
+::::
+
 
 ### Structs
 
+:::: code-group
+::: code-group-item 类
+```go
+package main
+
+import "fmt"
+
+type Student struct {
+	name string
+	age  int
+}
+
+func main() {
+	s := Student{"Tom", 21}
+	s.age = 8
+	fmt.Println(s.name) // "Tom"
+	fmt.Println(s.age)  // 8
+	fmt.Println(s)      // {"Tom", 8}
+}
+
+```
+:::
+::: code-group-item 类指针
+```go{19,35,46}
+package main
+
+import "fmt"
+
+type Student struct {
+	name string
+	age  int
+}
+
+func (s Student) welcome() {
+	fmt.Println(s.name)
+	fmt.Println(s.age)
+}
+
+func (p Student) set(val int) {
+	p.age += val
+}
+
+func (ptr *Student) set_ptr(val int) {
+	ptr.age += val
+}
+
+func main() {
+	// 方式一
+	s := Student{"Jame", 20}
+	s.welcome() // "Jame", 20
+
+	s.set(3)
+	fmt.Println(s.age) // 20
+	s.set_ptr(4)
+	fmt.Println(s.age) // 24
+
+	// 方式二：指针
+	s2 := Student{"Tom", 16}
+	ptr2 := &s2
+
+	fmt.Println(*ptr2) // {"Tom", 16}
+	ptr2.name = "Coulson"
+	fmt.Println(s2) // {"Coulson", 16}
+	ptr2.set(4)
+	fmt.Println(s2) // {"Coulson", 16}
+	ptr2.set_ptr(4)
+	fmt.Println(s2) // {"Coulson", 20}
+
+	// 方式三：内存地址
+	s3 := &Student{"Yalo", 16}
+	fmt.Println(*s3)
+	s3.set(4)
+	fmt.Println(*s3) //{Yalo 16}
+	s3.set_ptr(4)
+	fmt.Println(*s3) // {Yalo 20}
+}
+```
+:::
+::: code-group-item 简化版
 ```go
 package main
 import "fmt"
@@ -301,17 +610,65 @@ func main() {
     c.change("blue")
 }
 ```
+:::
+::: code-group-item 类输入遍历
+```go
+package main
 
-### Arrays
+import "fmt"
 
-#### Array
+type Cart struct {
+	prices []float32
+}
+
+func main() {
+	c := Cart{}
+	var n int
+	fmt.Scanln(&n)
+
+	var num float32
+	for i := 0; i < n; i++ {
+		fmt.Scanln(&num)
+		c.prices = append(c.prices, num)
+	}
+
+	c.show()
+}
+
+func (x Cart) show() {
+	var sum float32 = 0.0
+	for _, v := range x.prices {
+		sum += v
+	}
+	fmt.Println(sum)
+}
+```
+:::
+::::
+
+
+
+
+### Array
+
+::: warning
+> 一旦声明，长度固定无法修改，需要动态扩展数据参考`make([]int 5)`
+>
+> 查询，无法增删改
+:::
+
 :::: code-group
 ::: code-group-item 创建数组
-```go
-// var arr [5]int
-// arr := [5]int{0, 2, 4, 6, 8}
+```go{8}
+// 声明一个数组再初始化
+var arr [5]int
+arr[0] = 1
+arr[1] = 3
 
+// 声明并初始化数组
+arr := [5]int{0, 2, 4, 6, 8}
 arr := []int {0, 2, 4, 6, 8}
+arr := []string{"water", "burger", "cake"}
 ```
 :::
 ::: code-group-item Api
@@ -338,23 +695,51 @@ for _, v := range nums {
 ```
 :::
 ::: code-group-item sum
-```go{8,11,13}
+```go{4,15}
 package main
-
 import "fmt"
 
-func main() {
-    arr := []int {0, 2, 4, 6, 8}
-
-    fmt.Println(sum(arr...)) // 15
+func sum(nums ...int) int {
+	total := 0
+	for _, v := range nums {
+		total += v
+	}
+	return total
 }
 
-func sum(nums ...int) int {
-	res := 0
-	for _, v := range nums {
-		res += v
-	}
-	fmt.Println(res)
+func main() {
+    nums := []int {0, 2, 4, 6, 8}
+
+    fmt.Println(sum(nums...)) // 15
+}
+```
+:::
+::: code-group-item 多次输入
+```go
+package main
+import "fmt"
+
+func route(arr ...string) string {
+    res = ""
+    for _, v := range arr {
+        res += v + "->"
+    }
+    return res
+}
+
+func main() {
+    var n int
+    fmt.Scanln(&n)
+
+    var cities [string]
+    // your code
+    var input string
+    for i := 0; i < n; i++ {
+        fmt.Scanln(&input)
+        cities = append(cities, input)
+    }
+
+    fmt.Println(route(cities))
 }
 ```
 :::
@@ -407,23 +792,28 @@ func sum(nums ...int) int {
 ```
 :::
 
-#### List
+### List
 
+:::: code-group
+::: code-group-item 创建动态数组
 ```go
-
-arr := make([]int, 3)    //初始默认值为0
-
-
-arr = append(arr, 8)        //增
+arr := make([]int, 3)    //初始默认值为0: [0, 0, 0]
 
 var s[] int = arr[1:3]      // 切片查询：s := arr[1:3]
-fmt.Println(arr)            // 输出：[0, 0, 0, 8]
 ```
-
+:::
+::: code-group-item Api
+```go
+arr = append(arr, 8)        // 末尾新增
+arr = append(arr, 1, 2, 3)
+sum(arr)
+```
+:::
+::: code-group-item 遍历
 ```go
 arr := make([]int, 3)
-for i, v := range arr {
-    fmt.Println(i, v)     //0 0, 1 0, 2 0
+for _, v := range arr {
+    fmt.Println(v)
 }
 
 //字符串需要指定输出的数据类型, 否则会将字符转换为ASSIC整数
@@ -432,10 +822,10 @@ for _, c := range s {
     fmt.Println("%c \n",c)     //h, e, l, l, o
 }
 ```
-
+:::
+::: code-group-item sum
 ```go
-/数组求和
-pachage main
+package main
 import "fmt"
 
 func sum(nums ...int) {
@@ -443,7 +833,7 @@ func sum(nums ...int) {
     for _, v := range nums {
         res += v
     }
-    fmt.Println(total)
+    fmt.Println(res)
 }
 
 func main() {
@@ -452,26 +842,59 @@ func main() {
     sum(s...)         //108
 }
 ```
-
-```go
-s := []int {1,2,3,6,8}
-s[2] = s[1]                //2
-s[3] = s[2]+s[0]           //3
-fmt.Println(s[4] % s[3])   //8 % 3 = 2
-```
+:::
+::::
 
 ### Map
 
-```go
-m ：= make(map[string] int)
-m := map[string]int{
-    "James": 42,    //key可以是int类型
-    "Amy": 24}
+:::: code-group
+::: code-group-item 创建Map
+```go{5,8,12}
+package main
+import "fmt"
 
-m["Bob"] = 8                //增
-delete(m, "James")        //删
-fmt.Println(m["Amy"]) //查：24
+func main() {
+	countries := map[string] string{
+		"us": "USA",
+		"fr": "France",
+		"cn": "China",	// 末尾加逗号，或者将大括号放在此行！
+	}
+	fmt.Println(countries)	// map[cn:China fr:France us:USA]
+
+    m := make(map[string] int)
+	m["Jame"] = 42
+	m["Amye"] = 24
+	fmt.Println(m) // map[Amye:24 Jame:42]
+}
 ```
+:::
+::: code-group-item Api
+```go
+delete(m, "Jame")
+```
+:::
+::: code-group-item Example
+```go
+package main
+import "fmt"
+
+func main() {
+    team := map[string] float32 {
+        "P1": 1.98,
+        "P2": 2.05,
+        "P3": 1.89,
+        "P4": 2.0,
+        "P5": 2.11}
+
+    var sum float32 = 0.0
+    for _, v := range team {
+        sum += v
+    }
+    fmt.Println(sum / 5)
+}
+```
+:::
+::::
 
 ### Goroutines 并发线程
 
@@ -616,7 +1039,14 @@ select {
 
 :::
 
-## Error
+## FAQ
+### GO简介
+```
+Go 不允许导入未被使用的包，以避免将未使用的代码链接到程序里而造成的不必要的膨胀
+Go 是一种用于编写系统的语言
+该语言本身的主要不寻常属性——并发性——解决了 2010 年代多核 CPU 激增所出现的问题。但更重要的是为软件开发世界的打包、依赖关系、构建、测试、部署和其他日常任务建立基础的早期工作，这些方面通常在语言设计中并不重要
+不是每个人都喜欢——例如，有些人反对这种语言省略了继承和泛型类型等常见的特性。但是 Go 以开发为中心的理念足够有趣和有效，以至于社区在保持最初推动 Go 存在的核心原则的同时蓬勃发展。在很大程度上要归功于该社区及其构建的技术，Go 现在已成为现代云计算环境的重要组成部分。
+```
 
 ### GO vscode 的package main红色波浪性问题
 

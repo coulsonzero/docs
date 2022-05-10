@@ -18,7 +18,6 @@ html.dark {
 div[class*="language-"] .highlight-lines .highlight-line {
     background: #5a5a5a;
     border-left: 4px solid rgb(125, 211, 252);
-    // border-left: 4px solid rgb(56, 189, 248);
 }
 div[class*=language-] pre[class*=language-] {
     margin-top: 18px;
@@ -132,8 +131,6 @@ html:not(.dark) .navbar {
 
 html:not(.dark) {
     .sidebar {
-        // background-color: #f6feff;
-        // background-color: #f4f6fa;
         background-color: #f9faff;
     }
 }
@@ -202,7 +199,7 @@ html.dark {
  *          sidebar-button
  * ----------------------------------------
  */
-
+/*
 @media screen and(min-width: 900px) {
     .toggle-sidebar-button {
         display: block;
@@ -235,7 +232,7 @@ html.dark {
         -webkit-transition: 0.3s ease 0.03s;
     }
 }
-
+*/
 /**
  * ----------------------------------------
  *                  code

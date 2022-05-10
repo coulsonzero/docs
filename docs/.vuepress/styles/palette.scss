@@ -1,7 +1,6 @@
 :root {
     scroll-behavior: smooth;
     --c-bg-navbar: hsla(0, 0%, 100%, 0.76);
-    // --code-group-radius: 12px;
     --code-group-radius: 20px;
 }
 
@@ -14,7 +13,6 @@
 }
 
 html.dark {
-    // --c-bg-navbar: rgba(42, 44, 46, 0.8);
     --c-bg-navbar: rgba(28, 27, 29, 0.7);
 }
 
@@ -145,7 +143,7 @@ html:not(.dark) .page {
     font-family: FontAwesome;
     font-size: 2em;
     display: inline-block;
-    color: #73abfe;
+    color: transparent;
     vertical-align: middle;
     position: absolute;
     top: 50%;
@@ -162,9 +160,8 @@ html:not(.dark) .page {
 .custom-container.details summary:after {
     content: "";
     position: absolute;
-    // left: -7px;
     left: 10px;
-    top: 3px;
+    top: 2px;
     width: 16px;
     height: 16px;
     border-radius: 3px;
