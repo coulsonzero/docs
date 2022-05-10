@@ -5,6 +5,14 @@
     --code-group-radius: 20px;
 }
 
+
+*,
+*::before,
+*::after
+{
+    outline: none;
+}
+
 html.dark {
     // --c-bg-navbar: rgba(42, 44, 46, 0.8);
     --c-bg-navbar: rgba(28, 27, 29, 0.7);
@@ -141,11 +149,12 @@ html:not(.dark) .page {
     top: 50%;
     // left: -17px;
     left: 0;
-    background: #73abfe;
+    background: #c3d5f1;
     width: 30px;
     height: 30px;
     border-radius: 50%;
     transform: translateY(-50%);
+    transition: all .3s ease-out;
 }
 
 .custom-container.details summary:after {
@@ -169,10 +178,13 @@ html:not(.dark) .page {
     border-radius: 30px;
 }
 
-
+.custom-container.details[open] summary::before{
+    background:#a6c5f7;
+}
 .custom-container.details[open] summary::after {
     background: #61dafb;
     transform: translate(-3px, 3px) rotate(180deg);
+    transition: all .3s ease-in-out;
 }
 
 

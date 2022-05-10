@@ -1,3 +1,7 @@
+* {
+    transition: .15s ease-in-out .1s;
+}
+
 /**
  * ----------------------------------------
  *                 code
@@ -94,6 +98,7 @@ html:not(.dark) {
 .navbar {
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-bottom: none;
 }
 
 html:not(.dark) .navbar {
