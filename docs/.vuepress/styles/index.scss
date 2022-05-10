@@ -423,11 +423,15 @@ html.dark {
 
 .custom-container:before {
     position: absolute;
-    top: 19px;
-    left: -14px;
+    // top: 19px;
+    // left: -14px;
+    top: 21px;
+    left: 16px;
     color: #fff;
-    width: 20px;
-    height: 20px;
+    // width: 20px;
+    // height: 20px;
+    width: 25px;
+    height: 25px;
     border-radius: 100%;
     text-align: center;
     line-height: 20px;
@@ -436,12 +440,19 @@ html.dark {
     font-size: 14px;
 }
 
+.custom-container.danger,
+.custom-container.warning,
+.custom-container.tip {
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    padding: 0.25rem 1rem;
+    border-left-width: 0.3rem;
+}
+
 .custom-container.danger:before,
 .custom-container.warning:before,
 .custom-container.tip:before {
-    width: 25px;
-    height: 25px;
-    left: -16px;
+
 }
 
 .custom-container.tip:before {
@@ -459,9 +470,8 @@ html.dark {
 
 .custom-container.tip {
     --c-tip-bg: #e6f6e6;
-    // background: #e6f6e6;
-    border-radius: 0.5rem;
-    margin: 1rem 0;
-    padding: 0.25rem 1rem;
-    border-left-width: 0.3rem;
+}
+
+p.custom-container-title {
+    padding-left: 32px;
 }

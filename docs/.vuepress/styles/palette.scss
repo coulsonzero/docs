@@ -129,6 +129,8 @@ html:not(.dark) .page {
 .custom-container.details summary {
     position: relative;
     padding-left: 30px;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .custom-container.details summary::-webkit-details-marker,
@@ -176,6 +178,7 @@ html:not(.dark) .page {
 .custom-container.details {
     background: #ecf6fb;
     border-radius: 30px;
+    transition: all .3s ease-in-out .01s
 }
 
 .custom-container.details[open] summary::before{

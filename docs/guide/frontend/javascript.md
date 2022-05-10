@@ -1121,6 +1121,25 @@ for (let v of set.values()) {
 
 :::
 
+### Object
+
+```js
+Object.keys(obj)
+Object.values(obj)
+```
+
+```js
+const data = {
+  title: '项目名称',
+  dataIndex: 'projectName',
+  fixed: 'left',
+  width: 100
+};
+
+console.log(Object.keys(data))
+// Output: [ 'title', 'dataIndex', 'fixed', 'width' ]
+```
+
 ### 4. Map
 
 **创建 Map**

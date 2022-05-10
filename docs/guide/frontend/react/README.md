@@ -883,6 +883,53 @@ export default function App() {
 :::
 
 > 通过createContext跨组件传值
+:::: code-group
+::: code-group-item msgContext.js
+```js
+import React from "react"
+
+export const msgContext = React.createContext('hello world')
+```
+:::
+::: code-group-item ContextPro.jsx
+```jsx{2,7}
+import React from "react"
+import { msgContext } from "./msgContent"
+
+class ContextPro extends React.Component {
+	render() {
+		return (
+			<ThemeContext.Provider>
+				<div>CreateContentDemo</div>
+			</ThemeContext.Provider>
+		)
+	}
+}
+
+export default ContextPro
+```
+:::
+::: code-group-item ContextCon.jsx
+```jsx{2,9}
+import React from "react"
+import { msgContext } from './msgContent'
+
+class ContextCon extends React.Component {
+	render() {
+		return (
+			<div>
+				<span>useContentDemo: </span>
+				<ThemeContext.Consumer>{(value) => <div>{value}</div>}</ThemeContext.Consumer>
+			</div>
+		)
+	}
+}
+
+export default ContextCon
+```
+:::
+::::
+
 ::: details 点击查看代码
 ```jsx
 import React, {useState, createContext} from "react";
