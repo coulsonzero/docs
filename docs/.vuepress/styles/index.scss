@@ -450,3 +450,13 @@ html.dark {
 .custom-container.danger:before {
     content: url(https://v3.cn.vuejs.org/images/icons/stop.svg)
 }
+
+
+.custom-container.tip {
+    --c-tip-bg: #e6f6e6;
+    // background: #e6f6e6;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    padding: 0.25rem 1rem;
+    border-left-width: 0.3rem;
+}

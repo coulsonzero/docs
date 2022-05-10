@@ -123,6 +123,7 @@ html:not(.dark) .page {
     padding-left: 30px;
 }
 
+.custom-container.details summary::-webkit-details-marker,
 .custom-container.details summary::marker {
     color: transparent;
 }

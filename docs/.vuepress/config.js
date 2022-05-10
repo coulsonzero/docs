@@ -1,5 +1,6 @@
 const {defaultTheme} = require("@vuepress/theme-default")
 
+
 const navConf = require("./config/navConf.js")
 const sidebarConf = require("./config/sidebarConf.js")
 const pluginConf = require("./config/pluginConf.js")
