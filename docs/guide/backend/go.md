@@ -896,8 +896,14 @@ func main() {
 :::
 ::::
 
-### Goroutines 并发线程
+## 高并发
 
+
+
+
+### Goroutines 并发线程
+:::: code-group
+::: code-group-item 普通模式
 ```go
 package main
 import (
@@ -918,26 +924,327 @@ func main() {
 
 //连续输出0-10
 ```
-
+:::
+::: code-group-item go1
 ```go
 package main
-import ("fmt"; "time")
+
+import (
+	"fmt"
+)
 
 func out(from, to int) {
-    for i:=from; i<=to; i++ {
-        fmt.Println(i)
-    }
-    ch <- true
+	for i := from; i <= to; i++ {
+		fmt.Println(i)
+	}
 }
 
 func main() {
-    go out(0, 5)
-    go out(6, 10)
-    time.Sleep(50 * time.Millisecond)
-    //go 后面必须得有time.Sleep语句，否则不会执行go并发语句 NO output!
+	go out(0, 5)
+	go out(6, 10)
 }
-//并发，不连续
+
+// No Output， 因为main()于go并发前退出了
 ```
+:::
+::: code-group-item go2
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func out2(start, end int) {
+	for i := start; i <= end; i++ {
+		time.Sleep(50 * time.Millisecond)
+		fmt.Println(i)
+	}
+}
+
+func main() {
+	// go实现并发
+	go out2(0, 5)
+	go out2(6, 10)
+	// 等待退出
+	time.Sleep(500 * time.Millisecond)
+}
+
+/*
+6
+0
+1
+7
+8
+2
+3
+9
+10
+4
+5
+*/
+```
+:::
+::: code-group-item Channels1
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func out(start, end int, ch chan bool) {
+	for i := start; i <= end; i++ {
+		time.Sleep(50 * time.Millisecond) // 必须, 没有停顿会导致主线程结束后子线程也全部停止
+		fmt.Println(i)
+	}
+	ch <- true
+}
+
+func main() {
+	// 使用管道便不需要sleep，无需计算等待main()何时退出
+	ch := make(chan bool)
+	// 多线程异步方法，同时执行多个任务
+	go out(0, 5, ch)
+	go out(6, 10, ch)
+
+	<-ch
+}
+
+/*
+0
+6
+7
+1
+2
+8
+9
+3
+4
+10
+*/
+```
+:::
+::: code-group-item Channels2
+```go
+package main
+
+import "fmt"
+
+func count(target int, nums []int, ch chan int) {
+	cnt := 0
+	for _, v := range nums {
+		if target == v {
+			cnt++
+		}
+	}
+	ch <- cnt
+}
+
+func main() {
+	nums := []int{12, 36, 12, 2, 5, 12, 36}
+	//var input int
+	//fmt.Scanln(&input)
+	input := 12
+
+	ch1 := make(chan int)
+	ch2 := make(chan int)
+
+	go count(input, nums[:len(nums)/2], ch1)
+	go count(input, nums[len(nums)/2:], ch2)
+
+	fmt.Println(<-ch1 + <-ch2)
+}
+```
+:::
+::: code-group-item Channels3
+```go
+package main
+
+import "fmt"
+
+func evenSum(from, to int, ch chan int) {
+	result := 0
+	for i := from; i <= to; i++ {
+		if i%2 == 0 {
+			result += i
+		}
+	}
+	ch <- result
+}
+func squareSum(from, to int, ch chan int) {
+	result := 0
+	for i := from; i <= to; i++ {
+		if i%2 == 0 {
+			result += i * i
+		}
+	}
+	ch <- result
+}
+
+func main() {
+	evenCh := make(chan int)
+	sqCh := make(chan int)
+
+	go evenSum(0, 100, evenCh)
+	go squareSum(0, 100, sqCh)
+
+	fmt.Println(<-evenCh + <-sqCh)
+}
+
+// Output: 173250
+```
+:::
+::: code-group-item Select1
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func evenSum(from, to int, ch chan int) {
+	result := 0
+	for i := from; i <= to; i++ {
+		if i%2 == 0 {
+			result += i
+		}
+	}
+	ch <- result
+}
+func squareSum(from, to int, ch chan int) {
+	result := 0
+	for i := from; i <= to; i++ {
+		if i%2 == 0 {
+			result += i * i
+		}
+	}
+	ch <- result
+}
+
+func main() {
+	evenCh := make(chan int)
+	sqCh := make(chan int)
+
+	go evenSum(0, 100, evenCh)
+	go squareSum(0, 100, sqCh)
+
+	//fmt.Println(<-evenCh + <-sqCh)
+
+	// 只选择执行其中一个
+	select {
+	case x := <-evenCh:
+		fmt.Println(x)
+	case y := <-sqCh:
+		fmt.Println(y)
+	}
+}
+
+// Output: 173250
+
+// New Output: 171700
+```
+:::
+::: code-group-item Select2
+```go
+package main
+
+import "fmt"
+
+func count(target int, nums []int, ch chan int) {
+	cnt := 0
+	for _, v := range nums {
+		if target == v {
+			cnt++
+		}
+	}
+	ch <- cnt
+}
+
+func main() {
+	nums := []int{12, 36, 12, 2, 5, 12, 36}
+	//var input int
+	//fmt.Scanln(&input)
+	input := 12
+
+	ch1 := make(chan int)
+	ch2 := make(chan int)
+
+	go count(input, nums[:len(nums)/2], ch1)
+	go count(input, nums[len(nums)/2:], ch2)
+
+	//fmt.Println(<-ch1 + <-ch2)
+	select {
+	case x := <-ch1:
+		fmt.Println(x)
+	case y := <-ch2:
+		fmt.Println(y)
+	}
+}
+```
+:::
+::: code-group-item For
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func evenSum(from, to int, ch chan int) {
+	result := 0
+	for i := from; i <= to; i++ {
+		if i%2 == 0 {
+			result += i
+		}
+	}
+	ch <- result
+}
+func squareSum(from, to int, ch chan int) {
+	result := 0
+	for i := from; i <= to; i++ {
+		if i%2 == 0 {
+			result += i * i
+		}
+	}
+	ch <- result
+}
+
+func main() {
+	evenCh := make(chan int)
+	sqCh := make(chan int)
+
+	go evenSum(0, 100, evenCh)
+	go squareSum(0, 100, sqCh)
+
+	//fmt.Println(<-evenCh + <-sqCh)
+
+	// 只选择执行其中一个
+	for {
+		select {
+		case x := <-evenCh:
+			fmt.Println(x)
+			return
+		case y := <-sqCh:
+			fmt.Println(y)
+			return
+		default:
+			fmt.Println("Nothing available")
+			time.Sleep(50 * time.Millisecond) // 阻止死锁
+		}
+	}
+}
+
+/*
+Nothing available
+2550
+*/
+```
+:::
+::::
 
 ### Cannels 管道传输( return )
 

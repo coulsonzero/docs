@@ -67,6 +67,7 @@ html:not(.dark) {
 .code-group__li,
 .code-group__nav-tab {
     border-radius: 0;
+    white-space: nowrap;
 }
 
 .code-group__li {

@@ -26,6 +26,7 @@ export default {
     }
     effects: {
         *outputfetch({ payload }, { call, put }) {
+            // 获取最新数据
             yield put({
                 type: 'add',
                 payload: response,
