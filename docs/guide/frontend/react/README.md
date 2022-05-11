@@ -1944,6 +1944,24 @@ render() {
 <div className={this.state.list.length === 0 && 'container'}>
 ```
 
+9. 如何降低React版本 ？
+> React 18发布后，同步方法也变成了异步，如何降低版本成为了个常见的问题
+
+先创建react项目，然后进入项目中修改指定版本
+```sh
+$ npx create-react-app react-demo
+$ cd react-demo
+$ npm install —save react@17.0.2 react-dom@17.0.2
+```
+
+- index.js
+```js
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./App"
+
+ReactDOM.render(<App />, document.getElementById("root"))
+```
 ## React进阶
 
 ### Children

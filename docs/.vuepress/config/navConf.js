@@ -23,6 +23,12 @@ module.exports = [
 				]
 			},
 			{
+				text: "前端开发工具",
+				children: [
+					{text: "dva", link: "/guide/frontend/dva"},
+				]
+			},
+			{
 				text: "web库",
 				children: [
 					{text: "Echarts", link: "/guide/frontend/echarts/"},

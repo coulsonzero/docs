@@ -105,7 +105,8 @@ module.exports = {
       "sidebarDepth": 1,
       "children": [
         "README.md",
-        "nextjs.md"
+        "nextjs.md",
+        "dva.md"
       ]
     }
   ],
