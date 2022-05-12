@@ -27,3 +27,8 @@ $ yarn build
 ```sh
 $ yarn deploy
 ```
+
+
+```json
+"typescript.validate.enable": false
+```

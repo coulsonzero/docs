@@ -24,6 +24,16 @@ sidebar: false
 # footer: MIT Licensed | Copyright © 2018-present CoulsonZero
 ---
 
+
+
+::: demo Demo 演示
+
+```html
+<h1>VuePress Theme Hope</h1>
+<p><span id="very">非常</span>强大!</p>
+```
+:::
+
 ::::: warning Coding
 :::: code-group
 ::: code-group-item yarn

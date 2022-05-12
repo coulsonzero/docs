@@ -1,12 +1,11 @@
-const {defaultTheme} = require("@vuepress/theme-default")
+import { defineUserConfig } from 'vuepress'
+import { defaultTheme } from "@vuepress/theme-default"
+
+import {navbarConfig, sidebarConfig, pluginConfig} from './config/index'
+import path from "path"
 
 
-const navConf = require("./config/navConf.js")
-const sidebarConf = require("./config/sidebarConf.js")
-const pluginConf = require("./config/pluginConf.js")
-const path = require("path")
-
-module.exports = {
+export default defineUserConfig({
 	lang: "zh-CN",
 	/* 如果设置了域名解析则需要删除base: '/' */
 	// base: "/docs/",
@@ -16,14 +15,14 @@ module.exports = {
 	// host: '127.0.0.1',
 	// open: true,
 	/* 搜索栏 */
-	plugins: pluginConf,
+	plugins: pluginConfig,
 	/* 静态资源别名 */
 	alias: {
 		"@": path.resolve(__dirname, "./public"),
 	},
 	theme: defaultTheme({
 		/* navbar扩展 */
-		logo: "https://vuejs.org/images/logo.png",
+		// logo: "https://vuejs.org/images/logo.png",
 		logo: "/coulsonzero.png",
 		repo: "https://github.com/coulsonzero/docs",
 		repoLabel: "Github",
@@ -38,14 +37,14 @@ module.exports = {
 		editLinkPattern: ":repo/edit/:branch/:path",
 		smoothScroll: true,
 		/* 导航栏 */
-		navbar: navConf,
+		navbar: navbarConfig,
 		// nav: [{text: "🏡 首页", link: "https://coulsonzero.github.io"}],
 		/* 侧边栏 */
-		sidebar: sidebarConf,
+		sidebar: sidebarConfig,
 	}),
 	markdown: {
 		code: {
 			lineNumbers: 10, // 代码超过n行显示行号, 默认值为true
 		},
 	},
-}
+})

@@ -1,12 +1,22 @@
-const {searchPlugin} = require("@vuepress/plugin-search")
+import {searchPlugin} from "@vuepress/plugin-search"
+import { mdEnhancePlugin } from "vuepress-plugin-md-enhance"
 
-module.exports = [
+
+const pluginConfig = [
 	// ["@vuepress/plugin-search"],
+	[
+		mdEnhancePlugin({
+			// 启用代码演示
+			demo: true,
+			// 启用图表
+			chart: true,
+		}),
+	],
 	[
 		searchPlugin({
 			locales: {
 				"/": {
-					placeholder: "Search",
+					placeholder: "搜索",
 				},
 			},
 			// 排除首页
@@ -15,7 +25,6 @@ module.exports = [
 			getExtraFields: (page) => page.frontmatter.tags ?? [],
 		}),
 	],
-	["demo-block"],
 	[
 		"vuepress-plugin-auto-sidebar",
 		{
@@ -39,3 +48,6 @@ module.exports = [
 		},
 	],
 ]
+
+
+export default pluginConfig
