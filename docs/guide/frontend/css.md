@@ -527,3 +527,13 @@ pointer-events: none;
 
 
 
+
+## FAQ
+
+- 去掉label点击时的背景色
+
+```css
+label {
+    -webkit-tap-highlight-color: transparent;
+}
+```

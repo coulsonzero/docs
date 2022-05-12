@@ -716,6 +716,7 @@ console.log(str.endsWith("js")) // true
 ```
 
 :::
+
 ::::
 
 ::: details 示例
@@ -966,6 +967,15 @@ arr.map(v => v + 2)     // 返回新数组
 // 遍历
 arr.forEach((item, index) => {...})
 arr.filter(n => n%2==0).map(el => sum += el); //统计偶数和
+
+::: code-group-item 去重
+arr.filter((v, i, self) => self.indexOf(v) === i)
+
+// 去重
+let words = ['a', 'b', 'c', 'a', 'a', 'b', 'd'];
+
+let res = words.filter((v, i, self) => self.indexOf(v) === i)
+console.log(res)
 ```
 
 ::: details 数组原地排序的区别
@@ -2458,3 +2468,21 @@ console.log(moneyFormat("暂无数据"))
 :::
 
 
+### 数组去重
+```js
+export function removeDup(arr) {
+  // if (arr == undefined || arr == null || arr.length == 0 || Array.isArray(arr)) return
+  return arr.filter((v, i, self) => self.indexOf(v) === i);
+}
+```
+
+### 币种单位换算
+
+```js
+export function setCurrency(record) {
+  const currency = { USD: '$', CNY: '¥' }
+  const type = record.current_valuation_currency
+  return type != undefined ? currency[type] : ''
+  // return record.current_valuation_currency === 'CNY' ? '¥' : '$';
+}
+```
