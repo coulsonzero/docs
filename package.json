@@ -19,6 +19,8 @@
 	"devDependencies": {
 		"@vuepress/plugin-search": "^2.0.0-beta.43",
 		"vuepress-plugin-auto-sidebar": "^2.4.0-alpha.4",
+		"vuepress-plugin-comment2": "^2.0.0-beta.56",
+		"vuepress-plugin-copy-code2": "^2.0.0-beta.56",
 		"vuepress-plugin-demo-block": "^0.7.2",
 		"vuepress-plugin-md-enhance": "^2.0.0-beta.56",
 		"vuepress-vite": "^2.0.0-beta.27"

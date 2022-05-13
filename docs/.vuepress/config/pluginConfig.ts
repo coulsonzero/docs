@@ -1,9 +1,28 @@
 import {searchPlugin} from "@vuepress/plugin-search"
-import { mdEnhancePlugin } from "vuepress-plugin-md-enhance"
+import {mdEnhancePlugin} from "vuepress-plugin-md-enhance"
+import {commentPlugin} from "vuepress-plugin-comment2"
+import {copyCodePlugin} from "vuepress-plugin-copy-code2"
+import {DefaultThemePluginsOptions} from "@vuepress/theme-default"
 
-
-const pluginConfig = [
-	// ["@vuepress/plugin-search"],
+const pluginConfig: DefaultThemePluginsOptions = [
+	[
+		// 复制代码
+		copyCodePlugin({
+			showInMobile: true,
+			// 提示显示时长
+			duration: 800,
+		}),
+	],
+	[
+		// 启用giscus评论
+		commentPlugin({
+			type: "giscus",
+			repo: "coulsonzero/docs",
+			repoId: "R_kgDOG056-Q",
+			category: "General",
+			categoryId: "DIC_kwDOG056-c4CPEsY",
+		}),
+	],
 	[
 		mdEnhancePlugin({
 			// 启用代码演示
@@ -25,11 +44,12 @@ const pluginConfig = [
 			getExtraFields: (page) => page.frontmatter.tags ?? [],
 		}),
 	],
+	// ["@vuepress/plugin-search"],
 	[
 		"vuepress-plugin-auto-sidebar",
 		{
 			output: {
-				filename: "config/sidebarConf",
+				filename: "config/sidebarConfig",
 			},
 			sort: {
 				mode: "asc",

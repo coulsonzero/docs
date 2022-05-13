@@ -14,7 +14,6 @@ export default defineUserConfig({
 	port: 80,
 	// host: '127.0.0.1',
 	// open: true,
-	/* 搜索栏 */
 	plugins: pluginConfig,
 	/* 静态资源别名 */
 	alias: {
@@ -24,9 +23,10 @@ export default defineUserConfig({
 		/* navbar扩展 */
 		// logo: "https://vuejs.org/images/logo.png",
 		logo: "/coulsonzero.png",
+		/* github地址 */
 		repo: "https://github.com/coulsonzero/docs",
 		repoLabel: "Github",
-		/* 页脚 */
+		/* footer */
 		editLinks: true,
 		editLinkText: "在 GitHub 上编辑此页",
 		lastUpdatedText: "上次更新",
@@ -38,7 +38,6 @@ export default defineUserConfig({
 		smoothScroll: true,
 		/* 导航栏 */
 		navbar: navbarConfig,
-		// nav: [{text: "🏡 首页", link: "https://coulsonzero.github.io"}],
 		/* 侧边栏 */
 		sidebar: sidebarConfig,
 	}),

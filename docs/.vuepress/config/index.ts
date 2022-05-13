@@ -1,3 +1,3 @@
 export {default as navbarConfig} from './navbarConfig'
-export {default as sidebarConf} from './sidebarConfig'
-export {default as pluginConf} from './pluginConfig'
+export {default as sidebarConfig} from './sidebarConfig'
+export {default as pluginConfig} from './pluginConfig'
