@@ -446,6 +446,37 @@ export default function Expenses() {
 
 ### 3.2 Props 传参
 
+::: demo [react] props 传参
+
+```js
+class ChildClass extends React.Component {
+	render() {
+		return <div>Hello, {this.props.message}</div>
+	}
+}
+
+class Demo extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			message: "React",
+		}
+	}
+
+	render() {
+		return (
+			<>
+				<ChildClass message={this.state.message} />
+			</>
+		)
+	}
+}
+
+export default Demo
+```
+
+:::
+
 ::: tip
 
 > Fun: `props.name`
@@ -511,38 +542,9 @@ export default Demo
 :::
 ::::
 
-::: demo [react] props 传参
 
-```js
-class ChildClass extends React.Component {
-	render() {
-		return <div>Hello, {this.props.message}</div>
-	}
-}
 
-class Demo extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			message: "React",
-		}
-	}
-
-	render() {
-		return (
-			<>
-				<ChildClass message={this.state.message} />
-			</>
-		)
-	}
-}
-
-export default Demo
-```
-
-:::
-
-### State (Only in React class)
+### 3.3 State状态管理
 
 ::: tip 温馨提示
 
@@ -566,16 +568,22 @@ class SetStateDemo extends React.Component {
 			count: 0,
 			version: React.version
 		}
+		// this.changeCount = this.changeCount.bind(this)
+		// this.changeCountWithSetTimeout = this.changeCountWithSetTimeout.bind(this)
 	}
 
     componentDidMount() {
-        document.getElementById("btn").addEventListener("click", this.changeCount, false)
+        // document.getElementById("btn").addEventListener("click", this.changeCount, false)
+        document.getElementById("btn").addEventListener("click", () => {
+			this.setState({
+				count: this.state.count + 1
+			})
+		}, false)
     }
 
     componentDidUpdate() {
         console.log("update count: " + this.state.count)
     }
-
 
     changeCount = () => {
         this.setState({
@@ -585,23 +593,34 @@ class SetStateDemo extends React.Component {
         console.log("state: " + this.state.count)
     }
 
-    changeCountWithSetTimeout = () => {
+
+	changeCountWithSetTimeout = () => {
         setTimeout(() => {
             this.changeCount()
         }, 0)
-    }
+
+
+	}
+
+	changeCountWithFlushSync() = () => {
+		flushSync(() => {
+			this.changeCount()
+		})
+	}
 
 	render() {
-		// console.log("react version: " + React.version)
-        // console.log("render count: " + this.state.count)
+		console.log("react version: " + React.version)
+        console.log("render count: " + this.state.count)
 		return (
 			<div>
 				<h3>SetStateDemo: {this.state.version}</h3>
 				<div>count: {this.state.count}</div>
 
-				<button onClick={this.changeCount}>setState事件</button>
+				<button onClick={() => {this.setState({count: this.state.count + 1})}}>setState事件</button>
 				<br />
 				<button onClick={this.changeCountWithSetTimeout}>setTimeout合成事件</button>
+				<br />
+				<button onClick={this.changeCountWithFlushSync}>flushSync合成事件</button>
 				<br />
 				<button id="btn">原生合成事件</button>
 			</div>
