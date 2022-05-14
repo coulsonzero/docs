@@ -91,7 +91,7 @@ html:not(.dark) {
 
 /**
  * ----------------------------------------
- *          navbar
+ *                navbar
  * ----------------------------------------
  */
 
@@ -141,7 +141,7 @@ html:not(.dark) {
         width: 4px;
     }
     &::-webkit-scrollbar-track {
-        // background: transparent;
+        background: transparent;
     }
     &::-webkit-scrollbar-thumb {
         background: #3131318c;
@@ -377,10 +377,6 @@ html.dark {
 
 @media (min-width: 720px) {
     html:not(.dark) {
-        * {
-            // transition: 0.15s ease;
-            // -webkit-transition: 0.15s ease;
-        }
         .no-sidebar {
             background: rgb(243, 251, 255);
             .toggle-sidebar-button {
@@ -394,7 +390,7 @@ html.dark {
 
     html.dark {
         * {
-            transition: 0.15s ease;
+            transition: 0.15s ease-in-out .1s;
         }
         .no-sidebar {
             background: hsla(0, 0%, 27%, 0.847);
@@ -444,13 +440,8 @@ html.dark {
     border-radius: 0.5rem;
     margin: 1rem 0;
     padding: 0.25rem 1rem;
-    border-left-width: 0.3rem;
-}
-
-.custom-container.danger:before,
-.custom-container.warning:before,
-.custom-container.tip:before {
-
+    // border-left-width: 0.3rem;
+    border-left-width: 0.2rem;
 }
 
 .custom-container.tip:before {
@@ -478,7 +469,9 @@ p.custom-container-title {
 // vuepress-hope
 .copy-code-button {
     background: #0e0f0f30 !important;
-    z-index: 2;
+    z-index: 2 !important;
+    border-radius: 20px !important;
+    right: 0px !important;
 }
 
 .copy-code-button:hover {
@@ -489,7 +482,6 @@ p.custom-container-title {
 .copy-code-button:after {
     content: 'Copy' !important;
     border-radius: 20px !important;
-
 }
 
 .copy-code-button:hover::after {
@@ -531,4 +523,108 @@ p.custom-container-title {
             filter: blur(0px);
     opacity: 1;
   }
+}
+
+
+
+/**
+ * ---------------------------------------
+ *                  code-demo
+ * ---------------------------------------
+ */
+
+.code-demo-wrapper {
+    position: relative !important;
+    margin: 70px 0 30px 0 !important;
+    // border-radius: 0 0 10px 10px !important;
+    border: 1px solid #282c34 !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+
+    & > .demo-wrapper {
+        padding: 70px 20px 20px 20px !important;
+        border-bottom: none !important;
+    }
+
+    &:nth-child(2) {
+        width: -webkit-fill-available;
+    }
+
+    .code-demo-footer {
+        position: absolute !important;
+        top: -5px !important;
+        // left: 0;
+        left: -1px !important;
+        background: #484c50 !important;
+        color: white !important;
+        // width: 100% !important;
+        border-radius: 10px 10px 0 0 !important;
+        z-index: 10;
+        border-left: 1px solid #282c34 !important;
+        border-right: 1px solid #282c34 !important;
+        border-top: 1px solid #282c34 !important;
+        --code-demo-footer-padding: 10px;
+        padding-left: var(--code-demo-footer-padding) !important;
+        padding-right: var(--code-demo-footer-padding) !important;
+        padding-bottom: var(--code-demo-footer-padding) !important;
+        padding-top: calc(var(--code-demo-footer-padding) / 1) !important;
+        width: calc(100% - var(--code-demo-footer-padding) * 2) !important;
+        // display: flex !important;
+
+        .toggle-button {
+            border-radius: 50% !important;
+        }
+
+        .code-demo-jsfiddle {
+            position: absolute;
+            right: 50px;
+            top: 70%;
+            transform: translateY(-50%);
+            display: none !important;
+        }
+
+        .code-demo-codepen {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            button[type="submit"] {
+                &::before,
+                &::after {
+                    display: none !important;
+                }
+            }
+        }
+    }
+
+    .code-wrapper .code-container {
+        & > div[class*=language-]:first-child pre {
+            margin-top: 16px !important;
+        }
+        & > div[class*=language-] .copy-code-button {
+            bottom: 5px !important;
+        }
+    }
+}
+
+
+html:not(.dark) {
+    .code-demo-footer:hover .toggle-button {
+        background-color: #eef4fcf0 !important;
+    }
+}
+
+html.dark {
+    .code-demo-wrapper {
+        border: 1px solid #4b5468 !important;
+    }
+    .code-demo-footer {
+        color: rgba(255, 255, 255, 0.7)!important;
+    }
+    .code-demo-footer .toggle-button {
+        background-color: #6b7077f0 !important;
+    }
+    .code-demo-footer:hover .toggle-button {
+        background-color: rgb(54 59 70 / 94%) !important;
+    }
 }

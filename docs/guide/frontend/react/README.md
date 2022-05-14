@@ -23,7 +23,7 @@ $ yarn start
 ```
 ## 二. React快速入门
 
-### 2.1 React项目结构
+### 2.1 项目结构
 
 ::: details 查看React项目结构
 
@@ -47,7 +47,7 @@ $ tree
 
 :::
 
-### 2.2 Imported modules
+### 2.2 组件导入
 
 - 方式一
 
@@ -104,7 +104,7 @@ export { default as Footer } from './Footer';
 
 
 
-### 2.3 React语法规则
+### 2.3 语法规则
 :::: code-group
 ::: code-group-item style
 
@@ -147,6 +147,113 @@ function handleSubmit(e) {
 
 ## 三. React核心概念
 ### 3.1 JSX渲染
+
+::: demo [react] React Class Demo
+```js
+// import React from 'react'
+
+export default class Comp extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			name: 'coulson'
+		}
+	}
+
+	render() {
+		return (
+			<>
+			<div>Hello, {this.state.name}q</div>
+			<div>Hello, {this.state.name}q</div>
+			<div>Hello, {this.state.name}q</div>
+			<div>Hello, {this.state.name}q</div>
+			<div>Hello, {this.state.name}q</div>
+			</>
+		)
+	}
+}
+```
+:::
+
+#### React Class
+
+:::: code-group
+::: code-group-item String
+```js{7,13}
+import React from 'react'
+
+class Comp extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			name: 'coulson'
+		}
+	}
+
+	render() {
+		return (
+			<div>Hello, {name}</div>
+		)
+	}
+}
+
+export default Comp
+```
+:::
+::: code-group-item List
+```jsx{7,12,14}
+import React from 'react'
+
+class Comp extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			links = ['Home', 'About', 'Docs']
+		}
+	}
+
+	render() {
+		const list = this.state.links.map((item, index) => <li key={index}>{item}</li>)
+		return (
+			<ul>{list}</ul>
+		)
+	}
+}
+
+export default Comp
+```
+:::
+::: code-group-item Object
+```jsx{7-11,16,18}
+import React from 'react'
+
+class Comp extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			const links = [
+				{id: 1, name: 'Home'},
+				{id: 2, name: 'Blog'},
+				{id: 3, name: 'Docs'}
+			]
+		}
+	}
+
+	render() {
+		const list = this.state.links.map((item, index) => <li key={index}>{item.name}</li>)
+		return (
+			<ul>{list}</ul>
+		)
+	}
+}
+
+export default Comp
+```
+:::
+::::
+
+
+#### React Hooks
 
 :::: code-group
 ::: code-group-item String
