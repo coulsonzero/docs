@@ -559,14 +559,15 @@ export default Demo
 ```js
 // import React from "react"
 
-export default class SetStateDemo extends React.Component {
+class SetStateDemo extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			count: 0
+			count: 0,
+			version: React.version
 		}
 	}
-	/*
+
     componentDidMount() {
         document.getElementById("btn").addEventListener("click", this.changeCount, false)
     }
@@ -574,7 +575,7 @@ export default class SetStateDemo extends React.Component {
     componentDidUpdate() {
         console.log("update count: " + this.state.count)
     }
-	*/
+
 
     changeCount = () => {
         this.setState({
@@ -591,22 +592,31 @@ export default class SetStateDemo extends React.Component {
     }
 
 	render() {
-        console.log("render count: " + this.state.count)
+		// console.log("react version: " + React.version)
+        // console.log("render count: " + this.state.count)
 		return (
 			<div>
-				<h3>setStateDemo</h3>
+				<h3>SetStateDemo: {this.state.version}</h3>
 				<div>count: {this.state.count}</div>
 
 				<button onClick={this.changeCount}>setState事件</button>
+				<br />
 				<button onClick={this.changeCountWithSetTimeout}>setTimeout合成事件</button>
+				<br />
 				<button id="btn">原生合成事件</button>
 			</div>
 		)
 	}
 }
 
+export default SetStateDemo
 ```
 ```css
+* {
+	margin: 0;
+	padding: 0;
+	box-sing: border-box;
+}
 ```
 
 :::

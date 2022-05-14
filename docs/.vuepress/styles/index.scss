@@ -584,10 +584,10 @@ p.custom-container-title {
         }
 
         .code-demo-codepen {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            position: absolute !important;
+            right: 20px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
             button[type="submit"] {
                 &::before,
                 &::after {
