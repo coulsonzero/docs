@@ -9,21 +9,28 @@
 
 ### 1.1 运行 clone 的 React 项目
 
-```sh{2-3}
-$ git clone ...
+```sh
+$ git clone https://github.com/username/repository.git
 $ yarn
 $ yarn start
 ```
 
 ### 1.2 创建 React 项目
 
-```sh{1}
-$ npx create-react-app react-app
-$ cd react-app
-$ yarn start
+:::: code-group
+::: code-group-item yarn
+```sh
+yarn create react-app react-app
 ```
+:::
+::: code-group-item npm
+```sh
+npx create-react-app react-app
+```
+:::
+::::
 
-## 二. React 快速入门
+## 二. 快速入门
 
 ### 2.1 项目结构
 
@@ -149,7 +156,7 @@ function handleSubmit(e) {
 :::
 ::::
 
-## 三. React 核心概念
+## 三. 核心概念
 
 ### 3.1 JSX 渲染
 
@@ -556,10 +563,165 @@ export default Demo
 
 :::
 
-::: demo [react] setState()
+::: demo [react] class State
 
 ```js
-// import React from "react"
+class Demo extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			count: 0
+		}
+	}
+
+	render() {
+		return (
+			<>
+				<div>count: {this.state.count}</div>
+				<button onClick={() => {this.setState({count: this.state.count + 1})}}>+</button>
+			</>
+		)
+	}
+}
+
+export default Demo
+```
+
+:::
+
+
+:::: code-group
+::: code-group-item class方式一
+```jsx{4-7}
+import React from "react"
+
+class Demo extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			count: 0
+		}
+	}
+
+	handleClick = () => {
+		this.setState({
+			count: count + 1
+		})
+	}
+
+	render() {
+		return (
+			<>
+				<div>count: {this.state.count}</div>
+				<button onClick={this.handleClick}>+</button>
+			</>
+		)
+	}
+}
+
+export default Demo
+```
+:::
+::: code-group-item class方式二
+```jsx{4}
+import React from "react"
+
+class Demo extends React.Component {
+	state = {
+		count: 0
+	}
+
+	handleClick = () => {
+		this.setState({
+			count: count + 1
+		})
+	}
+
+	render() {
+		return (
+			<>
+				<div>count: {this.state.count}</div>
+				<button onClick={this.handleClick}>+</button>
+			</>
+		)
+	}
+}
+
+export default Demo
+```
+:::
+::: code-group-item Hooks方式
+```jsx{4,7-8}
+import React, {useState} from "react"
+
+function Demo() {
+	const [count, setCount] = useState(0)   // 初始化数据
+
+	const handleClick = () => {
+		// setCount(count + 1)				// 更新初始数据
+		setCount(count => count + 1)		// 更新最新数据
+	}
+
+	return (
+		<>
+			<div>count: {count}</div>
+			<button onClick={handleClick}>+</button>
+		</>
+	)
+}
+
+export default Demo
+```
+:::
+::::
+
+
+### 3.4 setState( ) 更新状态
+::: danger
+
+> 因为 this.props 和 this.state 可能会异步更新, 出于性能考虑，React 可能会把多个 setState() 调用合并成一个调用, 不要依赖他们的值来更新下一个状态。
+
+:::
+
+:::: code-group
+::: code-group-item class方式
+```jsx
+// 更新state中的初始值
+this.setState({
+	count: count + 1
+})
+
+// 使用最新的state更新数据
+this.setState((state) => ({
+	count: state.count + 1
+}))
+
+// 更新
+this.setState((state, props) => ({
+  counter: state.count + props.increment
+}));
+```
+:::
+::: code-group-item hooks方式
+```jsx
+const [count, setCount] = useState(0)
+
+// 更新初始值
+setCount(count + 1)
+
+// 更新最新的count
+setCount(count => count + 1)
+```
+:::
+::::
+
+<iframe src="https://stackblitz.com/edit/react-sgk7mp?ctl=1&devToolsHeight=33&embed=1&file=src/App.js&hideExplorer=1&hideNavigation=1&theme=dark" frameborder="0" class="iframe-container" height="600px"></iframe>
+
+:::: code-group
+::: code-group-item SetStateDemo.jsx
+```jsx
+import React from "react"
+import { flushSync } from 'react-dom'
 
 class SetStateDemo extends React.Component {
 	constructor(props) {
@@ -568,17 +730,11 @@ class SetStateDemo extends React.Component {
 			count: 0,
 			version: React.version
 		}
-		// this.changeCount = this.changeCount.bind(this)
-		// this.changeCountWithSetTimeout = this.changeCountWithSetTimeout.bind(this)
 	}
 
     componentDidMount() {
-        // document.getElementById("btn").addEventListener("click", this.changeCount, false)
-        document.getElementById("btn").addEventListener("click", () => {
-			this.setState({
-				count: this.state.count + 1
-			})
-		}, false)
+        console.log("react version: " + React.version)
+        document.getElementById("btn").addEventListener("click", this.changeCount, false)
     }
 
     componentDidUpdate() {
@@ -598,31 +754,36 @@ class SetStateDemo extends React.Component {
         setTimeout(() => {
             this.changeCount()
         }, 0)
-
-
 	}
 
-	changeCountWithFlushSync() = () => {
-		flushSync(() => {
-			this.changeCount()
-		})
+    changeCountWithPromise = () => {
+        Promise.resolve().then(() => {
+            this.changeCount()
+        })
+    }
+
+	changeCountWithFlushSync = () => {
+    flushSync(() => {
+      this.setState({
+        count: this.state.count + 1
+      })
+    })
+
+    console.log("flushSync count: " + this.state.count)
 	}
 
 	render() {
-		console.log("react version: " + React.version)
         console.log("render count: " + this.state.count)
 		return (
 			<div>
-				<h3>SetStateDemo: {this.state.version}</h3>
+				<h3>React version: {this.state.version}</h3>
 				<div>count: {this.state.count}</div>
 
-				<button onClick={() => {this.setState({count: this.state.count + 1})}}>setState事件</button>
-				<br />
+				<button onClick={this.changeCount}>setState事件</button>
+       			<button id="btn">原生合成事件</button>
 				<button onClick={this.changeCountWithSetTimeout}>setTimeout合成事件</button>
-				<br />
+				<button onClick={this.changeCountWithPromise}>setPromise合成事件</button>
 				<button onClick={this.changeCountWithFlushSync}>flushSync合成事件</button>
-				<br />
-				<button id="btn">原生合成事件</button>
 			</div>
 		)
 	}
@@ -630,16 +791,13 @@ class SetStateDemo extends React.Component {
 
 export default SetStateDemo
 ```
-```css
-* {
-	margin: 0;
-	padding: 0;
-	box-sing: border-box;
-}
-```
-
 :::
+::::
 
+
+
+
+## 四. Class
 :::: code-group
 
 ::: code-group-item this.setState
@@ -742,7 +900,7 @@ class App extends React.Component {
   - componentDidUpdate()
   - componentWillUnmount()
 
-## Hooks (Only in React function)
+## 五. Hooks
 
 ::: tip
 Hook 是 React 16.8 的新增特性。
