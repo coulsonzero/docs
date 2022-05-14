@@ -6,7 +6,8 @@
 [2]: ./nextjs.md
 
 ## 一. 快速开始
-### 1.1 运行clone的React项目
+
+### 1.1 运行 clone 的 React 项目
 
 ```sh{2-3}
 $ git clone ...
@@ -14,29 +15,30 @@ $ yarn
 $ yarn start
 ```
 
-### 1.2 创建React项目
+### 1.2 创建 React 项目
 
 ```sh{1}
 $ npx create-react-app react-app
 $ cd react-app
 $ yarn start
 ```
-## 二. React快速入门
+
+## 二. React 快速入门
 
 ### 2.1 项目结构
 
-::: details 查看React项目结构
+::: details 查看 React 项目结构
 
 ```md
 $ tree
 .
 ├── node_modules
 ├── src
-│    ├── `components`
-│    │   └── Navbar.jsx
-│    ├── App.css
-│    ├── `App.js`
-│    └── `index.js`
+│ ├── `components`
+│ │   └── Navbar.jsx
+│ ├── App.css
+│ ├── `App.js`
+│ └── `index.js`
 ├── public
 │   ├── favicon.ico
 │   └── index.html
@@ -52,23 +54,22 @@ $ tree
 - 方式一
 
 ```jsx
-import React from 'react'
-import NavBar from './components/Navbar'
+import React from "react"
+import NavBar from "./components/Navbar"
 
 const App = () => {
-  return (
-    <NavBar />
-  )
+	return <NavBar />
 }
 
 export default App
 ```
 
 - 方式二
-> 适用于导入多个模块
+  > 适用于导入多个模块
 
 :::: code-group
 ::: code-group-item App.jsx
+
 ```jsx{3}
 import React from 'react';
 import './App.css';
@@ -91,20 +92,22 @@ const App = () => {
 
 export default App;
 ```
+
 :::
 ::: code-group-item components/index.js
+
 ```js{1-4}
 export { default as Navbar } from './Navbar';
 export { default as About } from './About';
 export { default as Contact } from './Contact';
 export { default as Footer } from './Footer';
 ```
+
 :::
 ::::
 
-
-
 ### 2.3 语法规则
+
 :::: code-group
 ::: code-group-item style
 
@@ -126,7 +129,7 @@ export { default as Footer } from './Footer';
 ::: code-group-item img
 
 ```jsx
-<img src="" alt />	// 注意需要加斜杠 '/' !!
+<img src="" alt /> // 注意需要加斜杠 '/' !!
 ```
 
 :::
@@ -142,43 +145,137 @@ function handleSubmit(e) {
     console.log('You clicked submit.');
 }
 ```
+
 :::
 ::::
 
-## 三. React核心概念
-### 3.1 JSX渲染
+## 三. React 核心概念
 
-::: demo [react] React Class Demo
+### 3.1 JSX 渲染
+
+::: demo [react] 元素渲染
+
 ```js
 // import React from 'react'
 
-export default class Comp extends React.Component {
+class Comp extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			name: 'coulson'
+			name: "coulson",
 		}
 	}
 
 	render() {
-		return (
-			<>
-			<div>Hello, {this.state.name}q</div>
-			<div>Hello, {this.state.name}q</div>
-			<div>Hello, {this.state.name}q</div>
-			<div>Hello, {this.state.name}q</div>
-			<div>Hello, {this.state.name}q</div>
-			</>
-		)
+		return <div>Hello, {this.state.name}</div>
 	}
 }
+
+export default Comp
 ```
+
+:::
+
+::: demo [react] 列表渲染
+
+```js
+// import React from 'react'
+
+class Comp extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			links: ["Home", "About", "Docs"],
+		}
+	}
+
+	render() {
+		const list = this.state.links.map((item, index) => <li key={index}>{item}</li>)
+		return <ul>{list}</ul>
+	}
+}
+
+export default Comp
+```
+
+:::
+
+::: demo [react] 对象渲染
+
+```js
+// import React from 'react'
+
+class Comp extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			links: [
+				{id: 1, name: "Home"},
+				{id: 2, name: "Blog"},
+				{id: 3, name: "Docs"},
+			],
+		}
+	}
+
+	render() {
+		const list = this.state.links.map((item, index) => {
+			return (
+				<div key={index} style={{display: "flex", gap: "20px"}}>
+					<div>id: {item.id}</div>
+					<div>name: {item.name}</div>
+				</div>
+			)
+		})
+		return <div>{list}</div>
+	}
+}
+
+export default Comp
+```
+
+:::
+
+::: demo [react] 对象渲染示例
+
+```js
+// import React from "react"
+
+class PropsObject extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			data: [
+				{name: "Amazon", price: "-$5K"},
+				{name: "Spotify", price: "-$50"},
+				{name: "Netflix", price: "-$200"},
+			],
+		}
+	}
+
+	render() {
+		const dict = this.state.data.map((expense, index) => {
+			return (
+				<div className="expense" key={index} style={{display: "flex", gap: "20px"}}>
+					<div className="expense__title">name: {expense.name}</div>
+					<div className="expense__price">price: ${expense.price}</div>
+				</div>
+			)
+		})
+
+		return <div>{dict}</div>
+	}
+}
+
+export default PropsObject
+```
+
 :::
 
 #### React Class
 
 :::: code-group
 ::: code-group-item String
+
 ```js{7,13}
 import React from 'react'
 
@@ -192,15 +289,17 @@ class Comp extends React.Component {
 
 	render() {
 		return (
-			<div>Hello, {name}</div>
+			<div>Hello, {this.state.name}</div>
 		)
 	}
 }
 
 export default Comp
 ```
+
 :::
 ::: code-group-item List
+
 ```jsx{7,12,14}
 import React from 'react'
 
@@ -208,7 +307,7 @@ class Comp extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			links = ['Home', 'About', 'Docs']
+			links: ['Home', 'About', 'Docs']
 		}
 	}
 
@@ -222,8 +321,10 @@ class Comp extends React.Component {
 
 export default Comp
 ```
+
 :::
 ::: code-group-item Object
+
 ```jsx{7-11,16,18}
 import React from 'react'
 
@@ -231,7 +332,7 @@ class Comp extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			const links = [
+			links: [
 				{id: 1, name: 'Home'},
 				{id: 2, name: 'Blog'},
 				{id: 3, name: 'Docs'}
@@ -249,9 +350,9 @@ class Comp extends React.Component {
 
 export default Comp
 ```
+
 :::
 ::::
-
 
 #### React Hooks
 
@@ -300,11 +401,12 @@ const App = () => {
     )
 }
 ```
+
 :::
 
 ::::
 
-::: details Object渲染示例
+::: details Object 渲染示例
 
 ```jsx
 export default function Expenses() {
@@ -342,71 +444,171 @@ export default function Expenses() {
 
 :::
 
-### 参数Props
+### 3.2 Props 传参
 
 ::: tip
+
 > Fun: `props.name`
 >
 > Class: `this.props.name`
+
 :::
 :::: code-group
-::: code-group-item ChildClass.jsx
+::: code-group-item Class
 
-```jsx{6}
+```jsx{6,22}
 import React from 'react'
 
 class ChildClass extends React.Component {
     render() {
         return (
-            <div>{this.props.name}</div>
+            <div>Count: {this.props.count}</div>
         )
     }
 }
 
-export default ChildClass
+class Demo extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			count: 0
+		}
+	}
+
+	render() {
+		return (
+			<>
+				<ChildClass count={this.state.count}/>
+			</>
+		)
+	}
+}
+export default Demo
 ```
 
 :::
 
-::: code-group-item ChildFun.jsx
+::: code-group-item Hooks
 
-```jsx{5}
+```jsx{5,12}
 import React from 'react'
 
 const ChildFun = (props) => {
     return (
-        <div>{props.name}</div>
+        <div>{props.message}</div>
     )
 }
 
-export default ChildFun
+function Demo(props) {
+	const message = "react"
+
+	return <ChildFun message={message} />
+}
+
+export default Demo
 ```
 
 :::
-
-
-
-::: code-group-item App.jsx
-
-```jsx
-<App name='React'/>
-```
-
-:::
-
 ::::
 
+::: demo [react] props 传参
 
+```js
+class ChildClass extends React.Component {
+	render() {
+		return <div>Hello, {this.props.message}</div>
+	}
+}
 
+class Demo extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			message: "React",
+		}
+	}
+
+	render() {
+		return (
+			<>
+				<ChildClass message={this.state.message} />
+			</>
+		)
+	}
+}
+
+export default Demo
+```
+
+:::
 
 ### State (Only in React class)
 
 ::: tip 温馨提示
+
 > 初始化: `state = {...}` || `constructor(props) {super(props)this.state = {}}`
 >
 > 更改值: `this.setState({...})`
 >
 > 使用值: `this.state.val`
+
+:::
+
+::: demo [react] setState()
+
+```js
+// import React from "react"
+
+export default class SetStateDemo extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			count: 0
+		}
+	}
+	/*
+    componentDidMount() {
+        document.getElementById("btn").addEventListener("click", this.changeCount, false)
+    }
+
+    componentDidUpdate() {
+        console.log("update count: " + this.state.count)
+    }
+	*/
+
+    changeCount = () => {
+        this.setState({
+            count: this.state.count + 1
+        })
+
+        console.log("state: " + this.state.count)
+    }
+
+    changeCountWithSetTimeout = () => {
+        setTimeout(() => {
+            this.changeCount()
+        }, 0)
+    }
+
+	render() {
+        console.log("render count: " + this.state.count)
+		return (
+			<div>
+				<h3>setStateDemo</h3>
+				<div>count: {this.state.count}</div>
+
+				<button onClick={this.changeCount}>setState事件</button>
+				<button onClick={this.changeCountWithSetTimeout}>setTimeout合成事件</button>
+				<button id="btn">原生合成事件</button>
+			</div>
+		)
+	}
+}
+
+```
+```css
+```
+
 :::
 
 :::: code-group
@@ -436,9 +638,11 @@ class App extends React.Component {
 
 export default App
 ```
+
 :::
 
 ::: code-group-item 生命周期函数
+
 ```jsx{22,25,28}
 import React from 'react';
 
@@ -481,9 +685,11 @@ class State extends React.Component {
 
 export default State
 ```
+
 :::
 
 ::: code-group-item createRef
+
 ```jsx{4,7}
 class App extends React.Component {
 	constructor(props) {
@@ -495,17 +701,17 @@ class App extends React.Component {
 	}
 }
 ```
+
 :::
 
 ::::
 
-* Lifecycle Methods
-    - Mounting()
-    - Unmounting()
-    - componentDidMount()
-    - componentDidUpdate()
-    - componentWillUnmount()
-
+- Lifecycle Methods
+  - Mounting()
+  - Unmounting()
+  - componentDidMount()
+  - componentDidUpdate()
+  - componentWillUnmount()
 
 ## Hooks (Only in React function)
 
@@ -517,17 +723,17 @@ Hook 和现有代码可以同时工作，你可以渐进式地使用他们
 没有计划从 React 中移除 class,将继续为 class 组件提供支持
 
 基础 Hook
-    useState
-    useEffect
-    useContext
+useState
+useEffect
+useContext
 额外的 Hook
-    useReducer
-    useCallback
-    useMemo
-    useRef
-    useImperativeHandle
-    useLayoutEffect
-    useDebugValue
+useReducer
+useCallback
+useMemo
+useRef
+useImperativeHandle
+useLayoutEffect
+useDebugValue
 :::
 
 :::: code-group
@@ -583,8 +789,10 @@ const Header = () => {
 
 export default Header
 ```
+
 :::
 ::: code-group-item useRef
+
 ```jsx{16,21,29}
 /**
  * 用于获取元素或组件
@@ -621,11 +829,11 @@ const App = () => {
 
 export default App;
 ```
+
 :::
 
-
-
 ::: code-group-item createContext
+
 ```jsx{2,4,9-11,25-27}
 // 通过createContext跨组件传值
 import React, {useState, createContext} from "react";
@@ -658,8 +866,10 @@ export default function App() {
 }
 
 ```
+
 :::
 ::: code-group-item useContext
+
 ```jsx{2,4,7,29-31}
 // 解构createContext跨组件传值和方法
 import React, {useState, createContext, useContext} from "react";
@@ -695,27 +905,27 @@ export default function App() {
 	);
 }
 ```
+
 :::
 ::::
-
-
 
 ## Event Handles
 
 :::: code-group
 ::: code-group-item funcHandle
+
 ```jsx
 const Toggle = () => {
-    const [value, setValue] = useState("ON")
-    const toggle = () => setValue((value == "ON") ? "OFF" : "ON")
-    return (
-        <button onClick={toggle}>{value}</button>
-    )
+	const [value, setValue] = useState("ON")
+	const toggle = () => setValue(value == "ON" ? "OFF" : "ON")
+	return <button onClick={toggle}>{value}</button>
 }
 ```
+
 :::
 
 ::: code-group-item classHandle
+
 ```jsx
 class Toggle extends React.Component {
 	state = {
@@ -730,6 +940,7 @@ class Toggle extends React.Component {
 }
 
 ```
+
 :::
 ::::
 
@@ -737,16 +948,16 @@ class Toggle extends React.Component {
 
 ```jsx
 const Contact = (props) => {
-    const [value, setValue] = useState(props.data)
-    const handleClick = (v) => setValue([...value, v])
-    return (
-        <button onClick={handleClick}>{value}</button>
-    )
+	const [value, setValue] = useState(props.data)
+	const handleClick = (v) => setValue([...value, v])
+	return <button onClick={handleClick}>{value}</button>
 }
 ```
 
 ## 组件通信
+
 ::: tip 组件通信方式
+
 > `父传子`: 调用父组件变量`props.parms`
 >
 > `子传父`: 调用父组件回调函数`props.func()`
@@ -754,15 +965,15 @@ const Contact = (props) => {
 > `兄弟组件通信`: 通过子传父，再父传子
 >
 > `跨组件通信`: `createContext()` && `useContext()`
-:::
+> :::
 
 ### 父传子
 
-> 通过props传值
-
+> 通过 props 传值
 
 :::: code-group
 ::: code-group-item Class 方式
+
 ```jsx{6}
 // App.jsx
 import React from 'react'
@@ -782,8 +993,10 @@ export default class App extends React.Component {
 	}
 }
 ```
+
 :::
 ::: code-group-item Hooks 方式
+
 ```jsx{5}
 // App.jsx
 import React, {useState} from 'react'
@@ -798,9 +1011,9 @@ export default function App() {
 	return <ComChild num={num}/>
 }
 ```
+
 :::
 ::::
-
 
 ### 子传父
 
@@ -808,9 +1021,9 @@ export default function App() {
 >
 > 子组件写父组件方法的具体实现
 
-
 :::: code-group
-::: code-group-item Class方式
+::: code-group-item Class 方式
+
 ```jsx{8,21}
 import React from "react"
 
@@ -836,8 +1049,10 @@ export default class App extends React.Component {
 	}
 }
 ```
+
 :::
-::: code-group-item Hooks方式
+::: code-group-item Hooks 方式
+
 ```jsx{7,14}
 import React, {useState} from "react";
 
@@ -855,8 +1070,10 @@ export default function App() {
 	return <Sub num={num} setNum={setNum} />
 }
 ```
+
 :::
-::: code-group-item Hooks示例2
+::: code-group-item Hooks 示例 2
+
 ```jsx{7,19}
 import React, {useState} from "react";
 
@@ -881,13 +1098,12 @@ export default function App() {
 	);
 }
 ```
+
 :::
 ::::
 
-
-
-
 ### 兄弟组件通信
+
 ```jsx
 /**
  * 兄弟组件通信：通过子传父，再父传子的方法实现
@@ -905,16 +1121,11 @@ const SonB = (props) => {
 		setUsername((username) => e.target.value)
 	}
 	function handleClick() {
-        props.getMsg(username)
+		props.getMsg(username)
 	}
 	return (
 		<>
-			<input
-				type="text"
-				placeholder="username"
-				value={username}
-				onChange={handleInput}
-			/>
+			<input type="text" placeholder="username" value={username} onChange={handleInput} />
 			<button onClick={handleClick}>Click</button>
 		</>
 	)
@@ -946,15 +1157,15 @@ export class PropsBrother extends Component {
 }
 
 export default PropsBrother
-
 ```
 
 ### 跨组件通信
 
-> 通过多个props传值和方法
-::: details 点击查看代码
+> 通过多个 props 传值和方法
+> ::: details 点击查看代码
+
 ```jsx
-import React, {useState} from "react";
+import React, {useState} from "react"
 
 function Sub(props) {
 	return (
@@ -962,43 +1173,45 @@ function Sub(props) {
 			<div>{props.num}</div>
 			<button onClick={() => props.childFun(3)}>+</button>
 		</>
-	);
+	)
 }
 
 function Father(props) {
 	return (
 		<>
-			<Sub num={props.num} childFun={props.childFun}/>
+			<Sub num={props.num} childFun={props.childFun} />
 		</>
 	)
 }
 
-
 export default function App() {
-	const [num, setNum] = useState(2);
+	const [num, setNum] = useState(2)
 	function childFun(n) {
-		setNum(num + n);
+		setNum(num + n)
 	}
 	return (
 		<>
-			<Father num={num} childFun={childFun}/>
+			<Father num={num} childFun={childFun} />
 		</>
-	);
+	)
 }
-
 ```
+
 :::
 
-> 通过createContext跨组件传值
-:::: code-group
-::: code-group-item msgContext.js
+> 通过 createContext 跨组件传值
+> :::: code-group
+> ::: code-group-item msgContext.js
+
 ```js
 import React from "react"
 
-export const msgContext = React.createContext('hello world')
+export const msgContext = React.createContext("hello world")
 ```
+
 :::
 ::: code-group-item ContextPro.jsx
+
 ```jsx{2,7}
 import React from "react"
 import { msgContext } from "./msgContent"
@@ -1015,8 +1228,10 @@ class ContextPro extends React.Component {
 
 export default ContextPro
 ```
+
 :::
 ::: code-group-item ContextCon.jsx
+
 ```jsx{2,9}
 import React from "react"
 import { msgContext } from './msgContent'
@@ -1034,48 +1249,44 @@ class ContextCon extends React.Component {
 
 export default ContextCon
 ```
+
 :::
 ::::
 
 ::: details 点击查看代码
+
 ```jsx
-import React, {useState, createContext} from "react";
+import React, {useState, createContext} from "react"
 
 const numContext = createContext()
 
 function Sub() {
 	const res = (num) => <div>{num}</div>
-	return (
-		<numContext.Consumer>
-			{res}
-		</numContext.Consumer>
-	);
+	return <numContext.Consumer>{res}</numContext.Consumer>
 }
 
 function Father() {
-	return (
-		<Sub />
-	)
+	return <Sub />
 }
 
-
 export default function App() {
-	const [num, setNum] = useState(1);
+	const [num, setNum] = useState(1)
 	return (
 		<numContext.Provider value={num}>
 			<Father />
 		</numContext.Provider>
-	);
+	)
 }
-
 ```
+
 :::
 
 > createContext, 使用对象传方法
 > 对象没有顺序问题，数组有索引，需要特定顺序！
-::: details 点击查看代码
+> ::: details 点击查看代码
+
 ```jsx
-import React, {useState, createContext} from "react";
+import React, {useState, createContext} from "react"
 
 const numContext = createContext()
 
@@ -1086,36 +1297,31 @@ function Sub() {
 				<div>{num}</div>
 				<button onClick={() => setNum(num + 1)}>+</button>
 			</>
-		);
+		)
 	}
-	return (
-		<numContext.Consumer>
-			{res}
-		</numContext.Consumer>
-	);
+	return <numContext.Consumer>{res}</numContext.Consumer>
 }
 
 function Father() {
-	return (
-		<Sub />
-	)
+	return <Sub />
 }
 
-
 export default function App() {
-	const [num, setNum] = useState(1);
+	const [num, setNum] = useState(1)
 	return (
 		<numContext.Provider value={{num, setNum}}>
 			<Father />
 		</numContext.Provider>
-	);
+	)
 }
 ```
+
 :::
 
 ::: details 点击查看代码
+
 ```jsx
-import React, {useState, createContext} from "react";
+import React, {useState, createContext} from "react"
 
 const numContext = createContext()
 
@@ -1126,37 +1332,29 @@ function Sub() {
 				<div>{num}</div>
 				<button onClick={() => childFun(2)}>+</button>
 			</>
-		);
+		)
 	}
-	return (
-		<numContext.Consumer>
-			{res}
-		</numContext.Consumer>
-	);
+	return <numContext.Consumer>{res}</numContext.Consumer>
 }
 
 function Father() {
-	return (
-		<Sub />
-	)
+	return <Sub />
 }
 
-
 export default function App() {
-	const [num, setNum] = useState(1);
+	const [num, setNum] = useState(1)
 	function childFun(n) {
-		setNum(num + n);
+		setNum(num + n)
 	}
 	return (
 		<numContext.Provider value={{num, childFun}}>
 			<Father />
 		</numContext.Provider>
-	);
+	)
 }
-
 ```
-:::
 
+:::
 
 ```jsx
 /**
@@ -1169,16 +1367,16 @@ const {Provider, Consumer} = createContext()
 
 function ComA() {
 	return (
-        <>
-            <div>ComA</div>
-            <ComB />
-        </>
-    )
+		<>
+			<div>ComA</div>
+			<ComB />
+		</>
+	)
 }
 
 function ComB() {
 	return (
-		<div style={{color: 'red', display: 'flex', flexDirection: 'row'}}>
+		<div style={{color: "red", display: "flex", flexDirection: "row"}}>
 			<span>ComB: </span>
 			<Consumer>{(value) => <div>{value}</div>}</Consumer>
 		</div>
@@ -1186,29 +1384,28 @@ function ComB() {
 }
 
 class CrossComponent extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            message: "test"
-        }
-    }
+	constructor(props) {
+		super(props)
+		this.state = {
+			message: "test",
+		}
+	}
 
 	render() {
 		return (
-            <Provider value={this.state.message}>
-                <ComA />
-            </Provider>
-        )
+			<Provider value={this.state.message}>
+				<ComA />
+			</Provider>
+		)
 	}
 }
 
 export default CrossComponent
-
 ```
 
-
 **useContext**
-> 解构createContext
+
+> 解构 createContext
 
 ::: tip
 
@@ -1217,6 +1414,7 @@ import React, {createContext, useContext, Component} from "react"
 ```
 
 **跨组件传值**
+
 1. Step 1
 
 ```jsx
@@ -1226,8 +1424,7 @@ const context = createContext()
 2. Step 2
 
 ```jsx
-<context.Provider value={this.state.message}>
-</context.Provider>
+<context.Provider value={this.state.message}></context.Provider>
 ```
 
 3. Step 3
@@ -1238,8 +1435,8 @@ const msg = useContext(context)
 
 :::
 
-
 ::: details 点击查看代码
+
 ```jsx
 /**
  * 跨组件通信：使用createContext， 解构成Provider传值, Consumer接受值
@@ -1259,7 +1456,7 @@ function ComA() {
 }
 
 function ComB() {
-    const msg = useContext(context)
+	const msg = useContext(context)
 	return (
 		<div>
 			<span>ComB: {msg}</span>
@@ -1285,12 +1482,13 @@ class CrosscomUsecontext extends Component {
 }
 
 export default CrosscomUsecontext
-
 ```
+
 :::
 
 ::: tip
 **跨组件传递值和方法**
+
 ```jsx
 import React, {createContext, useContext, Component} from "react"
 ```
@@ -1317,8 +1515,9 @@ const [msg, setMsg] = useContext(context)
 :::
 
 ::: details 点击查看代码
+
 ```jsx
-import React, {useState, createContext, useContext} from "react";
+import React, {useState, createContext, useContext} from "react"
 
 const numContext = createContext()
 
@@ -1329,134 +1528,139 @@ function Sub() {
 			<div>{num}</div>
 			<button onClick={() => childFun(2)}>+</button>
 		</>
-	);
-}
-
-function Father() {
-	return (
-		<Sub />
 	)
 }
 
+function Father() {
+	return <Sub />
+}
 
 export default function App() {
-	const [num, setNum] = useState(1);
+	const [num, setNum] = useState(1)
 	function childFun(n) {
-		setNum(num + n);
+		setNum(num + n)
 	}
 	return (
 		<numContext.Provider value={{num, childFun}}>
 			<Father />
 		</numContext.Provider>
-	);
+	)
 }
 ```
-:::
 
+:::
 
 ## React with Redux
 
-> 安装redux包
+> 安装 redux 包
 
 ```sh
 $ yarn add --save redux react-redux
 ```
 
-* 使用state显示reducer数据
-:::: code-group
-::: code-group-item reducer.js
+- 使用 state 显示 reducer 数据
+  :::: code-group
+  ::: code-group-item reducer.js
+
 ```js
 // src/store/reducer.js
 const data = {
-    msg: "hello, redux"
+	msg: "hello, redux",
 }
 
 // eslint-disable-next-line
-export default (state=data, action) => {
-    return state
+export default (state = data, action) => {
+	return state
 }
 ```
+
 :::
 
 ::: code-group-item index.js
+
 ```js
 // src/store/index.js
-import {createStore} from 'redux'
-import reducer from './reducer'
+import {createStore} from "redux"
+import reducer from "./reducer"
 
 const store = createStore(reducer)
 
 export default store
 ```
+
 :::
 
 ::: code-group-item index.js
+
 ```js
 // index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./App"
 // 1. import
-import {Provider} from 'react-redux'
-import store from './store'
+import {Provider} from "react-redux"
+import store from "./store"
 
 ReactDOM.render(
 	<React.StrictMode>
-    {/* 2. use <Provider></Provider> */}
+		{/* 2. use <Provider></Provider> */}
 		<Provider store={store}>
 			<App />
 		</Provider>
 	</React.StrictMode>,
 	document.getElementById("root")
-);
+)
 ```
+
 :::
 
 ::: code-group-item App.js
+
 ```js
-import React from 'react'
+import React from "react"
 
 // 1.import connect
-import {connect} from "react-redux";
+import {connect} from "react-redux"
 
 const App = (props) => {
-  return (
-	// 4. return
-	<div>{props.msg}</div>
-  )
+	return (
+		// 4. return
+		<div>{props.msg}</div>
+	)
 }
 
 // 3. mapStateToProps(state)
 const mapStateToProps = (state) => {
 	return {
-		msg: state.msg
+		msg: state.msg,
 	}
 }
-
 
 // 2. connect(mapStateToProps)(Provider)
 export default connect(mapStateToProps)(App)
 ```
+
 :::
 ::::
 
-* 使用action修改state数据
+- 使用 action 修改 state 数据
 
 :::: code-group
 ::: code-group-item reducer.js
+
 ```js
 // src/store/reducer.js
 const data = {
-    msg: "hello, redux"
+	msg: "hello, redux",
 }
 
 // eslint-disable-next-line
-export default (state=data, action) => {
-    let newState = JSON.parse(JSON.stringify(state))
-    if (action.type ==  "UPDATE") {
-        newState.msg = action.value
-    }
-    /*
+export default (state = data, action) => {
+	let newState = JSON.parse(JSON.stringify(state))
+	if (action.type == "UPDATE") {
+		newState.msg = action.value
+	}
+	/*
     switch (action.type) {
         case "UPDATE":
            newState.msg = action.value;
@@ -1465,65 +1669,70 @@ export default (state=data, action) => {
             break;
     }
     */
-    return newState
+	return newState
 }
 ```
+
 :::
 
 ::: code-group-item index.js
+
 ```js
 // src/store/index.js
-import {createStore} from 'redux'
-import reducer from './reducer'
+import {createStore} from "redux"
+import reducer from "./reducer"
 
 const store = createStore(reducer)
 
 export default store
 ```
+
 :::
 
 ::: code-group-item index.js
+
 ```js
 //index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./App"
 // 1. import
-import {Provider} from 'react-redux'
-import store from './store'
+import {Provider} from "react-redux"
+import store from "./store"
 
 ReactDOM.render(
 	<React.StrictMode>
-    {/* 2. use <Provider></Provider> */}
+		{/* 2. use <Provider></Provider> */}
 		<Provider store={store}>
 			<App />
 		</Provider>
 	</React.StrictMode>,
 	document.getElementById("root")
-);
+)
 ```
+
 :::
 
 ::: code-group-item App.js
+
 ```js
 // App.js
-import React from 'react'
+import React from "react"
 
-
-import {connect} from "react-redux";
+import {connect} from "react-redux"
 
 const App = (props) => {
-  return (
+	return (
 		<>
 			<div>{props.msg}</div>
 			<button onClick={props.setMsg}>update</button>
 		</>
-	);
+	)
 }
 
 const mapStateToProps = (state) => {
 	return {
-		msg: state.msg
+		msg: state.msg,
 	}
 }
 
@@ -1531,19 +1740,20 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		setMsg() {
-			const action = {type: "UPDATE", value: "ok,  updated state..."};
+			const action = {type: "UPDATE", value: "ok,  updated state..."}
 			dispatch(action)
-		}
+		},
 	}
 }
 
 // 1. mapDispatchToProps
 export default connect(mapStateToProps, mapDispatchToProps)(App)
 ```
+
 :::
 ::::
 
-* redux 实现哈希字典数据
+- redux 实现哈希字典数据
 
 ```md
 totalPrice: $10
@@ -1551,39 +1761,45 @@ name: Lemon, cost: 3
 name: Banana, cost: 4
 name: Mango, cost: 5
 ```
+
 :::: code-group
 ::: code-group-item reducer.js
+
 ```js
 // src/store/reducer.js
 const initialState = {
-    fruits: [
-        {key: 1, name: 'Lemon', cost: 3},
-        {key: 2, name: 'Banana', cost: 4},
-        {key: 3, name: 'Mango', cost: 5}
-    ],
-    totalPrice: 10
+	fruits: [
+		{key: 1, name: "Lemon", cost: 3},
+		{key: 2, name: "Banana", cost: 4},
+		{key: 3, name: "Mango", cost: 5},
+	],
+	totalPrice: 10,
 }
 
 // eslint-disable-next-line
 export default (state = initialState, action) => {
-    return state
+	return state
 }
 ```
+
 :::
 
 ::: code-group-item index.js
+
 ```js
 // src/store/index.js
-import {createStore} from 'redux'
-import reducer from './reducer'
+import {createStore} from "redux"
+import reducer from "./reducer"
 
 const store = createStore(reducer)
 
 export default store
 ```
+
 :::
 
 ::: code-group-item index.js
+
 ```js
 // index.js
 import React from "react"
@@ -1602,9 +1818,11 @@ ReactDOM.render(
 	document.getElementById("root")
 )
 ```
+
 :::
 
 ::: code-group-item App.js
+
 ```js
 import React from "react"
 import {connect} from "react-redux"
@@ -1631,15 +1849,14 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(App)
-
 ```
+
 :::
 ::::
 
+- redux 实现 todo-list
+  ![redux-todolist](@/assets/react/redux-todolist.png)
 
-
-* redux实现todo-list
-![redux-todolist](@/assets/react/redux-todolist.png)
 ```sh
 $ tree
 src
@@ -1655,21 +1872,23 @@ src
 └── index.js
 ```
 
-
 :::: code-group
 ::: code-group-item index.js
+
 ```js
 // src/store/index.js
-import {createStore} from 'redux'
-import reducer from './reducer'
+import {createStore} from "redux"
+import reducer from "./reducer"
 
 const store = createStore(reducer)
 
 export default store
 ```
+
 :::
 
 ::: code-group-item index.js
+
 ```js
 // index.js
 
@@ -1689,9 +1908,11 @@ ReactDOM.render(
 	document.getElementById("root")
 )
 ```
+
 :::
 
 ::: code-group-item App.js
+
 ```jsx
 import React from "react"
 import PropleList from "./components/PeopleList"
@@ -1708,26 +1929,28 @@ function App() {
 
 export default App
 ```
+
 :::
 
 ::: code-group-item reducer.js
+
 ```js
 // src/store/reducer.js
 
 const initialState = {
-    contacts: ["James Smith", "Thomas Anderson", "Bruce Wayne"]
+	contacts: ["James Smith", "Thomas Anderson", "Bruce Wayne"],
 }
 
 // eslint-disable-next-line
 export default (state = initialState, action) => {
-    switch (action.type) {
-        case "ADD_PERSON":
-            return {...state, contacts: [...state.contacts, action.data]}
-        default:
-            return state
-    }
+	switch (action.type) {
+		case "ADD_PERSON":
+			return {...state, contacts: [...state.contacts, action.data]}
+		default:
+			return state
+	}
 
-   /*
+	/*
     if(action.type === "ADD_PERSON") {
         return {...state, contacts: [...state.contacts, action.data]}
     }
@@ -1735,20 +1958,24 @@ export default (state = initialState, action) => {
     */
 }
 ```
+
 :::
 
 ::: code-group-item actions.js
+
 ```js
 export function addPerson(person) {
-    return {
-        type: "ADD_PERSON",
-        data: person
-    }
+	return {
+		type: "ADD_PERSON",
+		data: person,
+	}
 }
 ```
+
 :::
 
 ::: code-group-item PeopleList.jsx
+
 ```jsx
 import React from "react"
 import {connect} from "react-redux"
@@ -1769,11 +1996,12 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(PeopleList)
-
 ```
+
 :::
 
 ::: code-group-item AddPeosonForm.jsx
+
 ```jsx
 import React, {useState} from "react"
 import {connect} from "react-redux"
@@ -1796,12 +2024,7 @@ function AddPeosonForm(props) {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<input
-				type="text"
-				value={person}
-				placeholder="Add"
-				onChange={handleChange}
-			/>
+			<input type="text" value={person} placeholder="Add" onChange={handleChange} />
 			<button type="submit">Add</button>
 		</form>
 	)
@@ -1810,7 +2033,6 @@ function AddPeosonForm(props) {
 const mapDipatchToProps = {
 	addPerson,
 }
-
 
 /*
 function mapDipatchToProps(dispatch) {
@@ -1823,12 +2045,13 @@ function mapDipatchToProps(dispatch) {
 */
 
 export default connect(null, mapDipatchToProps)(AddPeosonForm)
-
 ```
+
 :::
 ::::
 
 ## react-route-dom
+
 ::: tip
 [login](http://localhost:3000/login)
 http://localhost:3000/login
@@ -1857,10 +2080,10 @@ $ tree
         └── index.jsx
 ```
 
-
 **Code**
 :::: code-group
 ::: code-group-item index.js
+
 ```js
 import React from "react"
 import ReactDOM from "react-dom"
@@ -1873,87 +2096,88 @@ ReactDOM.render(
 	document.getElementById("root")
 )
 ```
+
 :::
 
 ::: code-group-item index.jsx
+
 ```jsx
 // src/router/index.jsx
 
 import App from "../App"
 import Login from "../pages/Login"
-import Navbar from '../components/Navbar'
+import Navbar from "../components/Navbar"
 // HashRouter & BrowserRouter
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 
 const BaseRoute = () => {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/login" element={<Login />}></Route>
-                <Route path="/" element={<App />}>
-                    <Route path="/navbar" element={<Navbar />}></Route>
-                </Route>
-            </Routes>
-        </Router>
-    )
+	return (
+		<Router>
+			<Routes>
+				<Route path="/login" element={<Login />}></Route>
+				<Route path="/" element={<App />}>
+					<Route path="/navbar" element={<Navbar />}></Route>
+				</Route>
+			</Routes>
+		</Router>
+	)
 }
 
 export default BaseRoute
 ```
+
 :::
 
 ::: code-group-item Login.jsx
+
 ```jsx
 // src/pages/Login.jsx
 
-import React from 'react'
+import React from "react"
 
 export default function Login() {
-  return (
-    <div>login</div>
-  )
+	return <div>login</div>
 }
-
 ```
+
 :::
 
 ::: code-group-item App.jsx
+
 ```jsx
-import React from 'react'
-import {Outlet} from 'react-router-dom'
+import React from "react"
+import {Outlet} from "react-router-dom"
 
 const App = () => {
-  return (
+	return (
 		<>
 			<div>App</div>
-            <Outlet />
+			<Outlet />
 		</>
 	)
 }
 
 export default App
 ```
+
 :::
 
 ::: code-group-item Navbar.jsx
+
 ```jsx
 // src/components/Navbar.jsx
-import React from 'react'
+import React from "react"
 
 const Navbar = () => {
-  return (
-    <div>Navbar</div>
-  )
+	return <div>Navbar</div>
 }
 
 export default Navbar
 ```
+
 :::
 
 ::::
-
-
-
 
 ## Other
 
@@ -1963,18 +2187,17 @@ JSX: JavaScript XML
 
 Virtual DOM: Virtual Document Object Model
 
-
 ## FAQ
 
 1. Error: Node Sass does not yet support your current environment
 
-问题来源：执行下述代码在react项目中安装node-sass报错
+问题来源：执行下述代码在 react 项目中安装 node-sass 报错
 
 ```sh
 $ yarn add node-sass@4
 ```
 
-问题解决方案：首先由于M1的架构，Node Sass不能很好的支持，也许可以用Rosetta实现；或者，放弃Node Sass改用Sass（dart-sass）
+问题解决方案：首先由于 M1 的架构，Node Sass 不能很好的支持，也许可以用 Rosetta 实现；或者，放弃 Node Sass 改用 Sass（dart-sass）
 
 ```sh
 $ yarn remove node-sass
@@ -1983,7 +2206,7 @@ $ yarn add sass
 
 2. yarn add [package] --save 与 yarn add [package]的区别 ？
 
---save会将该包加入到package.json依赖文件中，下次yarn add时将自动添加！
+--save 会将该包加入到 package.json 依赖文件中，下次 yarn add 时将自动添加！
 
 ```sh
 $ yarn add react-icons
@@ -1991,22 +2214,21 @@ $ yarn add -D sass
 $ yarn add --dev typescript @types/react @types/node
 ```
 
-3. React常见生命周期的过程大致如下：
+3. React 常见生命周期的过程大致如下：
 
 （挂载阶段）
-挂载阶段，首先执行constructor构造方法，来创建组件
-创建完成之后，就会执行render方法，该方法会返回需要渲染的内容
-随后，React会将需要渲染的内容挂载到DOM树上
-挂载完成之后就会执行componentDidMount生命周期函数
+挂载阶段，首先执行 constructor 构造方法，来创建组件
+创建完成之后，就会执行 render 方法，该方法会返回需要渲染的内容
+随后，React 会将需要渲染的内容挂载到 DOM 树上
+挂载完成之后就会执行 componentDidMount 生命周期函数
 
 (更新阶段)
-如果我们给组件创建一个props（用于组件通信）、调用setState（更改state中的数据）、调用forceUpdate（强制更新组件）时，都会重新调用render函数
-render函数重新执行之后，就会重新进行DOM树的挂载
-挂载完成之后就会执行componentDidUpdate生命周期函数
+如果我们给组件创建一个 props（用于组件通信）、调用 setState（更改 state 中的数据）、调用 forceUpdate（强制更新组件）时，都会重新调用 render 函数
+render 函数重新执行之后，就会重新进行 DOM 树的挂载
+挂载完成之后就会执行 componentDidUpdate 生命周期函数
 
 (卸载阶段)
-当移除组件时，就会执行componentWillUnmount生命周期函数
-
+当移除组件时，就会执行 componentWillUnmount 生命周期函数
 
 4. Effect
 
@@ -2015,23 +2237,26 @@ useEffect = componentDidMount, componentDidUpdate, componentWillUnmount 这三�
 effect 的清除阶段在每次重新渲染时都会执行，而不是只在卸载组件的时候执行一次
 :::
 
-5. 多个react项目如何使用共同的npm包 ？
-::: tip
-多个react项目时可使用共同的父级node_modules目录
-package.json
+5. 多个 react 项目如何使用共同的 npm 包 ？
+   ::: tip
+   多个 react 项目时可使用共同的父级 node_modules 目录
+   package.json
+
 ```json
 	"scripts": {
 		"start": "node ../node_modules/.bin/react-scripts start ./src/index.js",
 		"build": "ode ../node_modules/.bin/react-scripts build ./src/index.js"
 	},
 ```
+
 :::
 
 6. Context
-Context提供了一个无需为每层组件手动添加props, 就能在组件树间进行数据传递的方法
+   Context 提供了一个无需为每层组件手动添加 props, 就能在组件树间进行数据传递的方法
 
-7. 如何简写this.state.counter为counter ？
-> 解构
+7. 如何简写 this.state.counter 为 counter ？
+   > 解构
+
 ```jsx{2}
 render() {
 	const { counter } = this.state;
@@ -2042,19 +2267,22 @@ render() {
 8. 如何添加条件样式 ?
 
 **方法一**
+
 ```jsx
 <div className={this.state.list.length === 0 ? 'container' : 'none'}>
 ```
 
 **方法二(更优)**
+
 ```jsx
 <div className={this.state.list.length === 0 && 'container'}>
 ```
 
-9. 如何降低React版本 ？
-> React 18发布后，同步方法也变成了异步，如何降低版本成为了个常见的问题
+9. 如何降低 React 版本 ？
+   > React 18 发布后，同步方法也变成了异步，如何降低版本成为了个常见的问题
 
-先创建react项目，然后进入项目中修改指定版本
+先创建 react 项目，然后进入项目中修改指定版本
+
 ```sh
 $ npx create-react-app react-demo
 $ cd react-demo
@@ -2062,6 +2290,7 @@ $ npm install —save react@17.0.2 react-dom@17.0.2
 ```
 
 - index.js
+
 ```js
 import React from "react"
 import ReactDOM from "react-dom"
@@ -2069,22 +2298,22 @@ import App from "./App"
 
 ReactDOM.render(<App />, document.getElementById("root"))
 ```
-## React进阶
+
+## React 进阶
 
 ### Children
+
 ```jsx
 import React from "react"
 
 function ComA(props) {
-	return (
-        <div>Children: {props.children}</div>
-    )
+	return <div>Children: {props.children}</div>
 }
 
 export default class Children extends React.Component {
-    getName = () => {
-        console.log("hello, react-child")
-    }
+	getName = () => {
+		console.log("hello, react-child")
+	}
 	render() {
 		return (
 			<ComA>
@@ -2095,27 +2324,33 @@ export default class Children extends React.Component {
 		)
 	}
 }
-
 ```
+
 ### 数据校验：PropTypes
+
 > 通过数据校验检查数据类型是否正确
-::: tip
+> ::: tip
 > 导包
+
 ```sh
 yarn add prop-types
 ```
+
 > 说明
+
 ```jsx
 常见类型: number、string、bool、array、func、object
 必填项: isRequired
 PropTypes.string
 PropTypes.number
 ```
+
 :::
 
 ::::: details 示例
 :::: code-group
 ::: code-group-item PropsTypeList.jsx
+
 ```jsx {3,11-13}
 import React from "react"
 // 数据类型校验
@@ -2128,87 +2363,89 @@ const List = (props) => {
 
 // 校验方法
 List.propTypes = {
-    links: PropTypes.array
+	links: PropTypes.array,
 }
-
-
 
 const PropsTypeList = () => {
-    const links = ["Home", "About", "Docs"]
-    return (
-        <List links={links}/>
-    )
+	const links = ["Home", "About", "Docs"]
+	return <List links={links} />
 }
-
 
 export default PropsTypeList
-
 ```
+
 :::
 ::: code-group-item App.jsx
-```jsx
-import React from 'react'
 
-import PropsTypeList from './components/PropsTypeList'
+```jsx
+import React from "react"
+
+import PropsTypeList from "./components/PropsTypeList"
 
 export default function App() {
-  return (
-    <>
-      <PropsTypeList/>
-    </>
-  )
+	return (
+		<>
+			<PropsTypeList />
+		</>
+	)
 }
-
 ```
+
 :::
 ::::
 :::::
 
+### props 参数默认值： defaultProps
 
-### props参数默认值： defaultProps
 > 父组件未传参时可使用默认值
-::::: tip
-> 1. class组件: 使用static变量初始化
+> ::::: tip
 >
-> 2. func组件: 在函数组件参数中设置默认值 ｜ 使用defaultProps设置默认值
-
+> 1. class 组件: 使用 static 变量初始化
+>
+> 2. func 组件: 在函数组件参数中设置默认值 ｜ 使用 defaultProps 设置默认值
 
 :::: code-group
 ::: code-group-item defaultProps
+
 ```jsx
 List.defaultProps = {
 	text: "Default Value !",
 }
 ```
+
 :::
 ::: code-group-item 函数参数默认值
+
 ```jsx
-const List = ({text="Hello, React !"}) => {
+const List = ({text = "Hello, React !"}) => {
 	return <div>{text}</div>
 }
 ```
+
 :::
-::: code-group-item class静态变量初始化
+::: code-group-item class 静态变量初始化
+
 ```jsx
 class List extends React.Component {
-    // 设置静态变量初始化默认值
-    static defaultProps = {
-        text: "Hello, React !"
-    }
-    render() {
-        return <div>{this.props.text}</div>
-    }
+	// 设置静态变量初始化默认值
+	static defaultProps = {
+		text: "Hello, React !",
+	}
+	render() {
+		return <div>{this.props.text}</div>
+	}
 }
 ```
+
 :::
 ::::
 :::::
-
 
 ::::: details 查看示例
 :::: code-group
 
 ::: code-group-item DefaultProps.jsx
+
 ```jsx{5,20}
 import React from "react"
 import PropTypes from "prop-types"
@@ -2237,9 +2474,11 @@ const DefaultProps = () => {
 export default DefaultProps
 
 ```
+
 :::
 
 ::: code-group-item DefaultProps2.jsx
+
 ```jsx{14-15,23}
 import React from "react"
 import PropTypes from "prop-types"
@@ -2270,26 +2509,24 @@ const DefaultProps2 = () => {
 
 export default DefaultProps2
 ```
+
 :::
 
-
 ::: code-group-item DefaultPropsStatic
+
 ```jsx
 import React from "react"
 import PropTypes from "prop-types"
 
-
 class List extends React.Component {
-    // 设置静态变量初始化默认值
-    static defaultProps = {
-        text: "Hello, React !"
-    }
-    render() {
-        return <div>{this.props.text}</div>
-    }
+	// 设置静态变量初始化默认值
+	static defaultProps = {
+		text: "Hello, React !",
+	}
+	render() {
+		return <div>{this.props.text}</div>
+	}
 }
-
-
 
 const DefaultPropsStatic = () => {
 	return (
@@ -2302,12 +2539,12 @@ const DefaultPropsStatic = () => {
 }
 
 export default DefaultPropsStatic
-
 ```
+
 :::
 
-
 ::: code-group-item App.jsx
+
 ```jsx
 import React from "react"
 
@@ -2320,24 +2557,22 @@ export default function App() {
 		</>
 	)
 }
-
 ```
+
 :::
 ::::
 :::::
 
+### React 生命周期
 
-
-### React生命周期
-
-[React生命周期示意图](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+[React 生命周期示意图](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
 
 ![React-lifeCycle](@/assets/react/react-lifecycle.png)
-
 
 ::::: details 点击查看示例
 :::: code-group
 ::: code-group-item ReactLifecycle.jsx
+
 ```jsx
 import React from "react"
 
@@ -2358,22 +2593,22 @@ import React from "react"
  */
 
 class ChildCom extends React.Component {
-    constructor(props) {
-        super(props)
-        this.timer = null
-    }
+	constructor(props) {
+		super(props)
+		this.timer = null
+	}
 	componentDidMount() {
 		console.log("ChildCom componentDidMount")
-        this.timer = setInterval(() =>{
-            console.log("ChildCom Timer !")
-        }, 1000)
+		this.timer = setInterval(() => {
+			console.log("ChildCom Timer !")
+		}, 1000)
 	}
 	componentDidUpdate() {
 		console.log("ChildCom componentDidUpdate")
 	}
 	componentWillUnmount() {
 		console.log("ChildCom componentWillUnmount")
-        clearInterval(this.timer)
+		clearInterval(this.timer)
 	}
 	render() {
 		return <div>ChildCom</div>
@@ -2384,46 +2619,47 @@ class ReactLifecycle extends React.Component {
 	constructor(props) {
 		super(props)
 		console.log("constructor")
-        this.state = {
-            count: 0,
-            flag: true,
-        }
-        this.handleClick = this.handleClick.bind(this)
+		this.state = {
+			count: 0,
+			flag: true,
+		}
+		this.handleClick = this.handleClick.bind(this)
 	}
-    componentDidMount() {
-        console.log("componentDidMount")
-    }
-    componentDidUpdate() {
-        console.log("componentDidUpdate")
-    }
-    componentWillUnmount() {
-        console.log("componentWillUnmount")
-    }
-    handleClick() {
-        this.setState({
-            count: this.state.count + 1,
-            flag: !this.state.flag
-        })
-    }
+	componentDidMount() {
+		console.log("componentDidMount")
+	}
+	componentDidUpdate() {
+		console.log("componentDidUpdate")
+	}
+	componentWillUnmount() {
+		console.log("componentWillUnmount")
+	}
+	handleClick() {
+		this.setState({
+			count: this.state.count + 1,
+			flag: !this.state.flag,
+		})
+	}
 	render() {
-        console.log("render")
+		console.log("render")
 		return (
 			<div>
 				<h1>ReactLifecycle</h1>
 				<button onClick={this.handleClick}>+</button>
 				<p>{this.state.count}</p>
-                {this.state.flag ? <ChildCom /> : null }
+				{this.state.flag ? <ChildCom /> : null}
 			</div>
 		)
 	}
 }
 
 export default ReactLifecycle
-
 ```
+
 :::
 
 ::: code-group-item App.jsx
+
 ```jsx
 import React from "react"
 
@@ -2436,15 +2672,15 @@ export default function App() {
 		</>
 	)
 }
-
 ```
+
 :::
 
 ::::
 :::::
 
-
 ## Ant Designer
+
 [Ant Designer](https://ant.design/index-cn)
 
 [Ant Designer Pro 展示面板](https://preview.pro.ant.design/dashboard/analysis)
@@ -2452,26 +2688,32 @@ export default function App() {
 ![Ant Designer Pro](@/assets/react/AntDesingerPro.png)
 
 ::::: tip
-> 1. 新建React项目，导入antd包 `$ yarn add antd`
-> 2. 引入Antd静态资源`import { Button } from "antd"`
-> 3. 引入Antd全局样式`@import '~antd/dist/antd.css';`
-:::: code-group
-::: code-group-item 终端
+
+> 1. 新建 React 项目，导入 antd 包 `$ yarn add antd`
+> 2. 引入 Antd 静态资源`import { Button } from "antd"`
+> 3. 引入 Antd 全局样式`@import '~antd/dist/antd.css';`
+>    :::: code-group
+>    ::: code-group-item 终端
+
 ```sh{3}
 $ npx create-react-app react-antd
 $ cd react-antd
 $ yarn add antd
 $ yarn start
 ```
+
 :::
 
 ::: code-group-item App.css
+
 ```css
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 ```
+
 :::
 
 ::: code-group-item AntdButton.jsx
+
 ```jsx{2,7}
 import React from "react"
 import { Button } from "antd"
@@ -2487,12 +2729,14 @@ function AntdButton() {
 export default AntdButton
 
 ```
+
 :::
 
 ::: code-group-item App.jsx
+
 ```jsx
 import React from "react"
-import './App.css'
+import "./App.css"
 import AntdButton from "./components/AntdButton"
 
 class App extends React.Component {
@@ -2506,15 +2750,16 @@ class App extends React.Component {
 }
 
 export default App
-
 ```
+
 :::
 
 ::::
 :::::
 
 ::::: warning
-> 在上级目录下共享node_modules包，需修改以下配置:
+
+> 在上级目录下共享 node_modules 包，需修改以下配置:
 
 :::: code-group
 ::: code-group-item package.json
@@ -2524,26 +2769,30 @@ export default App
 	"scripts": {
 		"start": "node ../node_modules/.bin/react-scripts start ./src/index.js",
 		"build": "ode ../node_modules/.bin/react-scripts build ./src/index.js"
-	},
+	}
 }
 ```
+
 :::
 
 ::: code-group-item 终端
+
 ```sh
 $ cd ..
 $ yarn add antd
 $ cd react-antd
 $ yarn start
 ```
+
 :::
 ::::
 :::::
 
-
 ### Button
+
 :::: code-group
 ::: code-group-item 普通按钮
+
 ```jsx
 import React from "react"
 import {Button} from "antd"
@@ -2560,8 +2809,10 @@ class AntdButton extends React.Component {
 
 export default AntdButton
 ```
+
 :::
 ::: code-group-item 下载按钮
+
 ```jsx
 import React from "react"
 import {Button} from "antd"
@@ -2569,24 +2820,15 @@ import {DownloadOutlined} from "@ant-design/icons"
 
 class AntdButton extends React.Component {
 	state = {
-		size: "large"
+		size: "large",
 	}
 
 	render() {
 		const {size} = this.state
 		return (
 			<>
-				<Button
-					type="primary"
-					shape="circle"
-					icon={<DownloadOutlined />}
-					size={size}
-				/>
-				<Button
-					type="primary"
-					shape="round"
-					icon={<DownloadOutlined />}
-					size={size}>
+				<Button type="primary" shape="circle" icon={<DownloadOutlined />} size={size} />
+				<Button type="primary" shape="round" icon={<DownloadOutlined />} size={size}>
 					Download
 				</Button>
 			</>
@@ -2596,9 +2838,11 @@ class AntdButton extends React.Component {
 
 export default AntdButton
 ```
+
 :::
 
 ::: code-group-item 按钮加载动画
+
 ```jsx
 import React from "react"
 import {Button} from "antd"
@@ -2606,7 +2850,7 @@ import {PoweroffOutlined} from "@ant-design/icons"
 
 class AntdButton extends React.Component {
 	state = {
-		loadings: []
+		loadings: [],
 	}
 
 	enterLoading = (index) => {
@@ -2634,17 +2878,10 @@ class AntdButton extends React.Component {
 		const {loadings} = this.state
 		return (
 			<>
-				<Button
-					type="primary"
-					loading={loadings[0]}
-					onClick={() => this.enterLoading(0)}>
+				<Button type="primary" loading={loadings[0]} onClick={() => this.enterLoading(0)}>
 					Click me!
 				</Button>
-				<Button
-					type="primary"
-					icon={<PoweroffOutlined />}
-					loading={loadings[1]}
-					onClick={() => this.enterLoading(1)}>
+				<Button type="primary" icon={<PoweroffOutlined />} loading={loadings[1]} onClick={() => this.enterLoading(1)}>
 					Click me!
 				</Button>
 			</>
@@ -2654,9 +2891,11 @@ class AntdButton extends React.Component {
 
 export default AntdButton
 ```
+
 :::
 
 ::: code-group-item 搜索按钮
+
 ```jsx
 import React from "react"
 import {Button, Tooltip} from "antd"
@@ -2680,13 +2919,14 @@ export default AntdButton
 :::
 
 ::: code-group-item 单选框组
+
 ```jsx
 import React from "react"
 import {Button, Radio} from "antd"
 
 class AntdButton extends React.Component {
 	state = {
-		size: "large"
+		size: "large",
 	}
 
 	handleSizeChange = (e) => {
@@ -2708,6 +2948,7 @@ class AntdButton extends React.Component {
 
 export default AntdButton
 ```
+
 :::
 
 ::::
@@ -2718,13 +2959,9 @@ export default AntdButton
 ```jsx
 import React from "react"
 import {Button, Radio, DatePicker, version, Tooltip} from "antd"
-import {
-	DownloadOutlined,
-	SearchOutlined,
-	PoweroffOutlined,
-} from "@ant-design/icons"
+import {DownloadOutlined, SearchOutlined, PoweroffOutlined} from "@ant-design/icons"
 
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css"
 
 class AntdButton extends React.Component {
 	state = {
@@ -2774,31 +3011,15 @@ class AntdButton extends React.Component {
 
 				{/* 按钮 */}
 				<Button type="primary">Primary Button</Button>
-				<Button
-					type="primary"
-					shape="circle"
-					icon={<DownloadOutlined />}
-					size={size}
-				/>
-				<Button
-					type="primary"
-					shape="round"
-					icon={<DownloadOutlined />}
-					size={size}>
+				<Button type="primary" shape="circle" icon={<DownloadOutlined />} size={size} />
+				<Button type="primary" shape="round" icon={<DownloadOutlined />} size={size}>
 					Download
 				</Button>
 
-				<Button
-					type="primary"
-					loading={loadings[0]}
-					onClick={() => this.enterLoading(0)}>
+				<Button type="primary" loading={loadings[0]} onClick={() => this.enterLoading(0)}>
 					Click me!
 				</Button>
-				<Button
-					type="primary"
-					icon={<PoweroffOutlined />}
-					loading={loadings[1]}
-					onClick={() => this.enterLoading(1)}>
+				<Button type="primary" icon={<PoweroffOutlined />} loading={loadings[1]} onClick={() => this.enterLoading(1)}>
 					Click me!
 				</Button>
 
@@ -2812,25 +3033,24 @@ class AntdButton extends React.Component {
 }
 
 export default AntdButton
-
 ```
-:::
 
+:::
 
 ### Table
 
 :::: code-group
 ::: code-group-item 普通表格
+
 ```jsx
-import { Table } from "antd"
-<Table
-	columns={columns}
-	dataSource={data}
-/>
+import {Table} from "antd"
+;<Table columns={columns} dataSource={data} />
 ```
+
 :::
 
 ::: code-group-item 滚动表格
+
 ```jsx{5}
 <Table
 	columns={columns}
@@ -2839,9 +3059,11 @@ import { Table } from "antd"
 	scroll={{ x: 1500, y: 300 }}
 />
 ```
+
 :::
 
 ::: code-group-item 表格边框
+
 ```jsx{6}
  <Table
 	columns={columns}
@@ -2851,9 +3073,11 @@ import { Table } from "antd"
 	bordered={true}
 />
 ```
+
 :::
 
 ::: code-group-item 表格边框圆角
+
 ```jsx{1-4,12}
 <Card
 	style={{ borderRadius: 15, marginTop: 15, overflow: 'hidden' }}
@@ -2868,14 +3092,17 @@ import { Table } from "antd"
 	/>
 </Card>
 ```
+
 :::
 
 ::: code-group-item 表格底部统计行
+
 ```jsx
-import { Card, Table, Typography } from 'antd';
-import { toMstr } from '@/utils/utils';
-const { Text } = Typography;
+import {Card, Table, Typography} from "antd"
+import {toMstr} from "@/utils/utils"
+const {Text} = Typography
 ```
+
 ```jsx{11-51}
 <Card
 	style={{ borderRadius: 15, marginTop: 15, overflow: 'hidden' }}
@@ -2931,46 +3158,41 @@ const { Text } = Typography;
 	/>
 </Card>
 ```
+
 :::
 ::: code-group-item utils.js
+
 ```js
 export function toMstr(val) {
-  if (val != undefined && val != null && val != '-' && val != '暂无数据') {
+	if (val != undefined && val != null && val != "-" && val != "暂无数据") {
+		let num = Math.round(val * 100) / 100
+		let intstr = num
+			.toString()
+			.split(".")[0]
+			.replace(/\d{1,3}(?=(\d{3})+$)/g, "$&,")
+		let flostr = num.toString().split(".")[1] != undefined ? "." + num.toString().split(".")[1] : ".00"
 
-    let num = Math.round(val * 100)/100
-    let intstr = num
-      .toString()
-      .split('.')[0]
-      .replace(/\d{1,3}(?=(\d{3})+$)/g, '$&,');
-    let flostr =
-      num.toString().split('.')[1] != undefined
-        ? '.' +
-        num
-          .toString()
-          .split('.')[1]
-        : '.00';
+		let numstr = intstr + flostr
 
-    let numstr = intstr + flostr;
-
-    return numstr;
-  } else if(val == null || val == '-'){
-    return '-'
-  } else{
-    return 0;
-  }
+		return numstr
+	} else if (val == null || val == "-") {
+		return "-"
+	} else {
+		return 0
+	}
 }
 ```
+
 :::
 ::::
 
-
-
-::::: details Table示例
+::::: details Table 示例
 :::: code-group
 ::: code-group-item SampleTable.jsx
+
 ```jsx
 import React from "react"
-import { Table } from "antd"
+import {Table} from "antd"
 
 export class SampleTable extends React.Component {
 	constructor(props) {
@@ -3017,11 +3239,13 @@ export class SampleTable extends React.Component {
 
 export default SampleTable
 ```
+
 :::
 ::: code-group-item ScrollTable.jsx
+
 ```jsx
 import React from "react"
-import { Card, Table, Tag } from "antd"
+import {Card, Table, Tag} from "antd"
 
 class ScrollTable extends React.Component {
 	constructor(props) {
@@ -3207,6 +3431,7 @@ class ScrollTable extends React.Component {
 
 export default ScrollTable
 ```
+
 :::
 ::::
 :::::
