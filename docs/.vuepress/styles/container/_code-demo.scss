@@ -1,8 +1,7 @@
 .code-demo-wrapper {
-    $code-border-radius: 15px;
+    $code-border-radius: 16px;
     border-radius: $code-border-radius !important;
     border: 1px solid #282c34 !important;
-    // overflow: hidden !important;
     margin: 70px 0 !important;
     .code-demo-header {
         background: #484c50 !important;
@@ -14,8 +13,8 @@
         }
         .code-demo-codepen {
             button[type="submit"] {
-                background-color: rgba(255, 255, 255, .5) !important;
-                transition: all .15s ease !important;
+                background-color: rgba(255, 255, 255, 0.5) !important;
+                transition: all 0.15s ease !important;
                 path {
                     fill: rgba(47, 47, 47, 0.8) !important;
                 }
@@ -37,12 +36,11 @@
         }
     }
     .demo-wrapper {
-
         border-bottom: none !important;
     }
     .code-wrapper {
         .code-container {
-            .copy-code-button{
+            .copy-code-button {
                 right: 4px !important;
                 bottom: 6px !important;
                 border-top-right-radius: 50% 50% !important;
@@ -51,20 +49,19 @@
                 background: #535558a6 !important;
                 transition: background 0.2s ease-in-out !important;
                 &:hover {
-                   background: rgb(138 143 149 / 65%) !important;
+                    background: rgb(138 143 149 / 65%) !important;
                 }
             }
         }
     }
 }
 
-
 html.dark {
     .code-demo-wrapper {
         border: 1px solid #4b5468 !important;
     }
     .code-demo-header {
-        color: rgba(193, 193, 193, 0.934)!important;
+        color: rgba(193, 193, 193, 0.934) !important;
         .toggle-button {
             background-color: #575b61f0 !important;
             &:hover {
@@ -73,7 +70,7 @@ html.dark {
         }
     }
     .code-wrapper {
-        transition: height .5s ease !important;
+        transition: height 0.5s ease !important;
     }
 }
 
@@ -98,3 +95,13 @@ html.dark {
     }
 }
 
+.code-demo-wrapper {
+    .code-wrapper {
+        margin-bottom: -14px !important;
+        pre[class*="language-"] {
+            margin: 0 !important;
+            border-top: 1px solid rgb(91, 91, 91) !important;
+            border-radius: 0 !important;
+        }
+    }
+}
