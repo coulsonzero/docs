@@ -21,7 +21,8 @@
         width: -webkit-fill-available;
     }
 
-    .code-demo-footer {
+    // .code-demo-footer {
+    .code-demo-header {
         position: absolute !important;
         top: -5px !important;
         // left: 0;
@@ -44,6 +45,7 @@
 
         .toggle-button {
             border-radius: 50% !important;
+            background-color: transparent;
         }
 
         &:hover .toggle-button {
@@ -61,14 +63,24 @@
 
         .code-demo-codepen {
             position: absolute !important;
-            right: 20px !important;
-            top: 40% !important;
+            right: 16px !important;
+            top: 50% !important;
             transform: translateY(-50%) !important;
+
             // transition-delay: 0s !important;
             button[type="submit"] {
+                // background-color: transparent !important;
+                background-color: rgba(255, 255, 255, 0.5) !important;
+                transition: all .15s ease !important;
                 &::before,
                 &::after {
                     display: none !important;
+                }
+                path {
+                    fill: rgba(39, 38, 38, 0.7) !important;
+                }
+                &:hover {
+                    background-color: rgba(255, 255, 255, 1) !important;
                 }
             }
         }
@@ -89,13 +101,14 @@ html.dark {
     .code-demo-wrapper {
         border: 1px solid #4b5468 !important;
     }
-    .code-demo-footer {
+    // .code-demo-footer {
+    .code-demo-header {
         color: rgba(255, 255, 255, 0.7)!important;
-    }
-    .code-demo-footer .toggle-button {
-        background-color: #6b7077f0 !important;
-    }
-    .code-demo-footer:hover .toggle-button {
-        background-color: rgb(54 59 70 / 94%) !important;
+        .toggle-button {
+            background-color: #6b7077f0 !important;
+        }
+        &:hover .toggle-button {
+            background-color: rgb(54 59 70 / 94%) !important;
+        }
     }
 }
