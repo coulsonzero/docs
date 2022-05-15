@@ -1,0 +1,83 @@
+/**
+ * ----------------------------------------
+ *               sidebar
+ * ----------------------------------------
+ */
+.sidebar-item:not(.sidebar-heading) {
+    padding-left: 1rem;
+}
+
+.sidebar-item.active:not(p.sidebar-heading) {
+    border-left-color: rgb(56 189 248/1);
+}
+
+// 侧边栏标题
+.sidebar-item.sidebar-heading {
+    // display: none;
+    visibility: hidden;
+}
+
+html:not(.dark) {
+    .sidebar {
+        background-color: #f9faff;
+    }
+}
+
+.sidebar {
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #3131318c;
+        border-radius: 2.5px;
+    }
+}
+
+html.dark {
+    .sidebar {
+        &::-webkit-scrollbar-thumb {
+            background: #9bb1c0c1;
+        }
+    }
+}
+
+html:not(.dark) .sidebar-item.active:not(p.sidebar-heading) {
+    color: #1c1c1c;
+}
+
+html:not(.dark) .sidebar-item {
+    color: #0d0d0d63;
+}
+
+.sidebar .sidebar-items {
+    padding: 1.5rem 0 1.5rem 1.5rem;
+}
+
+// 侧边栏active样式
+.sidebar-item-children li > a.sidebar-item.active:not(p.sidebar-heading) {
+    background: #f3f6f8;
+    width: 90%;
+}
+
+html.dark {
+    .sidebar-item-children li > a.sidebar-item.active:not(p.sidebar-heading) {
+        background: #43494d;
+    }
+    .sidebar-item-children .sidebar-item-children li > a.sidebar-item.active:not(p.sidebar-heading) {
+        background: transparent;
+    }
+    .sidebar-item.active:not(p.sidebar-heading) {
+        color: #5ebdd2;
+    }
+}
+
+.sidebar-item-children .sidebar-item-children li > a.sidebar-item.active:not(p.sidebar-heading) {
+    background: transparent;
+}
+
+.sidebar-item:not(.sidebar-heading) {
+    line-height: 1.6;
+}

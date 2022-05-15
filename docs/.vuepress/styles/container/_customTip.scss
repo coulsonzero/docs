@@ -1,0 +1,53 @@
+.custom-container {
+    position: relative;
+}
+
+.custom-container:before {
+    position: absolute;
+    // top: 19px;
+    // left: -14px;
+    top: 21px;
+    left: 16px;
+    color: #fff;
+    // width: 20px;
+    // height: 20px;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 700;
+    font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.custom-container.danger,
+.custom-container.warning,
+.custom-container.tip {
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    padding: 0.25rem 1rem;
+    // border-left-width: 0.3rem;
+    border-left-width: 0.2rem;
+}
+
+.custom-container.tip:before {
+    content: url(https://v3.cn.vuejs.org/images/icons/bulb.svg);
+}
+
+.custom-container.warning:before {
+    content: url(https://v3.cn.vuejs.org/images/icons/danger.svg);
+}
+
+.custom-container.danger:before {
+    content: url(https://v3.cn.vuejs.org/images/icons/stop.svg)
+}
+
+
+.custom-container.tip {
+    --c-tip-bg: #e6f6e6;
+}
+
+p.custom-container-title {
+    padding-left: 32px;
+}

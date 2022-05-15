@@ -1,7 +1,24 @@
+@import "./base/base";
+
+@import "./components/navbar";
+@import "./components/sidebar";
+@import "./components/footer";
+
+@import "./container/navbarDropdown";
+@import "./container/sidebarButton";
+@import "./container/customTip";
+@import "./container/codeGroup";
+@import "./container/codeCopyButton";
+@import "./container/customDetails";
+@import "./container/codeDemo";
+@import "./container/iframe";
+/**
 * {
     transition: .15s ease-in-out .1s;
+    -webkit-transition: .15s ease-in-out .1s;
 }
-
+*/
+/*
 .iframe-container {
     --iframe-shadow-color: rgba(32,32,32,.5);
     border-radius: 10px;
@@ -16,12 +33,14 @@ html.dark {
         --iframe-shadow-color: rgba(255,255,255, .1);
    }
 }
+*/
 
 /**
  * ----------------------------------------
  *                 code
  * ----------------------------------------
  */
+ /*
 div[class*="language-"] {
     background-color: #343434;
 }
@@ -103,13 +122,13 @@ html:not(.dark) {
 .code-group__li:last-child {
     border-radius: 0 var(--code-group-radius) var(--code-group-radius) 0;
 }
-
+*/
 /**
  * ----------------------------------------
  *                navbar
  * ----------------------------------------
  */
-
+/*
 .navbar {
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -125,12 +144,13 @@ html:not(.dark) .navbar {
 .arrow.down {
     display: none;
 }
-
+*/
 /**
  * ----------------------------------------
  *          sidebar
  * ----------------------------------------
  */
+/*
 .sidebar-item:not(.sidebar-heading) {
     padding-left: 1rem;
 }
@@ -209,7 +229,7 @@ html.dark {
 .sidebar-item:not(.sidebar-heading) {
     line-height: 1.6;
 }
-
+*/
 /**
  * ----------------------------------------
  *          sidebar-button
@@ -254,7 +274,7 @@ html.dark {
  *                  code
  * ----------------------------------------
  */
-
+/*
 .code-group__nav {
     position: relative;
     padding-top: 30px;
@@ -304,9 +324,10 @@ html.dark {
 .code-group__nav-tab-active {
     border-bottom: none;
 }
-
+*/
 
 /* 导航栏下拉框列表 */
+/*
 @media (min-width: 720px) {
     .navbar-dropdown-wrapper .navbar-dropdown {
         box-shadow: 0 0.0625rem 0.3125rem 0.0625rem rgb(0 0 0 / 12%);
@@ -359,12 +380,13 @@ html.dark {
         }
     }
 }
-
+*/
 /**
  * ----------------------------------------
  * animation fade-in-bottom
  * ----------------------------------------
  */
+/**
 @-webkit-keyframes fade-in-bottom {
     0% {
         -webkit-transform: translateY(30px) translateX(43%);
@@ -406,6 +428,7 @@ html.dark {
     html.dark {
         * {
             transition: 0.15s ease-in-out .1s;
+            -webkit-transition: 0.15s ease-in-out .1s;
         }
         .no-sidebar {
             background: hsla(0, 0%, 27%, 0.847);
@@ -424,8 +447,9 @@ html.dark {
         }
     }
 }
-
+*/
 /* ========== tip, warning =========== */
+/*
 .custom-container {
     position: relative;
 }
@@ -479,8 +503,9 @@ html.dark {
 p.custom-container-title {
     padding-left: 32px;
 }
+*/
 
-
+/*
 // vuepress-hope
 .copy-code-button {
     background: #0e0f0f30 !important;
@@ -509,12 +534,14 @@ p.custom-container-title {
     -webkit-animation: text-focus-in 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
     animation: text-focus-in 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
 }
-
+*/
 /**
  * ----------------------------------------
  * animation text-focus-in
  * ----------------------------------------
  */
+
+/*
 @-webkit-keyframes text-focus-in {
   0% {
     -webkit-filter: blur(12px);
@@ -540,14 +567,14 @@ p.custom-container-title {
   }
 }
 
-
+*/
 
 /**
  * ---------------------------------------
  *                  code-demo
  * ---------------------------------------
  */
-
+/*
 .code-demo-wrapper {
     position: relative !important;
     margin: 70px 0 30px 0 !important;
@@ -644,3 +671,4 @@ html.dark {
         background-color: rgb(54 59 70 / 94%) !important;
     }
 }
+*/

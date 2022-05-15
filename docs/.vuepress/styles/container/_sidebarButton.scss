@@ -1,0 +1,38 @@
+/**
+ * ----------------------------------------
+ *            sidebar-button
+ * ----------------------------------------
+ */
+
+@media screen and(min-width: 900px) {
+    .toggle-sidebar-button {
+        display: block;
+        top: 4rem;
+        left: 0.5rem;
+        padding: 26px 140px 50px 140px;
+        opacity: 0.02;
+        transition: opacity 0.15s ease 0.1s;
+        -wbkit-transition: opacity 0.15s ease 0.1s;
+        .icon {
+            transform: scale(1.5);
+        }
+    }
+    .toggle-sidebar-button:hover {
+        opacity: 1;
+    }
+    .sidebar {
+        transform: translate(-100%);
+    }
+    .theme-container.sidebar-open .sidebar {
+        transform: translate(0);
+    }
+    .theme-container:not(.sidebar-open) .page {
+        padding-left: 0;
+        transition: all 0.3s ease-in-out;
+        -webkit-transition: all 0.3s ease-in-out;
+    }
+    .page {
+        transition: 0.3s ease 0.03s;
+        -webkit-transition: 0.3s ease 0.03s;
+    }
+}

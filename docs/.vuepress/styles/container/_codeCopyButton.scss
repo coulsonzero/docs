@@ -1,0 +1,58 @@
+// vuepress-hope
+.copy-code-button {
+    background: #0e0f0f30 !important;
+    z-index: 2 !important;
+    border-radius: 20px !important;
+    right: 0px !important;
+}
+
+.copy-code-button:hover {
+    background: rgb(50 169 225 / 66%) !important;
+    --balloon-color: #5450505e;
+}
+
+.copy-code-button:after {
+    content: 'Copy' !important;
+    border-radius: 20px !important;
+}
+
+.copy-code-button:hover::after {
+    content: 'Copyed!' !important;
+
+}
+
+.copy-code-button:hover::before,
+.copy-code-button:hover::after {
+    -webkit-animation: text-focus-in 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    animation: text-focus-in 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+
+/**
+ * ----------------------------------------
+ * animation text-focus-in
+ * ----------------------------------------
+ */
+@-webkit-keyframes text-focus-in {
+  0% {
+    -webkit-filter: blur(12px);
+            filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+  }
+}
+@keyframes text-focus-in {
+  0% {
+    -webkit-filter: blur(12px);
+            filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+  }
+}
