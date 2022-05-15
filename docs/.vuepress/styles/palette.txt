@@ -1,3 +1,4 @@
+
 :root {
     scroll-behavior: smooth;
     --c-bg-navbar: hsla(0, 0%, 100%, 0.76);
@@ -39,6 +40,7 @@ input[type="search"] {
  *                Title
  * ----------------------------------------
  */
+
 @media screen and(min-width: 900px) {
     h1[tabindex="-1"] {
         font-size: 3.6rem;
@@ -61,17 +63,17 @@ input[type="search"] {
  *               link
  * ----------------------------------------
  */
+
 .external-link-icon {
     display: none;
 }
-
 
 /**
  * ----------------------------------------
  *                footer
  * ----------------------------------------
  */
- /*
+
 @media screen and(max-width: 480px) {
     .page {
         padding-bottom: 0;
@@ -126,14 +128,14 @@ input[type="search"] {
     right: 0;
     top: -70%;
 }
-*/
+
 
 /**
  * ----------------------------------------
  *               点击查看详情
  * ----------------------------------------
  */
-/*
+
 .custom-container.details summary {
     position: relative;
     padding-left: 30px;
@@ -201,4 +203,4 @@ input[type="search"] {
     -webkit-transition: all .3s ease-in-out;
 }
 
-*/
+

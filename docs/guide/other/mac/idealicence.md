@@ -8,3 +8,8 @@
 5. 运行 WebStorm, 选择 Activate WebStorm，再点击 Activation Code
 6. 复制下面的的激活码粘贴到激活窗口的输入框中，点击 Activate。可以用到 2099 年！
 ```
+<div style="display: flex; justify-content: center;">
+    <button style="border: 1px solid #323232; padding: 10px 20px; border-radius: 20px;">
+        <a href="https://macwk.lanzouo.com/i8eElxh573a" download="" style="text-decoration: none; color: initial;">Download <span style="color:#74b4f0">fineagent.jar</span></a>
+    </button>
+</div>

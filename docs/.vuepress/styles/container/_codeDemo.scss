@@ -1,6 +1,6 @@
 /**
  * ---------------------------------------
- *                  code-demo
+ *                code-demo
  * ---------------------------------------
  */
 
@@ -46,6 +46,11 @@
             border-radius: 50% !important;
         }
 
+        &:hover .toggle-button {
+            background-color: #eef4fcf0 !important;
+            transition-delay: .15s;
+        }
+
         .code-demo-jsfiddle {
             position: absolute;
             right: 50px;
@@ -79,12 +84,6 @@
     }
 }
 
-
-html:not(.dark) {
-    .code-demo-footer:hover .toggle-button {
-        background-color: #eef4fcf0 !important;
-    }
-}
 
 html.dark {
     .code-demo-wrapper {
