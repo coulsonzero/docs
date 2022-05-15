@@ -33,6 +33,11 @@ sidebar: false
 <h1>VuePress Theme Hope</h1>
 <p><span id="very">非常</span>强大!</p>
 ```
+```css
+#very {
+    color: skyblue;
+}
+```
 :::
 
 ::::: warning Coding

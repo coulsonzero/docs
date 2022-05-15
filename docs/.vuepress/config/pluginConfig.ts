@@ -10,7 +10,7 @@ const pluginConfig: DefaultThemePluginsOptions = [
 		copyCodePlugin({
 			showInMobile: true,
 			// 提示显示时长
-			duration: 800,
+			duration: 1000,
 		}),
 	],
 	[

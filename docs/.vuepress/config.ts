@@ -20,10 +20,8 @@ export default defineUserConfig({
 		"@": path.resolve(__dirname, "./public"),
 	},
 	theme: defaultTheme({
-		/* navbar扩展 */
-		// logo: "https://vuejs.org/images/logo.png",
 		logo: "/coulsonzero.png",
-		/* github地址 */
+		/* github链接 */
 		repo: "https://github.com/coulsonzero/docs",
 		repoLabel: "Github",
 		/* footer */

@@ -1,0 +1,100 @@
+.code-demo-wrapper {
+    $code-border-radius: 15px;
+    border-radius: $code-border-radius !important;
+    border: 1px solid #282c34 !important;
+    // overflow: hidden !important;
+    margin: 70px 0 !important;
+    .code-demo-header {
+        background: #484c50 !important;
+        color: #f8f8f8 !important;
+        border-radius: 7px 7px 0 0 !important;
+        border-radius: calc($code-border-radius - 1px) calc($code-border-radius - 1px) 0 0 !important;
+        .code-demo-jsfiddle {
+            display: none !important;
+        }
+        .code-demo-codepen {
+            button[type="submit"] {
+                background-color: rgba(255, 255, 255, .5) !important;
+                transition: all .15s ease !important;
+                path {
+                    fill: rgba(47, 47, 47, 0.8) !important;
+                }
+                &:hover {
+                    background-color: rgb(233, 233, 233) !important;
+                }
+
+                &::before,
+                &::after {
+                    display: none !important;
+                }
+            }
+        }
+        .toggle-button {
+            background-color: #777c7ffa !important;
+            &:hover {
+                background-color: rgba(247, 247, 247, 0.888) !important;
+            }
+        }
+    }
+    .demo-wrapper {
+
+        border-bottom: none !important;
+    }
+    .code-wrapper {
+        .code-container {
+            .copy-code-button{
+                right: 4px !important;
+                bottom: 6px !important;
+                border-top-right-radius: 50% 50% !important;
+                border-bottom-right-radius: 50% 50% !important;
+                border-radius: 50% !important;
+                background: #535558a6 !important;
+                transition: background 0.2s ease-in-out !important;
+                &:hover {
+                   background: rgb(138 143 149 / 65%) !important;
+                }
+            }
+        }
+    }
+}
+
+
+html.dark {
+    .code-demo-wrapper {
+        border: 1px solid #4b5468 !important;
+    }
+    .code-demo-header {
+        color: rgba(193, 193, 193, 0.934)!important;
+        .toggle-button {
+            background-color: #575b61f0 !important;
+            &:hover {
+                background-color: rgba(57, 58, 60, 0.94) !important;
+            }
+        }
+    }
+    .code-wrapper {
+        transition: height .5s ease !important;
+    }
+}
+
+/**
+ * ----------------------------------------
+ *       阻止刷新时header位置变化过大
+ * ----------------------------------------
+ */
+
+.code-demo-wrapper {
+    position: relative !important;
+    overflow: hidden !important;
+    .code-demo-header {
+        position: absolute !important;
+        top: 0px;
+        left: 0px;
+        width: calc(100% - 23px);
+        z-index: 2 !important;
+    }
+    .demo-wrapper {
+        padding-top: 60px !important;
+    }
+}
+
