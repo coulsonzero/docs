@@ -1,3 +1,9 @@
+/**
+ * ----------------------------------------
+ *             ^2.0.0-beta.59
+ * ----------------------------------------
+ */
+
 .code-demo-wrapper {
     $code-border-radius: 16px;
     border-radius: $code-border-radius !important;
@@ -94,6 +100,12 @@ html.dark {
         padding-top: 60px !important;
     }
 }
+
+/**
+ * ----------------------------------------
+ *                代码间距
+ * ----------------------------------------
+ */
 
 .code-demo-wrapper {
     .code-wrapper {
