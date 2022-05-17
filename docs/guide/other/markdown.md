@@ -218,3 +218,60 @@ console.log("Hello world!")
 
 :::
 ::::
+:::::
+
+
+## vurpress-theme-hope
+
+### code-demo
+
+::: demo [react] React Demo
+
+```js
+export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+		count: 0
+	}
+  }
+  handleClick() {
+    this.setState((state) => ({
+      count: state.count + 1
+    }))
+  }
+  render() {
+    return (
+      <div>
+	  	<div>Count: {this.state.count}</div>
+        <button onClick={this.handleClick.bind(this)}>Click Me</button>
+      </div>
+    );
+  }
+}
+```
+
+```css
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+button {
+	padding: 10px 20px;
+	margin-top: 20px;
+	border-radius: 16px;
+	outline: none;
+	background: transparent;
+	border: 1px solid #323232;
+	transiton: background .15s ease .1s;
+}
+
+button:hover {
+	background: skyblue;
+}
+```
+
+:::
+

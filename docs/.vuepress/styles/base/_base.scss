@@ -70,3 +70,10 @@ input[type="search"] {
 .external-link-icon {
     display: none;
 }
+
+
+pre::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}

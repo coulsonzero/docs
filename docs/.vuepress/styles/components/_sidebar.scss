@@ -81,3 +81,7 @@ html.dark {
 .sidebar-item:not(.sidebar-heading) {
     line-height: 1.6;
 }
+
+.sidebar-item-children .sidebar-item-children .sidebar-item:not(.sidebar-heading).active {
+    font-weight: 400 !important;
+}

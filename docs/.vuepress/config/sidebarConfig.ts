@@ -94,8 +94,17 @@ const sidebarConfig = {
 			title: "React",
 			collapsable: false,
 			sidebarDepth: 1,
-			children: ["README.md", "nextjs.md", "dva.md"],
+			children: ["README.md", "nextjs.md", "dva.md", "antd/"],
 		},
+	],
+	"/guide/frontend/react/antd": [
+		{
+			text: "antd",
+			title: "antd",
+			collapsable: false,
+			sidebarDepth: 1,
+			children: ["README.md", "table.md"]
+		}
 	],
 	"/guide/other/mac/": [
 		{
@@ -137,7 +146,16 @@ const sidebarConfig = {
 			title: "Frontend",
 			collapsable: false,
 			sidebarDepth: 1,
-			children: ["canvas.md", "css.md", "eslint.md", "html.md", "javascript.md", "jquery.md", "scss.md", "vscode.md", "vue.md"],
+			children: ["canvas.md", "css.md", "eslint.md", "html.md", "jquery.md", "javascript/", "scss.md", "vscode.md", "react/", "vue.md"],
+		},
+	],
+	"/guide/frontend/javascript/": [
+		{
+			text: "JavaScript",
+			title: "JavaScript",
+			collapsable: false,
+			sidebarDepth: 1,
+			children: ["README.md", ],
 		},
 	],
 	"/guide/operations/": [
