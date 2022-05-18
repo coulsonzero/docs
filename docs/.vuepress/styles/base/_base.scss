@@ -4,6 +4,7 @@
     --code-group-radius: 20px;
     --c-tip-bg: #e6f6e6;
     --detail-bg: #ecf6fb;
+
 }
 
 
@@ -28,7 +29,11 @@ html.dark {
     --c-text: #7c7c7c;
     --c-bg-light: rgba(61, 59, 59, 0.67);
     --detail-bg: #3a4044;
+    .search-box {
+        --search-bg-color: rgba(89, 89, 89, 0.66);
+    }
 }
+
 
 
 ::selection {
