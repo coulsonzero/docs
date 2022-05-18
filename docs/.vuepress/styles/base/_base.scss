@@ -71,6 +71,16 @@ input[type="search"] {
     display: none;
 }
 
+.navbar-item > a:hover, .navbar-item > a.router-link-active {
+    border-bottom: none;
+}
+
+.theme-default-content:not(.custom) a:hover {
+    text-decoration: none;
+}
+
+
+
 
 pre::-webkit-scrollbar {
     width: 0;

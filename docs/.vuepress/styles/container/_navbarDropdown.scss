@@ -87,15 +87,15 @@
 }
 
 @media (min-width: 720px) {
+    .sidebar .sidebar-items {
+        padding-top: 3.5rem;
+    }
     html:not(.dark) {
         .no-sidebar {
             background: rgb(243, 251, 255);
             .toggle-sidebar-button {
                 visibility: hidden;
             }
-        }
-        .sidebar .sidebar-items {
-            padding-top: 3.5rem;
         }
     }
 

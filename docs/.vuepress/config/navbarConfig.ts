@@ -26,7 +26,7 @@ const navbarConfig: NavbarConfig = [
 			},
 			{
 				text: "前端开发工具",
-				children: [{text: "dva", link: "/guide/frontend/dva"}],
+				children: [{text: "dva", link: "/guide/frontend/react/dva"}],
 			},
 			{
 				text: "web库",

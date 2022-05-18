@@ -84,3 +84,8 @@ html:not(.dark) {
 .code-group__li:last-child {
     border-radius: 0 var(--code-group-radius) var(--code-group-radius) 0;
 }
+
+
+div[class*=language-].line-numbers-mode .line-numbers .line-number {
+    height: auto !important;
+}

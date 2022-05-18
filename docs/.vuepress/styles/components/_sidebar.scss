@@ -54,6 +54,11 @@ html:not(.dark) .sidebar-item {
 
 .sidebar .sidebar-items {
     padding: 1.5rem 0 1.5rem 1.5rem;
+    transition: color .1s ease;
+}
+
+a.sidebar-item:hover {
+    color: rgb(154, 145, 223);
 }
 
 // 侧边栏active样式
