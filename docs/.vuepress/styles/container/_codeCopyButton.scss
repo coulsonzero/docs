@@ -56,3 +56,9 @@
     opacity: 1;
   }
 }
+
+html.dark {
+  .copy-code-button svg path {
+    fill: rgb(160, 160, 161);
+  }
+}

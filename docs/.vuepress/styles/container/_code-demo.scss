@@ -113,8 +113,18 @@ html.dark {
         pre[class*="language-"] {
             margin-top: 0 !important;
             margin-bottom: 0 !important;
-            border-top: 1px solid rgb(91, 91, 91) !important;
+            // border-top: 1px solid rgb(91, 91, 91) !important;
             border-radius: 0 !important;
+            position: relative !important;
+            & ::before {
+                content: "";
+                position: absolute !important;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: .1px;
+                background: rgba(94, 94, 94, 0.6);
+            }
         }
     }
 }

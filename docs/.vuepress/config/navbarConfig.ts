@@ -116,9 +116,9 @@ const navbarConfig: NavbarConfig = [
 		],
 	},
 	{
-		text: "友链评论",
-		link: "/guide/links/"
-	}
+		text: "🔗友链",
+		link: "/guide/links/",
+	},
 ]
 
 export default navbarConfig

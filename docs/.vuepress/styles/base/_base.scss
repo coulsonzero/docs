@@ -2,6 +2,8 @@
     scroll-behavior: smooth;
     --c-bg-navbar: hsla(0, 0%, 100%, 0.76);
     --code-group-radius: 20px;
+    --c-tip-bg: #e6f6e6;
+    --detail-bg: #ecf6fb;
 }
 
 
@@ -21,6 +23,11 @@ html.dark {
     // --c-bg-navbar: rgba(28, 27, 29, 0.7);
     --c-bg-navbar: hsla(228, 3%, 29%, .7);
     --c-bg-light: #eefaf8;
+    --c-tip-bg: #424a42;
+    --c-warning-bg: #67594b;
+    --c-text: #7c7c7c;
+    --c-bg-light: rgba(61, 59, 59, 0.67);
+    --detail-bg: #3a4044;
 }
 
 
