@@ -22,22 +22,25 @@ sidebar: false
 #     details: VuePress 会为每个页面预渲染生成静态的 HTML，同时，每个页面被加载的时候，将作为 SPA 运行。
 
 # footer: MIT Licensed | Copyright © 2018-present CoulsonZero
-
+# comment: false
 ---
-
-
 
 ::: demo Demo 演示
 
 ```html
 <h1>VuePress Theme Hope</h1>
-<p><span id="very">非常</span>强大!</p>
+<p>
+	<span id="very">非常</span>
+	强大!
+</p>
 ```
+
 ```css
 #very {
-    color: skyblue;
+	color: skyblue;
 }
 ```
+
 :::
 
 ::::: warning Coding
@@ -67,7 +70,6 @@ npm run start
 [![GitHub forks](https://img.shields.io/github/forks/coulsonzero/docs)](https://github.com/coulsonzero/docs/network)
 [![GitHub stars](https://img.shields.io/github/stars/coulsonzero/docs)](https://github.com/coulsonzero/docs/stargazers)
 [![GitHub license](https://img.shields.io/github/license/coulsonzero/docs)](https://github.com/coulsonzero/docs/blob/master/LICENSE)
-
 
 [![DeepScan grade](https://deepscan.io/api/teams/9792/projects/17760/branches/417299/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9792&pid=17760&bid=417299)
 ![CodeQL](https://github.com/miniapp-tool/mptool/actions/workflows/codeql-analysis.yml/badge.svg)
@@ -116,6 +118,7 @@ npm run start
 | [Yarn]           | npm 包管理命令行工具 |
 | [Docsify]        |       文档管理       |
 | [VuePress]       |       文档管理       |
+| [Hexo]           |       文档管理       |
 | [Git]            |    分布式版本控制    |
 | [SpringBoot]     |  Java Web 开发框架   |
 
@@ -144,15 +147,6 @@ npm run start
 | [Caarea](https://www.caarea.com/en/)                        |
 | [steelwavellc]                                              |
 | [avexdesigns](https://avexdesigns.com)                      |
-
-## 友情链接
-
-| 网站名称      | 网址                                            |
-| ------------- | ----------------------------------------------- |
-| imaegoo       | [imaegoo](https://www.imaegoo.com)              |
-| frytea        | [frytea](https://blog.frytea.com)               |
-| xukaiyyds     | [xukaiyyds](https://blog.xukaiyyds.cn)          |
-| zhangjiancong | [zhangjiancong](https://blog.zhangjiancong.top) |
 
 
 
@@ -213,4 +207,4 @@ npm run start
 [vue-swiper]: https://github.surmon.me/vue-awesome-swiperF
 [pixabay]: https://pixabay.com
 [videvo]: https://www.videvo.net
-
+[hexo]: https://hexo.fluid-dev.com/docs/

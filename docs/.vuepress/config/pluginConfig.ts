@@ -21,6 +21,7 @@ const pluginConfig: DefaultThemePluginsOptions = [
 			repoId: "R_kgDOG056-Q",
 			category: "General",
 			categoryId: "DIC_kwDOG056-c4CPEsY",
+			mapping: "title",
 		}),
 	],
 	[

@@ -115,6 +115,10 @@ const navbarConfig: NavbarConfig = [
 			{text: "Error报错日志", link: "/guide/other/error.md"},
 		],
 	},
+	{
+		text: "友链评论",
+		link: "/guide/links/"
+	}
 ]
 
 export default navbarConfig
