@@ -19,14 +19,18 @@ yarn start
 
 :::: code-group
 ::: code-group-item yarn
+
 ```sh
 yarn create react-app react-app
 ```
+
 :::
 ::: code-group-item npm
+
 ```sh
 npx create-react-app react-app
 ```
+
 :::
 ::::
 
@@ -161,16 +165,20 @@ function handleSubmit(e) {
 
 :::: code-group
 ::: code-group-item style
+
 ```jsx
-<div style={{color: '#f8f8f8', fontWeight: 'bold'}}></div>
+<div style={{color: "#f8f8f8", fontWeight: "bold"}}></div>
 ```
+
 :::
 ::: code-group-item className
+
 ```jsx
 import "./Com.css"
 
-<div className="container"></div>
+;<div className="container"></div>
 ```
+
 ```css
 /* Com.css */
 .container {
@@ -178,17 +186,16 @@ import "./Com.css"
 	font-weight: bold;
 }
 ```
+
 :::
 ::: code-group-item styled-components
+
 ```jsx
 // yarn add --save styled-components
 import styled from "styled-components"
 
 export default function Header() {
-  	return (
-		<Div>
-		</Div>
-	)
+	return <Div></Div>
 }
 
 const HeaderStyles = styled.header`
@@ -197,62 +204,62 @@ const HeaderStyles = styled.header`
 	left: 0;
 	width: 100%;
 	height: var(--header-height);
-	background-color: ${({ theme: { theme } }) =>
-		theme === themeList.light ? 'var(--lightBlue_1)' : 'var(--darkBlue_3)'};
-	@media only screen and (max-width: 768px) {}
-`;
+	background-color: ${({theme: {theme}}) => (theme === themeList.light ? "var(--lightBlue_1)" : "var(--darkBlue_3)")};
+	@media only screen and (max-width: 768px) {
+	}
+`
 
 // div, section, nav, a, header
 ```
+
 ```js
 // themeList.js
 export default {
-  light: 'light',
-  dark: 'dark',
-};
+	light: "light",
+	dark: "dark",
+}
 ```
+
 :::
-::: code-group-item styled-components自定义
+::: code-group-item styled-components 自定义
+
 ```js
 // components/button/PrimaryButton.js
-import React from 'react';
-import styled from 'styled-components';
+import React from "react"
+import styled from "styled-components"
 
 const ButtonsStyles = styled.a`
-  display: inline-block;
-  background: var(--mediumSlateBlue);
-  padding: 1.5rem 2rem;
-  color: var(--white);
-  font-size: 1.6rem;
-  text-transform: capitalize;
-  border-radius: 8px;
-  font-weight: 500;
-  border: none;
-  @media only screen and (max-width: 768px) {
-    font-size: 1.4rem;
-    padding: 1.2rem 1.5rem;
-  }
-`;
+	display: inline-block;
+	background: var(--mediumSlateBlue);
+	padding: 1.5rem 2rem;
+	color: var(--white);
+	font-size: 1.6rem;
+	text-transform: capitalize;
+	border-radius: 8px;
+	font-weight: 500;
+	border: none;
+	@media only screen and (max-width: 768px) {
+		font-size: 1.4rem;
+		padding: 1.2rem 1.5rem;
+	}
+`
 
-function PrimaryButton({ children, buttonType, ...rest }) {
-  return (
-    <>
-      <ButtonsStyles as={buttonType} {...rest}>
-        {children}
-      </ButtonsStyles>
-    </>
-  );
+function PrimaryButton({children, buttonType, ...rest}) {
+	return (
+		<>
+			<ButtonsStyles as={buttonType} {...rest}>
+				{children}
+			</ButtonsStyles>
+		</>
+	)
 }
 
-export default PrimaryButton;
+export default PrimaryButton
 ```
+
 ```js
-<PrimaryButton
-	type="submit"
-	buttonType="button"
-	className="contact__submit"
->
-Submit
+<PrimaryButton type="submit" buttonType="button" className="contact__submit">
+	Submit
 </PrimaryButton>
 ```
 
@@ -284,25 +291,25 @@ const GlobalStyles = createGlobalStyle`
     --header-height: 50px;
 }
 ```
+
 :::
 ::: code-group-item Tailwind
+
 ```jsx
 // yarn add tailwindcss
 <div class="ml-3 w-0 flex-1 pt-0.5">
-	<p class="text-sm font-medium text-gray-900">
-		Successfully saved!
-	</p>
-	<p class="mt-1 text-sm text-gray-500">
-		Anyone with a link can now view this file.
-	</p>
+	<p class="text-sm font-medium text-gray-900">Successfully saved!</p>
+	<p class="mt-1 text-sm text-gray-500">Anyone with a link can now view this file.</p>
 </div>
 ```
+
 ```css
 /* index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 ```
+
 ```js{4}
 // index.js
 import React from 'react';
@@ -318,6 +325,7 @@ ReactDOM.render(
 	document.getElementById('root')
 );
 ```
+
 :::
 ::::
 
@@ -714,6 +722,7 @@ export default Demo
 
 :::
 ::: code-group-item Hooks➁
+
 ```jsx{3,5}
 import React from 'react'
 
@@ -731,10 +740,9 @@ function Demo(props) {
 
 export default Demo
 ```
+
 :::
 ::::
-
-
 
 ### 3.3 State 状态管理
 
@@ -755,7 +763,7 @@ class Demo extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			count: 0
+			count: 0,
 		}
 	}
 
@@ -763,7 +771,12 @@ class Demo extends React.Component {
 		return (
 			<>
 				<div>count: {this.state.count}</div>
-				<button onClick={() => {this.setState({count: this.state.count + 1})}}>+</button>
+				<button
+					onClick={() => {
+						this.setState({count: this.state.count + 1})
+					}}>
+					+
+				</button>
 			</>
 		)
 	}
@@ -774,9 +787,9 @@ export default Demo
 
 :::
 
-
 :::: code-group
-::: code-group-item class方式一
+::: code-group-item class 方式一
+
 ```jsx{6-8,12-14,20}
 import React from "react"
 
@@ -806,8 +819,10 @@ class Demo extends React.Component {
 
 export default Demo
 ```
+
 :::
-::: code-group-item class方式二
+::: code-group-item class 方式二
+
 ```jsx{4}
 import React from "react"
 
@@ -834,8 +849,10 @@ class Demo extends React.Component {
 
 export default Demo
 ```
+
 :::
-::: code-group-item Hooks方式
+::: code-group-item Hooks 方式
+
 ```jsx{4,7-8}
 import React, {useState} from "react"
 
@@ -857,11 +874,12 @@ function Demo() {
 
 export default Demo
 ```
+
 :::
 ::::
 
-
 ### 3.4 setState( ) 更新状态
+
 ::: danger
 
 > 因为 this.props 和 this.state 可能会异步更新, 出于性能考虑，React 可能会把多个 setState() 调用合并成一个调用, 不要依赖他们的值来更新下一个状态。
@@ -869,25 +887,28 @@ export default Demo
 :::
 
 :::: code-group
-::: code-group-item class方式
+::: code-group-item class 方式
+
 ```jsx
 // 更新state中的初始值
 this.setState({
-	count: count + 1
+	count: count + 1,
 })
 
 // 使用最新的state更新数据
 this.setState((state) => ({
-	count: state.count + 1
+	count: state.count + 1,
 }))
 
 // 更新
 this.setState((state, props) => ({
-  counter: state.count + props.increment
-}));
+	counter: state.count + props.increment,
+}))
 ```
+
 :::
-::: code-group-item hooks方式
+::: code-group-item hooks 方式
+
 ```jsx
 const [count, setCount] = useState(0)
 
@@ -895,8 +916,9 @@ const [count, setCount] = useState(0)
 setCount(count + 1)
 
 // 更新最新的count
-setCount(count => count + 1)
+setCount((count) => count + 1)
 ```
+
 :::
 ::::
 
@@ -904,68 +926,68 @@ setCount(count => count + 1)
 
 :::: code-group
 ::: code-group-item SetStateDemo.jsx
+
 ```jsx
 import React from "react"
-import { flushSync } from 'react-dom'
+import {flushSync} from "react-dom"
 
 class SetStateDemo extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			count: 0,
-			version: React.version
+			version: React.version,
 		}
 	}
 
-    componentDidMount() {
-        console.log("react version: " + React.version)
-        document.getElementById("btn").addEventListener("click", this.changeCount, false)
-    }
-
-    componentDidUpdate() {
-        console.log("update count: " + this.state.count)
-    }
-
-    changeCount = () => {
-        this.setState({
-            count: this.state.count + 1
-        })
-
-        console.log("state: " + this.state.count)
-    }
-
-
-	changeCountWithSetTimeout = () => {
-        setTimeout(() => {
-            this.changeCount()
-        }, 0)
+	componentDidMount() {
+		console.log("react version: " + React.version)
+		document.getElementById("btn").addEventListener("click", this.changeCount, false)
 	}
 
-    changeCountWithPromise = () => {
-        Promise.resolve().then(() => {
-            this.changeCount()
-        })
-    }
+	componentDidUpdate() {
+		console.log("update count: " + this.state.count)
+	}
+
+	changeCount = () => {
+		this.setState({
+			count: this.state.count + 1,
+		})
+
+		console.log("state: " + this.state.count)
+	}
+
+	changeCountWithSetTimeout = () => {
+		setTimeout(() => {
+			this.changeCount()
+		}, 0)
+	}
+
+	changeCountWithPromise = () => {
+		Promise.resolve().then(() => {
+			this.changeCount()
+		})
+	}
 
 	changeCountWithFlushSync = () => {
-    flushSync(() => {
-      this.setState({
-        count: this.state.count + 1
-      })
-    })
+		flushSync(() => {
+			this.setState({
+				count: this.state.count + 1,
+			})
+		})
 
-    console.log("flushSync count: " + this.state.count)
+		console.log("flushSync count: " + this.state.count)
 	}
 
 	render() {
-        console.log("render count: " + this.state.count)
+		console.log("render count: " + this.state.count)
 		return (
 			<div>
 				<h3>React version: {this.state.version}</h3>
 				<div>count: {this.state.count}</div>
 
 				<button onClick={this.changeCount}>setState事件</button>
-       			<button id="btn">原生合成事件</button>
+				<button id="btn">原生合成事件</button>
 				<button onClick={this.changeCountWithSetTimeout}>setTimeout合成事件</button>
 				<button onClick={this.changeCountWithPromise}>setPromise合成事件</button>
 				<button onClick={this.changeCountWithFlushSync}>flushSync合成事件</button>
@@ -976,13 +998,12 @@ class SetStateDemo extends React.Component {
 
 export default SetStateDemo
 ```
+
 :::
 ::::
 
-
-
-
 ## 四. Class
+
 :::: code-group
 
 ::: code-group-item this.setState
@@ -1084,6 +1105,192 @@ class App extends React.Component {
   - componentDidMount()
   - componentDidUpdate()
   - componentWillUnmount()
+
+
+### Lifecycle Methods
+
+::::: details dispatch请求
+:::: code-group
+::: code-group-item Demo.jsx
+```jsx{12-18}
+import React from 'react'
+import { connect } from 'dva'
+
+
+@connect(({ namespace, loading }) => ({
+  namespace,
+  loading: loading.models.namespace
+}))
+export default class Demo extends React.Component {
+	state = {}
+
+	getList = () => {
+		const { dispatch } = this.props;
+		dispatch({
+			type: 'namespace/getlist',
+			payload: {}
+		})
+	}
+
+	componentDidMount() {
+		this.getList();
+	}
+
+	componentDidUpdate() {}
+
+	componentWillUnmount()
+
+	render() {
+		console.log(this.props.namespace.list)
+		return (
+			<>
+				<TableDemo />
+			<>
+		)
+	}
+}
+```
+:::
+::: code-group-item namespace.js
+```js{7,10,23}
+import { APIGetList } from '@/services/API'
+
+
+export default {
+	namespace: 'namespace',
+	state: {
+		list: []
+	},
+	effects: {
+		*getlist({ payload }, { call, put }) {
+			const response = yield call(APIGetList, payload);
+			// console.log(response)
+			// 数据处理方式
+			if (response) {
+				yield put({
+				type: 'getlist',
+				payload: response,
+				});
+			}
+		},
+	},
+	reducers: {
+		getlist(state, action) {
+			return {
+				...state,
+				list: action.payload.list,	// action.payload = response
+			};
+		},
+	}
+}
+```
+:::
+::: code-group-item API.js
+```js{11-12}
+import request from '@/utils/request'
+import { getToken } from '../utils/authority'
+
+
+export async function APIGetList(params) {
+  let tokenobj = getToken();
+  if (tokenobj.outtime) {
+    return;
+  }
+
+  return request('/api_server/api/v1/user', {
+    method: 'GET',
+    headers: {
+      Authorization: tokenobj.token,
+    },
+  });
+}
+```
+:::
+::::
+:::::
+
+::: details axios请求
+```jsx
+import React from "react"
+import axios from "axios"
+
+export default class AxiosEffect extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {}
+	}
+
+	async fetchData = () => {
+		const res = await axios.get("http://geek.itheima.net/v1_0/channels")
+		res
+			.then(function (response) {
+				let data = response.data
+				console.log(JSON.stringify(data, null, 2))
+			})
+			.catch(function (error) {
+				console.log(error)
+			})
+	}
+
+	componentDidMount() {
+		this.fetchData()
+	}
+
+	componentDidUpdate() {}
+
+	componentWillUnmount() {}
+
+	render() {
+		return (
+			<>
+				<TableDemo />
+			</>
+		)
+	}
+}
+```
+:::
+
+::: details fetch请求
+```jsx
+import React from "react"
+
+
+export default class FetchEffect extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {}
+	}
+
+	async fetchData = () => {
+		fetch("http://geek.itheima.net/v1_0/channels")
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data)
+			})
+			.catch((error) => {
+				console.error(`Could not get data: ${error}`)
+			})
+	}
+
+	componentDidMount() {
+		this.fetchData()
+	}
+
+	componentDidUpdate() {}
+
+	componentWillUnmount() {}
+
+	render() {
+		return (
+			<>
+				<TableDemo />
+			</>
+		)
+	}
+}
+```
+:::
 
 ## 五. Hooks
 
@@ -1280,6 +1487,122 @@ export default function App() {
 
 :::
 ::::
+
+### UseEffect
+
+::: tip 提示
+
+> 副作用: 1.ajax 请求 2.localstorage 操作 3.手动修改 dom
+
+```js
+依赖项控制执行时机: `useEffect` 是在 render(浏览器完成页面渲染) 之后执行
+a. 默认状态: 首次执行，每次组件更新执行
+b. []: 首次执行
+c. `[count]`：首次执行，依赖项变化时执行
+可接受`第二个参数`来控制跳过执行，下次render后如果指定的值没有变化就不会执行
+```
+
+:::
+
+::: danger 注意事项
+
+> `不可在其使用setCount()`, 否则会陷入死循环直至页面卡死
+
+:::
+
+```jsx{1,21-26}
+import React, {useState, useEffect} from "react"
+
+function App() {
+	const [count, setCount] = useState(0)
+
+	// 初始化时执行一次, 每次重新渲染时执行
+	useEffect(() => {
+		// componentDidMount + componentDidUpdate
+	})
+
+	// 只在初始化时执行一次
+	useEffect(() => {
+		// componentDidMount
+	}, [])
+
+	// 初始化时执行一次，每次依赖项改变时执行
+	useEffect(() => {
+		// componentDidMount + componentDidUpdate
+	}, [count])
+
+	useEffect(() => {
+		// componentDidMount + componentDidUpdate/
+		return () => {
+			// componentWillUnmount
+		}
+	}, [])
+
+	return (
+		<>
+			<div>Count: {count}</div>>
+		</>
+	)
+}
+
+export default App
+```
+
+::: details fetch 请求
+
+```jsx
+import React, {useEffect} from "react"
+
+export default function FetchEffect() {
+	function fetchData() {
+		fetch("http://geek.itheima.net/v1_0/channels")
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data)
+			})
+			.catch((error) => {
+				console.error(`Could not get data: ${error}`)
+			})
+	}
+
+	useEffect(() => {
+		fetchData()
+	}, [])
+
+	return <div>FetchEffect</div>
+}
+```
+
+:::
+
+::: details axios 请求示例
+
+```jsx
+import React, {useEffect} from "react"
+import axios from "axios"
+
+export default function AxiosEffect() {
+	async function fetchData() {
+		const res = await axios.get("http://geek.itheima.net/v1_0/channels")
+		res
+			.then(function (response) {
+				let data = response.data
+				console.log(JSON.stringify(data, null, 2))
+			})
+			.catch(function (error) {
+				console.log(error)
+			})
+	}
+
+	useEffect(() => {
+		fetchData()
+	}, [])
+
+	return <div>axiosDemo</div>
+}
+```
+
+:::
 
 ## Event Handles
 
@@ -2675,7 +2998,7 @@ import App from "./App"
 ReactDOM.render(<App />, document.getElementById("root"))
 ```
 
-10. Props与State的区别 ?
+10. Props 与 State 的区别 ?
 
 ```
 Props只读不能被修改
@@ -2684,21 +3007,21 @@ State能使用setState()修改，将重新渲染组件
 比喻: props -> const, state -> let
 ```
 
-11. 为何不能在render中调用setState() ？
+11. 为何不能在 render 中调用 setState() ？
 
 > 它会一直更新下去，直至程序错误
 
-12. 直接修改state与setState()有何区别 ？
+12. 直接修改 state 与 setState()有何区别 ？
 
 > 网页显示数值会不同，setState()会重新渲染组件，而直接修改不会重新渲染
 
 ```jsx
 state = {count: 0}
 // 不会重新渲染组件
-this.state.count = 5   // count: 5
+this.state.count = 5 // count: 5
 
 // 重新渲染组件
-this.setState({ count: this.state.count + 1})   // 6
+this.setState({count: this.state.count + 1}) // 6
 ```
 
 ## React 进阶
@@ -3080,4 +3403,3 @@ export default function App() {
 
 ::::
 :::::
-

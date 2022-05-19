@@ -1175,6 +1175,28 @@ const data = [
 */
 ```
 
+```js
+const primary_type_group = ["5d47c5495f627d43177c510e", "5d48f1aa5f627d5df72d9324", "6226c4e378a86400090548ce"]
+
+const type_groups = [
+    {id: "5d47c5495f627d43177c510e", name: "教育"},
+    {id: "5d48f1aa5f627d5df72d9324", name: "医疗"},
+    {id: "5d4b95965f627d4b4f386200", name: "消费"},
+    {id: "5d4bdb505f627d5b91da8d02", name: "文娱"},
+    {id: "5d50db2c5f627d1696cf9717", name: "SaaS"},
+    {id: "5d50db315f627d1696cf9719", name: "大数据"},
+    {id: "5d5e32f45f627d2932076a17", name: "人工智能"},
+    {id: "5d5e332a5f627d2932076a22", name: "金融"},
+    {id: "5d5e38fd5f627d2932076b19", name: "其他"},
+    {id: "61419c8212354a000ce5fbc8", name: "123"},
+    {id: "6141b72a3244850009c28781", name: "再就业"},
+    {id: "6226c4e378a86400090548ce", name: "IDTest"}
+]
+
+let res = type_groups.filter(item => primary_type_group.includes(item.id)).map(item => item.name)
+console.log(res)	// [ '教育', '医疗', 'IDTest' ]
+```
+
 ### 4. Map
 
 **创建 Map**
