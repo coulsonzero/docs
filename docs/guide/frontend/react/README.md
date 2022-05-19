@@ -2684,6 +2684,23 @@ State能使用setState()修改，将重新渲染组件
 比喻: props -> const, state -> let
 ```
 
+11. 为何不能在render中调用setState() ？
+
+> 它会一直更新下去，直至程序错误
+
+12. 直接修改state与setState()有何区别 ？
+
+> 网页显示数值会不同，setState()会重新渲染组件，而直接修改不会重新渲染
+
+```jsx
+state = {count: 0}
+// 不会重新渲染组件
+this.state.count = 5   // count: 5
+
+// 重新渲染组件
+this.setState({ count: this.state.count + 1})   // 6
+```
+
 ## React 进阶
 
 ### Children
