@@ -959,6 +959,7 @@ arr.reverse()
 arr.join('')     // 数组->字符串，默认','
 str.split('')    // 字符串->数组
 Array.form(str, [func])  // 字符串->数组
+console.log(Array.from({length: 5}, (v, i) => i))	// [0,1,2,3,4,5]
 
 // 数组---数组
 arr.concat()            // 数组合并，返回一个新数组
@@ -969,9 +970,11 @@ arr.map(v => v + 2)     // 返回新数组
 arr.forEach((item, index) => {...})
 arr.filter(n => n%2==0).map(el => sum += el); //统计偶数和
 
-::: code-group-item 去重
-arr.filter((v, i, self) => self.indexOf(v) === i)
+// 删除指定元素
+arr.filter(item => item != e)
 
+// 去重
+arr.filter((v, i, self) => self.indexOf(v) === i)
 // 去重
 let words = ['a', 'b', 'c', 'a', 'a', 'b', 'd'];
 
