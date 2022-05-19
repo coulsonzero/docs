@@ -1154,6 +1154,27 @@ console.log(Object.keys(data))
 // Output: [ 'title', 'dataIndex', 'fixed', 'width' ]
 ```
 
+```js
+const data = [
+  { id: '5d47c5495f62', name: '数字', rank: 0 },
+  { id: '5d48f1aa5f62', name: '金融', rank: 1 },
+  { id: '5d4b95965f62', name: '消费', rank: 1 },
+  { id: '5d4bdb505f62', name: '娱乐', rank: 2 },
+]
+
+let res = data.map(item => item = {id: item.id, name: item.name})
+console.log(res)
+
+/*
+const data = [
+  { id: '5d47c5495f62', name: '数字' },
+  { id: '5d48f1aa5f62', name: '金融' },
+  { id: '5d4b95965f62', name: '消费' },
+  { id: '5d4bdb505f62', name: '娱乐' },
+]
+*/
+```
+
 ### 4. Map
 
 **创建 Map**
