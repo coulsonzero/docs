@@ -1143,15 +1143,23 @@ Object.values(obj)
 ```
 
 ```js
-const data = {
+const obj = {
   title: '项目名称',
   dataIndex: 'projectName',
   fixed: 'left',
   width: 100
 };
 
-console.log(Object.keys(data))
+console.log(Object.keys(obj))
 // Output: [ 'title', 'dataIndex', 'fixed', 'width' ]
+
+
+// 通过对象值返回对应的键
+function getkeyByvalue(object, value) {
+    return Object.keys(object).find(key => object[key] === value)
+}
+
+console.log(obj, "left")
 ```
 
 ```js
@@ -1381,6 +1389,8 @@ console.log(s.name) // "Bob"
 console.log(s.age) // 18
 console.log(s.sex) // "male"
 console.log(s.xp) // "2"
+
+
 ```
 
 ### 解构
