@@ -25,7 +25,7 @@ sidebar: false
 # comment: false
 ---
 
-::: demo Demo 演示
+::: normal-demo Demo 演示
 
 ```html
 <h1>VuePress Theme Hope</h1>

@@ -224,7 +224,7 @@ console.log("Hello world!")
 
 ### code-demo
 
-::: demo [react] React Demo
+::: react-demo React Demo
 
 ```js
 export default class App extends React.Component {
@@ -271,8 +271,85 @@ button:hover {
 	background: skyblue;
 }
 ```
-
 :::
+
+:::::: details 点击查看代码
+::::: code-group
+:::: code-group-item Normal
+````md
+::: normal-demo Demo 演示
+```html
+<div>Hello World !</div>
+```
+```css
+* {
+	margin: 0;
+	paddinh: 0;
+	box-sizing: border-box;
+}
+```
+:::
+````
+::::
+:::: code-group-item Vue
+````md
+::: vue-demo 一个 Vue Option 演示
+
+```vue
+<template>
+	<div>{{ message }}</div>
+</template>
+
+<script>
+	export default {
+		data: () => ({ message: "Hello World!" }),
+	}
+</script>
+
+<style>
+	* {
+		margin: 0;
+		paddinh: 0;
+		box-sizing: border-box;
+	}
+</style>
+```
+:::
+````
+::::
+:::: code-group-item React
+````md
+::: react-demo React示例
+```js
+// import React from 'react'
+
+class Comp extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			name: "coulson",
+		}
+	}
+
+	render() {
+		return <div>Hello, {this.state.name}</div>
+	}
+}
+
+export default Comp
+```
+```css
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+```
+:::
+````
+::::
+:::::
+::::::
 
 ### ECharts
 

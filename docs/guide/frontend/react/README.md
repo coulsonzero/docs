@@ -337,7 +337,7 @@ ReactDOM.render(
 
 ### 3.1 JSX 渲染
 
-::: demo [react] 元素渲染
+::: react-demo 元素渲染
 
 ```js
 // import React from 'react'
@@ -360,7 +360,7 @@ export default Comp
 
 :::
 
-::: demo [react] 列表渲染
+::: react-demo 列表渲染
 
 ```js
 // import React from 'react'
@@ -384,7 +384,7 @@ export default Comp
 
 :::
 
-::: demo [react] 对象渲染
+::: react-demo 对象渲染
 
 ```js
 // import React from 'react'
@@ -419,7 +419,7 @@ export default Comp
 
 :::
 
-::: demo [react] 对象渲染示例
+::: react-demo 对象渲染示例
 
 ```js
 // import React from "react"
@@ -627,11 +627,10 @@ export default function Expenses() {
 ```
 
 :::
-::::
 
 ### 3.2 Props 传参
 
-::: demo [react] props 传参
+::: react-demo props 传参
 
 ```js
 class ChildClass extends React.Component {
@@ -760,7 +759,7 @@ export default Demo
 
 :::
 
-::: demo [react] class State
+::: react-demo class State
 
 ```js
 class Demo extends React.Component {
