@@ -220,7 +220,6 @@ console.log("Hello world!")
 ::::
 :::::
 
-
 ## vurpress-theme-hope
 
 ### code-demo
@@ -229,25 +228,25 @@ console.log("Hello world!")
 
 ```js
 export default class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-		count: 0
+	constructor(props) {
+		super(props)
+		this.state = {
+			count: 0,
+		}
 	}
-  }
-  handleClick() {
-    this.setState((state) => ({
-      count: state.count + 1
-    }))
-  }
-  render() {
-    return (
-      <div>
-	  	<div>Count: {this.state.count}</div>
-        <button onClick={this.handleClick.bind(this)}>Click Me</button>
-      </div>
-    );
-  }
+	handleClick() {
+		this.setState((state) => ({
+			count: state.count + 1,
+		}))
+	}
+	render() {
+		return (
+			<div>
+				<div>Count: {this.state.count}</div>
+				<button onClick={this.handleClick.bind(this)}>Click Me</button>
+			</div>
+		)
+	}
 }
 ```
 
@@ -265,7 +264,7 @@ button {
 	outline: none;
 	background: transparent;
 	border: 1px solid #323232;
-	transiton: background .15s ease .1s;
+	transiton: background 0.15s ease 0.1s;
 }
 
 button:hover {
@@ -274,4 +273,156 @@ button:hover {
 ```
 
 :::
+
+### ECharts
+
+::: echarts 一个柱状图案例
+
+```json
+{
+	"title": {
+		"text": "ECharts 入门示例"
+	},
+	"tooltip": {},
+	"xAxis": {
+		"data": ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+	},
+	"yAxis": {},
+	"series": [
+		{
+			"name": "销量",
+			"type": "bar",
+			"data": [5, 20, 36, 10, 10, 20]
+		}
+	]
+}
+```
+
+:::
+
+::: echarts 雷达图案例
+
+```json
+{
+	"legend": [
+		{
+			"top": "70%",
+			"right": 30,
+			"itemGap": 12,
+			"textStyle": {
+				"fontSize": 12,
+				"color": "#EFF4FF"
+			},
+			"icon": "circle",
+			"orient": "vertical",
+			"align": "left"
+		}
+	],
+	"tooltip": {},
+	"radar": {
+		"center": ["40%", "50%"],
+		"indicator": [
+			{
+				"name": "产品A",
+				"max": 50
+			},
+			{
+				"name": "产品B",
+				"max": 50
+			},
+			{
+				"name": "产品C",
+				"max": 50
+			},
+			{
+				"name": "产品D",
+				"max": 50
+			},
+			{
+				"name": "产品E",
+				"max": 50
+			},
+			{
+				"name": "产品F",
+				"max": 50
+			}
+		],
+		"splitNumber": 5,
+		"startAngle": 0,
+		"name": {
+			"textStyle": {
+				"color": "#EFF4FF"
+			}
+		},
+		"splitLine": {
+			"lineStyle": {
+				"color": "#1A466B"
+			}
+		},
+		"splitArea": {
+			"show": false
+		},
+		"axisLine": {
+			"lineStyle": {
+				"color": "#1A466B"
+			}
+		}
+	},
+	"series": [
+		{
+			"type": "radar",
+			"data": [
+				{
+					"name": "每日新增",
+					"lineStyle": {
+						"normal": {
+							"color": "#8C25FF",
+							"width": 1
+						}
+					},
+					"value": [33, 33, 46, 46, 47, 37, 44],
+					"itemStyle": {
+						"normal": {
+							"color": "#8C25FF"
+						}
+					},
+					"areaStyle": {
+						"normal": {
+							"color": "#8C25FF",
+							"opacity": 0.2
+						}
+					}
+				},
+				{
+					"name": "累计新增",
+					"lineStyle": {
+						"normal": {
+							"color": "#0078FF",
+							"width": 1
+						}
+					},
+					"value": [39, 45, 46, 41, 38, 43, 39],
+					"itemStyle": {
+						"normal": {
+							"color": "#0078FF"
+						}
+					},
+					"areaStyle": {
+						"normal": {
+							"color": "#0078FF",
+							"opacity": 0.2
+						}
+					}
+				}
+			]
+		}
+	]
+}
+```
+
+:::
+
+
+
+
 

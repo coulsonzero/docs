@@ -22,7 +22,7 @@
 		"vuepress-plugin-comment2": "^2.0.0-beta.56",
 		"vuepress-plugin-copy-code2": "^2.0.0-beta.56",
 		"vuepress-plugin-demo-block": "^0.7.2",
-		"vuepress-plugin-md-enhance": "^2.0.0-beta.56",
+		"vuepress-plugin-md-enhance": "2.0.0-beta.64",
 		"vuepress-vite": "^2.0.0-beta.27"
 	},
 	"dependencies": {

@@ -30,6 +30,8 @@ const pluginConfig: DefaultThemePluginsOptions = [
 			demo: true,
 			// 启用图表
 			chart: true,
+			// echarts
+			echarts: true,
 		}),
 	],
 	[
