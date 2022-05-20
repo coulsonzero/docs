@@ -1341,6 +1341,8 @@ eval("(" + str + ")")
 
 // 将json对象转换为json字符串
 JSON.stringify(obj)
+// 美化输出
+JSON.stringify(obj, null, 2)
 ```
 
 ---

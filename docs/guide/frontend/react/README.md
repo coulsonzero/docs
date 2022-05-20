@@ -329,6 +329,10 @@ ReactDOM.render(
 :::
 ::::
 
+
+
+#### react
+
 ## 三. 核心概念
 
 ### 3.1 JSX 渲染
@@ -1488,7 +1492,7 @@ export default function App() {
 :::
 ::::
 
-### UseEffect
+### 5.2 UseEffect
 
 ::: tip 提示
 
@@ -1603,6 +1607,8 @@ export default function AxiosEffect() {
 ```
 
 :::
+
+
 
 ## Event Handles
 
@@ -2249,17 +2255,45 @@ export default function App() {
 
 :::
 
-## React with Redux
 
-> 安装 redux 包
+## 七. package.json 依赖
+
+> "dependencies": 生产环境所需要的依赖，
+>
+> "devDependencies": 开发环境所需要的依赖；
+
+```sh
+生产环境	npm i --save xxx，npm i -S xxx   (dependencies)
+开发环境	npm i --save-dev，npm i -D xxx   (devDependencies)
+全局安装	npm i -g xxx   (安装到磁盘)
+```
+### 7.1 Scss
+
+> CSS预处理器, 功能更强大，比less好用
+
+1. 安装
+```sh
+yarn add sass -D 	// -D表示开发环境想要依赖，生产环境不依赖
+```
+2. 使用方法
+```jsx
+import "./index.scss"
+```
+
+### 7.2 Redux
+
+> 状态管理
+
+安装 redux 包
 
 ```sh
 $ yarn add --save redux react-redux
 ```
 
 - 使用 state 显示 reducer 数据
-  :::: code-group
-  ::: code-group-item reducer.js
+
+:::: code-group
+::: code-group-item reducer.js
 
 ```js
 // src/store/reducer.js
@@ -2749,7 +2783,14 @@ export default connect(null, mapDipatchToProps)(AddPeosonForm)
 :::
 ::::
 
-## react-route-dom
+### 7.3 react-router-dom
+
+> 路由
+
+```sh
+yarn add react-router-dom
+```
+
 
 ::: tip
 [login](http://localhost:3000/login)
@@ -2877,6 +2918,169 @@ export default Navbar
 :::
 
 ::::
+
+### 7.4 antd
+
+> 阿里开发的React组件库
+
+```
+yarn add antd
+```
+
+修改 src/App.css，在文件顶部引入 antd/dist/antd.css
+```css
+@import '~antd/dist/antd.css';
+```
+
+### 7.5 craco
+
+> 使用 "@/components/Header" 代替 "./components/Header"
+>
+> 配合jsconfig.json配置@/别名提示
+
+1. 安装craco
+```sh
+yarn add @craco/craco
+```
+
+2. 创建craco.config.js配置路径别名
+```js
+const path = require('path')
+
+module.exports = {
+	webpack: {
+		alias: {
+			'@': path.resolve(__dirname, 'src')
+		}
+	}
+}
+```
+
+3. 修改package.json
+
+```json
+"scripts": {
+	"start": "react-scripts start",
+	"build": "react-scripts build",
+},
+```
+改为
+```json
+"scripts": {
+	"start": "craco start",
+	"build": "craco build",
+},
+```
+
+4. 通过@表示src目录路径
+
+```jsx
+import { Header } from '@/components/header'
+```
+
+5. 重启项目生效
+```sh
+yarn start
+```
+### 7.6 jsconfig.json
+
+> 别名@路径提示
+
+```js
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
+```
+
+```jsx
+import { Header } from '@/components/header'
+```
+
+
+### 7.7 axios
+
+> 前端接口请求，有拦截器，比原生fetch更强大
+
+```sh
+yarn add axios
+```
+
+```jsx
+import axios from 'axios'
+```
+
+```jsx
+async function axiosFetch() {
+	let url = "http://geek.itheima.net/v1_0/channels"
+	await axios.get(url)
+		.then(function (response) {
+			let data = response.data
+			console.log(JSON.stringify(data, null, 2))
+		})
+		.catch(function (error) {
+			console.log(error)
+		})
+}
+```
+
+### 7.8 ECharts
+
+1. 安装echarts
+```sh
+yarn add echarts
+```
+
+2. 挂载echarts
+```jsx
+import React from 'react'
+import * as echarts from 'echarts'
+import { useEffect, useRef  } from 'react'
+
+const BarChart = () => {
+    // 使用ref获取dom元素
+    const domRef = useRef()
+
+    function chartInit() {
+        const myChart = echarts.init(domRef.current)
+
+        myChart.setOption({
+            title: {
+                text: "ECharts 入门示例"
+            },
+            tooltip: {},
+            xAxis: {
+                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+            },
+            yAxis: {},
+            series: [
+                {
+                    name: "销量",
+                    type: "bar",
+                    data: [5, 20, 36, 10, 10, 20]
+                }
+            ]
+        })
+    }
+
+    // 控制挂载时机
+    useEffect(() => {
+        chartInit()
+    }, [])
+
+    return (
+        <div>
+            <div ref={domRef} style={{width: '600px', height: '400px'}}></div>
+        </div>
+    )
+}
+
+export default BarChart
+```
 
 ## Other
 
