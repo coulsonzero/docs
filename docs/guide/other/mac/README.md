@@ -1,7 +1,7 @@
 # Mac使用指南
 
 
-[面试](../../algorithm/Interview/README.md)
+<!-- [面试](../../algorithm/Interview/README.md) -->
 
 [Mac触控板手势](./gestures.md)
 
@@ -30,3 +30,5 @@
 [MacBook激活IDEA2021ARM最新版教程](./idealicence.md)
 
 [Mac查看已连接的wifi密码](./wifipassword.md)
+
+[在终端中执行code .](./codeTerminal.md)

@@ -103,8 +103,8 @@ const sidebarConfig = {
 			title: "antd",
 			collapsable: false,
 			sidebarDepth: 1,
-			children: ["README.md", "table.md"]
-		}
+			children: ["README.md", "table.md"],
+		},
 	],
 	"/guide/other/mac/": [
 		{
@@ -128,6 +128,7 @@ const sidebarConfig = {
 				"ssh.md",
 				"terminal.md",
 				"wifipassword.md",
+				"codeTerminal.md",
 			],
 		},
 	],
@@ -155,7 +156,7 @@ const sidebarConfig = {
 			title: "JavaScript",
 			collapsable: false,
 			sidebarDepth: 1,
-			children: ["README.md", ],
+			children: ["README.md"],
 		},
 	],
 	"/guide/operations/": [

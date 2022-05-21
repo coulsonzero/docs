@@ -3,12 +3,15 @@
  *                 code
  * ----------------------------------------
  */
+
+
 div[class*="language-"] {
     background-color: #343434;
 }
 html.dark {
     div[class*="language-"] {
-        background-color: hsla(0, 0%, 19%, 1);
+        // background-color: #303030;
+        background-color: #2d333b;
     }
 }
 div[class*="language-"] .highlight-lines .highlight-line {
@@ -92,4 +95,44 @@ div[class*=language-].line-numbers-mode .line-numbers .line-number {
 
 code {
     color: rgb(201, 209, 217) !important;
+}
+
+
+
+
+
+/**
+ * ------------------------------
+ *          code-group
+ * ------------------------------
+ */
+
+.code-group {
+    border: 1px solid #444c56;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+    .code-group__nav {
+        margin-top: 0;
+    }
+    .code-group-item {
+        div[class*=language-] {
+            border-radius: 0px;
+            .copy-code-button {
+                bottom: 6px;
+                right: 2px !important;
+            }
+            pre[class*=language-] {
+                margin-bottom: 0 !important;
+            }
+        }
+    }
+}
+
+
+html:not(.dark) .code-group {
+    border-radius: 10px;
+    .theme-default-content pre, .theme-default-content pre[class*=language-] {
+        padding: 16px !important;
+    }
 }
