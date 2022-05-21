@@ -2101,17 +2101,17 @@ window.onload = function () {
 
 ### GetElements
 
-```
+```js
+document.querySelector()
+document.querySelectorAll()
 document.getElementById(id)
 document.getElementsByTagName(name)
 document.getElementsByClassName(classname)
-document.querySelector()
-document.querySelectorAll()
 ```
 
 ### SetElements
 
-```
+```js
 element.innerHTML = new html content
 element.attribute = new value
 element.setAttribute(attribute, value)
@@ -2120,7 +2120,7 @@ element.style.property = new style
 
 ### AddElement & RemoveElement
 
-```
+```js
 document.createElement(element)
 document.removeChild(element)
 document.appendChild(element)
@@ -2135,12 +2135,22 @@ childNodes[0]
 
 ### Event
 
-```
-document.querySelector(id).onclick = function(){code}
-document.querySelector(id).click(function() {...})
-document.querySelector(id).on("click", function() {...})
+```js{13}
+document.querySelector(id).onclick = function(){
+	...
+}
 
-document.querySelector(id).addEventListener("click", function(){...}
+document.querySelector(id).click(function() {
+	...
+})
+
+document.querySelector(id).on("click", function() {
+	...
+})
+
+document.querySelector(id).addEventListener("click", function(){
+	...
+})
 document.querySelector(id).removeEventListener()
 
 mouseover
@@ -2152,6 +2162,7 @@ change
 focus
 onload
 resize
+scroll
 ```
 
 ### 浏览器宽高
@@ -2171,13 +2182,26 @@ resize
 </script>
 ```
 
-```
+```js
+window.addEventListener("scroll", function () {})
+
+
 window.innerWidth
 window.innerHeight
+// 滚动距离
+window.scrollY
 window.open() - 打开新窗口
 window.close() - 关闭当前窗口
 window.moveTo() -移动当前窗口
 window.resizeTo() -重新调整当前窗口
+```
+
+```js
+window.addEventListener("scroll", function () {
+  if (window.scrollY >= 80) {
+	  ...
+  }
+})
 ```
 
 ```

@@ -476,29 +476,18 @@ filter: drop-shadow(5px 5px 2px gray);
 滚动条
 
 ```css
-/* 滚动条背景色 */
-::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-body::-webkit-scrollbar {
-    background: #fff;
-}
-/* 滚动条色 */
-::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb {
-    background-color: rgba(87, 93, 108, 0.6);
-    /*
-    linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 47%, #45D4FB 100%);
-    */
-    border-radius: 4px;
-}
-
-/* 滚动条宽高 */
-::-webkit-scrollbar,
-body::-webkit-scrollbar,
-body::-webkit-scrollbar-thumb {
-    width: 8px;
-    height: 10px;
+html{
+    &::-webkit-scrollbar {
+        width: .8rem;
+    }
+    /* 滚动条背景色 */
+    &::-webkit-scrollbar-track {
+        background: #000;
+    }
+    /* 滚动条色 */
+    &::-webkit-scrollbar-thumb {
+        background: #0097e6;
+    }
 }
 ```
 
