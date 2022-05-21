@@ -151,6 +151,7 @@ html.dark {
     }
     .code-demo-code-wrapper {
         margin-bottom: -14px !important;
+        transition: height .5s;
         pre[class*="language-"] {
             margin-top: 0 !important;
             margin-bottom: 0 !important;

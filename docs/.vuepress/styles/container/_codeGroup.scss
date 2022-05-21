@@ -89,3 +89,7 @@ html:not(.dark) {
 div[class*=language-].line-numbers-mode .line-numbers .line-number {
     height: auto !important;
 }
+
+code {
+    color: rgb(201, 209, 217) !important;
+}

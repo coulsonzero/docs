@@ -100,10 +100,6 @@
     }
 
     html.dark {
-        * {
-            transition: 0.15s ease-in-out .1s;
-            -webkit-transition: 0.15s ease-in-out .1s;
-        }
         .no-sidebar {
             background: hsla(0, 0%, 27%, 0.847);
         }
