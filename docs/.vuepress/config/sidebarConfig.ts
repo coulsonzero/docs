@@ -129,6 +129,7 @@ const sidebarConfig = {
 				"terminal.md",
 				"wifipassword.md",
 				"codeTerminal.md",
+				"hardDiskEncryption.md",
 			],
 		},
 	],

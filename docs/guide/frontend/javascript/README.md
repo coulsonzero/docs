@@ -2190,10 +2190,12 @@ window.innerWidth
 window.innerHeight
 // 滚动距离
 window.scrollY
+window.pageYOffset
 window.open() - 打开新窗口
 window.close() - 关闭当前窗口
 window.moveTo() -移动当前窗口
 window.resizeTo() -重新调整当前窗口
+window.scroll({ top: 0 });
 ```
 
 ```js
@@ -2202,6 +2204,21 @@ window.addEventListener("scroll", function () {
 	  ...
   }
 })
+```
+
+置顶按钮
+
+```js
+const scrollToTop = document.querySelector(".scrollToTop");
+
+window.addEventListener("scroll", () => {
+  window.pageYOffset > 400
+    ? (scrollToTop.style.display = "block")
+    : (scrollToTop.style.display = "none");
+});
+scrollToTop.addEventListener("click", () => {
+  window.scroll({ top: 0 });
+});
 ```
 
 ```

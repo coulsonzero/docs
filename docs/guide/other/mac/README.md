@@ -32,3 +32,5 @@
 [Mac查看已连接的wifi密码](./wifipassword.md)
 
 [在终端中执行code .](./codeTerminal.md)
+
+[Mac 如何给 移动硬盘 加密](./hardDiskEncryption.md)
