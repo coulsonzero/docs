@@ -508,10 +508,31 @@ frameborder="0": 移除边框
 
 ### Video (视频)
 
-```HTML
+::: normal-demo Video演示
+```html
+<video controls width="250">
+    <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm">
+    <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+    Sorry, your browser doesn't support embedded videos.
+</video>
+```
+:::
+
+
+:::tip Video选项
+`controls`: 必填项
+
+`autoplay`: 可选项, 自动播放
+
+`loop`: 可选项, 循环播放
+
+`muted`: 音频，设置后，音频会初始化为静音。默认值是 false
+:::
+
+```html
 <video width="320" height="240" controls autoplay loop>
-	<source src="demo1.mp4" type="video/mp4">
-    <source src="movie.ogg" type="video/ogg">
+	<source src="/demo1.mp4" type="video/mp4">
+    <source src="/movie.ogg" type="video/ogg">
 </video>
 ```
 
@@ -524,6 +545,7 @@ function playPause(){
    myVideo.pause();
 }
 ```
+
 
 ### Audio (音频)
 

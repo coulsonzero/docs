@@ -384,6 +384,9 @@ div {
     background: #32CD32;
     /* hover平滑特效 */
     transition: width 2s ease-in;
+    will-change: width;
+    transition: opacity 100ms 800ms cubic-bezier(0.39, 0.575, 0.565, 1);
+    will-change: opacity;
     /* 旋转 */
     transform: rotate(10deg);
     transform: rotateX(50deg) rotateY(80deg) rotateZ(20deg);
@@ -402,6 +405,7 @@ div {
   /* 3D转换 */
   	transform: rotateX(90deg)/rotateY()/rotateX()/none/rotate3d();
   	translateX(9px)/translateY(5em)/translateZ(-13px)/translate3d(9px, 5em, -13px);scale3d();
+    transform-origin: top left;
 }
 div:hover {
     width: 250px;
@@ -496,13 +500,17 @@ html{
 
 文字不可选中复制
 ```css
-user-select: none
+user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+-webkit-user-select: none;
 ```
 
 图片不可拖动
 ```css
 img {
     user-drag: none;
+    -webkit-user-drag: none;
 }
 ```
 

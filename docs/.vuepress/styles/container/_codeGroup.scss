@@ -93,8 +93,15 @@ div[class*=language-].line-numbers-mode .line-numbers .line-number {
     height: auto !important;
 }
 
-code {
-    color: rgb(201, 209, 217) !important;
+html.dark {
+    code {
+        color: rgb(201, 209, 217) !important;
+    }
+}
+html:not(.dark) {
+    code {
+        background: rgb(206, 233, 244);
+    }
 }
 
 
