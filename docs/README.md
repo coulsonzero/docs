@@ -157,7 +157,7 @@ npm run start
 | [wanderful](https://wanderful.index.studio/en/live/)        |
 | [Caarea](https://www.caarea.com/en/)                        |
 | [steelwavellc]                                              |
-| [avexdesigns](https://avexdesigns.com)                      |
+
 
 <div style="text-align:center; color: rgba(0,0,0,.3); padding: 50px 0 30px 0; html.dark {color: rgb(201 201 170 / 32%)}">MIT Licensed | Copyright © 2022 CoulsonZero</div>
 
