@@ -689,7 +689,7 @@ func (x Cart) show() {
 ::: code-group-item 创建数组
 ```go{8}
 // 声明一个数组再初始化
-var arr [5]int
+var arr [5]int 		// [5] or [] or [...]
 arr[0] = 1
 arr[1] = 3
 
