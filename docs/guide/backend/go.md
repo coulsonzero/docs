@@ -535,7 +535,7 @@ func main() {
 ::::
 
 
-### Structs
+### Structs 结构体
 
 :::: code-group
 ::: code-group-item 类
@@ -631,7 +631,7 @@ func (ptr *Car) change(c string) {
 }
 
 func main() {
-    c := Contact("white", "Ferrari", "2"}  //创建类对象
+    c := Contact("white", "Ferrari", "2")  //创建类对象
     // c := Contact(color:"white", brand:"Ferrari", year:"2"}
     // c := &Contact("white", "Ferrari", "2"}
     fmt.Println(x.color)
@@ -675,6 +675,29 @@ func (x Cart) show() {
 ::::
 
 
+### Interface 接口
+
+```go
+type Person interface {
+	say()
+}
+
+type Student struct {
+
+}
+
+func (Student Person) say() {
+	fmt.Println("Hello, I'm a student.")
+}
+
+func main() {
+	var person Person
+
+	person = new(Student)
+	person.say()
+}
+
+```
 
 
 ### Array 数组
@@ -829,16 +852,25 @@ func sum(nums ...int) int {
 :::: code-group
 ::: code-group-item 创建动态数组
 ```go
-arr := make([]int, 3)    //初始默认值为0: [0, 0, 0]
+arr := make([]type, len, cap)	// len：长度; cap: 容器大小, 可选参数
+arr := make([]int, 3)    		// 初始默认值为0: [0, 0, 0]
+arr := []int {2, 7, 3}			// 切片初始化
 
-var s[] int = arr[1:3]      // 切片查询：s := arr[1:3]
+fmt.Printf("len=%d cap=%d slice=%v\n",len(x),cap(x),x)
 ```
 :::
 ::: code-group-item Api
 ```go
-arr = append(arr, 8)        // 末尾新增
+// 增加(末尾)
+arr = append(arr, 8)
 arr = append(arr, 1, 2, 3)
-sum(arr)
+
+// 扩容
+newArr := make([]int, len(arr), (cap(arr)*2))
+copy(newArr, arr)
+
+// 截取
+arr[1:3]
 ```
 :::
 ::: code-group-item 遍历
@@ -902,7 +934,7 @@ func main() {
 :::
 ::: code-group-item Api
 ```go
-delete(m, "Jame")
+delete(countries, "us")
 ```
 :::
 ::: code-group-item Example
@@ -1377,6 +1409,26 @@ select {
 ```
 
 :::
+
+### Error异常处理
+
+```go
+func Sqrt(f float64) (float64, error) {
+    if f < 0 {
+        return 0, errors.New("math: square root of negative number")
+    }
+    // 实现
+}
+```
+
+```go
+func main() {
+    db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+    if err != nil {
+        fmt.Println(err)
+    }
+}
+```
 
 ## FAQ
 ### GO简介
