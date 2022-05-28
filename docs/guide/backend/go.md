@@ -345,15 +345,22 @@ switch {
 :::: code-group
 ::: code-group-item for
 
-```go{9}
+```go{16}
 for i := 0; i < len(nums); i++ {
     fmt.Println(i, nums[i])
 }
 
+// 读取 key 和 value
 for i, v := range nums {
     fmt.Println(i, v)
 }
 
+// 仅读取 key
+for i := range nums {
+	fmt.Println(nums[i])
+}
+
+// 仅读取 value
 for _, v := range nums {
     fmt.Println(v)
 }
