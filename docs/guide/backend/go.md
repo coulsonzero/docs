@@ -225,8 +225,13 @@ func main() {
 	fmt.Print("go>>> ")
 	// 换行
 	fmt.Println("Hello, World!")
-	// 格式化
+
+	// 格式化输出
 	fmt.Printf("name: %s, age: %d.\n", "coulson", 20)
+
+	// 格式化输入(赋值)
+	s := fmt.Sprintf("name: %s, age: %d.\n", "coulson", 20)
+	fmt.Println(s)
 }
 
 /*
@@ -456,7 +461,9 @@ func main() {
 :::
 ::::
 
-### Pointer 指针(浅拷贝)
+### Pointer 指针
+
+> 浅拷贝: 修改其中一个，另一个也会随之改变
 
 :::: code-group
 ::: code-group-item pointer
@@ -649,7 +656,7 @@ func (x Cart) show() {
 
 
 
-### Array
+### Array 数组
 
 ::: warning
 > 一旦声明，长度固定无法修改，需要动态扩展数据参考`make([]int 5)`
@@ -792,7 +799,7 @@ func sum(nums ...int) int {
 ```
 :::
 
-### List
+### 切片
 
 :::: code-group
 ::: code-group-item 创建动态数组
@@ -845,7 +852,7 @@ func main() {
 :::
 ::::
 
-### Map
+### Map 哈希表
 
 :::: code-group
 ::: code-group-item 创建Map
