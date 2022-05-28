@@ -42,7 +42,7 @@ func main() {
 :::
 
 ::: tip
-> 变量类型:
+> 数据类型:
 >
 > int
 >
@@ -318,12 +318,14 @@ x := 8
 switch y := x%2; y {
     case ...:
         //statement(s)        //不需要break
+	case ...:
+		//statement(s)
     default:
         //statement(s)
 }
 ```
 :::
-::: code-group-item switch2
+::: code-group-item switch条件判断
 ```go
 /* switch版的 if statement */
 x := 2
@@ -333,6 +335,7 @@ switch {
     case x>10:
         //statement(s)
 }
+//  fallthrough: 执行多个case；默认只会执行一个，不需要break，支持多条件匹配
 ```
 :::
 ::::
