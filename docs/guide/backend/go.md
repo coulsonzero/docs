@@ -672,75 +672,6 @@ func (x Cart) show() {
 }
 ```
 :::
-::: code-group-item struct排序1
-```go
-package main
-
-import (
-	"fmt"
-	"sort"
-)
-
-type Student struct {
-	name string
-	age  int
-}
-
-// ByAge implements sort.Interface for []Person based on
-type ByAge []Student
-
-func (a ByAge) Len() int           { return len(a) }
-func (a ByAge) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func (a ByAge) Less(i, j int) bool { return a[i].age < a[j].age }
-
-func main() {
-	student := []Student{
-		{"Bob", 31},
-		{"John", 42},
-		{"Michael", 17},
-		{"John", 22},
-		{"Jenny", 26},
-	}
-
-	// 方式一
-	// sort.Sort(ByAge(student))
-	// 方式二
-	sort.Slice(student, func(i, j int) bool { return student[i].age < student[j].age })
-	// sort.Slice(student, func(i, j int) bool { return student[i].name < student[j].name })
-	fmt.Println(student)
-}
-
-// Output: [{Michael 17} {John 22} {Jenny 26} {Bob 31} {John 42}]
-```
-:::
-::: code-group-item struct排序2
-```go
-package main
-
-import (
-	"fmt"
-	"sort"
-)
-
-func main() {
-	people := []struct {
-		Name string
-		Age  int
-	}{
-		{"Gopher", 7},
-		{"Alice", 55},
-		{"Alice", 35},
-		{"Vera", 24},
-		{"Bob", 75},
-	}
-	sort.Slice(people, func(i, j int) bool { return people[i].Name < people[j].Name })
-	fmt.Println("By name:", people) // By name: [{Alice 55} {Alice 35} {Bob 75} {Gopher 7} {Vera 24}]
-
-	sort.Slice(people, func(i, j int) bool { return people[i].Age < people[j].Age })
-	fmt.Println("By age:", people) // By age: [{Gopher 7} {Vera 24} {Alice 35} {Alice 55} {Bob 75}]
-}
-```
-:::
 ::::
 
 
@@ -864,54 +795,6 @@ func main() {
     }
 
     fmt.Println(route(cities))
-}
-```
-:::
-::: code-group-item 数字排序
-```go
-package main
-
-import (
-	"fmt"
-	"sort"
-)
-
-func main() {
-	nums := []int{5, 2, 6, 3, 1, 4}
-	sortNums(nums)			// {1,2,3,4,5,6}
-	// reverseNums(nums)	// {6,5,4,3,2,1}
-	fmt.Println(nums)
-}
-
-func sortNums(nums []int) []int {
-	sort.Ints(nums)
-	return nums
-}
-
-func sortNums2(nums []int) []int {
-	sort.Sort(sort.IntSlice(nums))
-	return nums
-}
-
-func reverseNums(nums []int) []int {
-	sort.Sort(sort.Reverse(sort.IntSlice(nums)))
-	return nums
-}
-```
-:::
-::: code-group-item 字符串数组排序
-```go
-package main
-
-import (
-	"fmt"
-	"sort"
-)
-
-func main() {
-	s := []string{"Go", "Bravo", "Gopher", "Alpha", "Grin", "Delta"}
-	sort.Strings(s)		// [Alpha Bravo Delta Go Gopher Grin]
-	fmt.Println(s)
 }
 ```
 :::
@@ -1570,4 +1453,185 @@ Go 是一种用于编写系统的语言
 // +build ignore
 
 package main
+```
+
+## Libs 标准库
+
+### sort
+
+:::: code-group
+::: code-group-item 数字排序
+```go{16,26}
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+func main() {
+	nums := []int{5, 2, 6, 3, 1, 4}
+	sortNums(nums)			// {1,2,3,4,5,6}
+	// reverseNums(nums)	// {6,5,4,3,2,1}
+	fmt.Println(nums)
+}
+
+func sortNums(nums []int) []int {
+	sort.Ints(nums)
+	return nums
+}
+
+func sortNums2(nums []int) []int {
+	sort.Sort(sort.IntSlice(nums))
+	return nums
+}
+
+func reverseNums(nums []int) []int {
+	sort.Sort(sort.Reverse(sort.IntSlice(nums)))
+	return nums
+}
+```
+:::
+::: code-group-item 字符串数组排序
+```go{10}
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+func main() {
+	s := []string{"Go", "Bravo", "Gopher", "Alpha", "Grin", "Delta"}
+	sort.Strings(s)		// [Alpha Bravo Delta Go Gopher Grin]
+	fmt.Println(s)
+}
+```
+:::
+::: code-group-item struct排序1
+```go{30,32}
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+type Student struct {
+	name string
+	age  int
+}
+
+// ByAge implements sort.Interface for []Person based on
+type ByAge []Student
+
+func (a ByAge) Len() int           { return len(a) }
+func (a ByAge) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByAge) Less(i, j int) bool { return a[i].age < a[j].age }
+
+func main() {
+	student := []Student{
+		{"Bob", 31},
+		{"John", 42},
+		{"Michael", 17},
+		{"John", 22},
+		{"Jenny", 26},
+	}
+
+	// 方式一
+	// sort.Sort(ByAge(student))
+	// 方式二
+	sort.Slice(student, func(i, j int) bool { return student[i].age < student[j].age })
+	// sort.Slice(student, func(i, j int) bool { return student[i].name < student[j].name })
+	fmt.Println(student)
+}
+
+// Output: [{Michael 17} {John 22} {Jenny 26} {Bob 31} {John 42}]
+```
+:::
+::: code-group-item struct排序2
+```go
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+func main() {
+	people := []struct {
+		Name string
+		Age  int
+	}{
+		{"Gopher", 7},
+		{"Alice", 55},
+		{"Alice", 35},
+		{"Vera", 24},
+		{"Bob", 75},
+	}
+	sort.Slice(people, func(i, j int) bool { return people[i].Name < people[j].Name })
+	fmt.Println("By name:", people) // By name: [{Alice 55} {Alice 35} {Bob 75} {Gopher 7} {Vera 24}]
+
+	sort.Slice(people, func(i, j int) bool { return people[i].Age < people[j].Age })
+	fmt.Println("By age:", people) // By age: [{Gopher 7} {Vera 24} {Alice 35} {Alice 55} {Bob 75}]
+}
+```
+:::
+::::
+
+### os
+
+### strings
+
+- strings.Join()
+```go
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+	s := []string{"foo", "bar", "baz"}
+	fmt.Println(strings.Join(s, ", "))
+}
+```
+
+- strings.Split()
+```go
+fmt.Printf("%q\n", strings.Split("a,b,c", ","))
+// Output: ["a" "b" "c"]
+```
+
+- strings.Replace(s, old, new, n)
+- strings.ReplaceAll(s, old, new)
+
+> n: 次数，不可省，如果小于0则表示没有替换次数限制(全部), 此时与ReplaceAll()作用相同
+
+```go
+fmt.Println(strings.Replace("oink oink oink", "k", "ky", 2))
+// Output: oinky oinky oink
+fmt.Println(strings.Replace("oink oink oink", "oink", "moo", -1))
+// Output: moo moo moo
+fmt.Println(strings.ReplaceAll("oink oink oink", "oink", "moo"))
+// Output: moo moo moo
+```
+
+- strings.ToLower()
+- strings.ToUpper()
+
+```go
+fmt.Println(strings.ToLower("Gopher"))
+fmt.Println(strings.ToUpper("Gopher"))
+```
+
+- strings.TrimSpace()
+- strings.TrimFunc()
+
+```go
+fmt.Println(strings.TrimSpace(" \t\n Hello, Gophers \n\t\r\n")) // Hello, Gophers
+fmt.Print(strings.TrimFunc("¡¡¡$6521.123Hello, Gophers!!!", func(r rune) bool {
+	return !unicode.IsLetter(r) && !unicode.IsNumber(r)
+})) // 6521.123Hello, Gophers
 ```
