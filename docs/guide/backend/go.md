@@ -1635,3 +1635,45 @@ fmt.Print(strings.TrimFunc("¡¡¡$6521.123Hello, Gophers!!!", func(r rune) bool
 	return !unicode.IsLetter(r) && !unicode.IsNumber(r)
 })) // 6521.123Hello, Gophers
 ```
+
+
+
+
+### strconv
+
+```go
+package main
+
+import (
+	"fmt"
+	"strconv"
+)
+
+func main() {
+	v := "3.1415926535"
+	if s, err := strconv.ParseFloat(v, 64); err == nil {
+		fmt.Printf("%T, %v\n", s, s) // float64, 3.1415926535
+	}
+
+	v64 := "-3546343826"
+	if s, err := strconv.ParseInt(v64, 10, 64); err == nil {
+		fmt.Printf("%T, %v\n", s, s) // int64, -3546343826
+	}
+}
+```
+
+### time
+
+- time.Now()
+- time.Sleep()
+
+::: warning
+end.`Sub(`start`)`
+:::
+
+```go
+start := time.Now()
+time.Sleep(600 * time.Millisecond)
+end := time.Now()
+fmt.Println(end.Sub(start)) // 606.114625ms
+```
