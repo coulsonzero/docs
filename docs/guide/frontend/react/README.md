@@ -3081,6 +3081,36 @@ const BarChart = () => {
 export default BarChart
 ```
 
+### 7.9 Styled-Components
+
+> 安装扩展 `vscode-styled-components` 语法提示
+
+
+:::: code-group
+::: code-group-item install
+```sh
+$ yarn add styled-components
+```
+:::
+::: code-group-item usage
+```jsx
+import React, { Component } from 'react'
+import styled from "styled-components"
+
+export default class App extends Component {
+  render () {
+    return <Div>App Dashboard</Div>
+  }
+}
+
+const Div = styled.div`
+	background: red;
+`
+```
+:::
+::::
+
+
 ## Other
 
 NPM: Node Package Manager
