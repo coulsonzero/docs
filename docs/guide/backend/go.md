@@ -672,6 +672,75 @@ func (x Cart) show() {
 }
 ```
 :::
+::: code-group-item struct排序1
+```go
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+type Student struct {
+	name string
+	age  int
+}
+
+// ByAge implements sort.Interface for []Person based on
+type ByAge []Student
+
+func (a ByAge) Len() int           { return len(a) }
+func (a ByAge) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByAge) Less(i, j int) bool { return a[i].age < a[j].age }
+
+func main() {
+	student := []Student{
+		{"Bob", 31},
+		{"John", 42},
+		{"Michael", 17},
+		{"John", 22},
+		{"Jenny", 26},
+	}
+
+	// 方式一
+	// sort.Sort(ByAge(student))
+	// 方式二
+	sort.Slice(student, func(i, j int) bool { return student[i].age < student[j].age })
+	// sort.Slice(student, func(i, j int) bool { return student[i].name < student[j].name })
+	fmt.Println(student)
+}
+
+// Output: [{Michael 17} {John 22} {Jenny 26} {Bob 31} {John 42}]
+```
+:::
+::: code-group-item struct排序2
+```go
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+func main() {
+	people := []struct {
+		Name string
+		Age  int
+	}{
+		{"Gopher", 7},
+		{"Alice", 55},
+		{"Alice", 35},
+		{"Vera", 24},
+		{"Bob", 75},
+	}
+	sort.Slice(people, func(i, j int) bool { return people[i].Name < people[j].Name })
+	fmt.Println("By name:", people) // By name: [{Alice 55} {Alice 35} {Bob 75} {Gopher 7} {Vera 24}]
+
+	sort.Slice(people, func(i, j int) bool { return people[i].Age < people[j].Age })
+	fmt.Println("By age:", people) // By age: [{Gopher 7} {Vera 24} {Alice 35} {Alice 55} {Bob 75}]
+}
+```
+:::
 ::::
 
 
@@ -795,6 +864,54 @@ func main() {
     }
 
     fmt.Println(route(cities))
+}
+```
+:::
+::: code-group-item 数字排序
+```go
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+func main() {
+	nums := []int{5, 2, 6, 3, 1, 4}
+	sortNums(nums)			// {1,2,3,4,5,6}
+	// reverseNums(nums)	// {6,5,4,3,2,1}
+	fmt.Println(nums)
+}
+
+func sortNums(nums []int) []int {
+	sort.Ints(nums)
+	return nums
+}
+
+func sortNums2(nums []int) []int {
+	sort.Sort(sort.IntSlice(nums))
+	return nums
+}
+
+func reverseNums(nums []int) []int {
+	sort.Sort(sort.Reverse(sort.IntSlice(nums)))
+	return nums
+}
+```
+:::
+::: code-group-item 字符串数组排序
+```go
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+func main() {
+	s := []string{"Go", "Bravo", "Gopher", "Alpha", "Grin", "Delta"}
+	sort.Strings(s)		// [Alpha Bravo Delta Go Gopher Grin]
+	fmt.Println(s)
 }
 ```
 :::
