@@ -145,12 +145,14 @@ export { default as Footer } from './Footer';
 ```
 
 :::
-::: code-group-item 事件
+::: code-group-item event
 
 ```jsx
 <button onclick={handleClick}>Activate Lasers</button>
-<input type="text" placeholder="username" onChange={handleChange} />
-<form onSubmit={handleSubmit}></form>
+
+<form onSubmit={handleSubmit}>
+	<input type="text" placeholder="username" onChange={handleChange} />
+</form>
 
 function handleSubmit(e) {
     e.preventDefault();
@@ -176,7 +178,7 @@ function handleSubmit(e) {
 ```jsx
 import "./Com.css"
 
-;<div className="container"></div>
+<div className="container"></div>
 ```
 
 ```css
@@ -186,7 +188,20 @@ import "./Com.css"
 	font-weight: bold;
 }
 ```
+:::
+::: code-group-item scss
+```jsx
+import "@/styles/home.scss"
 
+<div className="container"></div>
+```
+```scss
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+```
 :::
 ::: code-group-item styled-components
 
@@ -1491,6 +1506,8 @@ export default function App() {
 :::
 ::::
 
+### 5.1 useState
+
 ### 5.2 UseEffect
 
 ::: tip 提示
@@ -1654,7 +1671,7 @@ const Contact = (props) => {
 }
 ```
 
-## 组件通信
+## 六. 组件通信
 
 ::: tip 组件通信方式
 
@@ -1668,7 +1685,7 @@ const Contact = (props) => {
 
 :::
 
-### 父传子
+### 6.1 父传子
 
 > 通过 props 传值
 
@@ -1716,7 +1733,7 @@ export default function App() {
 :::
 ::::
 
-### 子传父
+### 6.2 子传父
 
 > 通过调用父组件方法，将参数返回
 >
@@ -1803,7 +1820,7 @@ export default function App() {
 :::
 ::::
 
-### 兄弟组件通信
+### 6.3 兄弟组件通信
 
 ```jsx
 /**
@@ -1860,7 +1877,7 @@ export class PropsBrother extends Component {
 export default PropsBrother
 ```
 
-### 跨组件通信
+### 6.4 跨组件通信
 
 > 通过多个 props 传值和方法
 
@@ -3035,7 +3052,54 @@ yarn add echarts
 ```
 
 2. 挂载echarts
-```jsx
+:::: code-group
+::: code-group-item React class
+```jsx{8}
+import React, {Component} from "react"
+import * as echarts from "echarts"
+
+export default class BarChart extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {}
+		this.barRef = React.createRef()
+		this.chartInit = this.chartInit.bind(this)
+	}
+
+	render() {
+		return <div ref={this.barRef} className="chart"></div>
+	}
+
+	chartInit() {
+		const myChart = echarts.init(this.barRef.current)
+
+		myChart.setOption({
+			title: {
+				text: "ECharts 入门示例",
+			},
+			tooltip: {},
+			xAxis: {
+				data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+			},
+			yAxis: {},
+			series: [
+				{
+					name: "销量",
+					type: "bar",
+					data: [5, 20, 36, 10, 10, 20],
+				},
+			],
+		})
+	}
+
+	componentDidMount() {
+		this.chartInit()
+	}
+}
+```
+:::
+::: code-group-item React Hooks
+```jsx{7}
 import React from 'react'
 import * as echarts from 'echarts'
 import { useEffect, useRef  } from 'react'
@@ -3080,6 +3144,8 @@ const BarChart = () => {
 
 export default BarChart
 ```
+:::
+::::
 
 ### 7.9 Styled-Components
 
@@ -3109,6 +3175,118 @@ const Div = styled.div`
 ```
 :::
 ::::
+
+### 7.10 react-icons
+
+[react-icons官网](https://react-icons.github.io/react-icons)
+
+step 1. install
+```bash
+$ yarn add react-icons
+```
+
+step 2. usage
+```jsx
+import React from "react"
+import {MdSpaceDashboard} from "react-icons/md"
+import {AiOutlineDotChart} from "react-icons/ai"
+import {IoSettingsOutline} from "react-icons/io5"
+import {FaAirbnb} from "react-icons/fa"
+
+export default class App extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			icons: [
+				{icon: <MdSpaceDashboard />, title: "Dashboard"},
+				{icon: <AiOutlineDotChart />, title: "Charts"},
+				{icon: <FaAirbnb />, title: "Analytics"},
+				{icon: <IoSettingsOutline />, title: "Settings"},
+			],
+		}
+	}
+
+	render() {
+		return <div>App</div>
+	}
+}
+```
+
+### 7.11 ScrollReveal
+
+[ScrollReveal官网](https://scrollrevealjs.org)
+
+step1. install
+```bash
+$ yarn add scrollreveal
+```
+
+step2. usage
+:::: code-group
+::: code-group-item React class式
+```jsx
+import React from "react"
+import scrollreveal from "scrollreveal"
+
+export default App extends React.Component {
+	componentDidMount() {
+		const sr = scrollreveal({
+			origin: "left",
+			distance: "80px",
+			duration: 1000,
+			smooth: true,
+			reset: false,
+		})
+
+		sr.reveal(
+			`
+            	.side-logo,
+				.side-title,
+				.side-wrapper .side-menu li
+      		`,
+			{
+				opacity: 0,
+				interval: 300,
+			}
+		)
+	}
+}
+```
+:::
+::: code-group-item React hooks式
+```jsx
+import React, {useEffect} from "react"
+import scrollreveal from "scrollreveal"
+
+const App = () => {
+	useEffect(() => {
+		const sr = scrollreveal({
+			origin: "left",
+			distance: "80px",
+			duration: 1000,
+			smooth: true,
+			reset: false,
+		})
+
+		sr.reveal(
+			`
+            	.side-logo,
+				.side-title,
+				.side-wrapper .side-menu li
+      		`,
+			{
+				opacity: 0,
+				interval: 300,
+			}
+		)
+	}, [])
+}
+
+export default App
+```
+:::
+::::
+
 
 
 ## Other
