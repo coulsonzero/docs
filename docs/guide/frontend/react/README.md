@@ -3536,6 +3536,46 @@ radar: {
 }
 ```
 
+### 15. 如何在 React 项目中引用 html文件
+```md
+将html、css、js文件放在`public`目录下即可, 之后使用`./test.html`即可引用
+```
+
+```bash
+$ tree
+└── public
+    ├── index.html
+    └── test.html
+```
+
+```jsx
+import React, { Component } from 'react'
+
+export default class Works extends Component {
+	render() {
+		return (
+            <div>
+                <a href="./test.html" target="_blank">Link</a>
+            </div>
+        )
+	}
+}
+```
+
+### 16. React项目yarn build之后页面显示空白
+
+> package.json 中添加 `"homepage": "./"`即可
+
+**package.json**
+```json
+{
+	"version": "0.1.0",
+	"private": true,
+	"homepage": "./",
+	...
+}
+```
+
 ## React 进阶
 
 ### Children
