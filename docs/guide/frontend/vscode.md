@@ -13,8 +13,19 @@
 "prettier.printWidth": 200,
 //  #使用带引号替代双引号
 // "prettier.singleQuote": true,
+// 在对象，数组括号与文字之间加空格 import React { Components } from "react"
+"prettier.bracketSpacing": true,
 // 关闭eslint校验
 "eslint.enable": false,
+
+"editor.tabSize": 4,
+// 每次保存的时候自动格式化
+"editor.formatOnSave": true,
+//开启自动格式化
+"editor.formatOnType": true,
+"editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+},
 ```
 
 :::
