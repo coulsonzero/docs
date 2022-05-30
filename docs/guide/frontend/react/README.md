@@ -3095,6 +3095,11 @@ export default class BarChart extends Component {
 	componentDidMount() {
 		this.chartInit()
 	}
+
+	componentWillUnmount() {
+		// [React] There is a chart instance already initialized on the dom
+		echarts.dispose(this.barRef.current)
+	}
 }
 ```
 :::
@@ -3133,6 +3138,9 @@ const BarChart = () => {
     // 控制挂载时机
     useEffect(() => {
         chartInit()
+		return () => {
+			echarts.dispose(this.barRef.current)
+		}
     }, [])
 
     return (
