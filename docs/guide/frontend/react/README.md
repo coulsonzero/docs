@@ -3443,6 +3443,99 @@ this.state.count = 5 // count: 5
 this.setState({count: this.state.count + 1}) // 6
 ```
 
+13. [React Echarts]报错：There is a chart instance already initialized on the dom
+
+> 新增echarts卸载`componentWillUnmount() {echarts.dispose(this.barRef.current)}`
+
+```jsx
+import React, {Component} from "react"
+import * as echarts from "echarts"
+
+export default class BarChart extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {}
+		this.barRef = React.createRef(null)
+		this.chartInit = this.chartInit.bind(this)
+	}
+
+	render() {
+		return <div ref={this.barRef} className="chart"></div>
+	}
+
+	chartInit() {
+		const myChart = echarts.init(this.barRef.current)
+
+
+		myChart.setOption({
+			title: {
+				text: "ECharts 入门示例",
+			},
+			tooltip: {},
+			xAxis: {
+				data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+			},
+			yAxis: {},
+			series: [
+				{
+					name: "销量",
+					type: "bar",
+					data: [5, 20, 36, 10, 10, 20],
+				},
+			],
+		})
+	}
+
+	componentDidMount() {
+		this.chartInit()
+	}
+
+	componentWillUnmount() {
+		// Solution
+		echarts.dispose(this.barRef.current)
+	}
+}
+```
+
+### 13. [ECharts] DEPRECATED: 'normal' hierarchy in itemStyle has been removed since 4.0. All style properties are configured in itemStyle directly now.
+
+原先
+```jsx
+itemStyle: {
+	normal: {
+		color: "#0078FF",
+	},
+},
+```
+现在
+```js
+itemStyle: {
+	color: "#0078FF",
+},
+```
+
+### 14. [ECharts] DEPRECATED: textStyle hierarchy in name has been removed since 4.0. All textStyle properti
+
+原先
+```js
+radar: {
+	name: {
+		textStyle: {
+			color: "#242425",
+		},
+	},
+}
+```
+
+现在
+```js
+radar: {
+	axisName: {
+		color: "#242425",
+	},
+}
+```
+
 ## React 进阶
 
 ### Children
