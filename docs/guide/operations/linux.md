@@ -229,3 +229,18 @@ tail [-n +2] file.txt
 # 显示第10行
 tail -n +10 file.txt | head -1
 ```
+
+#### 查看当前目录下各文件内存占用
+
+```bash
+$ du -sh ./*
+4.0K    ./README.md
+4.0K    ./craco.config.js
+4.0K    ./deploy.sh
+4.0K    ./jsconfig.json
+1.3G    ./node_modules
+4.0K    ./package.json
+ 94M    ./public
+608K    ./src
+420K    ./yarn.lock
+```
