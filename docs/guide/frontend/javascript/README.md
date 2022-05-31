@@ -2234,6 +2234,239 @@ screen.pixelDepth
 document.cookie
 ```
 
+### html与javascript交互
+
+```javascript
+window.onload = function() {};
+
+/*
+document.createElement()
+document.createTextNode()   //创建文本
+
+document.getElementById()
+document.getElementsByClassName()
+document.getElementsByTagName()
+*/
+
+/*
+innerHTML	 //html内容
+childNodes   //html元素
+
+appendChild()
+removeChild()
+replaceChild(new, old)
+*/
+
+btn.onclick = function() {};
+<button onclick="show();">Click Me</button>
+
+btn.addEventListener("click", myFunction, true);
+btn.removeEventListener("click", myFunction);
+
+setInterval(func, 100);
+setTimeout (func, 500);
+```
+
+#### 1. 更改子元素内容
+
+```html
+/**
+ * document.getElementById()
+ * .childNodes
+ * .innerHTML
+ * setTimeout(func, 500);
+ */
+
+<div id ="demo">
+  <p>some text</p>
+  <p>some other text</p>
+</div>
+
+<script>
+function setText() {
+	var a = document.getElementById("demo");
+	var arr = a.childNodes;
+	for(var x = 0; x < arr.length; x++) {
+		arr[x].innerHTML = "new text";
+	}
+}
+setTimeout(setText, 500);
+</script>
+
+/*
+new text
+new text
+ */
+```
+
+#### 2. 更改元素src属性值 (更换图片)
+
+```html
+<img id="mying" src="orange.png" alt="" />
+
+<script>
+	var e = document.getElementById("mying");
+	e.src = "apple.png";
+</script>
+```
+#### 3. 更改样式颜色
+
+```html
+/*
+ * window.onload = function() {};
+ * arr[i].style.color = "#33EA73";
+ */
+
+<div>
+  <span>...</span>
+  <span>...</span>
+</div>
+
+<script>
+window.onload = function() {
+    var el = document.getElementsByTagName('span');
+    for(int i = 0; i < el.length; i++){
+        el[i].style.color = "#33EA73";
+    }
+};
+</script>
+```
+
+```html
+<div id="demo" style="width:200px">some text</div>
+
+<script>
+window.onload = function() {
+    var x = document.getElementById("demo");
+    x.style.color = '#6600FF';
+    x.style.width = '100px';
+};
+</script>
+```
+
+#### 4. 新建html段落
+
+```html
+<div id="demo">some content</div>
+
+<script>
+window.onload = function() {
+    //creating a new paragraph
+    var p = document.createElement("p");
+    var node = document.createTextNode("Some new text");
+    //adding the text to the paragraph
+    p.appendChild(node);
+    var div = document.getElementById("demo");
+    //adding the paragraph to the div
+    div.appendChild(p);
+};
+</script>
+
+/*
+some content
+Some new text
+ */
+```
+
+#### 5. js动画
+
+```html
+<div id="container">
+  <div id="box"> </div>
+</div>
+```
+```css
+#container {
+    width: 200px;
+    height: 200px;
+    background: green;
+    position: relative;
+}
+#box {
+    width: 50px;
+    height: 50px;
+    background: red;
+    position: absolute;
+}
+```
+```javascript
+window.onload = function() {
+     var pos = 0;
+    //our box element
+    var box = document.getElementById('box');
+    var t = setInterval(move, 10);
+
+    function move() {
+        if(pos >= 150) {
+            clearInterval(t);
+        }
+        else {
+            pos += 1;
+            box.style.left = pos+'px';
+        }
+    }
+};
+```
+#### 6. 鼠标点击事件
+
+```html
+<button onclick="show();">Click Me</button>
+
+<script>
+function show() {
+    alert("Hi there");
+}
+</script>
+```
+
+```html
+<button id="demo">Click Me</button>
+
+<script>
+window.onload = function() {
+    var x = document.getElementById('demo');
+    x.onclick = function () {
+        document.body.innerHTML = Date();
+    }
+};
+</script>
+```
+
+```javascript
+window.onload = function() {
+    var btn = document.getElementById("demo");
+    btn.addEventListener("click", myFunction, true);
+    function myFunction() {
+        alert(Math.random());
+        btn.removeEventListener("click", myFunction);
+    }
+};
+```
+
+#### 7. 验证登录
+
+```html
+<form onsubmit="return validate()" method="post">
+    Number: <input type="text" name="num1" id="num1" /><br />
+    Repeat: <input type="text" name="num2" id="num2" /><br />
+    <input type="submit" value="Submit" />
+</form>
+
+<script>
+function validate() {
+    var n1 = document.getElementById('num1');
+    var n2 = document.getElementById('num2');
+    if(n1.value != '' && n2.value != '') {
+        if(n1.value == n2.value) {
+            return true;
+        }
+    }
+    alert("The values should be equal and not blank");
+    return false;
+}
+</script>
+```
+
 ## BOM
 
 ### screen
