@@ -118,6 +118,19 @@ export { default as Footer } from './Footer';
 :::
 ::::
 
+```js
+import img01 from "../../assets/img01.png"
+import img02 from "../../assets/img02.png"
+import img03 from "../../assets/img03.png"
+import img04 from "../../assets/img04.png"
+import img05 from "../../assets/img05.png"
+
+export {img01, img02, img03, img04, img05}
+```
+```jsx
+import {img01, img02, img03, img04, img05} from "./imports"
+```
+
 ### 2.3 语法规则
 
 :::: code-group

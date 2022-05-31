@@ -1087,6 +1087,22 @@ let newStudent = Object.assign({}, person, student);
 console.log(newStudent.name, newStudent.age, newStudent.sex, newStudent.xp);   //Bob 20 male 2
 ```
 
+```js
+const obj = {
+	{ id: 1, name: 'john', country: 'cn' },
+	{ id: 2, name: 'mary', country: 'us' },
+	{ id: 3, name: 'yart', country: 'cn' },
+	{ id: 4, name: 'lkwq', country: 'us' },
+	{ id: 5, name: 'qwqw', country: 'cn' },
+}
+
+function filterData(query) {
+	// const res = obj.filter((item) => item.name.includes(query)).map(item => item.name)
+	const k = 'name'
+	const res = obj.filter((item) => item[k].includes(query)).map(item => item[k])
+}
+```
+
 ### 3. Set
 
 **创建集合**
