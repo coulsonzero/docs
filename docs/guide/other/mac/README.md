@@ -21,6 +21,8 @@
 
 [M1终端nslookup查看github实际ip](./nslookup.md)
 
+[修改hosts文件加速GitHub访问](./修改hosts文件加速GitHub访问.md)
+
 [Mac配置ssh免密登陆github?](./ssh.md)
 
 [Mac终端查看端口占用?](./catport.md)
