@@ -130,6 +130,7 @@ const sidebarConfig = {
 				"wifipassword.md",
 				"codeTerminal.md",
 				"hardDiskEncryption.md",
+				"修改hosts文件加速GitHub访问.md",
 			],
 		},
 	],
