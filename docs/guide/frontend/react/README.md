@@ -953,6 +953,31 @@ setCount((count) => count + 1)
 :::
 ::::
 
+```jsx
+// 删除指定数据
+const handleDelete = (key) => {
+    const newData = dataSource.filter((item) => item.key !== key);
+    setDataSource(newData);
+};
+
+// 添加数据
+const handleAdd = () => {
+    const newData = {
+      key: count,
+      name: `Edward King ${count}`,
+      age: '32',
+      address: `London, Park Lane no. ${count}`,
+    };
+    setDataSource([...dataSource, newData]);
+	setCount(count + 1);
+};
+
+// 筛选数据
+onFilter: (value, record) => record.address.indexOf(value) === 0
+// or
+this.state.links.filter((link) => link.name.includes(query))
+```
+
 <iframe src="https://stackblitz.com/edit/react-sgk7mp?ctl=1&devToolsHeight=33&embed=1&file=src/App.js&hideExplorer=1&hideNavigation=1&theme=dark" frameborder="0" class="iframe-container" height="600px"></iframe>
 
 :::: code-group
