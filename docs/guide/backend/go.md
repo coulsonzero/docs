@@ -958,6 +958,31 @@ func main() {
 }
 ```
 :::
+::: TwoSum
+```go
+func twoSum(nums []int, target int) []int {
+    /*
+    for i := range nums {
+        for j := i+1; j < len(nums); j++ {
+            if(nums[i] + nums[j] == target) {
+                return []int {i, j}
+            }
+        }
+    }
+    return nil
+    */
+
+    dict := map[int]int {}
+    for i, x := range nums {
+        if j, ok := dict[target - x]; ok {
+            return []int {j, i}
+        }
+        dict[x] = i
+    }
+    return nil
+}
+```
+:::
 ::::
 
 ## 高并发

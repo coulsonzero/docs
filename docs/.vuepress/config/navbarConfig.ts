@@ -97,10 +97,8 @@ const navbarConfig: NavbarConfig = [
 	{
 		text: "算法",
 		children: [
-			{
-				text: "Leetcode算法",
-				link: "https://coulsonzero.github.io/leetcode-1/",
-			},
+			{text: "Leetcode算法", link: "https://coulsonzero.github.io/leetcode-1/"},
+			{text: "Leetcode-Golang", link: "https://books.halfrost.com/leetcode/"},
 			{text: "排序算法", link: "/guide/algorithm/Sort/README.md"},
 			{text: "字符串", link: "/guide/algorithm/String/README.md"},
 			{text: "链表", link: "/guide/algorithm/ListNode/README.md"},
