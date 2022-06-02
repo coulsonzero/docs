@@ -101,6 +101,7 @@ const navbarConfig: NavbarConfig = [
 			{text: "Leetcode-Golang", link: "https://books.halfrost.com/leetcode/"},
 			{text: "排序算法", link: "/guide/algorithm/Sort/README.md"},
 			{text: "字符串", link: "/guide/algorithm/String/README.md"},
+			{text: "数组", link: "/guide/algorithm/Array/README.md"},
 			{text: "链表", link: "/guide/algorithm/ListNode/README.md"},
 			{text: "二叉树", link: "/guide/algorithm/Binarytree/README.md"},
 		],
