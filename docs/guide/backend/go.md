@@ -6,16 +6,13 @@ simple, reliable and efficient software.
 
 ### Hello World
 ::: tip
-Go通过`main`方法启动
+Go通过`main`方法启动, main()方法的`package`必须为`main`
 :::
 
 :::: code-group
 ::: code-group-item hello.go
 
 ```go
-//go:build ignore
-// +build ignore
-
 package main
 
 import "fmt"    /* import ("fmt"; "math") 或不用分号而用换行*/
@@ -27,6 +24,29 @@ func main() {
 
 :::
 ::::
+
+### import
+
+```go
+// 1. import single package
+import "fmt"
+
+// 2.1 import multiple packages
+import "fmt"
+import "time"
+
+// 2.2
+import (
+	"fmt";
+	"time"
+)
+
+// 2.3
+import (
+	"fmt"
+	"time"
+)
+```
 
 ### DataTypes
 ::: warning
@@ -86,6 +106,27 @@ const pi = 3.14
 ```
 
 ### Variable
+
+```go
+// 1. init
+var num int 	// num: 0
+
+// 2. init and assign
+var num int = 12
+var num = 12
+num := 12
+
+
+// 3. assign multiple variables
+var (
+	name string
+	age int
+)
+
+var name string, age int = "john", 20
+var name, age = "john", 20
+name, age := "john", 20
+```
 
 > 全局变量: 函数外定义的变量，可以在整个包甚至外部包（被导出后）使用, 未初始化时有默认值
 >
