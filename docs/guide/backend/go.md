@@ -307,6 +307,16 @@ int
 float32, float64
 string
 bool
+
+// Array
+[]int
+// map
+map[string] int
+
+// 万能类型
+interface{}
+[]interface{}
+map[string] interface{}
 ```
 
 ### Operators
@@ -826,6 +836,15 @@ func (x Cart) show() {
 		sum += v
 	}
 	fmt.Println(sum)
+}
+```
+:::
+::: code-group-item 类标签
+```go
+type BarData struct {
+	Type     string      `json:"type"`
+	Data     []int       `json:"data"`
+	AxisLine interface{} `json:"axisLine"`
 }
 ```
 :::
@@ -2090,3 +2109,92 @@ time.Sleep(600 * time.Millisecond)
 end := time.Now()
 fmt.Println(end.Sub(start)) // 606.114625ms
 ```
+
+### json
+
+```go
+import "encoding/json"
+
+json.Unmarshal()
+json.Marshal()
+```
+
+::: details Example
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type BarData struct {
+	Type     string      `json:"type"`
+	Data     []int       `json:"data"`
+	AxisLine interface{} `json:"axisLine"`
+}
+
+func main() {
+	obj := []byte(`{
+		"type": "bar",
+		"data": [120, 200, 150, 80, 70, 110, 130],
+		"axisLine": {"lineStyle": {"type": "solid", "color": "blue"}}
+	}`)
+
+	res := BarData{}
+	err := json.Unmarshal(obj, &res)
+	if err != nil {
+		return
+	}
+
+	fmt.Println("res: ", res)
+	fmt.Println("type", res.Type)
+	fmt.Println("data: ", res.Data)
+	fmt.Println("axisLine:", res.AxisLine)
+}
+```
+:::
+
+**Gjson & Sjson**
+
+```go
+gjson.Get(obj, "axisLine.lineStyle")
+sjson.Set(obj, "axisLine.lineStyle.color", "skyblue")
+```
+
+::: details Example
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/tidwall/gjson"
+	"github.com/tidwall/sjson"
+)
+
+func main() {
+	setJson()
+}
+
+func getJson() {
+	const obj = `{
+	"type": "bar",
+	"data": [120, 200, 150, 80, 70, 110, 130],
+	"axisLine": {"lineStyle": {"type": "solid", "color": "blue"}}
+}`
+	res := gjson.Get(obj, "axisLine.lineStyle")
+	fmt.Println(res)
+}
+
+func setJson() {
+	const obj = `{
+	"type": "bar",
+	"data": [120, 200, 150, 80, 70, 110, 130],
+	"axisLine": {"lineStyle": {"type": "solid", "color": "blue"}}
+}`
+	value, _ := sjson.Set(obj, "axisLine.lineStyle.color", "skyblue")
+	fmt.Println(value)
+}
+
+```
+:::
