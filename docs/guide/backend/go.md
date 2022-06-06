@@ -2115,8 +2115,9 @@ fmt.Println(end.Sub(start)) // 606.114625ms
 ```go
 import "encoding/json"
 
-json.Unmarshal()
+// struct => json
 json.Marshal()
+json.Unmarshal()
 ```
 
 ::: details Example
@@ -2151,6 +2152,91 @@ func main() {
 	fmt.Println("type", res.Type)
 	fmt.Println("data: ", res.Data)
 	fmt.Println("axisLine:", res.AxisLine)
+}
+```
+:::
+
+::: details Example2
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type Student struct {
+	Name  string
+	Email string
+	Age   int
+}
+
+func main() {
+	SetJson2()
+}
+
+func GetJson() {
+	s := Student{
+		Name:  "John",
+		Email: "john@gmail.com",
+		Age:   20,
+	}
+
+	// struct => json
+	res, _ := json.Marshal(s)
+	fmt.Println(string(res))
+	// Output: {"Name":"John","Email":"john@gmail.com","Age":20}
+}
+
+func SetJson() {
+	obj := []byte(`{"Name":"John","Email":"john@gmail.com","Age":20}`)
+
+	s := Student{}
+	json.Unmarshal(obj, &s)
+	fmt.Println(s)
+	// Output: {John john@gmail.com 20}
+}
+
+func SetJson2() {
+	obj := []byte(`{
+	"type": "bar",
+	"data": [120, 200, 150, 80, 70, 110, 130],
+	"axisLine": {"lineStyle": {"type": "solid", "color": "blue"}}
+}`)
+	var s interface{}
+	json.Unmarshal(obj, &s)
+	fmt.Println(s)
+
+}
+```
+:::
+::: details Example3
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+)
+
+type Bar struct {
+	xAxis  map[string]interface{}
+	yAxis  map[string]interface{}
+	series map[string]interface{}
+}
+
+func main() {
+	ReadJsonFile()
+}
+
+func ReadJsonFile() {
+	f, _ := os.Open("bar.json")
+	defer f.Close()
+	decoder := json.NewDecoder(f)
+	var bar map[string]interface{}
+	decoder.Decode(&bar)
+	fmt.Println(bar)
 }
 ```
 :::
@@ -2194,6 +2280,34 @@ func setJson() {
 }`
 	value, _ := sjson.Set(obj, "axisLine.lineStyle.color", "skyblue")
 	fmt.Println(value)
+}
+
+```
+:::
+
+::: details Example2
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/tidwall/gjson"
+	"os"
+)
+
+type Bar struct {
+	xAxis  map[string]interface{}
+	yAxis  map[string]interface{}
+	series map[string]interface{}
+}
+
+func main() {
+	// 读取json文件
+	f, _ := os.ReadFile("bar.json")
+	// 获取json文件中的配置项
+	res := gjson.Get(string(f), "xAxis")
+	fmt.Println(res)
 }
 
 ```
