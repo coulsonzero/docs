@@ -3,6 +3,7 @@
 Designer: `Google` in `2007`
 simple, reliable and efficient software.
 
+## Getting Started
 
 ### Hello World
 ::: tip
@@ -15,7 +16,7 @@ Go通过`main`方法启动, main()方法的`package`必须为`main`
 ```go
 package main
 
-import "fmt"    /* import ("fmt"; "math") 或不用分号而用换行*/
+import "fmt"
 
 func main() {
     fmt.Println("hello world!")
@@ -27,6 +28,22 @@ func main() {
 
 ### import
 
+```go
+// 1. import single package
+import "fmt"
+
+// 2. import multiple package
+import (
+	"fmt"
+	"time"
+	"encoding/json"
+	"reflect"
+	"[your-project]/config"
+)
+```
+
+
+::: details 详情
 ```go
 // 1. import single package
 import "fmt"
@@ -45,68 +62,105 @@ import (
 import (
 	"fmt"
 	"time"
+	"[your-project]/config"
 )
 ```
-
-### DataTypes
-::: warning
-> 变量声明: `var num int`
->
-> 变量初始化:
->
-> `var num = 12` (全局||局部)
->
-> `num := 12` (局部)
->
-> 常量: `const pi = 3.14`
 :::
 
-::: tip
-> 数据类型:
->
-> int
->
-> float32、float64
->
-> string
->
-> bool
-:::
-> 变量
-
-:::: code-group
-::: code-group-item 推荐方式
+### Comments
 
 ```go
-age := 20
-price := 26.9
-flag := true
-name := "hello"
+// a single comment
 
-name, age, height, isMale := "coulson", 20, 180.3, true
+/*
+This is a multi-line comment
+*/
+
+/**
+ * @author
+ * @version
+ */
 ```
 
-:::
-::: code-group-item 原始方式
-
-```go
-var i, j int = 0, 1     // var i, j = 0, 1
-var y float32 = 3.14
-var name string = "hello"
-var flag bool = true
-```
-
-:::
-::::
-
-> 常量
-
-```go
-const pi = 3.14
-```
+## Basic Concepts
 
 ### Variable
 
+```go
+// single variable
+var num int  	// 有默认值num: 0
+var num int = 20
+var num = 20
+num := 20   	// 只能用于局部变量
+
+// multiple variables
+var (
+	name string
+	age int
+)
+
+var (
+	name string = "john"
+	age int = 20
+)
+
+var (
+	name = "john"
+	age = 20
+)
+
+var x, y int = 1, 2       	 // 相同变量类型
+var name, age = "john", 20   // 不同变量类型
+name, age := "john", 20
+```
+
+**变量声明及初始化**
+```go
+package main
+
+import "fmt"
+
+// 声明单个全局变量
+var pi float64 = 3.14
+
+// 声明多个全局变量
+var (
+	username string
+	password string
+)
+
+var ip, port = "localhost", 8080
+
+func main() {
+	// 声明单个局部变量
+	num := 12
+
+	// 声明多个局部变量
+	name, age := "john", 20
+}
+```
+
+**常量**
+```go
+package main
+
+import "fmt"
+
+const pi = 3.14
+
+const (
+	a := iota * 2    // 0
+	b                // 2
+	c                // 4
+)
+
+func mian() {
+	fmt.Printf("a = %s, b = %s, c = %s", a, b, c)
+	// Output: 0, 2, 4
+}
+```
+
+::: details 详情
 ```go
 // 1. init
 var num int 	// num: 0
@@ -123,10 +177,10 @@ var (
 	age int
 )
 
-var name string, age int = "john", 20
 var name, age = "john", 20
 name, age := "john", 20
 ```
+:::
 
 > 全局变量: 函数外定义的变量，可以在整个包甚至外部包（被导出后）使用, 未初始化时有默认值
 >
@@ -246,6 +300,14 @@ func main() {
 ```
 :::
 ::::
+
+### DataTypes
+```go
+int
+float32, float64
+string
+bool
+```
 
 ### Operators
 
@@ -578,6 +640,8 @@ func main() {
 
 ### Structs 结构体
 
+> 不同类型或相同类型的数据集
+
 :::: code-group
 ::: code-group-item 类
 ```go
@@ -600,6 +664,58 @@ func main() {
 
 ```
 :::
+::: code-group-item OOP
+```go
+package main
+
+import "fmt"
+
+// 字段/方法大写：public, 小写：private
+type Person struct {
+	name string
+	age  int
+}
+
+// getter
+func (this *Person) GetName() string {
+	return this.name
+}
+
+// setter
+func (this *Person) SetName(name string) {
+	this.name = name
+}
+
+// toString
+func (this *Person) Show() {
+	fmt.Printf("name = %s, age = %d\n", this.name, this.age)
+}
+
+type Student struct {
+	Person  // 继承
+	level int
+}
+
+// 方法重写
+func (this *Student) Show() {
+	fmt.Printf("name = %s, age = %d, level = %d\n", this.name, this.age, this.level)
+}
+
+// 子类新方法
+func (this *Student) GetLeavel() int {
+	return this.level
+}
+
+func main() {
+	p := Person{"Tom", 21}
+
+	// 声明子类
+	s := Person{ Student{"John", 23}, 3 }
+}
+
+```
+:::
+
 ::: code-group-item 类指针
 ```go{19,35,46}
 package main
@@ -740,27 +856,66 @@ func main() {
 
 ```
 
+```go
+package main
+
+import "fmt"
+
+type Animal interface {
+	MakeSound()
+}
+
+type Cat struct {
+
+}
+
+func (this *Cat) MakeSound() string {
+	return "Meow"
+}
+
+type Dog struct {
+
+}
+
+func (this *Dog) MakeSound() string {
+	return "omnomnom"
+}
+
+
+func main() {
+	cat := Cat{}
+	dog := Dog{}
+
+
+}
+
+
+```
+
 
 ### Array 数组
 
 ::: warning
-> 一旦声明，长度固定无法修改，需要动态扩展数据参考`make([]int 5)`
+> 一旦声明，长度固定无法修改，需要动态扩展数据参考切片`make([]int 5)`
 >
-> 查询，无法增删改
+> 只能查询，无法增删改
+:::
+
+::: tip Tip
+固定数组：值拷贝
+
+动态数组(切片slice): 引用拷贝
 :::
 
 :::: code-group
 ::: code-group-item 创建数组
 ```go{8}
-// 声明一个数组再初始化
-var arr [5]int 		// [5] or [] or [...]
-arr[0] = 1
-arr[1] = 3
-
-// 声明并初始化数组
+// 固定数组
+var arr [5]int 		// 有默认值			// [5] or [] or [...]
 arr := [5]int{0, 2, 4, 6, 8}
+
+// 动态数组, 切片slice
 arr := []int {0, 2, 4, 6, 8}
-arr := []string{"water", "burger", "cake"}
 ```
 :::
 ::: code-group-item Api
@@ -888,15 +1043,26 @@ func sum(nums ...int) int {
 ```
 :::
 
-### 切片
+### Slice 切片
+::: tip
+动态长度数组
+:::
 
 :::: code-group
 ::: code-group-item 创建动态数组
 ```go
-arr := make([]type, len, cap)	// len：长度; cap: 容器大小, 可选参数
-arr := make([]int, 3)    		// 初始默认值为0: [0, 0, 0]
-arr := []int {2, 7, 3}			// 切片初始化
+// 切片初始化
+slice := []int {2, 7, 3}
 
+// 切片声明并使用make开辟空间
+var slice []int
+slice = make([]int, 3)
+
+// 简写
+slice := make([]int, 3)    		// 初始默认值：[0, 0, 0]
+
+
+slice := make([]type, len, cap)	// len：长度; cap: 容器大小, 可选参数
 fmt.Printf("len=%d cap=%d slice=%v\n",len(x),cap(x),x)
 ```
 :::
@@ -906,7 +1072,8 @@ fmt.Printf("len=%d cap=%d slice=%v\n",len(x),cap(x),x)
 arr = append(arr, 8)
 arr = append(arr, 1, 2, 3)
 
-// 扩容
+// 扩容：切片长度不够时，会自动扩容，容量变为原来的2倍！
+// 长度：左右指针的距离，容量：左指针至底层数组末尾的距离
 newArr := make([]int, len(arr), (cap(arr)*2))
 copy(newArr, arr)
 
@@ -954,28 +1121,44 @@ func main() {
 
 :::: code-group
 ::: code-group-item 创建Map
-```go{5,8,12}
-package main
-import "fmt"
-
-func main() {
-	countries := map[string] string{
-		"us": "USA",
-		"fr": "France",
-		"cn": "China",	// 末尾加逗号，或者将大括号放在此行！
-	}
-	fmt.Println(countries)	// map[cn:China fr:France us:USA]
-
-    m := make(map[string] int)
-	m["Jame"] = 42
-	m["Amye"] = 24
-	fmt.Println(m) // map[Amye:24 Jame:42]
+```go
+// 方式一：初始化map
+cityMap := map[string] string{
+	"us": "USA",
+	"fr": "France",
+	"cn": "China",	// 末尾加逗号，或者将大括号放在此行！
 }
+
+// 方式二：声明map, 使用make分配空间
+m := make(map[string] int)
+
+m["Jame"] = 97
+m["Amye"] = 86
+
 ```
 :::
 ::: code-group-item Api
 ```go
-delete(countries, "us")
+scoreMap := make(map[string] int)
+// 增 改
+scoreMap["Jame"] = 97
+
+// 删
+delete(scoreMap, "Jame")
+
+// 查
+fmt.Println(scoreMap)
+
+// 遍历
+
+for _, v := range scoreMap {
+	// statement
+}
+
+// 遍历+判断包含
+for _, ok := scoreMap, ok {
+
+}
 ```
 :::
 ::: code-group-item Example
@@ -1646,6 +1829,170 @@ func main() {
 ::::
 
 ### os
+
+
+**文件操作**
+```go
+import "os"
+
+// 创建文件
+os.Create(name string)
+
+// 删除文件
+os.Remove(name string)
+
+// 重命名文件
+os.Rename(oldpath, newpath string)
+
+// 读取文件
+os.ReadFile(name string)
+
+// 重写文件
+os.WriteFile(name string, data []byte, perm FileMode)	// FileMode: os.ModePerm
+```
+
+**目录操作**
+```go
+// 创建目录
+os.Mkdir(name string, perm FileMode)
+// 创建多级目录
+os.MkdirAll(path string, perm FileMode)
+
+// 删除目录
+os.RemoveAll(path string)
+
+// 获取当前工作目录
+os.Getwd()
+
+// 切换当前工作目录
+os.Chdir(path string)
+
+// 获取临时目录？
+os.TempDir()
+
+// 读取目录
+os.ReadDir(name string)
+
+
+```
+
+
+
+::: details For example
+```go
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+)
+
+func main() {
+}
+
+// 创建文件
+func CreateFile() {
+	// 创建文件
+	file, err := os.Create("file.txt")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		fmt.Println(file.Name())
+	}
+}
+
+// 删除文件
+func RemoveFile() {
+	err := os.Remove("file.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+// 重命名文件
+func RenameFile() {
+	CreateFile()
+	err := os.Rename("file.txt", "file.go")
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+// 读取文件
+func ReadFile() {
+	file, err := os.ReadFile("file.txt")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		fmt.Println(string(file))
+	}
+}
+
+// 重写文件
+func WriteFile() {
+	s := `
+func hello() {
+	fmt.Println("hello")
+}
+`
+	os.WriteFile("file.go", []byte(s), os.ModePerm)
+}
+
+// 读取目录
+func ReadDir() {
+	dir, err := os.ReadDir("./")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		for _, file := range dir {
+			fmt.Println(file.Name())
+		}
+	}
+}
+
+// 创建目录
+func CreateDir() {
+	err := os.Mkdir("test", os.ModePerm)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+// 创建多级目录
+func CreateDirAll() {
+	err := os.MkdirAll("test/demo", os.ModePerm)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+// 删除目录
+func RemoveDir() {
+	err := os.RemoveAll("test")
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+// 获取当前工作目录
+func Getwd() {
+	dir, _ := os.Getwd()
+	fmt.Println(dir)
+}
+
+// 切换当前工作目录
+func Chdir(path string) {
+	os.Chdir(path)
+}
+
+// 获取临时目录？
+func TempDir() {
+	dir := os.TempDir()
+	fmt.Println("dir: ", dir)
+}
+```
+:::
 
 ### strings
 
