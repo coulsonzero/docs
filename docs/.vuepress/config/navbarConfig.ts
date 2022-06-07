@@ -12,21 +12,17 @@ const navbarConfig: NavbarConfig = [
 				text: "语法扩展",
 				children: [
 					{text: "SCSS", link: "/guide/frontend/scss"},
-					{text: "TypeScript", link: "https://www.tslang.cn"},
+					{text: "TypeScript", link: "/guide/frontend/typescript"},
 					{text: "Canvas", link: "/guide/frontend/canvas"},
 				],
 			},
 			{
 				text: "web框架",
 				children: [
-					{text: "jQuery", link: "/guide/frontend/jquery"},
 					{text: "Vue", link: "/guide/frontend/vue"},
 					{text: "React", link: "/guide/frontend/react/"},
+					{text: "jQuery", link: "/guide/frontend/jquery"},
 				],
-			},
-			{
-				text: "前端开发工具",
-				children: [{text: "dva", link: "/guide/frontend/react/dva"}],
 			},
 			{
 				text: "web库",
@@ -49,10 +45,7 @@ const navbarConfig: NavbarConfig = [
 			},
 			{
 				text: "语法规范",
-				children: [
-					{text: "ESLint", link: "/guide/frontend/eslint"},
-					{text: "Vscode", link: "/guide/frontend/vscode"},
-				],
+				children: [{text: "ESLint", link: "/guide/frontend/eslint"}],
 			},
 		],
 	},
@@ -79,7 +72,7 @@ const navbarConfig: NavbarConfig = [
 				],
 			},
 			{
-				text: "类库",
+				text: "GUI库",
 				children: [{text: "Pyside6", link: "/guide/backend/pyside6"}],
 			},
 		],
@@ -111,8 +104,9 @@ const navbarConfig: NavbarConfig = [
 		children: [
 			{text: "Markdown", link: "/guide/other/markdown"},
 			{text: "Mac使用指南", link: "/guide/other/mac/README.md"},
+			{text: "Vscode", link: "/guide/frontend/vscode"},
 			// {text: "interview", link: "/guide/other/Interview.md"},
-			{text: "Error报错日志", link: "/guide/other/error.md"},
+			// {text: "Error报错日志", link: "/guide/other/error.md"},
 		],
 	},
 	{

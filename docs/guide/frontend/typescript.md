@@ -1,5 +1,4 @@
-# TypeScript
-
+# [TypeScript](https://www.tslang.cn)
 
 ## 开始使用
 ### 全局安装typescript
