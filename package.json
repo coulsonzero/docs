@@ -18,6 +18,7 @@
 	"homepage": "https://github.com/coulsonzero/docs#README",
 	"devDependencies": {
 		"@vuepress/plugin-search": "^2.0.0-beta.43",
+		"sass": "^1.52.2",
 		"vuepress-plugin-auto-sidebar": "^2.4.0-alpha.4",
 		"vuepress-plugin-comment2": "^2.0.0-beta.56",
 		"vuepress-plugin-copy-code2": "^2.0.0-beta.56",

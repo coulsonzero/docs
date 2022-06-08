@@ -4,21 +4,21 @@
 
 ### 1. 快速开始
 
-1. Step1. 安装依赖包
-
-```sh
-$ go get -u github.com/gin-gonic/gin
-```
-
-2. Step2. 创建gin项目
-```bash
+1. 创建gin项目
+```bash{3-4}
 $ mkdir [project_name]
 $ cd [project_name]
 $ go mod init [project_name]
 $ go mod tidy
 ```
 
-3. Step3. 创建main.go文件
+2. 安装依赖包
+
+```sh
+$ go get -u "github.com/gin-gonic/gin"
+```
+
+3. 创建main.go文件
 
 ```bash
 $ vim main.go   # or `touch main.go`
@@ -42,7 +42,7 @@ func main() {
 
 
 
-4. Step4. 运行项目并查看返回数据
+4. 运行项目并查看返回数据
 
 ```sh
 $ go run main.go

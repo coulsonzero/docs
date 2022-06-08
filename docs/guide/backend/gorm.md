@@ -336,6 +336,41 @@ func ShowUsers(c *gin.Context) {
 :::
 ::::
 
+### 数据库模型
+```go
+import "gorm.io/gorm"
+
+type User struct {
+	gorm.Model
+	Name  string `json:"name" binding:"required"`
+	Email string `json:"email" binding:"required"`
+}
+```
+
+```go
+type User struct {
+  ID           uint
+  Name         string
+  Email        *string
+  Age          uint8
+  Birthday     *time.Time
+  MemberNumber sql.NullString
+  ActivatedAt  sql.NullTime
+  CreatedAt    time.Time
+  UpdatedAt    time.Time
+}
+```
+
+```go
+// gorm.Model 的定义
+type Model struct {
+  ID        uint           `gorm:"primaryKey"`
+  CreatedAt time.Time
+  UpdatedAt time.Time
+  DeletedAt gorm.DeletedAt `gorm:"index"`
+}
+```
+
 ## 连接MySQL数据库
 
 :::: code-group
