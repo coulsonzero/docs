@@ -410,7 +410,7 @@ alter table table_name drop primary key;
 
 * 最左前缀法则：a->b->c  复合z没用a索引则bc也会失效
 * 以下用法会导致索引失效
-    * 计算：如+-*/% is null 、is not null 、or != <>
+    * 计算：如+-*/% is null 、is not null 、or != `<>`
     * 函数：sum(),round()等
     * 手动/自动类型转换：id='1', 本来是数字，给写成字符串了
 * 索引不要放在范围查询右边(范围之后的索引都失效，与B树有关)
@@ -550,7 +550,9 @@ explain ...;
 ```
 
 ms级别
-优化效果：硬件<系统配置<数据库表结构<SQL及索引
+
+`优化效果：硬件<系统配置<数据库表结构<SQL及索引`
+
 * select 具体行 > select *
 * 存储引擎：engine=InnoDB charault=utf8
 
