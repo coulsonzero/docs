@@ -1,6 +1,5 @@
-# GORM
+# [GORM](https://gorm.io/zh_CN/docs/index.html)
 
-[GRPM官方文档](https://gorm.io/zh_CN/docs/index.html)
 
 ## Overview
 ### 1. 安装依赖包
@@ -156,16 +155,14 @@ func SetupRouter() *gin.Engine {
 package models
 
 import (
-	"fmt"
 	"github.com/joho/godotenv"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"os"
+	"fmt"
 )
 
 var DB *gorm.DB
 
-func SetupDB() *gorm.DB {
+func LoadEnvConfig() string {
 	errEnv := godotenv.Load()
 	if errEnv != nil {
 		panic("Failed to load env file")
@@ -183,23 +180,7 @@ func SetupDB() *gorm.DB {
 		dbHost,
 		dbName,
 	)
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	if err != nil {
-		panic("Failed to create a connection to database")
-	}
-	fmt.Println("连接mysql数据库成功")
-	DB = db
-	DB.AutoMigrate(&User{})
-	fmt.Println(db)
-	return db
-}
-
-func CloseDB(db *gorm.DB) {
-	dbSQL, err := db.DB()
-	if err != nil {
-		panic("Failed to close connection from database")
-	}
-	dbSQL.Close()
+	return dsn
 }
 ```
 :::
@@ -355,16 +336,103 @@ func ShowUsers(c *gin.Context) {
 :::
 ::::
 
-### 5. 加载 `env` 配置文件
+## 连接MySQL数据库
+
+:::: code-group
+::: code-group-item db.go
+```go
+import (
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+)
+
+var DB *gorm.DB
+
+func SetupDB() *gorm.DB {
+	// 连接数据库
+	// dsn := conf.LoadIntConfig()
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic("Failed to create a connection to database")
+	}
+
+	// 加载数据库模型
+	DB = db
+	DB.AutoMigrate(&User{})
+	return db
+}
+
+// 关闭数据库连接
+func CloseDB(db *gorm.DB) {
+	dbSQL, err := db.DB()
+	if err != nil {
+		panic("Failed to close connection from database")
+	}
+	dbSQL.Close()
+}
+```
+:::
+::: code-group-item main.go
+```go
+package main
+
+import (
+	"go-gin-todolist/model"
+	"go-gin-todolist/router"
+)
+
+func main() {
+	db := model.SetupDB()
+	defer model.CloseDB(db)
+
+	r := router.SetupRouter()
+	r.Run(":7080")
+}
+```
+:::
+::::
+
+### 1. 固定方式
+```go
+import (
+  "gorm.io/driver/mysql"
+  "gorm.io/gorm"
+)
+
+func main() {
+  // 需更改dbname
+  dsn := "root:root@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+  db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+}
+```
+### 2. 字符串拼接
+
+```go
+dsn := strings.Join([]string{DbUser, ":", DbPassWord, "@tcp(", DbHost, ":", DbPort, ")/", DbName, "?charset=utf8mb4&parseTime=true&loc=Local"}, "")
+```
+
+### 3. 格式化字符串
+
+```go
+dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+	dbUser,
+	dbPass,
+	dbHost,
+	dbName,
+)
+```
+
+### 4. 加载 `env` 配置文件
 :::: code-group
 ::: code-group-item config.go
-```go
+```go{2-3,8,13}
 import (
 	"github.com/joho/godotenv"
 	"os"
 )
 
 func SetupDB() *gorm.DB {
+	// 1.加载.env文件配置
 	errEnv := godotenv.Load()
 	if errEnv != nil {
 		panic("Failed to load env file")
@@ -382,6 +450,24 @@ func SetupDB() *gorm.DB {
 		dbHost,
 		dbName,
 	)
+
+	// 2.连接mysql数据库
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic("Failed to create a connection to database")
+	}
+	// 3.绑定Struct数据库模型
+	DB = db
+	DB.AutoMigrate(&User{})
+	return db
+}
+
+func CloseDB(db *gorm.DB) {
+	dbSQL, err := db.DB()
+	if err != nil {
+		panic("Failed to close connection from database")
+	}
+	dbSQL.Close()
 }
 ```
 :::
@@ -394,7 +480,7 @@ DB_NAME=golang_api
 ```
 :::
 ::::
-### 6. 加载 `ini` 配置文件
+### 5. 加载 `ini` 配置文件
 
 :::: code-group
 ::: code-group-item config.go
@@ -418,14 +504,6 @@ var (
 
 func LoadIntConfig() string {
 	/* ====== Step-1: 加载mysql数据库配置 ====== */
-
-	// 第一种： 固定方式
-	// dsn := fmt.Sprintf("root:root@tcp(127.0.0.1:3306)/todolist_db?charset=utf8mb4&parseTime=True&loc=Local")
-
-	// 第二种： 字符串变量拼接
-	// dsn := strings.Join([]string{DbUser, ":", DbPassWord, "@tcp(", DbHost, ":", DbPort, ")/", DbName, "?charset=utf8mb4&parseTime=true&loc=Local"}, "")
-
-	// 第三种：加载文件中的mysql配置
 	file, err := ini.Load("conf/config.ini")
 	if err != nil {
 		panic("Failed to load ini file")
@@ -433,7 +511,14 @@ func LoadIntConfig() string {
 
 	LoadServer(file)
 	LoadMysqlData(file)
-	dsn := strings.Join([]string{DbUser, ":", DbPassWord, "@tcp(", DbHost, ":", DbPort, ")/", DbName, "?charset=utf8mb4&parseTime=true&loc=Local"}, "")
+
+	// dsn := "root:root@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		DbUser,
+		DbPass,
+		DbHost,
+		DbName,
+	)
 
 	return dsn
 }
@@ -480,36 +565,29 @@ DbName = todolist_db
 
 #### Find
 
-```go
+```go{5,8,16}
+/*************************
+ *          All          *
+ * SELECT * FROM users;  *
+ *************************/
 db.Find(&users)
-// SELECT * FROM users;
 
-db.Find(&user, "name = ?", "jinzhu")
-// SELECT * FROM users WHERE name = "jinzhu";
 
-db.Find(&users, "name <> ? AND age > ?", "jinzhu", 20)
+db.Find(&users, "name != ? AND age > ?", "jinzhu", 20)
 // SELECT * FROM users WHERE name <> "jinzhu" AND age > 20;
 
 // Struct
 db.Find(&users, User{Age: 20})
 // SELECT * FROM users WHERE age = 20;
 
+// Map
+db.Find(&users, map[string]interface{}{"name": "jinzhu", "age": 20})
+// SELECT * FROM users WHERE name = "jinzhu" AND age = 20;
+
 result := db.Find(&user)
 fmp.Println(result.RowsAffected) // 返回找到的记录数
 fmp.Println(users)
 ```
-
-#### Scan
-```go
-type Student struct {
-  Name string
-  Age  int
-}
-var s []Student
-// Raw SQL
-db.Raw("SELECT name, age FROM users WHERE name = ? order by age desc", "Antonio").Scan(&s)
-```
-
 
 #### First
 ```go
@@ -570,7 +648,7 @@ result.RowsAffected // 返回插入记录的条数
 ```
 
 #### 插入数据
-```go
+```go{11}
 // 插入单条数据
 db.Create(&User{
     Name: "Jinzhu", Age: 18, Birthday: time.Now()
@@ -603,7 +681,7 @@ db.Save(&user)
 db.Updates()
 ```
 
-```go
+```go{10,16}
 // 条件更新
 db.Model(&User{}).Where("active = ?", true).Updates("name", "hello")
 // UPDATE users SET name='hello', updated_at='2013-11-17 21:34:10' WHERE active=true;
@@ -631,4 +709,125 @@ db.Model(&user).Updates(map[string]interface{}{
 // 使用 Struct 进行 Select（会 select 零值的字段）
 db.Model(&user).Select("Name", "Age").Updates(User{Name: "new_name", Age: 0})
 // UPDATE users SET name='new_name', age=0 WHERE id=111;
+```
+
+### 删除
+
+####
+```go
+db.Delete(&email)
+// DELETE from emails where id = 10;
+
+db.Delete(&User{}, 10)
+// DELETE FROM users WHERE id = 10;
+
+db.Delete(&users, []int{1,2,3})
+// DELETE FROM users WHERE id IN (1,2,3);
+
+db.Delete(&Email{}, "email LIKE ?", "%jinzhu%")
+// DELETE from emails where email LIKE "%jinzhu%";
+
+db.Where("name = ?", "jinzhu").Delete(&email)
+// DELETE from emails where id = 10 AND name = "jinzhu";
+
+```
+
+#### 批量删除
+
+> gorm 默认会阻止无条件批量删除
+>
+> 必须加一些条件，或者使用原生 SQL，或者启用 AllowGlobalUpdate 模式
+
+```go
+db.Where("1 = 1").Delete(&User{})
+// DELETE FROM `users` WHERE 1=1
+
+db.Exec("DELETE FROM users")
+// DELETE FROM users
+
+db.Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(&User{})
+// DELETE FROM users
+```
+
+#### 返回删除行的数据
+```go
+// 返回所有列
+var users []User
+DB.Clauses(clause.Returning{}).Where("role = ?", "admin").Delete(&users)
+// DELETE FROM `users` WHERE role = "admin" RETURNING *
+
+// 返回指定的列
+DB.Clauses(clause.Returning{Columns: []clause.Column{{Name: "name"}, {Name: "salary"}}}).Where("role = ?", "admin").Delete(&users)
+// DELETE FROM `users` WHERE role = "admin" RETURNING `name`, `salary`
+```
+
+### 原生SQL
+
+#### Scan
+```go{7,10}
+type Student struct {
+  Name string
+  Age  int
+}
+var s []Student
+// Raw SQL
+db.Raw("SELECT name, age FROM users WHERE name = ? order by age desc", "Antonio").Scan(&s)
+
+var users []User
+db.Raw("UPDATE users SET name = ? WHERE age = ? RETURNING id, name", "jinzhu", 20).Scan(&users)
+
+
+// 使用原生 SQL
+row := db.Raw("select name, age, email from users where name = ?", "jinzhu").Row()
+row.Scan(&name, &age, &email)
+
+// 原生 SQL
+rows, err := db.Raw("select name, age, email from users where name = ?", "jinzhu").Rows()
+defer rows.Close()
+for rows.Next() {
+  rows.Scan(&name, &age, &email)
+
+  // 业务逻辑...
+}
+```
+
+####
+```go
+db.Exec("Select * FROM users")
+db.Exec("DROP TABLE users")
+db.Exec("UPDATE orders SET shipped_at = ? WHERE id IN ?", time.Now(), []int64{1, 2, 3})
+```
+
+## 教程
+
+### 通用数据库接口
+
+```go
+// 获取通用数据库对象 sql.DB，然后使用其提供的功能
+sqlDB, err := db.DB()
+
+// Ping
+sqlDB.Ping()
+
+// Close
+sqlDB.Close()
+
+// 返回数据库统计信息
+sqlDB.Stats()
+```
+
+#### 连接池
+
+```go
+// 获取通用数据库对象 sql.DB ，然后使用其提供的功能
+sqlDB, err := db.DB()
+
+// SetMaxIdleConns 用于设置连接池中空闲连接的最大数量。
+sqlDB.SetMaxIdleConns(10)
+
+// SetMaxOpenConns 设置打开数据库连接的最大数量。
+sqlDB.SetMaxOpenConns(100)
+
+// SetConnMaxLifetime 设置了连接可复用的最大时间。
+sqlDB.SetConnMaxLifetime(time.Hour)
 ```

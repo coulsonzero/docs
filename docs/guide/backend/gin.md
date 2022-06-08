@@ -1,8 +1,4 @@
-# Gin
-
-[Gin中文官网](https://gin-gonic.com/zh-cn/)
-
-[GORM官网](https://gorm.io/)
+# [Gin](https://gin-gonic.com/zh-cn/)
 
 ## Overview
 

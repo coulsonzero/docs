@@ -326,6 +326,7 @@ map[string] int
 // 万能类型
 interface{}
 []interface{}
+[]interface{}{}	
 map[string] interface{}
 ```
 

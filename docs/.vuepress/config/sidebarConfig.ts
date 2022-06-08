@@ -152,6 +152,7 @@ const sidebarConfig = {
 				"python.md",
 				"swift.md",
 				"gin.md",
+				"gorm.md",
 				"pyside6.md",
 			],
 		},

@@ -69,6 +69,7 @@ const navbarConfig: NavbarConfig = [
 					{text: "Django", link: "/guide/backend/django.md"},
 					{text: "Flask", link: "/guide/backend/flask.md"},
 					{text: "Gin", link: "/guide/backend/gin.md"},
+					{text: "Gorm", link: "/guide/backend/gorm.md"},
 				],
 			},
 			{
