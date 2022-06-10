@@ -144,3 +144,10 @@ html:not(.dark) .code-group {
         padding: 16px !important;
     }
 }
+
+
+// 激活码
+pre[class="language-code"] code {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+}

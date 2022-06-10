@@ -315,21 +315,46 @@ func main() {
 ```go
 int
 float32, float64
+rune // 字符
 string
 bool
 
+
 // Array
 []int
+[]byte
 // map
 map[string] int
 
 // 万能类型
 interface{}
 []interface{}
-[]interface{}{}	
+[]interface{}{}
 map[string] interface{}
 ```
 
+**数据类型转换**
+```go
+import (
+	"fmt"
+	"strconv"
+)
+
+func main() {
+	// int -> string
+	num := 14141
+	str := fmt.Sprintf("%d", num)
+	str := strconv.Itoa(num)
+
+	// string -> int
+	str := "134"
+	num, _ := strconv.Atoi(str)
+	num, _ := strconv.ParseInt(str, 0, 0)
+
+	// string -> []byte
+	charArr := []byte(str)
+}
+```
 ### Operators
 
 ```go
@@ -337,6 +362,16 @@ map[string] interface{}
 //Assignment Operators: += -= *= /= %=
 //Logical Operators: && || !
 //Relational Operators: == != < > <= >=
+//位运算: & | ^
+```
+
+```go
+func isEven( num int ) bool {
+	// return num % 2 == 0
+    return num & 1 == 0
+}
+
+
 ```
 
 ### Input & Output
@@ -356,7 +391,9 @@ func main() {
 	fmt.Println("Hello, World!")
 
 	// 格式化输出
-	fmt.Printf("name: %s, age: %d.\n", "coulson", 20)
+	fmt.Printf("name: %s, age: %d, pi: %f, isEven: %t \n", "coulson", 20, 3.14, true)
+	// %-3d ——以10进制显示，3表示输出的数字占3个字符的位置，-表示左对齐；
+	fmt.Printf("%d*%d=%-3d ", j, i, i*j)
 
 	// 格式化输入(赋值)
 	s := fmt.Sprintf("name: %s, age: %d.\n", "coulson", 20)
@@ -470,6 +507,14 @@ switch {
 ::::
 
 ### Loops
+::: warning
+```go
+// golang 不支持该写法
+for i := 0, j := len(s); i < j; i++, j-- {...}
+// 支持以下写法
+for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {...}
+```
+:::
 
 :::: code-group
 ::: code-group-item for
@@ -1103,12 +1148,14 @@ fmt.Printf("len=%d cap=%d slice=%v\n",len(x),cap(x),x)
 // 增加(末尾)
 arr = append(arr, 8)
 arr = append(arr, 1, 2, 3)
+append(slice, slice2...)
 
 // 扩容：切片长度不够时，会自动扩容，容量变为原来的2倍！
 // 长度：左右指针的距离，容量：左指针至底层数组末尾的距离
 newArr := make([]int, len(arr), (cap(arr)*2))
 copy(newArr, arr)
-
+// 切片复制
+nums2 = nums[:]
 // 截取
 arr[1:3]
 ```
@@ -1215,7 +1262,7 @@ func main() {
 }
 ```
 :::
-::: TwoSum
+::: code-group-item TwoSum
 ```go
 func twoSum(nums []int, target int) []int {
     /*
