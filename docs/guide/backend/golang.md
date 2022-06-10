@@ -31,7 +31,8 @@ fmt.Scanln(&name)
 
 ### variable
 
-**单个变量**
+:::: code-group
+::: code-group-item 单个变量
 ```go
 /*==== 1.变量声明 ===== */
 var str string  // 默认值: ""
@@ -45,8 +46,8 @@ var str = "hello world!"
 // b.局部变量(函数内定义的变量)
 str := "hello world!"
 ```
-
-**多个变量**
+:::
+::: code-group-item 多个变量
 
 ```go
 // 全局变量
@@ -74,8 +75,38 @@ var name, age = "John", 20
 // 局部变量
 name, age := "John", 20
 ```
-
+:::
+::::
 ### DataTypes
+
+
+:::: code-group
+::: code-group-item 数据类型
+```go
+int
+float32, float64
+byte, rune // 字符,汉字是采用unicode编码，占三个字节, rune是int32的别名（-231~231-1），byte（-128～127）
+string
+bool
+
+
+// Array
+[]int
+[]byte
+// map
+map[string] int
+
+// 万能类型
+interface{}
+[]interface{}
+[]interface{}{}
+map[string] interface{}
+
+// go1.18泛型
+any = interface{}
+```
+:::
+::: code-group-item 类型格式化输出
 
 ```go
 var (
@@ -99,6 +130,34 @@ fmt.Printf("%v %T \n", skills, skills)
 fmt.Printf("%v, %T \n", scoreMap, scoreMap)
 // map[], map[string]int
 ```
+:::
+::: code-group-item 类型强制转换
+```go
+import (
+	"fmt"
+	"strconv"
+)
+
+func main() {
+	// int -> string
+	num := 14141
+	str := fmt.Sprintf("%d", num)
+	str := strconv.Itoa(num)
+
+	// string -> int
+	str := "134"
+	num, _ := strconv.Atoi(str)
+	num, _ := strconv.ParseInt(str, 0, 0)
+
+	// string -> []byte
+	charArr := []byte(str)
+
+	// byte -> string
+	str := string(k)
+}
+```
+:::
+::::
 
 ## Core
 
@@ -108,13 +167,17 @@ fmt.Printf("%v, %T \n", scoreMap, scoreMap)
 
 长度固定数组，无法扩容和修改元素(append(), make(), copy(), sort.Ints()等方法)
 :::
+
+:::: code-group
+::: code-group-item 创建固定数组
 ```go
 // 数组声明 -> 有默认值
 arr := [3]int          // [0, 0, 0]
 // 数据声明初始化
 arr := []int{1, 2, 3}  // [1, 2, 3]
 ```
-**Api**
+:::
+::: code-group-item Api
 ```go
 // 长度
 len(arr)
@@ -138,8 +201,8 @@ func sum(nums ...int) int {}
 ...arr  // 1, 2, 3 => [1, 2, 3]
 sum(nums...)
 ```
-
-**遍历**
+:::
+::: code-group-item 遍历
 ```go
 // 遍历
 for i := 0; i < len(arr); i++ {
@@ -158,20 +221,26 @@ for _, v := range nums {
     fmt.Println(v)
 }
 ```
+:::
+::::
 
 ### Slice
+
+
+
+
+::: tip
+动态数组，可使用Array所有**Api**方法，且长度不固定，可扩容
+:::
+:::: code-group
+::: code-group-item 创建动态数组
 ```go
 var slice []int                 // len: 0, cap: 0, slice: []
 slice := []int                  // len: 0, cap: 0, slice: []
 slice := []int{1, 2, 3}         // len: 3, cap: 3, slice: [1, 2, 3]
 slice := make([]int, len, cap)  // make: 使用len分配slice长度；cap: 可选参数，为数组容量，长度小于容量时其他数值均为默认值
 ```
-
-**Api**
-::: tip
-动态数组，可使用Array所有Api方法，且长度不固定，可扩容
 :::
-:::: code-group
 ::: code-group-item 查
 ```go
 // 查询
