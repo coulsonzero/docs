@@ -57,6 +57,7 @@ const navbarConfig: NavbarConfig = [
 			{text: "Java", link: "/guide/backend/java"},
 			{text: "Python", link: "/guide/backend/python"},
 			{text: "Go", link: "/guide/backend/go"},
+			{text: "Golang简版", link: "/guide/backend/golang"},
 			{text: "Kotlin", link: "/guide/backend/kotlin"},
 			{text: "Swift", link: "/guide/backend/swift"},
 			{

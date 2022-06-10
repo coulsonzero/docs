@@ -146,6 +146,7 @@ const sidebarConfig = {
 				"django.md",
 				"flask.md",
 				"go.md",
+				"golang.md",
 				"java.md",
 				"kotlin.md",
 				"pyside6.md",

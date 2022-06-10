@@ -315,7 +315,7 @@ func main() {
 ```go
 int
 float32, float64
-rune // 字符
+byte, rune // 字符,汉字是采用unicode编码，占三个字节, rune是int32的别名（-231~231-1），byte（-128～127）
 string
 bool
 
@@ -353,6 +353,9 @@ func main() {
 
 	// string -> []byte
 	charArr := []byte(str)
+
+	// byte -> string
+	str := string(k)
 }
 ```
 ### Operators
