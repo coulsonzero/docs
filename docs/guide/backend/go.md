@@ -134,17 +134,10 @@ func main() {
 :::: code-group
 ::: code-group-item 单个变量
 ```go
-/*==== 1.变量声明 ===== */
-var str string  // 默认值: ""
-
-/*==== 2. 变量声明并初始化 ====*/
-
-// a.全局变量(函数外定义的变量)
-var str string = "hello world!"
-var str = "hello world!"
-
-// b.局部变量(函数内定义的变量)
-str := "hello world!"
+var str string  // 有默认值: ""
+var str string = "Tom"
+var str = "Tom"
+str := "Tom"	// 仅可作为局部变量(函数体内声明)
 ```
 :::
 ::: code-group-item 多个变量
@@ -176,75 +169,92 @@ var name, age = "John", 20
 name, age := "John", 20
 ```
 :::
-::::
-
-**ForExample**
+::: code-group-item 变量示例
 ```go
 package main
 
 import "fmt"
 
-// 声明单个全局变量
-var pi float64 = 3.14
+// 变量声明赋值后仍需调用，否则报错
 
-// 声明多个全局变量
+// 全局变量(函数外声明的变量)
 var (
+	id       int
 	username string
 	password string
 )
 
-var ip, port = "localhost", 8080
+var (
+	Host = "127.0.0.1"
+	Port = 3306
+)
 
 func main() {
-	// 声明单个局部变量
-	num := 12
+	// 局部变量(函数内声明的变量)
+	name, age := "Tom", 20
 
-	// 声明多个局部变量
-	name, age := "john", 20
+	fmt.Println(name, age)
+	fmt.Printf("result: %d, %s, %s", id, username, password)
+	fmt.Println(Host, Port)
+
+}
+
+// single variable
+func createSingleVar() {
+	var num int
+	fmt.Println(num)
+
+	var str = "hello"
+	fmt.Println(str)
+
+	name := "coulson"
+	fmt.Println(name)
+}
+
+// multiple variable
+func createMultipleVar() {
+	var name, age = "john", 20
+	fmt.Println(name, age)
+
+	num, str := 12, "hello"
+	fmt.Println(num, str)
+
+	var (
+		host = "127.0.0.1"
+		port = "3306"
+	)
+	fmt.Println(host, port)
 }
 ```
-
-**常量**
+:::
+::: code-group-item 常量
 ```go
 package main
 
 import "fmt"
 
-const pi = 3.14
+// 常量可以定义后暂不调用
+const str string = "constant"
 
 const (
-	a := iota * 2    // 0
-	b                // 2
-	c                // 4
+	pi   float64 = 3.14
+	host string  = "127.0.0.1"
+	port int     = 3306
 )
 
-func mian() {
-	fmt.Printf("a = %s, b = %s, c = %s", a, b, c)
-	// Output: 0, 2, 4
+const (
+	a = iota * 2 // 0
+	b            // 2
+	c            // 4
+)
+
+func main() {
+	fmt.Println(pi, host, port, str)
+	fmt.Println(a, b, c)
 }
 ```
-
-::: details 详情
-```go
-// 1. init
-var num int 	// num: 0
-
-// 2. init and assign
-var num int = 12
-var num = 12
-num := 12
-
-
-// 3. assign multiple variables
-var (
-	name string
-	age int
-)
-
-var name, age = "john", 20
-name, age := "john", 20
-```
 :::
+::::
 
 > 全局变量: 函数外定义的变量，可以在整个包甚至外部包（被导出后）使用, 未初始化时有默认值
 >
@@ -440,7 +450,7 @@ len([]rune(s))
 ```
 :::
 ::: code-group-item 类型转换
-```go
+```go{3,12-13}
 // string -> int
 str := "134"
 num, _ := strconv.Atoi(str)
@@ -889,7 +899,51 @@ func main() {
 */
 ```
 :::
+::: code-group-item 闭包
+```go
+package main
+
+import "fmt"
+
+func intSeq() func() int {
+	i := 0
+	return func() int {
+		i++
+		return i
+	}
+}
+func main() {
+	nextInt := intSeq()
+	fmt.Println(nextInt()) // 1
+	fmt.Println(nextInt()) // 2
+	fmt.Println(nextInt()) // 3
+
+	newInts := intSeq()
+	fmt.Println(newInts()) // 1
+}
+```
+:::
 ::::
+
+
+For Example
+```go
+// 阶乘 n!
+func fact(n int) int {
+    if n == 0 {
+        return 1
+    }
+    return n * fact(n-1)
+}
+
+// 斐波那契额数列求和
+var fib func(n int) int {
+	if n < 2 {
+		return n
+	}
+	return fib(n-1) + fib(n-2)
+}
+```
 
 
 ### 10. Structs 结构体
@@ -1098,63 +1152,54 @@ type BarData struct {
 ### 11. Interface 接口
 
 ```go
-type Person interface {
-	say()
-}
-
-type Student struct {
-
-}
-
-func (Student Person) say() {
-	fmt.Println("Hello, I'm a student.")
-}
-
-func main() {
-	var person Person
-
-	person = new(Student)
-	person.say()
-}
-
-```
-
-```go
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
-type Animal interface {
-	MakeSound()
+type geometry interface {
+	area() float64
+	perim() float64
 }
 
-type Cat struct {
-
+type rect struct {
+	width, height float64
+}
+type circle struct {
+	radius float64
 }
 
-func (this *Cat) MakeSound() string {
-	return "Meow"
+func (r rect) area() float64 {
+	return r.width * r.height
+}
+func (r rect) perim() float64 {
+	return 2*r.width + 2*r.height
 }
 
-type Dog struct {
-
+func (c circle) area() float64 {
+	return math.Pi * c.radius * c.radius
+}
+func (c circle) perim() float64 {
+	return 2 * math.Pi * c.radius
 }
 
-func (this *Dog) MakeSound() string {
-	return "omnomnom"
+func measure(g geometry) {
+	fmt.Println(g)
+	fmt.Println(g.area())
+	fmt.Println(g.perim())
 }
-
 
 func main() {
-	cat := Cat{}
-	dog := Dog{}
+	r := rect{width: 3, height: 4}
+	c := circle{radius: 5}
 
-
+	measure(r)
+	measure(c)
 }
 
-
 ```
-
 
 ### 12. Pointer 指针
 
@@ -1906,6 +1951,45 @@ package main
 [golang标准库](https://pkg.go.dev/std)
 
 ### sort
+```go
+import "sort"
+
+sort.Ints(nums)
+sort.Sort(sort.Reverse(sort.IntSlice(nums)))
+pdqsort.SliceIsSorted(nums)
+```
+```go
+import "github.com/zhangyunhao116/pdqsort"
+
+pdqsort.Slice(nums)
+pdqsort.Search(nums, ele)
+```
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/zhangyunhao116/pdqsort"
+	"runtime"
+)
+
+func main() {
+	fmt.Println(runtime.Version())
+	nums := []int{3, 1, 2, 4, 5, 9, 8, 7}
+
+	pdqsort.Slice(nums)
+	fmt.Printf("sort_reslut = %v\n", nums)
+
+	searchResult := pdqsort.Search(nums, 5)
+	fmt.Println(searchResult)
+
+	isSort := pdqsort.SliceIsSorted(nums)
+	fmt.Println(isSort)
+
+}
+
+```
 
 :::: code-group
 ::: code-group-item 数字排序
@@ -2288,6 +2372,13 @@ start := time.Now()
 time.Sleep(600 * time.Millisecond)
 end := time.Now()
 fmt.Println(end.Sub(start)) // 606.114625ms
+```
+
+```go
+start := time.Now()
+//...
+secs := time.Since(start).Seconds()
+fmt.Printf("%.2fs", secs)
 ```
 
 ### json
