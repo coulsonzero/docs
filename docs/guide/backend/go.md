@@ -2170,6 +2170,7 @@ os.Create(name string)
 
 // 删除文件
 os.Remove(name string)
+// 使用strings.HasSuffix(f.Name(), "txt")删除指定后缀类型文件 or 数组判断
 
 // 重命名文件
 os.Rename(oldpath, newpath string)
