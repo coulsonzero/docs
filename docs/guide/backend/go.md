@@ -1973,6 +1973,62 @@ go version go1.17.7 darwin/amd64
 ```
 
 ### 如何 安装不同的 Go 版本 ？
+
+> 方式一：gvm
+> 方式二: Goland中卸载gdk (推荐)
+
+1. install gvm
+```sh
+$ curl -sSL https://github.com/soulteary/gvm/raw/master/binscripts/gvm-installer | bash
+Cloning from https://github.com/soulteary/gvm.git to /Users/coulsonzero/.gvm
+Created profile for existing install of Go at "/usr/local/go"
+Installed GVM v1.0.24
+
+Please restart your terminal session or to get started right away run
+ `source /Users/coulsonzero/.gvm/scripts/gvm`
+```
+
+2. source terminal
+```sh
+$ source /Users/coulsonzero/.gvm/scripts/gvm
+# or 重新打开终端
+```
+
+3. install go version
+```sh
+$ gvm install go1.18.3 -B     # 本地编译(不想下载预编译好的内容)去掉 `-B`参数,
+Installing go1.18.3 from binary source
+```
+
+4. change go version
+
+```sh
+# 切换 go 版本
+$ gvm use go1.18.3
+Now using version go1.18.3
+
+# 设置 go 默认版本
+# $ gvm use go1.18.3  --default
+```
+
+5. 查看当前 go 版本
+```sh
+$ go version
+go version go1.18.3 darwin/arm64
+```
+
+* 如何卸载 gvm 或进行重置
+
+```sh
+$ rm -rf ~/.gvm
+
+# 然后清理 ~/.zshrc 或 ~/.bashrc 添加的内容
+```
+
+* 如何解决某个版本下载不顺利的问题
+```sh
+$ rm -rf ~/.gvm/archive/
+```
 ### GO vscode 的package main红色波浪性问题
 
 ```
