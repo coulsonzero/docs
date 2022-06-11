@@ -43,6 +43,7 @@ fmt.Printf()    // 格式化输出
  * %b: int整数二进制
  * %%: %
  * %-3d: `-`指 左对齐, `3`指占3个字符
+ * %02d: `02指`不足两位数字时在数字前面补齐0
  */
 
 ```
@@ -2201,10 +2202,76 @@ os.TempDir()
 
 // 读取目录
 os.ReadDir(name string)
-
-
 ```
 
+**目录遍历**
+
+::: details 目录及文件遍历
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+)
+
+var cnt int
+
+func main() {
+	WalkDemo()
+	// WalkDir()
+	// WalkFiles()
+}
+
+func WalkDemo() {
+	fmt.Println("/********** Start *********/")
+	cur_dir, _ := os.Getwd()
+	Walk(cur_dir)
+	fmt.Printf("Total count of files: %d.", cnt)
+}
+
+// 获取当前目录下的所有文件或目录信息(不包含当前工作目录)
+func Walk(path string) {
+	dir, _ := os.ReadDir(path)
+	for _, file := range dir {
+		file_path := filepath.Join(path, file.Name())
+		cnt++
+		fmt.Printf("%-4d: %s\n", cnt, file_path)
+		if file.IsDir() {
+			Walk(file_path)
+		}
+	}
+}
+```
+```go
+// 获取当前目录下的所有文件或目录信息（包含当前工作目录，数量较前者+1）
+func WalkDir() {
+	pwd, _ := os.Getwd()
+	filepath.Walk(pwd, func(path string, info os.FileInfo, err error) error {
+		cnt++
+		fmt.Printf("%-4d: %s\n", cnt, path)
+		// fmt.Println(path) // 打印path信息
+		// fmt.Println(info.Name()) // 打印文件或目录名
+		return nil
+	})
+}
+
+// 遍历目录下多有文件(仅文件，不包含目录)
+func WalkFiles(path string) {
+	dir, _ := os.ReadDir(path)
+	for _, file := range dir {
+		file_path := filepath.Join(path, file.Name())
+		if file.IsDir() {
+			Walk(file_path)
+		} else {
+			cnt++
+			fmt.Printf("%-4d: %s\n", cnt, file_path)
+		}
+	}
+}
+```
+:::
 
 
 ::: details For example
@@ -2323,7 +2390,65 @@ func TempDir() {
 ```
 :::
 
+**标准输入**
+```go
+scanner := bufio.NewScanner(os.Stdin)
+scanner.Text()
+os.Exit(1)
+```
+For Example
+```go
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
+
+func main() {
+
+	scanner := bufio.NewScanner(os.Stdin)
+
+	for scanner.Scan() {
+		if scanner.Text() == "exit" {
+			os.Exit(1)
+		}
+		ucl := strings.ToUpper(scanner.Text())
+		fmt.Println(ucl)
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintln(os.Stderr, "error:", err)
+		os.Exit(1)
+	}
+}
+
+```
+
 ### strings
+
+```go
+// 包含
+strings.HasSuffix()
+
+// 数组->字符串
+strings.Join()
+// 字符串->数组
+strings.Split()
+// 替换
+strings.Replace()
+strings.ReplaceAll()
+
+// 大小写转换
+strings.ToUpper()
+strings.ToLower()
+
+// 移除无效字符
+strings.TrimSpace()
+strings.TrimFunc()
+```
 
 - strings.Join()
 ```go
@@ -2414,12 +2539,42 @@ func main() {
 
 ### time
 
-- time.Now()
-- time.Sleep()
+```go
+import "time"
 
-::: warning
-end.`Sub(`start`)`
-:::
+// field
+time.Millisecond	// 1ms
+time.Second 		// 1s
+
+// methods
+time.sleep()
+time.Tick()
+t := time.now()
+// 时间年月日等
+t.Year()
+t.Month()
+t.Day()
+t.Hour()
+t.Minute()
+t.Second()
+t.Weekday() // Saturday
+t.ISOWeek()	// *年第*周
+
+// 格式化时间
+t.Format()
+
+// 时间加减:
+Add()
+Sub()
+// 时间比较:
+Equal()
+Before()
+After()
+```
+
+**统计运行时间**
+
+> 自动转换`单位`: ms -> s
 
 ```go
 start := time.Now()
@@ -2428,11 +2583,36 @@ end := time.Now()
 fmt.Println(end.Sub(start)) // 606.114625ms
 ```
 
+> 固定单位格式
+
 ```go
 start := time.Now()
 //...
 secs := time.Since(start).Seconds()
 fmt.Printf("%.2fs", secs)
+```
+
+**格式化时间**
+```go
+t := time.Now()
+fmt.Printf("%d-%02d-%02d %02d:%02d:%02d\n",
+	t.Year(), t.Month(), t.Day(),
+	t.Hour(), t.Minute(), t.Second(),
+)
+// Output: 2022-06-11 13:02:10
+```
+
+```go
+t := time.Now()
+now := t.Format("2006/01/02 15:04:02 PM Mon Jan")
+```
+
+**定时器(间隔运行)**
+```go
+ticker := time.Tick(time.Second) // 定义一个1秒间隔的定时器
+for i := range ticker {
+	fmt.Println(i)
+}
 ```
 
 ### json
@@ -2998,5 +3178,38 @@ func Delete() {
 	res, _ := DB.Exec(sqlStr, 12)
 	rows, _ := res.RowsAffected()
 	fmt.Println(rows) // return 1: success
+}
+```
+
+### net & net/url
+
+```go
+package main
+
+import (
+	"fmt"
+	"net"
+	"net/url"
+)
+
+func main() {
+	s := "postgres://user:pass@host.com:5432/path?k=v#f"
+
+	u, _ := url.Parse(s)
+
+	fmt.Println(u.Scheme)          // postgres
+	fmt.Println(u.User)            // user:pass
+	fmt.Println(u.User.Username()) // user
+	p, _ := u.User.Password()      // pass
+	fmt.Println(p)
+	host, port, _ := net.SplitHostPort(u.Host)
+	fmt.Println(host, port) // host.com 5432
+
+	fmt.Println(u.Path)     // /path
+	fmt.Println(u.RawQuery) // k=v
+	m, _ := url.ParseQuery(u.RawQuery)
+	fmt.Println(m)          // map[k:[v]]
+	fmt.Println(u.Fragment) // f
+
 }
 ```
