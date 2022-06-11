@@ -32,13 +32,16 @@ fmt.Print()		// 不换行
 fmt.Println()   // 换行
 fmt.Printf()    // 格式化输出
 /**
- * %T: 类型
+ * %T: 数据类型
  * %v: 值
- * %d: int
+ * %d: int整数十进制
  * %f: float
- * %s: string
  * %t: bool
+ * %c: rune(int32), 其他语言为char
+ * %s: string
  * %p: 指针
+ * %b: int整数二进制
+ * %%: %
  * %-3d: `-`指 左对齐, `3`指占3个字符
  */
 
@@ -381,27 +384,31 @@ func main() {
 :::: code-group
 ::: code-group-item 数据类型
 ```go
-int
-float32, float64
-byte, rune // 字符,汉字是采用unicode编码，占三个字节, rune是int32的别名（-231~231-1），byte（-128～127）
-string
-bool
+// 基础数据类型
+byte, rune<int32>  // 字符, rune是int32的别名，其他语言为char; byte是uint8
+int       		   // 整数
+float32, float64   // 浮点数
+string             // 字符串
+bool               // 布尔
 
 
 // Array
-[]int
 []byte
+[]rune
+[]int
+[]string
 // map
 map[string] int
 
 // 万能类型
 interface{}
 []interface{}
-[]interface{}{}
 map[string] interface{}
 
 // go1.18泛型
-any = interface{}
+type any = interface{}
+
+func toString[T int|float64|string](s T) T {}
 ```
 :::
 ::: code-group-item 类型格式化输出
@@ -429,6 +436,21 @@ fmt.Printf("%v, %T \n", scoreMap, scoreMap)
 // map[], map[string]int
 ```
 :::
+::: code-group-item 中文字符
+```go
+func main() {
+	c := 'z'
+	fmt.Printf("char: %c, value: %v, typeof: %T \n", c, c, c)                         // char: z, value: 122, typeof: int32
+	fmt.Printf("char: %c, value: %v, typeof: %T \n", byte(c), byte(c), byte(c))       // char: z, value: 122, typeof: uint8
+	fmt.Printf("char: %s, value: %v, typeof: %T \n", string(c), string(c), string(c)) // char: z, value: z,   typeof: string
+
+	z := '美'
+	fmt.Printf("char: %c, value: %v, typeof: %T \n", z, z, z)                         // char: 美, value: 32654, typeof: int32
+	fmt.Printf("char: %c, value: %v, typeof: %T \n", byte(z), byte(z), byte(z))       // char: *, value: 142, typeof: uint8
+	fmt.Printf("char: %s, value: %v, typeof: %T \n", string(z), string(z), string(z)) // char: 美, value: 美, typeof: string
+}
+```
+:::
 ::::
 
 
@@ -445,8 +467,28 @@ fmt.Printf("%v, %T \n", scoreMap, scoreMap)
 // 字符串格式化
 s := fmt.Sprintf()
 
-// 中文长度
-len([]rune(s))
+// 中文长度(1个中文占3个字节)
+len([]rune(s))	// []byte：不能用于中文字符数组
+
+
+// 遍历
+func forEach() {
+	s := "Github官网"
+	for _, v := range s {
+		fmt.Printf("%c ", v)
+	}
+	fmt.Println()
+	// G i t h u b 官 网
+}
+
+func forEach2() {
+	s := "Github官网"
+	for _, v := range []rune(s) {
+		fmt.Printf("%v ", string(v))
+	}
+	fmt.Println()
+	// G i t h u b 官 网
+}
 ```
 :::
 ::: code-group-item 类型转换
@@ -1956,40 +1998,17 @@ import "sort"
 
 sort.Ints(nums)
 sort.Sort(sort.Reverse(sort.IntSlice(nums)))
-pdqsort.SliceIsSorted(nums)
+sort.Strings(strs)
 ```
 ```go
 import "github.com/zhangyunhao116/pdqsort"
 
 pdqsort.Slice(nums)
 pdqsort.Search(nums, ele)
+pdqsort.SliceIsSorted(nums)
 ```
 
-```go
-package main
 
-import (
-	"fmt"
-	"github.com/zhangyunhao116/pdqsort"
-	"runtime"
-)
-
-func main() {
-	fmt.Println(runtime.Version())
-	nums := []int{3, 1, 2, 4, 5, 9, 8, 7}
-
-	pdqsort.Slice(nums)
-	fmt.Printf("sort_reslut = %v\n", nums)
-
-	searchResult := pdqsort.Search(nums, 5)
-	fmt.Println(searchResult)
-
-	isSort := pdqsort.SliceIsSorted(nums)
-	fmt.Println(isSort)
-
-}
-
-```
 
 :::: code-group
 ::: code-group-item 数字排序
@@ -2038,6 +2057,33 @@ func main() {
 	sort.Strings(s)		// [Alpha Bravo Delta Go Gopher Grin]
 	fmt.Println(s)
 }
+```
+:::
+::: pdq排序
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/zhangyunhao116/pdqsort"
+	"runtime"
+)
+
+func main() {
+	fmt.Println(runtime.Version())
+	nums := []int{3, 1, 2, 4, 5, 9, 8, 7}
+
+	pdqsort.Slice(nums)
+	fmt.Printf("sort_reslut = %v\n", nums)
+
+	searchResult := pdqsort.Search(nums, 5)
+	fmt.Println(searchResult)
+
+	isSort := pdqsort.SliceIsSorted(nums)
+	fmt.Println(isSort)
+
+}
+
 ```
 :::
 ::: code-group-item struct排序1
@@ -2327,9 +2373,17 @@ fmt.Println(strings.ToUpper("Gopher"))
 
 ```go
 fmt.Println(strings.TrimSpace(" \t\n Hello, Gophers \n\t\r\n")) // Hello, Gophers
-fmt.Print(strings.TrimFunc("¡¡¡$6521.123Hello, Gophers!!!", func(r rune) bool {
+fmt.Println(strings.TrimFunc("¡¡¡$6521.123Hello, Gophers!!!", func(r rune) bool {
 	return !unicode.IsLetter(r) && !unicode.IsNumber(r)
 })) // 6521.123Hello, Gophers
+```
+
+- strings.Contains()
+
+```go
+if find := strings.Contains("test-v1", "v1"); find {
+	fmt.Println("find the character.")
+}
 ```
 
 
@@ -2389,6 +2443,47 @@ import "encoding/json"
 // struct => json
 json.Marshal()
 json.Unmarshal()
+
+// read json file to struct
+decoder := json.NewDecoder(f)
+decoder.Decode(&bar)
+```
+
+```go
+// struct -> json
+func structToJson(obj interface{}) string {
+	res, _ := json.Marshal(obj)
+	return string(res)
+}
+
+// json -> struct
+func jsonToStruct(data string, ptr interface{}) interface{} {
+	json.Unmarshal([]byte(data), &ptr)
+	return ptr
+}
+
+// 读取json文件 -> json
+func readJsonFileToJson() {
+	f, _ := os.ReadFile("bar.json")
+	res := gjson.Get(string(f), "data")
+	fmt.Println(res)
+}
+
+
+func ReadJsonFile() {
+	// 打开json文件
+	f, _ := os.Open("bar.json")
+	defer f.Close()
+
+	// json文件 -> struct
+	var bar map[string]interface{}
+	decoder := json.NewDecoder(f)
+	decoder.Decode(&bar)
+	// fmt.Println(bar)
+
+	// struct -> json
+	data, _ := json.Marshal(bar)
+	fmt.Println(string(data))
 ```
 
 ::: details Example
