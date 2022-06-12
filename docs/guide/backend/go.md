@@ -2261,6 +2261,74 @@ os.TempDir()
 os.ReadDir(name string)
 ```
 
+**程序退出**
+```go
+// defers will not be run when using os.Exit, so this fmt.Println will never be called.
+// defer fmt.Println("!")
+os.Exit(1)
+```
+
+**Cmd命令**
+```go
+res, _ := exec.Command("ls").Output()
+res, _ := exec.Command("bash", "-c", "ls -a -l -h").Output()
+// 使用string(res)输出
+```
+
+::: details cmd示例
+```go
+package main
+
+import (
+	"fmt"
+	"os/exec"
+)
+
+func main() {
+	goCmd3()
+}
+
+/**
+ * go程序执行cmd命令
+ */
+
+func goCmd() {
+	cmd := exec.Command("ls")
+	res, _ := cmd.Output()
+	fmt.Println(string(res))
+}
+
+// 简写
+func goCmd2() {
+	res, _ := exec.Command("ls").Output()
+	fmt.Println(string(res))
+}
+
+// 带参数
+func goCmd3() {
+	lsOut, _ := exec.Command("bash", "-c", "ls -a -l -h").Output()
+	fmt.Printf("> ls -a -l -h: %s", string(lsOut))
+}
+
+// 与方法3相同，此方法会将目录着重显示
+func goCmd4() {
+	binary, lookErr := exec.LookPath("ls")
+	if lookErr != nil {
+		panic(lookErr)
+	}
+
+	args := []string{"ls", "-a", "-l", "-h"}
+
+	env := os.Environ()
+
+	execErr := syscall.Exec(binary, args, env)
+	if execErr != nil {
+		panic(execErr)
+	}
+}
+```
+:::
+
 **目录遍历**
 
 ::: details 目录及文件遍历
@@ -2274,6 +2342,8 @@ import (
 )
 
 var cnt int
+var specifiedType []string = []string{"txt", "py", "js"}
+var retainType []string = []string{"go"}
 
 func main() {
 	WalkDemo()
@@ -2309,6 +2379,7 @@ func WalkDir() {
 		cnt++
 		fmt.Printf("%-4d: %s\n", cnt, path)
 		// fmt.Println(path) // 打印path信息
+		// fmt.Println(info.IsDir())
 		// fmt.Println(info.Name()) // 打印文件或目录名
 		return nil
 	})
@@ -2327,6 +2398,70 @@ func WalkFiles(path string) {
 		}
 	}
 }
+
+
+func WalkRemoveFiles(path string) {
+	dir, _ := os.ReadDir(path)
+	for _, file := range dir {
+		file_path := filepath.Join(path, file.Name())
+		if file.IsDir() {
+			WalkRemoveFiles(file_path)
+		} else {
+			if strings.HasSuffix(file_path, "txt") {
+				cnt++
+				fmt.Printf("%-4d: %s\n", cnt, file_path)
+				// err := os.Remove(file_path)
+				// if err != nil {
+				// 	return
+				// }
+			}
+		}
+	}
+}
+
+func WalkRemoveFiles2(path string) {
+
+	ContainsStr := func(arr []string, value string) bool {
+		for _, v := range arr {
+			if v == value {
+				return true
+			}
+		}
+		return false
+	}
+
+	print := func(file_path string) {
+		cnt++
+		fmt.Printf("%-4d: %s\n", cnt, file_path)
+		// os.Remove(file_path)
+	}
+	dir, _ := os.ReadDir(path)
+	for _, file := range dir {
+		file_path := filepath.Join(path, file.Name())
+		if file.IsDir() {
+			WalkRemoveFiles2(file_path)
+		} else {
+			arr := strings.Split(file_path, ".")
+			file_type := arr[len(arr)-1]
+			switch {
+			// 仅保留指定类型文件，删除类型为空
+			case len(specifiedType) == 0 && len(retainType) != 0 && !ContainsStr(retainType, file_type):
+				print(file_path)
+			// 仅删除指定类型文件，保留类型为空
+			case len(retainType) == 0 && len(specifiedType) != 0 && ContainsStr(specifiedType, file_type):
+				print(file_path)
+			// 保留指定类型文件的同时, 且删除指定类型文件
+			case len(retainType) != 0 && len(specifiedType) != 0 && (!ContainsStr(retainType, file_type) && ContainsStr(specifiedType, file_type)):
+				print(file_path)
+			default:
+				// print(file_path)
+			}
+		}
+	}
+}
+
+
+
 ```
 :::
 
