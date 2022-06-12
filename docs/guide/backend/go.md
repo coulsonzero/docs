@@ -3405,3 +3405,16 @@ func main() {
 
 }
 ```
+
+### fmt
+
+```go
+// 输出
+fmp.Print()
+fmt.Println()
+fmt.Printf()
+// 字符串格式化
+fmt.Sprintf()
+// http请求写入网页
+fmt.Fprintf()
+```
