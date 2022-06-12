@@ -44,6 +44,8 @@ fmt.Printf()    // 格式化输出
  * %%: %
  * %-3d: `-`指 左对齐, `3`指占3个字符
  * %02d: `02指`不足两位数字时在数字前面补齐0
+ * %+v : 输出`key`, 如&{a:7 b:-2.35 c:abc}
+ * %#v : 输出类型, map[string]int{"CST":-21600, "EST":-18000, "MST":-25200, "PST":-28800, "UTC":0}
  */
 
 ```
@@ -1343,10 +1345,38 @@ import (
 
 ### Modules
 
-```go
-go mod init [your-project-name]
+https://pkg.go.dev/cmd
 
+```bash
+# 查看go版本
+go version
+
+# 环境变量
+go env
+
+# 更改为国内代理(go get失败时)
+go env -w GOPROXY=https://goproxy.cn,direct
+
+# 新项目初始化
+go mod init <project name>
+
+# 依赖包自动管理
 go mod tidy
+
+# 运行main程序
+go run main.go
+
+# 编译
+go build -o hello.go
+
+# 代码格式化(git push前)
+go fmt
+
+# 测试
+go test
+
+# 检查Go源代码并报告可疑情况
+go vet
 ```
 
 ### Comments
@@ -1489,10 +1519,6 @@ fmt.Println(res)    //500500
 
 
 ## 高并发
-
-
-
-
 ### Goroutines 并发线程
 :::: code-group
 ::: code-group-item 普通模式
@@ -2036,6 +2062,13 @@ $ rm -rf ~/.gvm/archive/
 2.将项目文件夹移动至 GOPATH/src下 会自动配置Mod依赖
 ```
 
+```sh
+go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
+go mod init <project name>
+go get -u github.com/gin-gonic/gin
+```
+
 
 ### main redeclared in this block
 
@@ -2220,6 +2253,9 @@ func main() {
 **文件操作**
 ```go
 import "os"
+
+// 打开文件
+os.Open()
 
 // 创建文件
 os.Create(name string)
