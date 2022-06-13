@@ -548,6 +548,24 @@ func join(s []string) string {
 arr := [3]int          // [0, 0, 0]
 // 数据声明初始化
 arr := []int{1, 2, 3}  // [1, 2, 3]
+
+
+// For Example
+var a [3]int                             // len: 3, cap: 3, array: [0 0 0], array: [3]int{0, 0, 0}
+var b = [...]int{1, 2, 3}                // len: 3, cap: 3, array: [1 2 3]
+var c = [...]int{1: 2, 2: 3}             // len: 3, cap: 3, array: [0 2 3]
+var d = [...]int{1, 2, 4: 5, 6}          // len: 6, cap: 6, array: [1 2 0 0 5 6]
+var e = [...]int{'a': 1}                 // len: 98, cap: 98, array: [..., 1]
+var f = [...]int{'a': 1, 'b': 2, 'c': 3} // len: 100, cap: 100, array: [..., 1 2 3]
+
+fmt.Printf("len: %d, cap: %d, array: %v, array: %#v \n", len(a), cap(a), a, a)
+fmt.Printf("len: %d, cap: %d, array: %v \n", len(b), cap(b), b)
+fmt.Printf("len: %d, cap: %d, array: %v \n", len(c), cap(c), c)
+fmt.Printf("len: %d, cap: %d, array: %v \n", len(d), cap(d), d)
+fmt.Printf("len: %d, cap: %d, array: %v \n", len(e), cap(e), e)
+fmt.Printf("len: %d, cap: %d, array: %v \n", len(f), cap(f), f)
+
+fmt.Printf("%v, %c, %T", 'a', 'a', 'a') // 97, a, int32
 ```
 :::
 ::: code-group-item Api
@@ -625,14 +643,34 @@ slice = append(slice, 4)         // len: 6, cap: 10, slice: [1 2 3 0 0 4]
 slice = append(slice, 4, 5, 6)   // len: 8, cap: 10, slice: [1 2 3 0 0 4 5 6]
 nums := []int{4, 5}
 slice = append(slice, nums...)   // len: 7, cap: 10, slice: [1 2 3 0 0 4 5]
+
+// 中间插入元素
+slice = append(slice[:i], append([]int{v}, slice[i:]...)...)	// 在index=i的位置插入value
+
+
+// 插入单个元素
+func sliceInsert(slice []int, index int, value int) []int {
+	slice = append(slice[:index], append([]int{value}, slice[index:]...)...)
+	return slice
+}
+
+func sliceInsert2(slice []int, index int, value int) []int {
+	slice = append(slice, 0)
+	copy(slice[index+1:], slice[index:])
+	slice[index] = value
+	return slice
+}
 ```
 :::
 ::: code-group-item 删
 ```go
 // 删除(指定索引元素)
 slice = append(slice[:i], slice[i + 1:]...)
-```
 
+// 删除切片部分元素
+slice = slice[i:]
+```
+:::
 ::: code-group-item 改
 ```go
 // 排序
@@ -2659,22 +2697,28 @@ func main() {
 
 ```go
 // 包含
+strings.Contains()
+// endswith
 strings.HasSuffix()
+// startswith
+strings.HasPrefix()
 
 // 数组->字符串
 strings.Join()
 // 字符串->数组
 strings.Split()
 // 替换
-strings.Replace()
+strings.Replace(str, old, new , -1)	// -1为全部，等价于ReplaceAll()
 strings.ReplaceAll()
+
 
 // 大小写转换
 strings.ToUpper()
 strings.ToLower()
 
-// 移除无效字符
-strings.TrimSpace()
+// 移除空格(首尾)
+strings.Trim(str, " ")
+strings.TrimSpace(str)
 strings.TrimFunc()
 ```
 
@@ -2811,13 +2855,13 @@ end := time.Now()
 fmt.Println(end.Sub(start)) // 606.114625ms
 ```
 
-> 固定单位格式
+> 简写
 
 ```go
-start := time.Now()
+stimeStart := time.Now()
 //...
-secs := time.Since(start).Seconds()
-fmt.Printf("%.2fs", secs)
+timeElapsed := time.Since(timeStart)
+log.Printf("%v\n", timeElapsed)
 ```
 
 **格式化时间**
