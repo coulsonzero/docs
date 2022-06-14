@@ -6,8 +6,9 @@ simple, reliable and efficient software.
 ## Getting Started
 
 ### 1. Hello World
+
 ::: tip
-Go通过`main`方法启动, main()方法的`package`必须为`main`
+Go 通过`main`方法启动, main()方法的`package`必须为`main`
 :::
 
 :::: code-group
@@ -25,8 +26,11 @@ func main() {
 
 :::
 ::::
+
 ### 2. Input & Output
+
 **Output**
+
 ```go
 fmt.Print()		// 不换行
 fmt.Println()   // 换行
@@ -49,7 +53,9 @@ fmt.Printf()    // 格式化输出
  */
 
 ```
+
 **Input**
+
 ```go
 var name string
 fmt.Print("请输入名称(name): ")
@@ -105,6 +111,7 @@ func main() {
 
 :::
 ::: code-group-item multiple-inputs
+
 ```go
 package main
 
@@ -133,18 +140,22 @@ func main() {
 [1, 3, 5, 6]
 */
 ```
+
 :::
 ::::
+
 ### 3. Variable
 
 :::: code-group
 ::: code-group-item 单个变量
+
 ```go
 var str string  // 有默认值: ""
 var str string = "Tom"
 var str = "Tom"
 str := "Tom"	// 仅可作为局部变量(函数体内声明)
 ```
+
 :::
 ::: code-group-item 多个变量
 
@@ -174,8 +185,10 @@ var name, age = "John", 20
 // 局部变量
 name, age := "John", 20
 ```
+
 :::
 ::: code-group-item 变量示例
+
 ```go
 package main
 
@@ -232,8 +245,10 @@ func createMultipleVar() {
 	fmt.Println(host, port)
 }
 ```
+
 :::
 ::: code-group-item 常量
+
 ```go
 package main
 
@@ -259,6 +274,7 @@ func main() {
 	fmt.Println(a, b, c)
 }
 ```
+
 :::
 ::::
 
@@ -267,23 +283,25 @@ func main() {
 > 局部变量: 函数内定义的变量, 作用域只在函数体内，参数和返回值变量也是局部变量, 必须初始化否则报错
 
 ::: danger
+
 > **A.变量作用域**:
 >
 > 1.全局变量: `var x = 12` (不能使用 `x := 12`)
 >
-> 2.局部变量: `x := 12`(var x = 12亦可, 推荐前者)
+> 2.局部变量: `x := 12`(var x = 12 亦可, 推荐前者)
 >
 > **B.变量修改**:
 >
-> a.全局变量: `func change() {x += 1}` (仅无参修改, 使用参数set(x int)无法修改)
+> a.全局变量: `func change() {x += 1}` (仅无参修改, 使用参数 set(x int)无法修改)
 >
-> b.局部变量: `func change_ptr(ptr *int) {*ptr += 1}` (仅指针修改, 使用set(x int)无法修改)
+> b.局部变量: `func change_ptr(ptr *int) {*ptr += 1}` (仅指针修改, 使用 set(x int)无法修改)
 >
 > 注意其他方式无法修改
 
 :::
 :::: code-group
 ::: code-group-item 变量作用域
+
 ```go
 package main
 import "fmt"
@@ -301,8 +319,10 @@ func main() {
 }
 
 ```
+
 :::
 ::: code-group-item 全局变量
+
 ```go
 package main
 import "fmt"
@@ -325,8 +345,10 @@ func main() {
 	fmt.Println(x) // 4
 }
 ```
+
 :::
 ::: code-group-item 局部变量
+
 ```go
 package main
 import "fmt"
@@ -349,8 +371,10 @@ func main() {
 	fmt.Println(x) // 8
 }
 ```
+
 :::
 ::: code-group-item 类字段
+
 ```go{9,13}
 package main
 import "fmt"
@@ -378,14 +402,17 @@ func main() {
 }
 
 ```
+
 :::
 ::::
+
 ### 4. DataTypes
 
 [**类型强制转换**](./go.md/#5-string-字符串)
 
 :::: code-group
 ::: code-group-item 数据类型
+
 ```go
 // 基础数据类型
 byte, rune<int32>  // 字符, rune是int32的别名，其他语言为char; byte是uint8
@@ -413,6 +440,7 @@ type any = interface{}
 
 func toString[T int|float64|string](s T) T {}
 ```
+
 :::
 ::: code-group-item 类型格式化输出
 
@@ -438,8 +466,10 @@ fmt.Printf("%v %T \n", skills, skills)
 fmt.Printf("%v, %T \n", scoreMap, scoreMap)
 // map[], map[string]int
 ```
+
 :::
 ::: code-group-item 中文字符
+
 ```go
 func main() {
 	c := 'z'
@@ -453,12 +483,9 @@ func main() {
 	fmt.Printf("char: %s, value: %v, typeof: %T \n", string(z), string(z), string(z)) // char: 美, value: 美, typeof: string
 }
 ```
+
 :::
 ::::
-
-
-
-
 
 ## Core
 
@@ -466,6 +493,7 @@ func main() {
 
 :::: code-group
 ::: code-group-item Api
+
 ```go
 // 字符串格式化
 s := fmt.Sprintf()
@@ -493,8 +521,10 @@ func forEach2() {
 	// G i t h u b 官 网
 }
 ```
+
 :::
 ::: code-group-item 类型转换
+
 ```go{3,12-13}
 // string -> int
 str := "134"
@@ -523,26 +553,28 @@ func join(s []string) string {
 	return res
 }
 ```
+
 :::
 ::::
+
 ### 6. Array 数组
 
 ::: warning
+
 > 一旦声明，长度固定无法修改，需要动态扩展数据参考切片`make([]int 5)`
 >
 > 只能查询，无法增删改
-:::
+> :::
 
 ::: tip Tip
 固定数组：值拷贝, 长度固定数组，无法扩容和修改元素(append(), make(), copy(), sort.Ints()等方法)
 
-动态数组(切片slice): 引用拷贝
+动态数组(切片 slice): 引用拷贝
 :::
-
-
 
 :::: code-group
 ::: code-group-item 创建固定数组
+
 ```go
 // 数组声明 -> 有默认值
 arr := [3]int          // [0, 0, 0]
@@ -567,8 +599,10 @@ fmt.Printf("len: %d, cap: %d, array: %v \n", len(f), cap(f), f)
 
 fmt.Printf("%v, %c, %T", 'a', 'a', 'a') // 97, a, int32
 ```
+
 :::
 ::: code-group-item Api
+
 ```go
 // 长度
 len(arr)
@@ -592,8 +626,10 @@ func sum(nums ...int) int {}
 ...arr  // 1, 2, 3 => [1, 2, 3]
 sum(nums...)
 ```
+
 :::
 ::: code-group-item 遍历
+
 ```go
 // 遍历
 for i := 0; i < len(arr); i++ {
@@ -612,30 +648,37 @@ for _, v := range nums {
     fmt.Println(v)
 }
 ```
+
 :::
 ::::
 
 ### 7. Slice 切片
+
 ::: tip
-动态数组，可使用Array所有**Api**方法，且长度不固定，可扩容
+动态数组，可使用 Array 所有**Api**方法，且长度不固定，可扩容
 :::
 :::: code-group
 ::: code-group-item 创建动态数组
+
 ```go
 var slice []int                 // len: 0, cap: 0, slice: []
 slice := []int                  // len: 0, cap: 0, slice: []
 slice := []int{1, 2, 3}         // len: 3, cap: 3, slice: [1, 2, 3]
 slice := make([]int, len, cap)  // make: 使用len分配slice长度；cap: 可选参数，为数组容量，长度小于容量时其他数值均为默认值
 ```
+
 :::
 ::: code-group-item 查
+
 ```go
 // 查询
 fmt.Printf("len: %d, cap: %d, slice: %v \n", len(slice), cap(slice), slice)
 
 ```
+
 :::
 ::: code-group-item 增
+
 ```go
 // 增加(末尾)
 slice := []int{1, 2, 3, 0, 0}
@@ -661,8 +704,10 @@ func sliceInsert2(slice []int, index int, value int) []int {
 	return slice
 }
 ```
+
 :::
 ::: code-group-item 删
+
 ```go
 // 删除(指定索引元素)
 slice = append(slice[:i], slice[i + 1:]...)
@@ -670,8 +715,10 @@ slice = append(slice[:i], slice[i + 1:]...)
 // 删除切片部分元素
 slice = slice[i:]
 ```
+
 :::
 ::: code-group-item 改
+
 ```go
 // 排序
 import "sort"
@@ -733,8 +780,10 @@ slice: [1 2 3 4 5 6], len: 6, cap: 6
 slice2: [7 8 9], len: 3, cap: 3
 */
 ```
+
 :::
 ::: code-group-item 扩容
+
 ```go
 /********************************************************/
 // 自动扩容
@@ -752,8 +801,10 @@ newSlice := make([]int, len(slice), 10) // len: 3, cap: 10, slice: [0 0 0]
 copy(newSlice, slice)                   // len: 3, cap: 10, newSlice: [1 2 3]
 /********************************************************/
 ```
+
 :::
 ::: code-group-item 判断
+
 ```go
 // 判断两个切片相等
 func equal(s1 []int, s2 []int) bool {
@@ -769,13 +820,15 @@ func equal(s1 []int, s2 []int) bool {
 	return true
 }
 ```
+
 :::
 ::::
 
 ### 8. Map 哈希表
 
 :::: code-group
-::: code-group-item 创建Map
+::: code-group-item 创建 Map
+
 ```go
 // 方式一：初始化map
 cityMap := map[string] string{
@@ -792,10 +845,16 @@ m["Amye"] = 86
 
 // // 解构: cityMap...
 ```
+
 :::
 ::: code-group-item Api
+
 ```go
 scoreMap := make(map[string] int)
+
+// 判断包含
+if _, ok := scoreMap[key]; ok {}
+
 // 增 改
 scoreMap["Jame"] = 97
 
@@ -805,19 +864,18 @@ delete(scoreMap, "Jame")
 // 查
 fmt.Println(scoreMap)
 
+
 // 遍历
 
 for _, v := range scoreMap {
 	// statement
 }
 
-// 遍历+判断包含
-for _, ok := scoreMap, ok {
-
-}
 ```
+
 :::
 ::: code-group-item Example
+
 ```go
 package main
 import "fmt"
@@ -837,8 +895,10 @@ func main() {
     fmt.Println(sum / 5)
 }
 ```
+
 :::
 ::: code-group-item TwoSum
+
 ```go
 func twoSum(nums []int, target int) []int {
     /*
@@ -862,21 +922,21 @@ func twoSum(nums []int, target int) []int {
     return nil
 }
 ```
+
 :::
 ::::
 
-
 ## OOP
-### 9. Function
 
+### 9. Function
 
 > 值传递(默认): 指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数
 >
 > 引用传递(指针): 指在调用函数时将实际参数的地址传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数
 
-
 :::: code-group
 ::: code-group-item 无参
+
 ```go{4}
 package main
 import "fmt"
@@ -889,8 +949,10 @@ func main() {
 	welcome()
 }
 ```
+
 :::
 ::: code-group-item 有参
+
 ```go{4-5}
 package main
 import "fmt"
@@ -904,8 +966,10 @@ func main() {
 }
 
 ```
+
 :::
 ::: code-group-item 不定参
+
 ```go
 package main
 import "fmt"
@@ -924,8 +988,10 @@ func main() {
     fmt.Println(sum(nums...)) // 15
 }
 ```
+
 :::
 ::: code-group-item 返回值
+
 ```go {4-5}
 package main
 import "fmt"
@@ -940,8 +1006,10 @@ func main() {
     fmt.Println(b)
 }
 ```
+
 :::
 ::: code-group-item defer 析构器
+
 ```go{10}
 // 关闭文件、垃圾清理， Stack 堆结构：后进先出
 package main
@@ -981,8 +1049,10 @@ func main() {
 * end
 */
 ```
+
 :::
 ::: code-group-item 闭包
+
 ```go
 package main
 
@@ -1005,11 +1075,12 @@ func main() {
 	fmt.Println(newInts()) // 1
 }
 ```
+
 :::
 ::::
 
-
 For Example
+
 ```go
 // 阶乘 n!
 func fact(n int) int {
@@ -1028,13 +1099,13 @@ var fib func(n int) int {
 }
 ```
 
-
 ### 10. Structs 结构体
 
 > 不同类型或相同类型的数据集
 
 :::: code-group
 ::: code-group-item 类
+
 ```go
 package main
 
@@ -1054,8 +1125,10 @@ func main() {
 }
 
 ```
+
 :::
 ::: code-group-item OOP
+
 ```go
 package main
 
@@ -1105,9 +1178,11 @@ func main() {
 }
 
 ```
+
 :::
 
 ::: code-group-item 类指针
+
 ```go{19,35,46}
 package main
 
@@ -1162,8 +1237,10 @@ func main() {
 	fmt.Println(*s3) // {Yalo 20}
 }
 ```
+
 :::
 ::: code-group-item 简化版
+
 ```go
 package main
 import "fmt"
@@ -1186,8 +1263,10 @@ func main() {
     c.change("blue")
 }
 ```
+
 :::
 ::: code-group-item 类输入遍历
+
 ```go
 package main
 
@@ -1219,8 +1298,10 @@ func (x Cart) show() {
 	fmt.Println(sum)
 }
 ```
+
 :::
 ::: code-group-item 类标签
+
 ```go
 type BarData struct {
 	Type     string      `json:"type"`
@@ -1228,9 +1309,9 @@ type BarData struct {
 	AxisLine interface{} `json:"axisLine"`
 }
 ```
+
 :::
 ::::
-
 
 ### 11. Interface 接口
 
@@ -1290,6 +1371,7 @@ func main() {
 
 :::: code-group
 ::: code-group-item pointer
+
 ```go{6,10,12,16}
 package main
 import "fmt"
@@ -1309,8 +1391,10 @@ func main() {
 	fmt.Println(*p) // 14
 }
 ```
+
 :::
 ::: code-group-item pointer in Func
+
 ```go
 package main
 import "fmt"
@@ -1333,11 +1417,12 @@ func main() {
 	fmt.Println(x) // 8
 }
 ```
+
 :::
 ::::
 
-
 ## Basic Concepts
+
 ### import
 
 ```go
@@ -1356,8 +1441,8 @@ import (
 )
 ```
 
-
 ::: details 详情
+
 ```go
 // 1. import single package
 import "fmt"
@@ -1379,6 +1464,7 @@ import (
 	"[your-project]/config"
 )
 ```
+
 :::
 
 ### Modules
@@ -1432,9 +1518,6 @@ This is a multi-line comment
  */
 ```
 
-
-
-
 ### Operators
 
 ```go
@@ -1454,13 +1537,14 @@ func isEven( num int ) bool {
 
 ```
 
-
 ## Control
+
 ### Statement
 
 ::: danger
-> 注意变量作用域, 在condition中声明外部无法访问！
-:::
+
+> 注意变量作用域, 在 condition 中声明外部无法访问！
+> :::
 
 :::: code-group
 ::: code-group-item if
@@ -1476,6 +1560,7 @@ if x := 42; x > 18 {
 
 // fmt.Println(x) // error: undefined: x
 ```
+
 :::
 ::: code-group-item switch
 
@@ -1490,8 +1575,10 @@ switch y := x%2; y {
         //statement(s)
 }
 ```
+
 :::
-::: code-group-item switch条件判断
+::: code-group-item switch 条件判断
+
 ```go
 /* switch版的 if statement */
 x := 2
@@ -1503,17 +1590,21 @@ switch {
 }
 //  fallthrough: 执行多个case；默认只会执行一个，不需要break，支持多条件匹配
 ```
+
 :::
 ::::
 
 ### Loops
+
 ::: warning
+
 ```go
 // golang 不支持该写法
 for i := 0, j := len(s); i < j; i++, j-- {...}
 // 支持以下写法
 for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {...}
 ```
+
 :::
 
 :::: code-group
@@ -1539,6 +1630,7 @@ for _, v := range nums {
     fmt.Println(v)
 }
 ```
+
 :::
 ::: code-group-item while
 
@@ -1552,14 +1644,17 @@ for sum <= 1000 {
 }
 fmt.Println(res)    //500500
 ```
+
 :::
 ::::
 
-
 ## 高并发
+
 ### Goroutines 并发线程
+
 :::: code-group
 ::: code-group-item 普通模式
+
 ```go
 package main
 import (
@@ -1580,8 +1675,10 @@ func main() {
 
 //连续输出0-10
 ```
+
 :::
 ::: code-group-item go1
+
 ```go
 package main
 
@@ -1602,8 +1699,10 @@ func main() {
 
 // No Output， 因为main()于go并发前退出了
 ```
+
 :::
 ::: code-group-item go2
+
 ```go
 package main
 
@@ -1641,8 +1740,10 @@ func main() {
 5
 */
 ```
+
 :::
 ::: code-group-item Channels1
+
 ```go
 package main
 
@@ -1682,8 +1783,10 @@ func main() {
 10
 */
 ```
+
 :::
 ::: code-group-item Channels2
+
 ```go
 package main
 
@@ -1714,8 +1817,10 @@ func main() {
 	fmt.Println(<-ch1 + <-ch2)
 }
 ```
+
 :::
 ::: code-group-item Channels3
+
 ```go
 package main
 
@@ -1752,8 +1857,10 @@ func main() {
 
 // Output: 173250
 ```
+
 :::
 ::: code-group-item Select1
+
 ```go
 package main
 
@@ -1802,8 +1909,10 @@ func main() {
 
 // New Output: 171700
 ```
+
 :::
 ::: code-group-item Select2
+
 ```go
 package main
 
@@ -1840,8 +1949,10 @@ func main() {
 	}
 }
 ```
+
 :::
 ::: code-group-item For
+
 ```go
 package main
 
@@ -1899,6 +2010,7 @@ Nothing available
 2550
 */
 ```
+
 :::
 ::::
 
@@ -2002,7 +2114,7 @@ select {
 
 :::
 
-### Error异常处理
+### Error 异常处理
 
 ```go
 func Sqrt(f float64) (float64, error) {
@@ -2023,14 +2135,18 @@ func main() {
 ```
 
 ## FAQ
-### GO简介
+
+### GO 简介
+
 ```
 Go 不允许导入未被使用的包，以避免将未使用的代码链接到程序里而造成的不必要的膨胀
 Go 是一种用于编写系统的语言
 该语言本身的主要不寻常属性——并发性——解决了 2010 年代多核 CPU 激增所出现的问题。但更重要的是为软件开发世界的打包、依赖关系、构建、测试、部署和其他日常任务建立基础的早期工作，这些方面通常在语言设计中并不重要
 不是每个人都喜欢——例如，有些人反对这种语言省略了继承和泛型类型等常见的特性。但是 Go 以开发为中心的理念足够有趣和有效，以至于社区在保持最初推动 Go 存在的核心原则的同时蓬勃发展。在很大程度上要归功于该社区及其构建的技术，Go 现在已成为现代云计算环境的重要组成部分。
 ```
+
 ### 如何查看 Go 版本 ？
+
 ```sh
 $ go version
 go version go1.17.7 darwin/amd64
@@ -2039,9 +2155,10 @@ go version go1.17.7 darwin/amd64
 ### 如何 安装不同的 Go 版本 ？
 
 > 方式一：gvm
-> 方式二: Goland中卸载gdk (推荐)
+> 方式二: Goland 中卸载 gdk (推荐)
 
 1. install gvm
+
 ```sh
 $ curl -sSL https://github.com/soulteary/gvm/raw/master/binscripts/gvm-installer | bash
 Cloning from https://github.com/soulteary/gvm.git to /Users/coulsonzero/.gvm
@@ -2053,12 +2170,14 @@ Please restart your terminal session or to get started right away run
 ```
 
 2. source terminal
+
 ```sh
 $ source /Users/coulsonzero/.gvm/scripts/gvm
 # or 重新打开终端
 ```
 
 3. install go version
+
 ```sh
 $ gvm install go1.18.3 -B     # 本地编译(不想下载预编译好的内容)去掉 `-B`参数,
 Installing go1.18.3 from binary source
@@ -2076,12 +2195,13 @@ Now using version go1.18.3
 ```
 
 5. 查看当前 go 版本
+
 ```sh
 $ go version
 go version go1.18.3 darwin/arm64
 ```
 
-* 如何卸载 gvm 或进行重置
+- 如何卸载 gvm 或进行重置
 
 ```sh
 $ rm -rf ~/.gvm
@@ -2089,11 +2209,13 @@ $ rm -rf ~/.gvm
 # 然后清理 ~/.zshrc 或 ~/.bashrc 添加的内容
 ```
 
-* 如何解决某个版本下载不顺利的问题
+- 如何解决某个版本下载不顺利的问题
+
 ```sh
 $ rm -rf ~/.gvm/archive/
 ```
-### GO vscode 的package main红色波浪性问题
+
+### GO vscode 的 package main 红色波浪性问题
 
 ```
 1.终端上执行 go mod init [项目名]/[目录名]
@@ -2107,7 +2229,6 @@ go mod init <project name>
 go get -u github.com/gin-gonic/gin
 ```
 
-
 ### main redeclared in this block
 
 ```go{1}
@@ -2118,9 +2239,10 @@ package main
 
 ## Libs 标准库
 
-[golang标准库](https://pkg.go.dev/std)
+[golang 标准库](https://pkg.go.dev/std)
 
 ### sort
+
 ```go
 import "sort"
 
@@ -2128,6 +2250,7 @@ sort.Ints(nums)
 sort.Sort(sort.Reverse(sort.IntSlice(nums)))
 sort.Strings(strs)
 ```
+
 ```go
 import "github.com/zhangyunhao116/pdqsort"
 
@@ -2136,10 +2259,9 @@ pdqsort.Search(nums, ele)
 pdqsort.SliceIsSorted(nums)
 ```
 
-
-
 :::: code-group
 ::: code-group-item 数字排序
+
 ```go{16,26}
 package main
 
@@ -2170,8 +2292,10 @@ func reverseNums(nums []int) []int {
 	return nums
 }
 ```
+
 :::
 ::: code-group-item 字符串数组排序
+
 ```go{10}
 package main
 
@@ -2186,8 +2310,10 @@ func main() {
 	fmt.Println(s)
 }
 ```
+
 :::
-::: pdq排序
+::: pdq 排序
+
 ```go
 package main
 
@@ -2213,8 +2339,10 @@ func main() {
 }
 
 ```
+
 :::
-::: code-group-item struct排序1
+::: code-group-item struct 排序 1
+
 ```go{30,32}
 package main
 
@@ -2254,8 +2382,10 @@ func main() {
 
 // Output: [{Michael 17} {John 22} {Jenny 26} {Bob 31} {John 42}]
 ```
+
 :::
-::: code-group-item struct排序2
+::: code-group-item struct 排序 2
+
 ```go
 package main
 
@@ -2282,13 +2412,14 @@ func main() {
 	fmt.Println("By age:", people) // By age: [{Gopher 7} {Vera 24} {Alice 35} {Alice 55} {Bob 75}]
 }
 ```
+
 :::
 ::::
 
 ### os
 
-
 **文件操作**
+
 ```go
 import "os"
 
@@ -2313,6 +2444,7 @@ os.WriteFile(name string, data []byte, perm FileMode)	// FileMode: os.ModePerm
 ```
 
 **目录操作**
+
 ```go
 // 创建目录
 os.Mkdir(name string, perm FileMode)
@@ -2336,20 +2468,23 @@ os.ReadDir(name string)
 ```
 
 **程序退出**
+
 ```go
 // defers will not be run when using os.Exit, so this fmt.Println will never be called.
 // defer fmt.Println("!")
 os.Exit(1)
 ```
 
-**Cmd命令**
+**Cmd 命令**
+
 ```go
 res, _ := exec.Command("ls").Output()
 res, _ := exec.Command("bash", "-c", "ls -a -l -h").Output()
 // 使用string(res)输出
 ```
 
-::: details cmd示例
+::: details cmd 示例
+
 ```go
 package main
 
@@ -2401,11 +2536,13 @@ func goCmd4() {
 	}
 }
 ```
+
 :::
 
 **目录遍历**
 
 ::: details 目录及文件遍历
+
 ```go
 package main
 
@@ -2445,6 +2582,7 @@ func Walk(path string) {
 	}
 }
 ```
+
 ```go
 // 获取当前目录下的所有文件或目录信息（包含当前工作目录，数量较前者+1）
 func WalkDir() {
@@ -2537,10 +2675,11 @@ func WalkRemoveFiles2(path string) {
 
 
 ```
+
 :::
 
-
 ::: details For example
+
 ```go
 package main
 
@@ -2654,15 +2793,19 @@ func TempDir() {
 	fmt.Println("dir: ", dir)
 }
 ```
+
 :::
 
 **标准输入**
+
 ```go
 scanner := bufio.NewScanner(os.Stdin)
 scanner.Text()
 os.Exit(1)
 ```
+
 For Example
+
 ```go
 package main
 
@@ -2723,6 +2866,7 @@ strings.TrimFunc()
 ```
 
 - strings.Join()
+
 ```go
 package main
 
@@ -2738,6 +2882,7 @@ func main() {
 ```
 
 - strings.Split()
+
 ```go
 fmt.Printf("%q\n", strings.Split("a,b,c", ","))
 // Output: ["a" "b" "c"]
@@ -2746,7 +2891,7 @@ fmt.Printf("%q\n", strings.Split("a,b,c", ","))
 - strings.Replace(s, old, new, n)
 - strings.ReplaceAll(s, old, new)
 
-> n: 次数，不可省，如果小于0则表示没有替换次数限制(全部), 此时与ReplaceAll()作用相同
+> n: 次数，不可省，如果小于 0 则表示没有替换次数限制(全部), 此时与 ReplaceAll()作用相同
 
 ```go
 fmt.Println(strings.Replace("oink oink oink", "k", "ky", 2))
@@ -2782,9 +2927,6 @@ if find := strings.Contains("test-v1", "v1"); find {
 	fmt.Println("find the character.")
 }
 ```
-
-
-
 
 ### strconv
 
@@ -2865,6 +3007,7 @@ log.Printf("%v\n", timeElapsed)
 ```
 
 **格式化时间**
+
 ```go
 t := time.Now()
 fmt.Printf("%d-%02d-%02d %02d:%02d:%02d\n",
@@ -2880,6 +3023,7 @@ now := t.Format("2006/01/02 15:04:02 PM Mon Jan")
 ```
 
 **定时器(间隔运行)**
+
 ```go
 ticker := time.Tick(time.Second) // 定义一个1秒间隔的定时器
 for i := range ticker {
@@ -2889,27 +3033,28 @@ for i := range ticker {
 
 ### json
 
+**Api**
 ```go
 import "encoding/json"
 
-// struct => json
+// object => json
 json.Marshal()
+// json => object(map、struct)
 json.Unmarshal()
 
 // read json file to struct
-decoder := json.NewDecoder(f)
-decoder.Decode(&bar)
+json.NewDecoder(file).Decode(&user)
 ```
 
 ```go
-// struct -> json
-func structToJson(obj interface{}) string {
+// object -> json
+func objectToJson(obj interface{}) string {
 	res, _ := json.Marshal(obj)
 	return string(res)
 }
 
-// json -> struct
-func jsonToStruct(data string, ptr interface{}) interface{} {
+// json -> object(map/struct)
+func jsonToObject(data string, ptr interface{}) interface{} {
 	json.Unmarshal([]byte(data), &ptr)
 	return ptr
 }
@@ -2921,60 +3066,68 @@ func readJsonFileToJson() {
 	fmt.Println(res)
 }
 
-
-func ReadJsonFile() {
+// ReadJsonFile2 json file -> object -> json String
+func ReadJsonFile(jsonfile string, obj map[string]interface{}) string {
 	// 打开json文件
-	f, _ := os.Open("bar.json")
+	f, _ := os.Open(jsonfile)
 	defer f.Close()
 
 	// json文件 -> struct
-	var bar map[string]interface{}
-	decoder := json.NewDecoder(f)
-	decoder.Decode(&bar)
+	// var bar map[string]interface{}
+	json.NewDecoder(f).Decode(&obj)
 	// fmt.Println(bar)
 
 	// struct -> json
-	data, _ := json.Marshal(bar)
-	fmt.Println(string(data))
+	data, _ := json.Marshal(obj)
+	return string(data)
+}
 ```
 
-::: details Example
+
+**Json-Object: For Example**
+::: details json-map 转换
+
 ```go
 package main
 
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 )
 
-type BarData struct {
-	Type     string      `json:"type"`
-	Data     []int       `json:"data"`
-	AxisLine interface{} `json:"axisLine"`
-}
-
-func main() {
-	obj := []byte(`{
-		"type": "bar",
-		"data": [120, 200, 150, 80, 70, 110, 130],
-		"axisLine": {"lineStyle": {"type": "solid", "color": "blue"}}
-	}`)
-
-	res := BarData{}
-	err := json.Unmarshal(obj, &res)
-	if err != nil {
-		return
+// map -> json
+func mapToJson() {
+	m := map[string]interface{}{
+		"name":  "John",
+		"email": "john@gmail.com",
+		"age":   20,
 	}
 
-	fmt.Println("res: ", res)
-	fmt.Println("type", res.Type)
-	fmt.Println("data: ", res.Data)
-	fmt.Println("axisLine:", res.AxisLine)
+	jsonStr, _ := json.Marshal(&m)
+	fmt.Println(string(jsonStr))
+	// Output: {"age":20,"email":"john@gmail.com","name":"John"}
+}
+
+// json -> map
+func jsonToMap() {
+	jsonStr := `{
+		"name":  "John",
+		"email": "john@gmail.com",
+		"age":   20,
+		"data": [120, 200, 150, 80, 70, 110, 130]
+	}`
+	var m map[string]interface{}
+	json.Unmarshal([]byte(jsonStr), &m)
+	fmt.Println(m)
+	// Output: map[age:20 data:[120 200 150 80 70 110 130] email:john@gmail.com name:John]
 }
 ```
+
 :::
 
-::: details Example2
+::: details json-struct 转换
+
 ```go
 package main
 
@@ -2984,15 +3137,16 @@ import (
 )
 
 type Student struct {
-	Name  string
-	Email string
-	Age   int
+	Name  string `json:"name"`
+	Email string `json:"email"`
+	Age   int    `json:"age"`
 }
 
 func main() {
-	SetJson2()
+
 }
 
+// GetJson struct -> json
 func GetJson() {
 	s := Student{
 		Name:  "John",
@@ -3000,12 +3154,12 @@ func GetJson() {
 		Age:   20,
 	}
 
-	// struct => json
 	res, _ := json.Marshal(s)
 	fmt.Println(string(res))
 	// Output: {"Name":"John","Email":"john@gmail.com","Age":20}
 }
 
+// SetJson json -> struct
 func SetJson() {
 	obj := []byte(`{"Name":"John","Email":"john@gmail.com","Age":20}`)
 
@@ -3014,29 +3168,22 @@ func SetJson() {
 	fmt.Println(s)
 	// Output: {John john@gmail.com 20}
 }
-
-func SetJson2() {
-	obj := []byte(`{
-	"type": "bar",
-	"data": [120, 200, 150, 80, 70, 110, 130],
-	"axisLine": {"lineStyle": {"type": "solid", "color": "blue"}}
-}`)
-	var s interface{}
-	json.Unmarshal(obj, &s)
-	fmt.Println(s)
-
-}
 ```
+
 :::
 
+
+**JsonFile-Object-Json**
 ```go
 import "encoding/json"
 
-decoder := json.NewDecoder(f)
-decoder.Decode(&bar)
+var user map[string]interface{}
+// json file -> object
+json.NewDecoder(file).Decode(&user)
 ```
 
-::: details Example3
+::: details json.NewDecoder(f).Decode(&obj)
+
 ```go
 package main
 
@@ -3059,22 +3206,82 @@ func main() {
 func ReadJsonFile() {
 	f, _ := os.Open("bar.json")
 	defer f.Close()
-	decoder := json.NewDecoder(f)
 	var bar map[string]interface{}
-	decoder.Decode(&bar)
-	fmt.Println(bar)
+	// json File -> object
+	json.NewDecoder(f).Decode(&bar)
+	// fmt.Println(bar)
+
+	// object -> jsonStr
+	data, _ := json.Marshal(bar)
+	fmt.Println(string(data))
 }
 ```
+
 :::
 
-**Gjson & Sjson**
+**json-http**
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+)
+
+type User struct {
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
+	Age       int    `json:"age"`
+}
+
+func main() {
+	http.HandleFunc("/decode", func(w http.ResponseWriter, r *http.Request) {
+		var user User
+		json.NewDecoder(r.Body).Decode(&user)
+
+		fmt.Fprintf(w, "%s %s is %d years old!\n", user.Firstname, user.Lastname, user.Age)
+	})
+
+	http.HandleFunc("/encode", func(w http.ResponseWriter, r *http.Request) {
+		peter := User{
+			Firstname: "John",
+			Lastname:  "Doe",
+			Age:       25,
+		}
+
+		json.NewEncoder(w).Encode(peter)
+	})
+
+	http.ListenAndServe(":8080", nil)
+}
+
+/*
+$ curl -s -XPOST -d'{"firstname":"Elon","lastname":"Musk","age":48}' http://localhost:8080/decode
+Elon Musk is 48 years old!
+
+$ curl -s http://localhost:8080/encode
+{"firstname":"John","lastname":"Doe","age":25}
+*/
+
+```
+
+### gjson & sjson
+
+> 能够直接将json字符串作为json对象调用！
 
 ```go
+import (
+	"github.com/tidwall/gjson"
+	"github.com/tidwall/sjson"
+)
+
 gjson.Get(obj, "axisLine.lineStyle")
 sjson.Set(obj, "axisLine.lineStyle.color", "skyblue")
 ```
 
-::: details Example
+::: details gjson & sjson
+
 ```go
 package main
 
@@ -3109,9 +3316,10 @@ func setJson() {
 }
 
 ```
+
 :::
 
-::: details Example2
+::: details gjson-readjson File
 
 ```go
 package main
@@ -3137,8 +3345,8 @@ func main() {
 }
 
 ```
-:::
 
+:::
 
 ### mysql
 
@@ -3147,6 +3355,7 @@ go get -u "github.com/go-sql-driver/mysql"
 ```
 
 ::: details Example
+
 ```go
 package main
 
@@ -3308,9 +3517,11 @@ func Delete() {
 	fmt.Println(rows) // return 1: success
 }
 ```
+
 :::
 
-* 连接数据库
+- 连接数据库
+
 ```go{4}
 var DB *sql.DB
 func ConnectDB() *sql.DB {
@@ -3325,7 +3536,8 @@ func ConnectDB() *sql.DB {
 }
 ```
 
-* 查询一条数据
+- 查询一条数据
+
 ```go{4}
 func Query(id int) {
 	sqlStr := "select id, name, email from users where id = ?"
@@ -3338,7 +3550,8 @@ func Query(id int) {
 }
 ```
 
-* 查询全部数据
+- 查询全部数据
+
 ```go{3,5,7}
 func QueryAll() {
 	sqlStr := "select id, name, email from users where id > ?"
@@ -3355,7 +3568,8 @@ func QueryAll() {
 }
 ```
 
-* 插入一条数据
+- 插入一条数据
+
 ```go{3-4}
 func Insert() {
 	sqlStr := "insert into users(name, email) values(?, ?)"
@@ -3365,7 +3579,8 @@ func Insert() {
 }
 ```
 
-* 插入多条数据
+- 插入多条数据
+
 ```go{3-4}
 func Insert2() {
 	sqlStr := "insert into users(name, email) values (?, ?), (?, ?)"
@@ -3375,7 +3590,8 @@ func Insert2() {
 }
 ```
 
-* 插入多条数据2
+- 插入多条数据 2
+
 ```go
 func Insert3() {
 	data := []map[string]string{
@@ -3400,7 +3616,8 @@ func Insert3() {
 }
 ```
 
-* 插入任意数量字段
+- 插入任意数量字段
+
 ```go
 func InsertAny(parms []string, data []map[string]string) {
 	sqlStr := "insert into users("
@@ -3433,7 +3650,8 @@ func InsertAny(parms []string, data []map[string]string) {
 }
 ```
 
-* 更新数据
+- 更新数据
+
 ```go{3-4}
 func Update() {
 	sqlStr := "update users set name = ?, email = ? where id = ?"
@@ -3443,7 +3661,8 @@ func Update() {
 }
 ```
 
-* 删除数据
+- 删除数据
+
 ```go{3-4}
 func Delete() {
 	sqlStr := "delete from users where id = ?"
@@ -3524,6 +3743,7 @@ w.WriteAll([][]string{})
 
 ::: details 示例
 **For Example**
+
 ```go
 func ReadCsv(filename string) {
 	file, _ := os.Open(filename)
@@ -3562,4 +3782,5 @@ func WriteCsv(filename string) {
 	w.Flush()
 }
 ```
+
 :::
