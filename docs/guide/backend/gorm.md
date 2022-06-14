@@ -826,11 +826,27 @@ for rows.Next() {
 }
 ```
 
-####
+#### Exec
 ```go
 db.Exec("Select * FROM users")
 db.Exec("DROP TABLE users")
 db.Exec("UPDATE orders SET shipped_at = ? WHERE id IN ?", time.Now(), []int64{1, 2, 3})
+```
+
+### 事务
+
+```go
+// 开始事务
+tx := db.Begin()
+
+if err := tx.Create(&User); err != nil {
+	// 回滚事务
+	tx.Rollback()
+	log.Fatal(err)
+}
+
+// 提交事务
+tx.Commit()
 ```
 
 ## 教程
@@ -865,4 +881,17 @@ sqlDB.SetMaxOpenConns(100)
 
 // SetConnMaxLifetime 设置了连接可复用的最大时间。
 sqlDB.SetConnMaxLifetime(time.Hour)
+```
+
+#### 事务
+
+```go
+// 开始事务
+tx := db.Begin()
+
+// 事务回滚
+tx.Rollback()
+
+// 提交事务
+tx.Commit()
 ```
