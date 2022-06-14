@@ -3,7 +3,7 @@ import type {NavbarConfig} from "@vuepress/theme-default"
 const navbarConfig: NavbarConfig = [
 	{text: "🏡 首页", link: "https://coulsonzero.github.io"},
 	{
-		text: "前端基础",
+		text: "前端",
 		children: [
 			{text: "HTML", link: "/guide/frontend/html"},
 			{text: "CSS", link: "/guide/frontend/css"},
