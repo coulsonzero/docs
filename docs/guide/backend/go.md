@@ -3045,7 +3045,8 @@ json.Unmarshal()
 // read json file to struct
 json.NewDecoder(file).Decode(&user)
 ```
-
+:::: code-group
+::: code-group-item json与object转换
 ```go
 // object -> json
 func objectToJson(obj interface{}) string {
@@ -3058,14 +3059,10 @@ func jsonToObject(data string, ptr interface{}) interface{} {
 	json.Unmarshal([]byte(data), &ptr)
 	return ptr
 }
-
-// 读取json文件 -> json
-func readJsonFileToJson() {
-	f, _ := os.ReadFile("bar.json")
-	res := gjson.Get(string(f), "data")
-	fmt.Println(res)
-}
-
+```
+:::
+::: code-group-item 解析json文件
+```go
 // ReadJsonFile2 json file -> object -> json String
 func ReadJsonFile(jsonfile string, obj map[string]interface{}) string {
 	// 打开json文件
@@ -3082,6 +3079,8 @@ func ReadJsonFile(jsonfile string, obj map[string]interface{}) string {
 	return string(data)
 }
 ```
+:::
+::::
 
 
 **Json-Object: For Example**
@@ -3220,6 +3219,7 @@ func ReadJsonFile() {
 :::
 
 **json-http**
+::: details json-http 示例
 ```go
 package main
 
@@ -3265,6 +3265,7 @@ $ curl -s http://localhost:8080/encode
 */
 
 ```
+:::
 
 ### gjson & sjson
 
