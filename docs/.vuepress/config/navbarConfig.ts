@@ -3,7 +3,7 @@ import type {NavbarConfig} from "@vuepress/theme-default"
 const navbarConfig: NavbarConfig = [
 	{text: "🏡 首页", link: "https://coulsonzero.github.io"},
 	{
-		text: "前端",
+		text: "前端基础",
 		children: [
 			{text: "HTML", link: "/guide/frontend/html"},
 			{text: "CSS", link: "/guide/frontend/css"},
@@ -13,6 +13,12 @@ const navbarConfig: NavbarConfig = [
 				children: [
 					{text: "SCSS", link: "/guide/frontend/scss"},
 					{text: "TypeScript", link: "/guide/frontend/typescript"},
+				],
+			},
+			{
+				text: "3D可视化",
+				children: [
+					{text: "Three.js", link: "https://threejs.org"},
 					{text: "Canvas", link: "/guide/frontend/canvas"},
 				],
 			},
@@ -25,7 +31,7 @@ const navbarConfig: NavbarConfig = [
 				],
 			},
 			{
-				text: "web库",
+				text: "web js库",
 				children: [
 					{text: "Echarts", link: "/guide/frontend/echarts/"},
 					{text: "Swiper", link: "https://swiperjs.com/demos"},
@@ -37,6 +43,7 @@ const navbarConfig: NavbarConfig = [
 				children: [
 					{text: "Webpack", link: "https://www.webpackjs.com/"},
 					{text: "Vite", link: "https://cn.vitejs.dev/"},
+					{text: "yarn", link: "https://www.yarnpkg.cn/"},
 				],
 			},
 			{
@@ -52,25 +59,22 @@ const navbarConfig: NavbarConfig = [
 	{
 		text: "后端",
 		children: [
-			{text: "C", link: "/guide/backend/c"},
-			{text: "C++", link: "/guide/backend/c++"},
-			{text: "Java", link: "/guide/backend/java"},
 			{text: "Python", link: "/guide/backend/python"},
+			{text: "Java", link: "/guide/backend/java"},
+			// {text: "C", link: "/guide/backend/c"},
+			// {text: "C++", link: "/guide/backend/c++"},
 			{text: "Go", link: "/guide/backend/go"},
-			{text: "Golang简版", link: "/guide/backend/golang"},
 			{text: "Kotlin", link: "/guide/backend/kotlin"},
-			{text: "Swift", link: "/guide/backend/swift"},
+			// {text: "Swift", link: "/guide/backend/swift"},
 			{
 				text: "框架",
 				children: [
-					{
-						text: "SpringBoot",
-						link: "https://spring.io/projects/spring-boot#learn",
-					},
-					{text: "Django", link: "/guide/backend/django.md"},
-					{text: "Flask", link: "/guide/backend/flask.md"},
+					{text: "SpringBoot", link: "https://spring.io/projects/spring-boot#learn"},
 					{text: "Gin", link: "/guide/backend/gin.md"},
 					{text: "Gorm", link: "/guide/backend/gorm.md"},
+					{text: "gRPC", link: "/guide/backend/grpc.md"},
+					{text: "Django", link: "/guide/backend/django.md"},
+					{text: "Flask", link: "/guide/backend/flask.md"},
 				],
 			},
 			{

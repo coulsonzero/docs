@@ -3498,3 +3498,68 @@ fmt.Sprintf()
 // http请求写入网页
 fmt.Fprintf()
 ```
+
+### log
+
+```go
+import "log"
+
+log.Printf("%s", time.Now())
+log.Println()
+log.Fatal(err)
+```
+
+### csv
+
+```go
+// 读取csv文件
+reader := csv.NewReader()
+reader.ReadAll()
+reader.Read()
+
+// 写入csv文件
+csv.NewWriter(file)
+w.WriteAll([][]string{})
+```
+
+::: details 示例
+**For Example**
+```go
+func ReadCsv(filename string) {
+	file, _ := os.Open(filename)
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	reader.Comma = ','
+
+	// for {
+	// 	record, _ := reader.Read()
+	// }
+
+	records, err := reader.ReadAll()
+	if err != nil {
+		log.Printf("Failed to read csv file, err: %s", err)
+	}
+	for _, record := range records {
+		fmt.Printf("%#v\n", record)
+	}
+	log.Printf("Read csv file successfully, the data is updated")
+}
+
+func WriteCsv(filename string) {
+	file, _ := os.Create(filename)
+	defer file.Close()
+
+	// file.WriteString("\xEF\xBB\xBF")	// 写入utf-8 BOM
+	w := csv.NewWriter(file)
+	_ = w.WriteAll([][]string{
+		{"id", "name", "score"},
+		{"1", "Barry", "97"},
+		{"2", "Shirdon", "89"},
+		{"3", "Jack", "92"},
+		{"4", "Tom", "78"},
+	})
+	w.Flush()
+}
+```
+:::
