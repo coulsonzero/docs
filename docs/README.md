@@ -45,7 +45,7 @@ sidebar: false
 
 ::::: warning Coding
 :::: code-group
-::: code-group-item golang
+::: code-group-item Golang
 
 ```go
 fmt.Println("Hello World!")
