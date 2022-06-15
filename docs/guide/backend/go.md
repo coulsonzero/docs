@@ -1127,6 +1127,145 @@ func main() {
 ```
 
 :::
+::: code-group-item Struct初始化
+```go
+package main
+
+import "fmt"
+
+type Person struct {
+	Name   string
+	Age    int
+	Gender bool
+	Score  float64
+}
+
+func main() {
+	// 方式一
+	var person Person
+	person.Name = "John"
+	person.Age = 20
+	fmt.Println(person)
+	// Output: {John 20 false 0}
+
+	// 方式二
+	var p3 = new(Person)
+	p3.Name = "John"
+	(*p3).Age = 20
+	fmt.Println(*p3)
+	// Output: {John 20 false 0}
+
+	// 方式三：必须要写全！
+	p1 := Person{"John", 20, true, 97.2}
+	fmt.Println(p1)
+	// Output: {John 20 true 97.2}
+
+	// 方式四(推荐)
+	p2 := Person{Name: "John", Age: 20}
+	p2.Score = 97.2
+	fmt.Println(p2)
+	// Output: {John 20 false 97.2}
+
+	// 方式五(推荐)
+	p4 := &Person{Score: 97.2}
+	// var p4 = &Person{Score: 97.2}
+	p4.Name = "John"
+	(*p4).Age = 20
+	fmt.Println(*p4)
+	// Output: {John 20 false 97.2}
+}
+```
+:::
+::: code-group-item 继承
+```go
+package main
+
+import "fmt"
+
+func main() {
+	cat := Cat{}
+	cat.getName("Tim")
+
+}
+
+type Animal struct {
+	Name string
+}
+
+// private method
+func (a Animal) getName(name string) {
+	fmt.Printf("Good Morning! %s \n", name)
+}
+
+type Cat struct {
+	Animal // 继承
+}
+
+// Method Rewriting
+// 子类重写父类方法(方法名、参数都相同)
+func (c Cat) getName(name string) {
+	// 调用父类 字段/方法
+	fmt.Println(c.Animal.Name)
+	c.Animal.getName(name)
+
+	fmt.Printf("Nice to meet you! %s \n", name)
+}
+```
+:::
+::: code-group-item 组合
+```go
+package main
+
+import "fmt"
+
+type Person struct {
+}
+
+func (p *Person) GetName(name string) {
+	fmt.Printf("Good Morning! %s \n", name)
+}
+
+type Student struct {
+	*Person
+}
+
+func main() {
+	p := Person{}
+	p.GetName("John") // Good Morning! John
+
+	s := Student{&Person{}}
+	s.GetName("John") // Good Morning! John
+}
+```
+:::
+::: code-group-item 匿名结构体
+```go
+package main
+
+import "fmt"
+
+type Person struct {
+	Name string
+	Age  int
+}
+
+func main() {
+	person := &Person{"John", 20}
+	// 匿名结构体
+	student := struct {
+		score   float64
+		class   int
+		persons Person
+	}{
+		97.2,
+		7,
+		*person,
+	}
+	fmt.Printf("%+v", student)
+	// Output: {score:97.2 class:7 persons:{Name:John Age:20}}
+}
+```
+:::
 ::: code-group-item OOP
 
 ```go
@@ -1256,9 +1395,9 @@ func (ptr *Car) change(c string) {
 }
 
 func main() {
-    c := Contact("white", "Ferrari", "2")  //创建类对象
-    // c := Contact(color:"white", brand:"Ferrari", year:"2"}
-    // c := &Contact("white", "Ferrari", "2"}
+    c := Cat("white", "Ferrari", "2")  //创建类对象
+    // c := Cat(color:"white", brand:"Ferrari", year:"2"}
+    // c := &Cat("white", "Ferrari", "2"}
     fmt.Println(x.color)
     c.change("blue")
 }
