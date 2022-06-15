@@ -45,20 +45,31 @@ sidebar: false
 
 ::::: warning Coding
 :::: code-group
-::: code-group-item yarn
+::: code-group-item golang
 
-```bash
-yarn start
+```go
+fmt.Println("Hello World!")
 ```
 
 :::
-::: code-group-item npm
+::: code-group-item Python
 
-```bash
-npm run start
+```python
+print("Hello World!")
 ```
 
 :::
+::: code-group-item Java
+```java
+System.out.println("Hello World!")
+```
+:::
+::: code-group-item C++
+```cpp
+cout << "Hello World!" << endl;
+```
+:::
+::::
 :::::
 
 
