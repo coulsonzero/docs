@@ -439,6 +439,14 @@ map[string] interface{}
 type any = interface{}
 
 func toString[T int|float64|string](s T) T {}
+
+
+.(type) // 查询数据类型: nil, []int, ...
+func Leng(arr interface{}) {
+	switch arr.(type) {
+	case []int: ...
+	}
+}
 ```
 
 :::
@@ -1127,7 +1135,8 @@ func main() {
 ```
 
 :::
-::: code-group-item Struct初始化
+::: code-group-item Struct 初始化
+
 ```go
 package main
 
@@ -1175,8 +1184,10 @@ func main() {
 	// Output: {John 20 false 97.2}
 }
 ```
+
 :::
 ::: code-group-item 继承
+
 ```go
 package main
 
@@ -1211,8 +1222,10 @@ func (c Cat) getName(name string) {
 	fmt.Printf("Nice to meet you! %s \n", name)
 }
 ```
+
 :::
 ::: code-group-item 组合
+
 ```go
 package main
 
@@ -1237,8 +1250,10 @@ func main() {
 	s.GetName("John") // Good Morning! John
 }
 ```
+
 :::
 ::: code-group-item 匿名结构体
+
 ```go
 package main
 
@@ -1265,6 +1280,7 @@ func main() {
 	// Output: {score:97.2 class:7 persons:{Name:John Age:20}}
 }
 ```
+
 :::
 ::: code-group-item OOP
 
@@ -2376,6 +2392,10 @@ go get -u github.com/gin-gonic/gin
 package main
 ```
 
+### Redis: WRONGTYPE Operation against a key holding the wrong kind of value
+
+> redis中已经存在同名，但不同类型的key值， 删除此key再重新执行即可
+
 ## Libs 标准库
 
 [golang 标准库](https://pkg.go.dev/std)
@@ -3173,6 +3193,7 @@ for i := range ticker {
 ### json
 
 **Api**
+
 ```go
 import "encoding/json"
 
@@ -3184,8 +3205,10 @@ json.Unmarshal()
 // read json file to struct
 json.NewDecoder(file).Decode(&user)
 ```
+
 :::: code-group
-::: code-group-item json与object转换
+::: code-group-item json 与 object 转换
+
 ```go
 // object -> json
 func objectToJson(obj interface{}) string {
@@ -3199,8 +3222,10 @@ func jsonToObject(data string, ptr interface{}) interface{} {
 	return ptr
 }
 ```
+
 :::
-::: code-group-item 解析json文件
+::: code-group-item 解析 json 文件
+
 ```go
 // ReadJsonFile2 json file -> object -> json String
 func ReadJsonFile(jsonfile string, obj map[string]interface{}) string {
@@ -3218,9 +3243,9 @@ func ReadJsonFile(jsonfile string, obj map[string]interface{}) string {
 	return string(data)
 }
 ```
+
 :::
 ::::
-
 
 **Json-Object: For Example**
 ::: details json-map 转换
@@ -3310,8 +3335,8 @@ func SetJson() {
 
 :::
 
-
 **JsonFile-Object-Json**
+
 ```go
 import "encoding/json"
 
@@ -3359,6 +3384,7 @@ func ReadJsonFile() {
 
 **json-http**
 ::: details json-http 示例
+
 ```go
 package main
 
@@ -3404,11 +3430,12 @@ $ curl -s http://localhost:8080/encode
 */
 
 ```
+
 :::
 
 ### gjson & sjson
 
-> 能够直接将json字符串作为json对象调用！
+> 能够直接将 json 字符串作为 json 对象调用！
 
 ```go
 import (
@@ -3924,3 +3951,217 @@ func WriteCsv(filename string) {
 ```
 
 :::
+
+
+
+### redis
+
+#### connect redis
+
+**go-redis.go**
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+)
+
+/**
+ * 使用go连接Redis
+ * 需先在命令行启动redis服务
+ */
+
+func main() {
+	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	if err != nil {
+		fmt.Println("connect redis server:", err)
+		return
+	}
+	fmt.Println("connect redis success!")
+	defer conn.Close()
+}
+```
+
+#### connect redis & operator
+
+**go-redis-string.go**
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+)
+
+func main() {
+	// connect redis
+	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	if err != nil {
+		fmt.Println("connect redis error:", err)
+		return
+	}
+	fmt.Println("connect redis success!")
+	defer conn.Close()
+
+	// SET Age 20
+	_, _ = conn.Do("SET", "name", "Coulson")
+
+	// GET name
+	name, _ := redis.String(conn.Do("GET", "name"))
+	fmt.Printf("Get name: %s \n", name)
+}
+```
+
+#### 使用函数封装Redis
+
+:::: code-group
+::: code-group-item go-redis-string-encapsulate.go
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+)
+
+func main() {
+	conn := redisConnect()
+	defer conn.Close()
+
+	setString(conn, "country", "China")
+	getString(conn, "country")
+
+}
+
+// connect redis
+func redisConnect() redis.Conn {
+	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	if err != nil {
+		fmt.Println("connect redis error:", err)
+		return nil
+	}
+	fmt.Println("connect redis success!")
+
+	return conn
+}
+
+// setString SET filed value
+func setString(conn redis.Conn, field string, value interface{}) {
+	_, _ = conn.Do("SET", field, value)
+}
+
+// getString GET field
+func getString(conn redis.Conn, field string) {
+	res, _ := redis.String(conn.Do("GET", field))
+	fmt.Printf("Get %s: %s \n", field, res)
+}
+```
+:::
+::: code-group-item go-redis-struct
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+)
+
+func main() {
+	conn := RedisConnect()
+	defer conn.Close()
+
+	db := Conn{conn}
+	db.SetString("score", 97.2)
+	db.GetString("score")
+}
+
+// RedisConnect connect redis
+func RedisConnect() redis.Conn {
+	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	if err != nil {
+		fmt.Println("connect redis error:", err)
+		return nil
+	}
+	fmt.Println("connect redis success!")
+
+	return conn
+}
+
+type Conn struct {
+	redis.Conn
+}
+
+// SetString SET filed value
+func (conn *Conn) SetString(field string, value interface{}) {
+	_, _ = conn.Do("SET", field, value)
+}
+
+// GetString GET field
+func (conn *Conn) GetString(field string) {
+	res, _ := redis.String(conn.Do("GET", field))
+	fmt.Printf("Get %s: %s \n", field, res)
+}
+```
+:::
+::: code-group-item 排行榜示例
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+)
+
+func main() {
+	conn := RedisConnect()
+	defer conn.Close()
+
+	db := Conn{conn}
+	db.SetString("score", 97.2)
+	db.GetString("score")
+}
+
+// RedisConnect connect redis
+func RedisConnect() redis.Conn {
+	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	if err != nil {
+		fmt.Println("connect redis error:", err)
+		return nil
+	}
+	fmt.Println("connect redis success!")
+
+	return conn
+}
+
+type Conn struct {
+	redis.Conn
+}
+
+// SetString SET filed value
+func (conn *Conn) SetString(field string, value interface{}) {
+	_, _ = conn.Do("SET", field, value)
+}
+
+// GetString GET field
+func (conn *Conn) GetString(field string) {
+	res, _ := redis.String(conn.Do("GET", field))
+	fmt.Printf("Get %s: %s \n", field, res)
+}
+```
+:::
+::::
+
+### reflect
+
+```go
+func ...(field interface{}) {switch ...}
+
+reflect.TypeOf(field)
+reflect.ValueOf(field)
+
+// 类型比较
+reflect.TypeOf(field).Name() == "int"
+// 值比较
+int(reflect.ValueOf(field).Int()) > 0
+```

@@ -849,6 +849,23 @@ if err := tx.Create(&User); err != nil {
 tx.Commit()
 ```
 
+### 错误处理
+
+```go
+err := db.Model(User{}).Where("role = ?", "admin").Updates(User{Name: "hello", Age: 18}).Error
+if err != nil {
+	//...
+}
+```
+
+### 日志处理
+
+```go
+db.LogMode(true)
+db.SetLogger(log.New(os.Stdout, "\r\n", 0))
+```
+
+
 ## 教程
 
 ### 通用数据库接口
@@ -867,7 +884,7 @@ sqlDB.Close()
 sqlDB.Stats()
 ```
 
-#### 连接池
+### 连接池
 
 ```go
 // 获取通用数据库对象 sql.DB ，然后使用其提供的功能
@@ -883,7 +900,7 @@ sqlDB.SetMaxOpenConns(100)
 sqlDB.SetConnMaxLifetime(time.Hour)
 ```
 
-#### 事务
+### 事务
 
 ```go
 // 开始事务
@@ -895,3 +912,4 @@ tx.Rollback()
 // 提交事务
 tx.Commit()
 ```
+

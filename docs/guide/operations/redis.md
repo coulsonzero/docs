@@ -393,10 +393,17 @@ zpopmin
 ZRANGEBYLEX [key] - +
 ```
 
+#### ZREVRANGE
+
+```sql
+-- 降序
+ZREVRANGE "score" 0 -1 WITHSCORES
+```
+
 #### ZRANGE
 
 ```sql
-# 返回所有元素及索引
+-- 升序
 ZRANGE [key] 0 -1 WITHSCORES
 ```
 
