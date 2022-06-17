@@ -12,6 +12,11 @@
 * [https://dev.mysql.com/downloads/mysql/](https://dev.mysql.com/downloads/mysql/)
 * [https://dev.mysql.com/downloads/installer/](https://dev.mysql.com/downloads/installer/)
 
+
+### 数据库分类
+
+![数据库类型](@/assets/operation/DB.png)
+
 ### SQL分类
 * DDL：数据定义语言 ，定义库、表、列等(CREATE、ALTER、DROP)
 * DML：数据操作语言 ，操作数据库中表里的数据 (INSERT、UPDATE、DELETE)
