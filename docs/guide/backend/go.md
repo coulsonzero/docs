@@ -1806,10 +1806,10 @@ fmt.Println(res)    //500500
 
 ## 高并发
 
-### Goroutines 并发线程
+### Goroutine
 
 :::: code-group
-::: code-group-item 普通模式
+::: code-group-item 单线程并行
 
 ```go
 package main
@@ -1819,7 +1819,7 @@ import (
 )
 
 func out(from, to int) {
-    for i:=from; i<=to; i++ {
+    for i := from; i <= to; i++ {
         fmt.Println(i)
     }
 }
@@ -1829,11 +1829,23 @@ func main() {
     out(6, 10)
 }
 
-//连续输出0-10
+/*
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+*/
 ```
 
 :::
-::: code-group-item go1
+::: code-group-item goroutine
 
 ```go
 package main
@@ -1853,50 +1865,24 @@ func main() {
 	go out(6, 10)
 }
 
-// No Output， 因为main()于go并发前退出了
+// No Output， 因为主线程main()于go子线程并发完成前退出了
 ```
 
 :::
-::: code-group-item go2
-
+::: code-group-item goroutine + channel
 ```go
-package main
-
-import (
-	"fmt"
-	"time"
-)
-
-func out2(start, end int) {
-	for i := start; i <= end; i++ {
-		time.Sleep(50 * time.Millisecond)
-		fmt.Println(i)
-	}
-}
-
 func main() {
-	// go实现并发
-	go out2(0, 5)
-	go out2(6, 10)
-	// 等待退出
-	time.Sleep(500 * time.Millisecond)
+	ch := make(chan int)
+
+	go func() {
+		fmt.Println("Hello World!")
+		<-ch
+	}()
+
+	ch<-1
 }
 
-/*
-6
-0
-1
-7
-8
-2
-3
-9
-10
-4
-5
-*/
 ```
-
 :::
 ::: code-group-item Channels1
 
@@ -2170,7 +2156,7 @@ Nothing available
 :::
 ::::
 
-### Cannels 管道传输( return )
+### Cannel
 
 ```go
 package main
@@ -3010,6 +2996,8 @@ func main() {
 ### strings
 
 ```go
+/*======== 判断 =========*/
+
 // 包含
 strings.Contains()
 // endswith
@@ -3017,88 +3005,34 @@ strings.HasSuffix()
 // startswith
 strings.HasPrefix()
 
-// 数组->字符串
+/*======== 改：转换 =========*/
+
+// 数组 -> 字符串
 strings.Join()
-// 字符串->数组
+// 字符串 -> 数组
 strings.Split()
+
 // 替换
 strings.Replace(str, old, new , -1)	// -1为全部，等价于ReplaceAll()
 strings.ReplaceAll()
 
 
 // 大小写转换
-strings.ToUpper()
 strings.ToLower()
-strings.Title()		// 此方法已弃用
+strings.ToUpper()
+// strings.Title()		// 此方法已弃用
 cases.Title(language.Und).String("hello, world!") // Hello, World!
+
+/*======== 删 =========*/
 
 // 移除空格(首尾)
 strings.Trim(str, " ")
+// 移除\n\t等换行符
 strings.TrimSpace(str)
-strings.TrimFunc()
-```
-
-- strings.Join()
-
-```go
-package main
-
-import (
-	"fmt"
-	"strings"
-)
-
-func main() {
-	s := []string{"foo", "bar", "baz"}
-	fmt.Println(strings.Join(s, ", "))
-}
-```
-
-- strings.Split()
-
-```go
-fmt.Printf("%q\n", strings.Split("a,b,c", ","))
-// Output: ["a" "b" "c"]
-```
-
-- strings.Replace(s, old, new, n)
-- strings.ReplaceAll(s, old, new)
-
-> n: 次数，不可省，如果小于 0 则表示没有替换次数限制(全部), 此时与 ReplaceAll()作用相同
-
-```go
-fmt.Println(strings.Replace("oink oink oink", "k", "ky", 2))
-// Output: oinky oinky oink
-fmt.Println(strings.Replace("oink oink oink", "oink", "moo", -1))
-// Output: moo moo moo
-fmt.Println(strings.ReplaceAll("oink oink oink", "oink", "moo"))
-// Output: moo moo moo
-```
-
-- strings.ToLower()
-- strings.ToUpper()
-
-```go
-fmt.Println(strings.ToLower("Gopher"))
-fmt.Println(strings.ToUpper("Gopher"))
-```
-
-- strings.TrimSpace()
-- strings.TrimFunc()
-
-```go
-fmt.Println(strings.TrimSpace(" \t\n Hello, Gophers \n\t\r\n")) // Hello, Gophers
-fmt.Println(strings.TrimFunc("¡¡¡$6521.123Hello, Gophers!!!", func(r rune) bool {
+// 移除无效字符
+strings.TrimFunc("¡¡¡$6521.123Hello, Gophers!!!", func(r rune) bool {
 	return !unicode.IsLetter(r) && !unicode.IsNumber(r)
-})) // 6521.123Hello, Gophers
-```
-
-- strings.Contains()
-
-```go
-if find := strings.Contains("test-v1", "v1"); find {
-	fmt.Println("find the character.")
-}
+}) // 6521.123Hello, Gophers
 ```
 
 ### strconv
@@ -4287,3 +4221,75 @@ func syncWaitLock() {
 
 
 
+### md5
+
+```go
+package main
+
+import (
+	"crypto/md5"
+	"encoding/hex"
+	"fmt"
+)
+
+// MD5 加密方法
+func MD5(str string) string {
+	s := md5.New()
+	s.Write([]byte(str))
+	return hex.EncodeToString(s.Sum(nil))
+}
+
+func main() {
+	str := "123456"
+	fmt.Printf("MD5(%s): %s\n", str, MD5(str))
+}
+
+/*
+MD5(123456): e10adc3949ba59abbe56e057f20f883e
+*/
+```
+
+### bcrypt
+
+```go
+// passwords.go
+package main
+
+import (
+	"fmt"
+	"golang.org/x/crypto/bcrypt"
+)
+
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
+}
+
+func CheckPasswordHash(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
+}
+
+func main() {
+	password := "secret"
+	hash, _ := HashPassword(password) // ignore error for the sake of simplicity
+
+	fmt.Println("Password:", password)
+	fmt.Println("Hash:    ", hash)
+
+	match := CheckPasswordHash(password, hash)
+	fmt.Println("Match:   ", match)
+}
+
+/*
+Password: secret
+Hash:     $2a$14$Om4.1ottCO9NjNp6T3BaJ.FF7WgPYa6Pp/XPjHefXUnE6ZInI3VhS
+Match:    true
+*/
+```
+
+### runtime
+
+```go
+runtime.Version()
+```
