@@ -3029,6 +3029,8 @@ strings.ReplaceAll()
 // 大小写转换
 strings.ToUpper()
 strings.ToLower()
+strings.Title()		// 此方法已弃用
+cases.Title(language.Und).String("hello, world!") // Hello, World!
 
 // 移除空格(首尾)
 strings.Trim(str, " ")
