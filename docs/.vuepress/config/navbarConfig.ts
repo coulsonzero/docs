@@ -87,10 +87,10 @@ const navbarConfig: NavbarConfig = [
 		text: "运维",
 		children: [
 			{text: "SQL", link: "/guide/operations/sql"},
+			{text: "Redis", link: "/guide/operations/redis"},
+			{text: "MongoDB", link: "/guide/operations/mongodb"},
 			{text: "Linux", link: "/guide/operations/linux"},
 			{text: "Shell", link: "/guide/operations/shell"},
-			{text: "MongoDB", link: "/guide/operations/mongodb"},
-			{text: "Redis", link: "/guide/operations/redis"},
 		],
 	},
 	{

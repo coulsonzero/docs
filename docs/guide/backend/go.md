@@ -2397,6 +2397,17 @@ package main
 
 > redis中已经存在同名，但不同类型的key值， 删除此key再重新执行即可
 
+### Golang注解 ？
+
+**方法弃用**
+
+> 在函数头部添加注释: `// Deprecated` 可表示 `弃用` 该方法，使用该方法时会出现`删除线`.
+
+```go
+// Deprecated
+func Title(s string) string {}
+```
+
 ## Libs 标准库
 
 [golang 标准库](https://pkg.go.dev/std)
@@ -4166,3 +4177,111 @@ reflect.TypeOf(field).Name() == "int"
 // 值比较
 int(reflect.ValueOf(field).Int()) > 0
 ```
+
+### sync
+
+```go
+import "sync"
+
+var wg sync.WaitGroup
+var mu sync.Mutex  // sync.RWMutex
+
+// 线程等待
+wg.Add(1)
+wg.Done()
+wg.Wait()
+
+// 线程互斥锁(读多写少, 写锁权限高于读锁, 有写锁时优先进行写锁)
+// 写锁
+mu.Lock()
+mu.Unlock()
+
+// 读锁
+mu.Rlock()
+mu.RUnlock()
+```
+
+:::: code-group
+::: code-group-item 互斥量实现并发
+```go{5,17,20,22,26}
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+/**
+ * 互斥量实现并发
+ */
+
+func main() {
+	syncWait()
+}
+
+func syncWait() {
+	var wg sync.WaitGroup
+
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go func(i int) {
+			defer wg.Done()
+			fmt.Println(i)
+		}(i)
+	}
+	wg.Wait()
+}
+/*
+1
+8
+3
+4
+6
+5
+2
+7
+9
+10
+*
+```
+:::
+::: code-group-item 线程同步锁
+```go{3,10,13}
+func syncWaitLock() {
+	var wg sync.WaitGroup
+	var mu sync.Mutex
+	var count int
+
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			mu.Lock()
+			count++
+			fmt.Println(count)
+			mu.Unlock()
+		}()
+	}
+	wg.Wait()
+
+	// fmt.Println(count)
+}
+
+/*
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+*/
+```
+:::
+::::
+
+
+
