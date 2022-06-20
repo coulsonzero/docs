@@ -47,7 +47,8 @@
 
     html.dark {
         .navbar-dropdown-wrapper .navbar-dropdown {
-            background: hsla(0, 0%, 20%, 0.886);
+            // background: hsla(0, 0%, 20%, 0.886);
+            background: hsla(0, 0%, 20%, 0.486);
         }
         .navbar-dropdown-wrapper .navbar-dropdown .navbar-dropdown-item a:hover {
             background-color: hsla(0, 0%, 27%, 0.847);
