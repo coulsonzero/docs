@@ -124,7 +124,7 @@ cout << "Hello World!" << endl;
 | [Angrytools]     |       CSS 颜色       |
 | [Swiper]         |     JS 轮播图库      |
 | [Swiper-cn]      |   JS 中文轮播图库    |
-| [Vue-swpier]     |      Vue 轮播图      |
+| [Vue-swiper]     |      Vue 轮播图      |
 | [ScrollReveal]   |   JS 页面平滑效果    |
 | [Echarts]        |   JS 可视化图表库    |
 | [Make A Pie]     |  JS 图表社区, 停运   |
