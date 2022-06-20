@@ -107,7 +107,9 @@ pre::-webkit-scrollbar {
 
 // 上次更新
 .last-updated .meta-item-info {
-    clip-path: polygon(0% 0%, 0% 100%, 90% 100%, 80% 0%);
+    // clip-path: polygon(0% 0%, 0% 100%, 90% 100%, 80% 0%);
+    clip-path: polygon(0% 0%, 0% 100%, 45% 100%, 45% 0%) !important;
+
 }
 .last-updated {
     transform: translateX(94px);
