@@ -53,7 +53,7 @@
                 border-bottom-right-radius: 50% 50% !important;
                 border-radius: 50% !important;
                 background: #535558a6 !important;
-                transition: background 0.2s ease-in-out !important;
+                transition: background-color 0.2s ease-in-out !important;
                 &:hover {
                     background: rgb(138 143 149 / 65%) !important;
                 }
@@ -173,7 +173,7 @@ html.dark {
             border-bottom-right-radius: 50% 50% !important;
             border-radius: 50% !important;
             background: #535558a6 !important;
-            transition: background 0.2s ease-in-out !important;
+            transition: background-color 0.2s ease-in-out !important;
             &:hover {
                 background: rgb(138 143 149 / 65%) !important;
             }

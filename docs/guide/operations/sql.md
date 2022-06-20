@@ -499,10 +499,16 @@ max(...)
 ifnull(): 将null设置为0
 
 
-LEFT(s,n) 返回字符串s的前 n 个字符
-RIGHT()
-SUBSTR(name, -2, 2)
+left(s, length)         -- 返回字符串s的前n个字符
+right(s, length)        -- 右边n个字符
+substr(s, start, length)     -- s[-2:], 截取2个字符长度
+substring(s, start)     -- s[i:]
 GROUP_CONCAT(emp_no): 汇总
+
+-- string => float 保留2位小数
+cast("3.14159" as decimal(10, 2))
+convert("3.14159", decimal(10, 2))
+
 
 DATE_FORMAT(CURDATE(), '%Y-%m-%d %r')
 EXTRACT(type FROM d) 从日期 d 中获取指定的值，type 指定返回的值。type可为year,week,moth等等
@@ -540,7 +546,7 @@ where not exists
 ```sql
 select
     date,
-    round(avg(type='no_completed'),3) as p
+    round(avg(type='no_completed'), 3) as p
     -- round(sum(if(email.type='no_completed', 1, 0))/count(*), 3) as p
     -- round(sum(case type when "completed" then 0 else 1 end)*1.0/count(type),3) as p
 from email

@@ -27,6 +27,7 @@ export default defineUserConfig({
 		/* footer */
 		editLinks: true,
 		editLinkText: "在 GitHub 上编辑此页",
+		// lastUpdated: false,
 		lastUpdatedText: "上次更新",
 		contributorsText: "贡献者",
 		docsRepo: "https://github.com/coulsonzero/docs",

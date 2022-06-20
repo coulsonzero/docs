@@ -1,7 +1,8 @@
 # 修改hosts文件加速GitHub访问
 
 
-[ipaddress.com](https://www.ipaddress.com)
+<!-- [ipaddress.com](https://www.ipaddress.com) -->
+[ipaddress.com](https://ipaddress.com/website/github.com)
 
 ## 查询域名对应的IP
 可以在ipaddress上查询域名对应的IP。需要查询的域名有github.com,assets-cdn.github.com,github.global.ssl.fastly.net，查询结果依次如下
