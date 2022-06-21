@@ -713,6 +713,10 @@ let str = "script.js"
 console.log(str.includes("hello")) // false
 console.log(str.startsWith("main")) // false
 console.log(str.endsWith("js")) // true
+
+// 判断字符串中的字符是否为非数字
+Number('3' == NaN)		// false
+'3' != Number(str[i])	// fasle
 ```
 
 :::
@@ -1654,7 +1658,7 @@ class PrivateStaticField {
   }
 }
 
-console.log(PrivateStaticField.publicStaticMethod()
+console.log(PrivateStaticField.publicStaticMethod())
 // Output: 42
 
 ```
