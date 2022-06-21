@@ -600,6 +600,8 @@ toLowerCase()
 
 padStart()
 padEnd() // 自动补全位数
+
+Number(str)	// str -> number
 ```
 
 :::: code-group
@@ -673,7 +675,7 @@ let str = "Hello, React !"
 
 console.log(str.slice(-5, -1))   // act
 console.log(str.slice(3))		 // lo, React !
-console.log(str.slice(3, 5)		 // lo
+console.log(str.slice(3, 5))	 // lo
 console.log(str.substring(3, 5)) // lo
 console.log(str.substr(3, 5))	 // lo, R
 ```
@@ -979,11 +981,34 @@ arr.filter(item => item != e)
 
 // 去重
 arr.filter((v, i, self) => self.indexOf(v) === i)
-// 去重
-let words = ['a', 'b', 'c', 'a', 'a', 'b', 'd'];
 
+function uniqueArr() {
+	let res = []
+	for(let i = 0; i < arr.length; i++) {
+		if !res.includes(arr[i]) res.push(arr[i])
+	}
+	return res
+}
+
+// example
+let words = ['a', 'b', 'c', 'a', 'a', 'b', 'd'];
 let res = words.filter((v, i, self) => self.indexOf(v) === i)
 console.log(res)
+
+// 数组判断
+let arr = [1, 2, 3]
+console.log(typeof arr)  // object
+console.log(typeof {})	 // object
+console.log(typeof null) // object
+
+console.log(arr instanceof Array)	// true
+console.log(Array.isArray(arr))		// true, 推荐此方法！
+
+function isArray(arr) {
+  const toString = Object.prototype.toString
+  const isArray = Array.isArray || function (arg) { return toString.call(arg) === '[object Array]' }
+  return isArray(arr)
+}
 ```
 
 ::: details 数组原地排序的区别
