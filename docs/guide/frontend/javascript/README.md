@@ -601,7 +601,8 @@ toLowerCase()
 padStart()
 padEnd() // 自动补全位数
 
-Number(str)	// str -> number
+Number(str)			// str -> number
+!isNaN(Number(str))	// 是否为数字
 ```
 
 :::: code-group
@@ -717,8 +718,7 @@ console.log(str.startsWith("main")) // false
 console.log(str.endsWith("js")) // true
 
 // 判断字符串中的字符是否为非数字
-Number('3' == NaN)		// false
-'3' != Number(str[i])	// fasle
+!isNaN(Number('3'))   // true
 ```
 
 :::
@@ -980,6 +980,8 @@ arr.filter(n => n%2==0).map(el => sum += el); //统计偶数和
 arr.filter(item => item != e)
 
 // 去重
+Array.from(new Set(arr))
+
 arr.filter((v, i, self) => self.indexOf(v) === i)
 
 function uniqueArr() {
@@ -990,25 +992,17 @@ function uniqueArr() {
 	return res
 }
 
-// example
-let words = ['a', 'b', 'c', 'a', 'a', 'b', 'd'];
-let res = words.filter((v, i, self) => self.indexOf(v) === i)
-console.log(res)
 
 // 数组判断
 let arr = [1, 2, 3]
+console.log(Array.isArray(arr))		// true, 推荐此方法
+
 console.log(typeof arr)  // object
 console.log(typeof {})	 // object
 console.log(typeof null) // object
 
 console.log(arr instanceof Array)	// true
-console.log(Array.isArray(arr))		// true, 推荐此方法！
 
-function isArray(arr) {
-  const toString = Object.prototype.toString
-  const isArray = Array.isArray || function (arg) { return toString.call(arg) === '[object Array]' }
-  return isArray(arr)
-}
 ```
 
 ::: details 数组原地排序的区别
@@ -2513,6 +2507,13 @@ function validate() {
 ```
 
 ## BOM
+
+### window
+```javascript
+window.addEventListener("scroll", () => {})
+// 置顶
+window.scroll({ top: 0 })
+```
 
 ### screen
 

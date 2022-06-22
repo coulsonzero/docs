@@ -422,3 +422,11 @@ $ vim start.sh
 # 添加此命令保存
 set ff=unix
 ```
+
+- 打印文件的最后5行
+
+```shell
+# 打印文件的最后5行
+tail -n 5 filename.txt
+# tail -5 filename.txt
+```
