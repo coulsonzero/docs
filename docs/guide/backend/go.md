@@ -833,6 +833,12 @@ func equal(s1 []int, s2 []int) bool {
 :::
 ::::
 
+**Api**
+```go
+append()	// 增(末尾)
+
+```
+
 ### 8. Map 哈希表
 
 :::: code-group

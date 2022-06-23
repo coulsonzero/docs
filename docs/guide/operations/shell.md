@@ -430,3 +430,11 @@ set ff=unix
 tail -n 5 filename.txt
 # tail -5 filename.txt
 ```
+
+- 从第17行开始打印
+
+```shell
+sed '1,16d' filename.txt
+```
+
+
