@@ -3,7 +3,7 @@
 
 ### bar1
 
-![bar1]
+
 
 ::: details 点击查看代码
 
@@ -61,7 +61,7 @@ option = {
 
 
 // y轴数据
-var yData = ['云服务', '解决方案', '微服务', '应用商店'];
+var yData = ['A', 'B', 'C', 'D'];
 
 // series数据
 var seriesData = [{
@@ -123,7 +123,7 @@ var seriesData = [{
 
 ### bar2
 
-![bar2]
+
 
 ::: details 点击查看代码
 
@@ -171,7 +171,6 @@ option = {
         itemWidth: 28,
         itemHeight: 28,
         data: [{
-                // name: '周转量',
                 icon: 'image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAA1ElEQVR4Xu2WsQ2AMBADP4ghYBtGZxsYAhHEAMQ19tF+g+/PSVqFfy08fwEAA8IJUIFwATgEqQAVCCdABcIF4BagAlQgnAAVCBeAW4AKUIFwAlQgXABuASpABcIJjCtw9O3vfOaquta2f+UYApjO3v8O4P3/e2mfOQEw2jAGpFeg0g9BhwNQZeAlqAi5zzHAfcMqHwYoQu5zDHDfsMqHAYqQ+xwD3Des8mGAIuQ+xwD3Dat8GKAIuc8xwH3DKh8GKELucwxw37DKhwGKkPscA9w3rPI9drIYQbytq9EAAAAASUVORK5CYII=',
             },
             {
@@ -228,7 +227,7 @@ option = {
         },
     }],
     series: [{
-        name: '访问量',
+        name: 'A',
         type: 'bar',
         // "stack": "总量",
         barMaxWidth: 35,
@@ -263,7 +262,7 @@ option = {
 
 ### bar3
 
-![bar3]
+
 
 ::: details 点击查看代码
 
@@ -290,7 +289,7 @@ var ydata = [{
     }
 }]
 
-var yAxis = ["应用商店", "微服务", "解决方案", "云服务"]
+var yAxis = ["A", "B", "C", "D"]
 let bgData = []
 for (let i in ydata) {
     bgData.push(6000)
@@ -393,7 +392,7 @@ option = {
 
 ### bar4
 
-![bar4]
+
 
 ::: details 点击查看代码
 ```typescript
@@ -827,7 +826,7 @@ option = {
 
 ### bar5
 
-![bar5]
+
 
 ::: details 点击查看代码
 ```typescript
@@ -949,7 +948,7 @@ option = {
 
 ### bar6
 
-![bar6]
+
 
 ::: details 点击查看代码
 ```typescript
@@ -1014,7 +1013,7 @@ option = {
 
     },
     "series": [{
-            name: '石油',
+            name: 'A',
             "type": "bar",
             "data": oilData,
             stack: 'total',
@@ -1025,21 +1024,21 @@ option = {
             color: '#47D2FF',
         },
         {
-            name: '天然气',
+            name: 'B',
             "data": nature_gasData,
             stack: 'total',
             "type": "bar",
             color: '#0078FF',
         },
         {
-            name: '煤矿',
+            name: 'C',
             "data": coalData,
             stack: 'total',
             "type": "bar",
             color: '#004EFF'
         },
         {
-            name: '发电量',
+            name: 'D',
             "data": powerData,
             stack: 'total',
             "type": "bar",
@@ -1055,7 +1054,7 @@ option = {
 
 
 
-var yAxisData = ["中国", "美国", "印度", "日本", "俄罗斯"];
+var yAxisData = ["Q", "W", "E", "R", "T"];
 var oilData = [30, 20, 20, 30, 20];
 var nature_gasData = [20, 30, 30, 20, 20];
 var coalData = [30, 20, 30, 20, 20];
@@ -1068,7 +1067,7 @@ var powerData = [20, 30, 20, 30, 40];
 
 ### line1
 
-![line1]
+
 
 ::: details 点击查看代码
 ```typescript
@@ -1202,7 +1201,7 @@ option = {
 
 ### line2
 
-![line2]
+
 
 ::: details 点击查看代码
 ```typescript
@@ -1361,7 +1360,7 @@ option = {
 
 ### line3
 
-![line3]
+
 
 ::: details 点击查看代码
 ```typescript
@@ -1712,7 +1711,7 @@ option = {
 
 ### line4
 
-![line4]
+
 
 ::: details 点击查看代码
 ```typescript
@@ -1840,7 +1839,7 @@ option = {
         },
     ],
     series: [{
-            name: '   减压炉Ⅱ',
+            name: '   Ⅱ',
             xAxisIndex: 0,
             yAxisIndex: 0,
             type: 'line',
@@ -1858,7 +1857,7 @@ option = {
                 }
             }
         }, {
-            name: '   减压炉Ⅱ',
+            name: '   Ⅱ',
             xAxisIndex: 1,
             yAxisIndex: 1,
             type: 'line',
@@ -1876,7 +1875,7 @@ option = {
                 }
             }
         }, {
-            name: '   减压炉Ⅱ',
+            name: '   Ⅱ',
             xAxisIndex: 2,
             yAxisIndex: 2,
             type: 'line',
@@ -1894,7 +1893,7 @@ option = {
                 }
             }
         }, {
-            name: '   加氢反应炉',
+            name: '   ',
             xAxisIndex: 0,
             yAxisIndex: 0,
             type: 'line',
@@ -1911,7 +1910,7 @@ option = {
                 }
             }
         }, {
-            name: '   加氢反应炉',
+            name: '   ',
             xAxisIndex: 1,
             yAxisIndex: 1,
             type: 'line',
@@ -1929,7 +1928,7 @@ option = {
                 }
             }
         }, {
-            name: '   加氢反应炉',
+            name: '   ',
             xAxisIndex: 2,
             yAxisIndex: 2,
             type: 'line',
@@ -1947,7 +1946,7 @@ option = {
                 }
             }
         }, {
-            name: '   汽提塔重沸炉Ⅰ',
+            name: '   Ⅰ',
             xAxisIndex: 0,
             yAxisIndex: 0,
             type: 'line',
@@ -1965,7 +1964,7 @@ option = {
                 }
             }
         }, {
-            name: '   汽提塔重沸炉Ⅰ',
+            name: '  Ⅰ',
             xAxisIndex: 1,
             yAxisIndex: 1,
             type: 'line',
@@ -1983,7 +1982,7 @@ option = {
                 }
             }
         }, {
-            name: '   汽提塔重沸炉Ⅰ',
+            name: '   Ⅰ',
             xAxisIndex: 2,
             yAxisIndex: 2,
             type: 'line',
@@ -2000,7 +1999,7 @@ option = {
                 }
             }
         }, {
-            name: '   1号中间加热炉Ⅰ',
+            name: '   Ⅰ',
             xAxisIndex: 0,
             yAxisIndex: 0,
             type: 'line',
@@ -2017,7 +2016,7 @@ option = {
                 }
             }
         }, {
-            name: '   1号中间加热炉Ⅰ',
+            name: '   1号Ⅰ',
             xAxisIndex: 1,
             yAxisIndex: 1,
             type: 'line',
@@ -2034,7 +2033,7 @@ option = {
                 }
             }
         }, {
-            name: '   1号中间加热炉Ⅰ',
+            name: '   1号Ⅰ',
             xAxisIndex: 2,
             yAxisIndex: 2,
             type: 'line',
@@ -2052,7 +2051,7 @@ option = {
             }
         },
         {
-            name: '   进料加热炉',
+            name: '   ',
             xAxisIndex: 0,
             yAxisIndex: 0,
             type: 'line',
@@ -2069,7 +2068,7 @@ option = {
                 }
             }
         }, {
-            name: '   进料加热炉',
+            name: '   ',
             xAxisIndex: 1,
             yAxisIndex: 1,
             type: 'line',
@@ -2086,7 +2085,7 @@ option = {
                 }
             }
         }, {
-            name: '   进料加热炉',
+            name: '   ',
             xAxisIndex: 2,
             yAxisIndex: 2,
             type: 'line',
@@ -2104,7 +2103,7 @@ option = {
             }
         },
         {
-            name: '   减压炉Ⅰ',
+            name: '   ',
             type: 'line',
             xAxisIndex: 0,
             yAxisIndex: 0,
@@ -2121,7 +2120,7 @@ option = {
                 }
             }
         }, {
-            name: '   减压炉Ⅰ',
+            name: '   ',
             type: 'line',
             xAxisIndex: 1,
             yAxisIndex: 1,
@@ -2138,7 +2137,7 @@ option = {
                 }
             }
         }, {
-            name: '   减压炉Ⅰ',
+            name: '   ',
             type: 'line',
             xAxisIndex: 2,
             yAxisIndex: 2,
@@ -2156,7 +2155,7 @@ option = {
             }
         },
         {
-            name: '   加氢重沸炉',
+            name: '  ',
             type: 'line',
             xAxisIndex: 0,
             yAxisIndex: 0,
@@ -2173,7 +2172,7 @@ option = {
                 }
             }
         }, {
-            name: '   加氢重沸炉',
+            name: '  ',
             type: 'line',
             xAxisIndex: 1,
             yAxisIndex: 1,
@@ -2190,7 +2189,7 @@ option = {
                 }
             }
         }, {
-            name: '   加氢重沸炉',
+            name: '   ',
             type: 'line',
             xAxisIndex: 2,
             yAxisIndex: 2,
@@ -2207,7 +2206,7 @@ option = {
                 }
             }
         }, {
-            name: '   分馏加热炉',
+            name: '   ',
             type: 'line',
             xAxisIndex: 0,
             yAxisIndex: 0,
@@ -2224,7 +2223,7 @@ option = {
                 }
             }
         }, {
-            name: '   分馏加热炉',
+            name: '   ',
             type: 'line',
             xAxisIndex: 1,
             yAxisIndex: 1,
@@ -2241,7 +2240,7 @@ option = {
                 }
             }
         }, {
-            name: '   分馏加热炉',
+            name: '   ',
             type: 'line',
             xAxisIndex: 2,
             yAxisIndex: 2,
@@ -2258,7 +2257,7 @@ option = {
                 }
             }
         }, {
-            name: '   3号中间加热炉Ⅰ',
+            name: '   Ⅰ',
             type: 'line',
             xAxisIndex: 0,
             yAxisIndex: 0,
@@ -2275,7 +2274,7 @@ option = {
                 }
             }
         }, {
-            name: '   3号中间加热炉Ⅰ',
+            name: '   Ⅰ',
             type: 'line',
             xAxisIndex: 1,
             yAxisIndex: 1,
@@ -2292,7 +2291,7 @@ option = {
                 }
             }
         }, {
-            name: '   3号中间加热炉Ⅰ',
+            name: '   Ⅰ',
             type: 'line',
             xAxisIndex: 2,
             yAxisIndex: 2,
@@ -2309,7 +2308,7 @@ option = {
                 }
             }
         }, {
-            name: '   分馏塔进料加热炉132-F-201',
+            name: '   ',
             type: 'line',
             xAxisIndex: 0,
             yAxisIndex: 0,
@@ -2326,7 +2325,7 @@ option = {
                 }
             }
         }, {
-            name: '   分馏塔进料加热炉132-F-201',
+            name: '   ',
             type: 'line',
             xAxisIndex: 1,
             yAxisIndex: 1,
@@ -2343,7 +2342,7 @@ option = {
                 }
             }
         }, {
-            name: '   分馏塔进料加热炉132-F-201',
+            name: '  ',
             type: 'line',
             xAxisIndex: 2,
             yAxisIndex: 2,
@@ -2360,7 +2359,7 @@ option = {
                 }
             }
         }, {
-            name: '   反应进料加热炉132',
+            name: '   ',
             type: 'line',
             xAxisIndex: 0,
             yAxisIndex: 0,
@@ -2377,7 +2376,7 @@ option = {
                 }
             }
         }, {
-            name: '   反应进料加热炉132',
+            name: '  ',
             type: 'line',
             xAxisIndex: 1,
             yAxisIndex: 1,
@@ -2394,7 +2393,7 @@ option = {
                 }
             }
         }, {
-            name: '   反应进料加热炉132',
+            name: '   ',
             type: 'line',
             xAxisIndex: 2,
             yAxisIndex: 2,
@@ -2411,7 +2410,7 @@ option = {
                 }
             }
         }, {
-            name: '   蒸汽锅炉101加热炉',
+            name: '   ',
             type: 'line',
             xAxisIndex: 0,
             yAxisIndex: 0,
@@ -2428,7 +2427,7 @@ option = {
                 }
             }
         }, {
-            name: '   蒸汽锅炉101加热炉',
+            name: '   ',
             type: 'line',
             xAxisIndex: 1,
             yAxisIndex: 1,
@@ -2445,7 +2444,7 @@ option = {
                 }
             }
         }, {
-            name: '   蒸汽锅炉101加热炉',
+            name: '   ',
             type: 'line',
             xAxisIndex: 2,
             yAxisIndex: 2,
@@ -2576,7 +2575,7 @@ option = {
 
 ### 1.  进度条
 
-![pie1]
+
 
 
 ::: details 点击查看代码
@@ -2691,25 +2690,25 @@ option = {
 
 ### 2. pie2
 
-![pie2]
+
 
 ::: details 点击查看代码
 ```typescript
 var seriesData = [{
         value: 30,
-        name: '云服务'
+        name: 'A'
     },
     {
         value: 40,
-        name: '解决方案'
+        name: 'B'
     },
     {
         value: 10,
-        name: '微服务'
+        name: 'C'
     },
     {
         value: 20,
-        name: '应用商店'
+        name: 'D'
     },
 ];
 //圆环和子项颜色
@@ -2803,7 +2802,7 @@ option = {
         "formatter": "{b} : {c}亿吨 ({d}%)"
     },
     "series": [{
-        "name": "原油产量",
+        "name": "A",
         "type": "pie",
         "radius": "156px",
         "center": ["50%", "50%"],
@@ -2839,7 +2838,7 @@ var country = [];
 
 // 1.配置cosmoData自定义数据库(数据源名称需一致)
 var result = cosmo.data({
-    name: '饼图-世界原油产量',
+    name: '',
 });
 
 // 2.将数据库中的数据添加到数组中
@@ -2863,19 +2862,19 @@ for (var i = 0; i < country.length; i++) {
 
 ### 5.pie5
 
-![pie5]
+
 ::: details 点击查看代码
 ```typescript
 var seriesData = [{
-        name: '化肥1',
+        name: '1',
         value: 30,
     },
     {
-        name: '化肥2',
+        name: '2',
         value: 50,
     },
     {
-        name: '化肥3',
+        name: '3',
         value: 20,
     }
 ];
@@ -2942,7 +2941,7 @@ option = {
 
 ### 6. pie6
 
-![pie6]
+
 
 ::: details 点击查看代码
 ```typescript
@@ -3253,13 +3252,13 @@ option = {
 
 ### 1.雷达图
 
-![radar1]
+
 
 ::: details 点击查看代码
 ```typescript
 var seriesData = [{
         value: [800, 600, 780, 560, 900, 480],
-        name: '累计成交',
+        name: '累计提交',
         // 面积样式
         areaStyle: {
             color: 'rgba(18, 153, 250, 0.3)'
@@ -3267,7 +3266,7 @@ var seriesData = [{
     },
     {
         value: [460, 460, 580, 160, 420, 310],
-        name: '每日成交',
+        name: '每日提交',
         areaStyle: {
             color: 'rgba(24, 255, 252, 0.3)'
         },
@@ -3277,27 +3276,27 @@ var seriesData = [{
 
 var optionColor = ['#1299FA', '#17FFFB'];
 var radarIndicator = [{
-        name: '安全消息',
+        name: 'A',
         max: 1000
     },
     {
-        name: '产品服务',
+        name: 'B',
         max: 1000
     },
     {
-        name: '账户信息',
+        name: 'C',
         max: 1000
     },
     {
-        name: '公告',
+        name: 'D',
         max: 1000
     },
     {
-        name: '订阅服务',
+        name: 'E',
         max: 1000
     },
     {
-        name: '其他',
+        name: 'F',
         max: 1000
     },
 ];
@@ -3363,7 +3362,7 @@ option = {
 
 ### radar2
 
-![radar2]
+
 
 ::: details 点击查看代码
 ```typescript
@@ -3373,7 +3372,7 @@ option = {
     "legend": [{
         "top": '70%',
         "right": 30,
-        "data": ["每日成交", "累计成交"],
+        "data": ["每日提交", "累计提交"],
         "itemGap": 12,
         "textStyle": {
             "fontSize": 12,
@@ -3387,22 +3386,22 @@ option = {
     "radar": {
         center: ['40%', '50%'],
         "indicator": [{
-            "name": "其他",
+            "name": "A",
             "max": 50
         }, {
-            "name": "安全消息",
+            "name": "B",
             "max": 50
         }, {
-            "name": "产品服务",
+            "name": "C",
             "max": 50
         }, {
-            "name": "公告",
+            "name": "D",
             "max": 50
         }, {
-            "name": "账户信息",
+            "name": "E",
             "max": 50
         }, {
-            "name": "订阅服务",
+            "name": "F",
             "max": 50
         }],
         "splitNumber": 5,
@@ -3433,7 +3432,7 @@ option = {
     "series": [{
         "type": "radar",
         "data": [{
-            "name": "每日成交",
+            "name": "每日提交",
             "lineStyle": {
                 "normal": {
                     // "color": "#FF5BE2",
@@ -3455,7 +3454,7 @@ option = {
                 }
             }
         }, {
-            "name": "累计成交",
+            "name": "累计提交",
             "lineStyle": {
                 "normal": {
                     "color": "#0078FF",
@@ -3476,7 +3475,6 @@ option = {
             }
         }]
     }],
-    // "color": ['#8C25FF','#0078FF', "#FFE44E", "#FF4040", "#E60636", "#F65A70", "#EA5A94", "#F56134", "#FF9D4D", "#F1F406", "#BBF25B"]
 }
 ```
 :::
@@ -3485,14 +3483,13 @@ option = {
 
 ### scatter1
 
-![scatter1]
+
 
 ::: details 点击查看代码
 ```typescript
 option = {
     //backgroundColor: '#0C2F6F',
     "title": {
-        //"text": "散点统计图1",
         "textStyle": {
             "color": "#EFF4FF",
             "fontFamily": "PingFang-SC-Bold",
@@ -3532,7 +3529,7 @@ option = {
     },
     "yAxis": {
         "type": "category",
-        data: ['大鹏LNG', '深圳LNG', '珠海LNG'],
+        data: ['LNG', 'LNG', 'LNG'],
         axisLine: {
             show: false
         },
@@ -3595,7 +3592,7 @@ option = {
 
 ### 1. 进度条
 
-![gauge1]
+
 
 ::: details 点击查看代码
 ```typescript
@@ -3698,7 +3695,7 @@ option = {
 
 ### gauge2
 
-![gauge2]
+
 
 ::: details 点击查看代码
 ```typescript
@@ -3773,7 +3770,7 @@ option = {
 
 ### gauge3
 
-![gauge3]
+
 
 
 
@@ -3881,7 +3878,7 @@ window.open(url, '_blank');
 
 ### ChinaMap1
 
-<!-- ![](./imgs/ChinaMap1.png) -->
+
 
 
 ::: details 点击查看代码
@@ -4224,7 +4221,7 @@ option = {
 
 ### ChinaMap2
 
-<!-- ![](./imgs/echarts/ChinaMap2.png) -->
+
 
 ::: details 点击查看代码
 
