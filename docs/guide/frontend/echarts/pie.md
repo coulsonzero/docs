@@ -502,13 +502,13 @@ option = {
         icon: 'circle',
         formatter: function(name) {
             switch (name) {
-                case '云服务':
+                case 'A':
                     return name + '：    30%';
-                case '解决方法':
+                case 'B':
                     return name + '： 40%';
-                case '微服务':
+                case 'C':
                     return name + '：    10%';
-                case '应用商店':
+                case 'D':
                     return name + '： 20%';
             }
         }
@@ -554,19 +554,19 @@ option = {
 
         data: [{
                 value: 30,
-                name: '云服务'
+                name: 'A'
             },
             {
                 value: 40,
-                name: '解决方法'
+                name: 'B'
             },
             {
                 value: 10,
-                name: '微服务'
+                name: 'C'
             },
             {
                 value: 20,
-                name: '应用商店'
+                name: 'D'
             }
         ]
     }]
