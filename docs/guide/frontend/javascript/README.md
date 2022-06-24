@@ -1203,46 +1203,16 @@ console.log(obj, "left")
 
 ```js
 const data = [
-  { id: '5d47c5495f62', name: '数字', rank: 0 },
-  { id: '5d48f1aa5f62', name: '金融', rank: 1 },
-  { id: '5d4b95965f62', name: '消费', rank: 1 },
-  { id: '5d4bdb505f62', name: '娱乐', rank: 2 },
+  { id: '1', name: 'A', rank: 0 },
+  { id: '2', name: 'B', rank: 1 },
+  { id: '3', name: 'C', rank: 1 },
+  { id: '4', name: 'D', rank: 2 },
 ]
 
 let res = data.map(item => item = {id: item.id, name: item.name})
 console.log(res)
-
-/*
-const data = [
-  { id: '5d47c5495f62', name: '数字' },
-  { id: '5d48f1aa5f62', name: '金融' },
-  { id: '5d4b95965f62', name: '消费' },
-  { id: '5d4bdb505f62', name: '娱乐' },
-]
-*/
 ```
 
-```js
-const primary_type_group = ["5d47c5495f627d43177c510e", "5d48f1aa5f627d5df72d9324", "6226c4e378a86400090548ce"]
-
-const type_groups = [
-    {id: "5d47c5495f627d43177c510e", name: "教育"},
-    {id: "5d48f1aa5f627d5df72d9324", name: "医疗"},
-    {id: "5d4b95965f627d4b4f386200", name: "消费"},
-    {id: "5d4bdb505f627d5b91da8d02", name: "文娱"},
-    {id: "5d50db2c5f627d1696cf9717", name: "SaaS"},
-    {id: "5d50db315f627d1696cf9719", name: "大数据"},
-    {id: "5d5e32f45f627d2932076a17", name: "人工智能"},
-    {id: "5d5e332a5f627d2932076a22", name: "金融"},
-    {id: "5d5e38fd5f627d2932076b19", name: "其他"},
-    {id: "61419c8212354a000ce5fbc8", name: "123"},
-    {id: "6141b72a3244850009c28781", name: "再就业"},
-    {id: "6226c4e378a86400090548ce", name: "IDTest"}
-]
-
-let res = type_groups.filter(item => primary_type_group.includes(item.id)).map(item => item.name)
-console.log(res)	// [ '教育', '医疗', 'IDTest' ]
-```
 
 ### 4. Map
 
@@ -2876,10 +2846,6 @@ const arr = [
 	{id: 2, value: "value2", date: "2018-08-09", time: "12:27:17"},
 	{id: 3, value: "value3", date: "2018-08-10", time: "17:27:17"},
 	{id: 4, value: "value4", date: "2018-08-10", time: "01:27:17"},
-	{id: 5, value: "value5", date: "2018-08-10", time: "09:27:17"},
-	{id: 6, value: "value6", date: "2018-08-10", time: "23:27:17"},
-	{id: 7, value: "value7", date: "2018-08-10", time: "16:27:17"},
-	{id: 8, value: "value8", date: "2018-08-11", time: "10:27:17"},
 ]
 
 arr.sort((a, b) => b.date.localeCompare(a.date))

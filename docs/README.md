@@ -157,7 +157,6 @@ cout << "Hello World!" << endl;
 | [Maserati]                                                  |
 | [steelwavellc]                                              |
 | [avexdesigns]                                               |
-| [•](https://www.impermanence.us)                            |
 | [midwam](https://midwam.com/en)                             |
 | [vanmoof](https://live.vanmoof.com)                         |
 | [speedy](https://speedy.io)                                 |
