@@ -75,7 +75,6 @@ const sidebarConfig = {
 				"README.md",
 				"EchartsExample.md",
 				"bar.md",
-				"bigscreen.md",
 				"echartsBase.md",
 				"event.md",
 				"gauge.md",

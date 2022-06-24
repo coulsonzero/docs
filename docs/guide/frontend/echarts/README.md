@@ -19,8 +19,6 @@ sidebarDepth: 5
 
 [Echarts 案例](./echartsExample.md)
 
-[Echarts 大屏页面成果展示](./bigscreen.md)
-
 [日志系统开发](./logSystem.md)
 
 ## 常见图表类型
