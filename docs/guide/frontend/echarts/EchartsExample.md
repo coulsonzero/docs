@@ -1,38 +1,3 @@
-[bar1]: ../../../.vuepress/public/assets/echarts/bar/bar1.png
-[bar2]: ../../../.vuepress/public/assets/echarts/bar/bar2.png
-[bar3]: ../../../.vuepress/public/assets/echarts/bar/bar3.png
-[bar4]: ../../../.vuepress/public/assets/echarts/bar/bar4.png
-[bar5]: ../../../.vuepress/public/assets/echarts/bar/bar5.png
-[bar6]: ../../../.vuepress/public/assets/echarts/bar/bar6.png
-[bar7]: ../../../.vuepress/public/assets/echarts/bar/bar7.png
-
-[line1]: ../../../.vuepress/public/assets/echarts/line/line1.png
-[line2]: ../../../.vuepress/public/assets/echarts/line/line2.png
-[line3]: ../../../.vuepress/public/assets/echarts/line/line3.png
-[line4]: ../../../.vuepress/public/assets/echarts/line/line4.png
-
-[pie1]: ../../../.vuepress/public/assets/echarts/pie/pie1.png
-[pie2]: ../../../.vuepress/public/assets/echarts/pie/pie2.png
-[pie3]: ../../../.vuepress/public/assets/echarts/pie/pie3.png
-[pie4]: ../../../.vuepress/public/assets/echarts/pie/pie4.png
-[pie5]: ../../../.vuepress/public/assets/echarts/pie/pie5.png
-[pie6]: ../../../.vuepress/public/assets/echarts/pie/pie6.png
-
-[radar1]: ../../../.vuepress/public/assets/echarts/radar/radar1.png
-[radar2]: ../../../.vuepress/public/assets/echarts/radar/radar2.png
-
-[gauge1]: ../../../.vuepress/public/assets/echarts/gauge/gauge1.png
-[gauge2]: ../../../.vuepress/public/assets/echarts/gauge/gauge2.png
-[gauge3]: ../../../.vuepress/public/assets/echarts/gauge/gauge3.png
-
-[map1]: ../../../.vuepress/public/assets/echarts/map/map1.png
-[map2]: ../../../.vuepress/public/assets/echarts/map/map2.png
-
-[scatter1]: ../../../.vuepress/public/assets/echarts/scatter/scatter1.png
-
-[lines1]: ../../../.vuepress/public/assets/echarts/lines/lines1.png
-
-
 # EchartsExample
 ## Bar
 
