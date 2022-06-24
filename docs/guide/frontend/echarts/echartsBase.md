@@ -205,7 +205,7 @@ textStyle: {color, fontSize},
 
 // 副标题
 subtext
-sublink: 'https://www.aidustry.com/cpp/homePage',
+sublink: '',
 subtarget: 'self',
 subtextStyle: {color, fontSize},
 
@@ -270,7 +270,7 @@ subtextStyle: {color: 'red', fontSize: 16},
 #### c. 文本链接
 
 ```typescript
-sublink: 'https://www.aidustry.com/cpp/homePage',
+sublink: '',
 ```
 
 #### d. 窗口打开方式

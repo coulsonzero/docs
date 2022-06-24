@@ -80,7 +80,6 @@ const sidebarConfig = {
 				"gauge.md",
 				"line.md",
 				"lines.md",
-				"logSystem.md",
 				"pie.md",
 				"radar.md",
 				"scatter.md",

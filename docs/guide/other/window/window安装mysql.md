@@ -42,7 +42,7 @@ net start mysql
 5. mysql -u root -p
 > Enterpassword: **** (密码在data文件夹下的**.err文件下，复制修改成txt文本查看密码)
 6. 修改mysql账户登录密码
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '0627';
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '';
 7. 关闭mysql: mysql> exit
 8. 停止mysql服务: net stop mysql
 ```
