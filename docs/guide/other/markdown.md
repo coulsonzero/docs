@@ -68,13 +68,11 @@ class Main {
 ### 图片
 
 ```md
-![bar1](../../.vuepress/public/assets/echarts/bar/bar1.png)
 
-![bar1][5]
-[5]: ../../.vuepress/public/assets/echarts/bar/bar1.png
+
 ```
 
-![bar1](../../.vuepress/public/assets/echarts/bar/bar1.png)
+
 
 ### 表格
 
