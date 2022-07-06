@@ -86,6 +86,7 @@ const navbarConfig: NavbarConfig = [
 	{
 		text: "运维",
 		children: [
+			{text: "HarmonyOS", link: "/guide/operations/HarmonyOS/README.md"},
 			{text: "SQL", link: "/guide/operations/sql"},
 			{text: "Redis", link: "/guide/operations/redis"},
 			{text: "MongoDB", link: "/guide/operations/mongodb"},
