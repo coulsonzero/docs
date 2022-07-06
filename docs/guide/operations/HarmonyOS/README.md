@@ -37,25 +37,28 @@ SDK Location: /Users/coulsonzero/Library/OpenHarmony/sdk
 
 [项目开发方式](https://developer.harmonyos.com/cn/docs/documentation/doc-guides/start-with-js-traditional-code-0000001168007068)
 
-| 开发方式  | 适用设备                          |
-| -------- | ------------------------------- |
+| 开发方式 | 适用设备                         |
+| -------- | -------------------------------- |
 | JS       | Phone、Tablet、TV、Wearable      |
-| 低代码    | Phone、Tablet、Wearable          |
+| 低代码   | Phone、Tablet、Wearable          |
 | eTS      | Phone、Tablet、Car               |
-| Java     | Phone、Tablet、TV、Wearable、Car  |
+| Java     | Phone、Tablet、TV、Wearable、Car |
 
 ### JS 语言开发(传统代码方式)
 
 ### JS 语言开发(低代码方式)
 
 1. JS 低代码方式创建新项目
-   ![低代码创建](@/assets/harmonyos/visual-create.png)
+
+![低代码创建](@/assets/harmonyos/visual-create.png)
 
 2. 预览效果
-   ![低代码预览](@/assets/harmonyos/visual-helloworld.png)
+
+![低代码预览](@/assets/harmonyos/visual-helloworld.png)
 
 3. 低代码页面开发
-   ![低代码开发](@/assets/harmonyos/visual-dep.png)
+
+![低代码开发](@/assets/harmonyos/visual-dep.png)
 
 ### eTS 语言开发
 
