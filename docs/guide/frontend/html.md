@@ -17,7 +17,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-		<title>Document</title>
+	<title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -111,14 +111,14 @@ import Vue
 ```
 
 
-### h 标题
+### h (标题)
 
 ```html
 <h1>title</h1>
 ...
 <h6>title</h6>
 ```
-### p 段落
+### p (段落)
 
 ```html
 <p>Paragraph</p>
@@ -177,12 +177,12 @@ import Vue
 
 ------
 
-### button  按钮
+### button (按钮)
 
 ```html
 <button>Click Me !</button>
 ```
-### a 链接
+### a (链接)
 
 ```html
 <a href="#"></a>
@@ -208,23 +208,26 @@ import Vue
 `download=""`: 下载链接
 :::
 
-### img 图像
+### img (图像)
 
 ```html
-<img src="https://mimo.app/i/cat.png">
+<img src="assets/images/cat.png" alt="" />
 ```
 
 :::tip
-图片描述: `alt="Cat"`
+
+> `src`: 图片链接地址
+>
+> `alt`: 图片不能正常显示时, 使用alt文本代替
+
 :::
 ```html
-
-<img src="cat.png" alt="Cat">
-<img src="demo.png" alt="discription" loading="lazy" width="300" height="200">
+<img src="cat.png" alt="Cat" />
+<img src="demo.png" alt="discription" loading="lazy" width="300" height="200" />
 ```
 ------
 
-### li 列表
+### li (列表)
 
 - 无序列表
 
@@ -250,7 +253,7 @@ import Vue
 
 
 
-### Table  <表格>
+### Table (表格)
 
 ```html
 <table>
@@ -454,7 +457,7 @@ value="Click me"
 	</select>
 </form>
 ```
-### Form <表单>
+### Form (表单)
 ```html
 <form>
   ...
@@ -482,7 +485,7 @@ value="Click me"
 
 
 
-### iframe <内联网页>
+### iframe (内联网页)
 
 ```html
 <iframe src="https://www.csdn.net/"></iframe>
@@ -500,9 +503,6 @@ frameborder="0": 移除边框
 
 <iframe src="https://codepen.io/dilums/pen/ZEBowxX" width="100%" height="400px" frameborder="0" style="border-radius: 20px; box-shadow: 4px 4px 56px rgba(32,32,32,.5);"></iframe>
 
-### RGB
-
-<!-- <img src="../img/RGB.png" style="zoom:100%" /> -->
 
 # HTML 5
 

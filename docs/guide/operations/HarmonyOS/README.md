@@ -75,3 +75,5 @@ SDK Location: /Users/coulsonzero/Library/OpenHarmony/sdk
 HarmonyOS 整体遵从分层设计，从下向上依次为：内核层、系统服务层、框架层和应用层
 
 ![技术架构](@/assets/harmonyos/techArch.jpg)
+
+

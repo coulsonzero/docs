@@ -59,7 +59,7 @@ fmt.Printf()    // 格式化输出
 
 ```go
 var name string
-fmt.Print("请输入名称(name): ")
+// fmt.Print("请输入名称(name): ")
 fmt.Scanln(&name)
 ```
 
@@ -509,13 +509,16 @@ s := fmt.Sprintf()
 
 // 中文长度(1个中文占3个字节)
 len([]rune(s))	// []byte：不能用于中文字符数组
-
-
+```
+:::
+::: code-group-item 遍历
+```go{5,14-15}
 // 遍历
 func forEach() {
 	s := "Github官网"
 	for _, v := range s {
 		fmt.Printf("%c ", v)
+		// fmt.Println(string(v))
 	}
 	fmt.Println()
 	// G i t h u b 官 网
@@ -524,7 +527,7 @@ func forEach() {
 func forEach2() {
 	s := "Github官网"
 	for _, v := range []rune(s) {
-		fmt.Printf("%v ", string(v))
+		fmt.Println(string(v))
 	}
 	fmt.Println()
 	// G i t h u b 官 网
@@ -534,35 +537,51 @@ func forEach2() {
 :::
 ::: code-group-item 类型转换
 
-```go{3,12-13}
+```go{2,6}
 // string -> int
-str := "134"
 num, _ := strconv.Atoi(str)
 num, _ := strconv.ParseInt(str, 0, 0)
+
+// int -> string
+str := strconv.Itoa(num)
+str := fmt.Sprintf("%d", num)
+
+// array -> string
+strings.Join(s, "")
 
 // string -> []byte
 charArr := []byte(str)
 
-
-// int -> string
-num := 14141
-str := fmt.Sprintf("%d", num)
-str := strconv.Itoa(num)
-
 // byte -> string
 str := string(k)
-
-// array -> string
-strings.Join(s, "")
-func join(s []string) string {
-	res := ""
-	for _, v := range s {
-		res += v
-	}
-	return res
-}
 ```
 
+:::
+::: code-group-item Api
+```go
+
+/** 字符串拼接方式
+ * 1. +
+ * 2. strings.Join(arr, "")
+ * 3. sb.WriteString(v)
+ * 4. buf.Write([]byte(v))
+ */
+func build(arr []string) string {
+	var sb strings.Builder
+	for _, v := range arr {
+		sb.WriteString(v)
+	}
+	return sb.String()
+}
+
+func buffer(arr []string) string {
+	buf := new(bytes.Buffer)
+	for _, v := range arr {
+		buf.Write([]byte(v))
+	}
+	return buf.String()
+}
+```
 :::
 ::::
 
@@ -835,8 +854,12 @@ func equal(s1 []int, s2 []int) bool {
 
 **Api**
 ```go
+len()		// 长度
+cap()		// 容量
+make()		// 分配容量
 append()	// 增(末尾)
-
+copy()		// 拷贝
+slice[1:3]	// 切片
 ```
 
 ### 8. Map 哈希表
@@ -1027,6 +1050,7 @@ func main() {
 
 ```go{10}
 // 关闭文件、垃圾清理， Stack 堆结构：后进先出
+// 执行时机：defer栈先进后出，在return之后执行，但在函数退出之前
 package main
 import "fmt"
 
@@ -1064,6 +1088,33 @@ func main() {
 * end
 */
 ```
+```go
+func main() {
+	fmt.Println("start")
+	fmt.Println("return", deferDemo())
+	fmt.Println("end")
+}
+
+func deferDemo() int {
+	i := 0
+	defer func() {
+		fmt.Println("defer1")
+	}()
+	defer func() {
+		i += 1
+		fmt.Println("defer2")
+	}()
+	return i
+}
+
+/*
+start
+defer2
+defer1
+return 0
+end
+*/
+```
 
 :::
 ::: code-group-item 闭包
@@ -1091,6 +1142,18 @@ func main() {
 }
 ```
 
+:::
+::: code-group-item 内函数
+```go
+func demo() {
+	cnt := 0
+	print := func(file_path string) {
+		cnt++
+		fmt.Printf("%-4d: %s\n", cnt, file_path)
+		// os.Remove(file_path)
+	}
+}
+```
 :::
 ::::
 
@@ -2400,6 +2463,23 @@ package main
 func Title(s string) string {}
 ```
 
+### uint64与int64的区别 ？
+
+> uint为无符号整数，取值范围不同
+
+```go
+int8:   -128 ~ 127
+int16:  -32768 ~ 32767
+int32:  -2147483648 ~ 2147483647
+int64:  -9223372036854775808 ~ 9223372036854775807
+
+uint8:  0 ~ 255
+uint16: 0 ~ 65535
+uint32: 0 ~ 4294967295
+uint64: 0 ~ 18446744073709551615
+```
+
+
 ## Libs 标准库
 
 [golang 标准库](https://pkg.go.dev/std)
@@ -3105,15 +3185,16 @@ After()
 
 ```go
 start := time.Now()
-time.Sleep(600 * time.Millisecond)
+// time.Sleep(600 * time.Millisecond)
 end := time.Now()
-fmt.Println(end.Sub(start)) // 606.114625ms
+fmt.Println(end.Sub(start))
+// 606.114625ms
 ```
 
 > 简写
 
 ```go
-stimeStart := time.Now()
+timeStart := time.Now()
 //...
 timeElapsed := time.Since(timeStart)
 log.Printf("%v\n", timeElapsed)

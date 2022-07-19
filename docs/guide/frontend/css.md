@@ -62,62 +62,84 @@ li {
 
 ## Text
 
-```css
-font: italic bord 15px Arial;
+![](@/assets/css/text-yinxiang.png)
+![](@/assets/css/text-win.png)
 
-/**
- * 字体颜色：
- * red/green/blue/yellow/orange/gray/black/white
- * rgb(135,206,235);
- * rgba(135,206,235, 0.6);
- * #323232
- */
+
+```css
+/* font: italic bord 15px Arial; */
+
+
+/* 字体类型 */
+font-family: 'Poppins', sans-serif;
+/* 字体大小*/
+font-size: 16px/1rem;
+
+/* 字体颜色 */
 color: red;
-/* 字体样式，需要导入字体import url() */
-font-family: 'Poppins' Arial, Helvetica, Georgia, Times, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-/* 字体大小 1rem=16px */
-font-size: 20px/3em;
+/* 字体背景色 */
+background-color: skyblue;
+/* 文本阴影 */
+text-shadow: 5px 2px 4px gray;
+
 /* 粗体(100-900) */
 font-weight: bold;
 /* 斜体 */
 font-style: italic;
-
-/* 下划线 */
-text-decoration: underline;
-/* 删除线 */
-text-decoration: line-through;
+/* 下划线/删除线 */
+text-decoration: underline/line-through;
 /* 大小写转换 */
 text-transform: capitalize/uppercase/lowercase;
-/* 缩进 */
-text-indent: 30px;
-/* 文本阴影 */
-text-shadow: 5px 2px 4px gray;
-/* 文本水平对齐 */
-text-align: center;
-
-/* 文本垂直对齐 */
-vertical-align: middle;
+/* 小型大写 */
+/* font-variant: small-caps; */
 /* 上下标 */
 vertical-align: super/sub;
+
+
+/* 水平对齐方式 */
+text-align: left/center/right;
+/* 垂直对齐方式 */
+vertical-align: top/middle/bottom;
+
+
+
+
+/* 缩进 */
+text-indent: 30px;
+/* 行间距 */
+line-height: 36px;
 /* 字符间距 */
 letter-spacing: 3px;
 /* 单词间距 */
 word-spacing: 5px;
-/* 行间距 */
-line-height: 36px;
-/* 段落间距(文本超出k) */
-white-space: nowrap/inherit/pre/pre-line/pre-warp;
+
+
+/* 换行 */
+white-space: nowrap/pre-warp;
 /* 溢出：隐藏/滚动 */
+overflow: hidden;
 overflow-x: hidden;
 overflow-y: scroll;
-overflow
-/* 小型大写 */
-font-variant: small-caps;
+
 /* 禁止选中 */
 user-select: none;
 -webkit-user-select: none;
 ```
 
+
+::: tip
+```css
+/**
+ * 字体颜色：
+ * red/green/blue/yellow/orange/gray/black/white
+ * #323232
+ * rgb()、rgba()
+ * hsl()、hsla()
+ */
+```
+:::
+
+![](@/assets/css/text-mac.png)
 
 
 ## Properties
@@ -180,34 +202,13 @@ background-clip: padding-box;
 
 
 
-### List__列表
+### List <列表>
 ```html
 <ul>
 	  <li><a href='#'>...</a></li>
 	  <li><a href='#'>...</a></li>
 	  <li><a href='#'>...</a></li>
 </ul>
-```
-
-```css
-ul {
-	background: linear-gradient(90deg,
-			  rgba(255,255,255,0) 0%,
-			  rgba(255,255,255,0.2) 25%,
-			  rgba(255,255,255,0.2) 75%,
-			  rgba(255,255,255,0) 100%,
-			  );
-	box-shadow: 0 0 25px rgba(0, 0, 0, 0.1),
-	  			inset 0 0  1px rgba(255,255,255,0.6);
-}
-ul li {
-  	display: inline-block;
-}
-ul li a {
-		display: block;
-		text-decoration: none;
-		padding: 10px;
-}
 ```
 
 ```css
@@ -234,7 +235,7 @@ ul {
 
 
 
-### Table__表格
+### Table <表格>
 
 ```html
 <table border="1">
@@ -262,25 +263,28 @@ caption {
 }
 ```
 
-### Link__超链接
+### a <超链接>
 ```css
-a:hover {color: red}
-a:link {text-decoration: none}
+a:hover
+a:link
 a:visited
 a:active
 ```
 
-### 图片
+### img <图片>
 
+```html
+<img src="assets/cat.png" alt="" />
+```
 ```css
-/* 禁止图片推拽 */
+/* 禁止图片拖动 */
 -webkit-user-drag: none;
 ```
 
-## 按钮
+## button <按钮>
 
 ```css
-/* 禁止事件 */
+/* 禁止点击事件 */
 pointer-events: none;
 ```
 
@@ -299,17 +303,19 @@ cursor: url(https://...) auto auto;
 ## Positioning and Layout
 
 ```css
-/* 竖排、横排 */
-display: flex/block/inline/grid;
+/* flex弹性布局 */
+display: flex;
+/* 方向 */
+flex-direction: row/column/row-reverse/column-reverse;
 /* 对齐 */
-justfy-content: center   	/* 水平居中对齐 */
-align-items: center       /* 垂直居中对齐 */
-flex-direction: row/column/row-reverse/column-reverse
-flex-wrap: nowrap/wrap/wrap-reverse
-align-content: stretch/flex-start/center/flex-end/space-around/space-between
+justify-content: center;     /* 水平居中对齐 */
+align-items: center;         /* 垂直居中对齐 */
+align-content: stretch/flex-start/center/flex-end/space-around/space-between;
+/* 换行 */
+flex-wrap: nowrap/wrap/wrap-reverse;
 
-flex: 0 1 auto;
-/* 比例 */
+/* flex拓展 */
+flex: 0 1 auto
 flex-grow: 0/1...
 flex-shrink: 1
 flex-basis: auto/100px/50%/Mix
@@ -317,17 +323,16 @@ row-gap
 column-gap
 
 /* grid布局 */
-display:grid;
+display: grid;
 /* 元素占比 */
-grid-trmplate: 1fr 1fr  1fr/ 60% auto;  /* 3行2列,行等比 */
-grid-template-columns: 50px auto 120px;  /* 2fr */  ; repeat(3, 1fr)
-grid-template-columns: repeat(4, max-content);
-grid-template-columns: repeat(autofill, minmax(200px, 1fr));
+grid-template: 1fr 1fr  1fr/ 60% auto;  /* 3行2列,行等比 */
+grid-template-columns: 50px auto 120px;  /* 2fr */repeat(3, 1fr)/repeat(4, max-content)/repeat(autofill, minmax(200px, 1fr));
 grid-template-rows: 50px 50px 50px;
-
 grid-template-areas: ". item1 . item2" "item3 item4";
+/* 居中 */
+place-items: center;
 /* 元素间距 */
-gap: row-gap column-gap;
+gap: 5px;
 row-gap: 5px;
 column-gap: 10px;
 /* 行列数比值 *
@@ -348,6 +353,25 @@ z-index: 3;
 /* 对齐 */
 float: left/right/none;
 clear: left/right/both;
+```
+
+**示例**
+```css
+/* flex弹性布局 */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* grid网格布局 */
+div {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    grid-gap: 4rem 1rem;
+    place-items: center;
+}
 ```
 
 
@@ -477,21 +501,30 @@ filter: invert(70%);
 filter: drop-shadow(5px 5px 2px gray);
 ```
 
-## 滚动条
+## CSS拓展
+### 滚动条
 
 ```css
-html{
-    &::-webkit-scrollbar {
-        width: .8rem;
-    }
-    /* 滚动条背景色 */
-    &::-webkit-scrollbar-track {
-        background: #000;
-    }
-    /* 滚动条色 */
-    &::-webkit-scrollbar-thumb {
-        background: #0097e6;
-    }
+html::-webkit-scrollbar {
+    width: .8rem;
+}
+/* 滚动条背景色 */
+html::-webkit-scrollbar-track {
+    background: #000;
+}
+/* 滚动条色 */
+html::-webkit-scrollbar-thumb {
+    background: #0097e6;
+}
+
+```
+
+### 拖动选中
+
+```css
+::selection {
+    background-color: rgb(34, 34, 34);
+    color: rgb(236, 231, 231);
 }
 ```
 
@@ -529,10 +562,43 @@ pointer-events: none;
 
 ## FAQ
 
-- 去掉label点击时的背景色
+### 禁止文本选中
+
+```css
+user-select: none;
+-webkit-user-select: none;
+```
+
+### 禁止图片拖动
+
+```css
+-webkit-user-drag: none;
+```
+### 去掉label点击时的背景色
 
 ```css
 label {
     -webkit-tap-highlight-color: transparent;
 }
 ```
+
+## 高级CSS特效
+
+### 渐变字体色
+
+```css
+/* 字体色渐变 */
+background: linear-gradient(120deg, rgb(132,111,244), rgb(241,118,116));
+background-clip: text;
+-webkit-text-fill-color: transparent;
+-webkit-background-clip: text;
+```
+
+### 毛玻璃效果
+
+```css
+background: hsla(0, 0%, 100%, .72);
+backdrop-filter: blur(16px) saturate(180%);
+-webkit-backdrop-filter: blur(16px) saturate(180%);
+```
+

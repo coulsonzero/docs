@@ -28,10 +28,10 @@ sidebar: false
 ::: normal-demo Demo 演示
 
 ```html
-<h1>VuePress Theme Hope</h1>
+<h1>Hello World!</h1>
 <p>
-	<span id="very">非常</span>
-	强大!
+	<span id="very">你好</span>
+	世界!
 </p>
 ```
 
@@ -61,12 +61,17 @@ print("Hello World!")
 :::
 ::: code-group-item Java
 ```java
-System.out.println("Hello World!")
+System.out.println("Hello World!");
 ```
 :::
 ::: code-group-item C++
 ```cpp
 cout << "Hello World!" << endl;
+```
+:::
+::: code-group-item JavaScript
+```javascript
+console.log("Hello World!")
 ```
 :::
 ::::
