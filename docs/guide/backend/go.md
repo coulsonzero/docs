@@ -409,8 +409,6 @@ func main() {
 
 ### 4. DataTypes
 
-[**类型强制转换**](./go.md/#5-string-字符串)
-
 :::: code-group
 ::: code-group-item 数据类型
 
@@ -1643,6 +1641,28 @@ func main() {
 }
 ```
 
+:::
+::: code-group-item struct
+```go
+package main
+
+import (
+	"fmt"
+)
+
+type student struct {
+	name string
+	age  int
+}
+
+func main() {
+	s := &student{"john", 20}
+
+	fmt.Println(*s)     // {john 20}
+	fmt.Println(s)      // &{john 20}
+	fmt.Println(s.name) // john
+}
+```
 :::
 ::::
 
