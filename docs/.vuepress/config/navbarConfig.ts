@@ -9,20 +9,6 @@ const navbarConfig: NavbarConfig = [
 			{text: "CSS", link: "/guide/frontend/css"},
 			{text: "JavaScript", link: "/guide/frontend/javascript/"},
 			{
-				text: "语法扩展",
-				children: [
-					{text: "SCSS", link: "/guide/frontend/scss"},
-					{text: "TypeScript", link: "/guide/frontend/typescript"},
-				],
-			},
-			{
-				text: "3D可视化",
-				children: [
-					{text: "Three.js", link: "https://threejs.org"},
-					{text: "Canvas", link: "/guide/frontend/canvas"},
-				],
-			},
-			{
 				text: "web框架",
 				children: [
 					{text: "Vue", link: "/guide/frontend/vue"},
@@ -31,9 +17,23 @@ const navbarConfig: NavbarConfig = [
 				],
 			},
 			{
-				text: "web js库",
+				text: "语法扩展",
+				children: [
+					{text: "SCSS", link: "/guide/frontend/scss"},
+					{text: "TypeScript", link: "/guide/frontend/typescript"},
+				],
+			},
+			{
+				text: "可视化",
 				children: [
 					{text: "Echarts", link: "/guide/frontend/echarts/"},
+					{text: "Canvas", link: "/guide/frontend/canvas"},
+					{text: "Three.js", link: "https://threejs.org"},
+				],
+			},
+			{
+				text: "web js库",
+				children: [
 					{text: "Swiper", link: "https://swiperjs.com/demos"},
 					{text: "ScroolReveal", link: "https://scrollrevealjs.org/"},
 				],
@@ -67,12 +67,20 @@ const navbarConfig: NavbarConfig = [
 			{text: "Kotlin", link: "/guide/backend/kotlin"},
 			// {text: "Swift", link: "/guide/backend/swift"},
 			{
-				text: "框架",
+				text: "Golang框架",
 				children: [
-					{text: "SpringBoot", link: "https://spring.io/projects/spring-boot#learn"},
 					{text: "Gin", link: "/guide/backend/gin.md"},
 					{text: "Gorm", link: "/guide/backend/gorm.md"},
 					{text: "gRPC", link: "/guide/backend/grpc.md"},
+				],
+			},
+			{
+				text: "Java框架",
+				children: [{text: "SpringBoot", link: "https://spring.io/projects/spring-boot#learn"}],
+			},
+			{
+				text: "Python框架",
+				children: [
 					{text: "Django", link: "/guide/backend/django.md"},
 					{text: "Flask", link: "/guide/backend/flask.md"},
 				],
@@ -81,12 +89,15 @@ const navbarConfig: NavbarConfig = [
 				text: "GUI库",
 				children: [{text: "Pyside6", link: "/guide/backend/pyside6"}],
 			},
+			{
+				text: "系统开发",
+				children: [{text: "HarmonyOS", link: "/guide/backend/HarmonyOS/README.md"}],
+			},
 		],
 	},
 	{
 		text: "运维",
 		children: [
-			{text: "HarmonyOS", link: "/guide/operations/HarmonyOS/README.md"},
 			{text: "SQL", link: "/guide/operations/sql"},
 			{text: "Redis", link: "/guide/operations/redis"},
 			{text: "MongoDB", link: "/guide/operations/mongodb"},

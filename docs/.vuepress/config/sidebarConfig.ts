@@ -156,7 +156,7 @@ const sidebarConfig = {
 			children: ["sql.md", "linux.md", "mongodb.md", "redis.md", "shell.md"],
 		},
 	],
-	"/guide/operations/HarmonyOS/": [
+	"/guide/backend/HarmonyOS/": [
 		{
 			text: "HarmonyOS",
 			title: "HarmonyOS",
