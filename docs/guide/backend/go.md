@@ -581,6 +581,15 @@ func buffer(arr []string) string {
 }
 ```
 :::
+::: code-group-item 字符
+```go
+判断是否为字母： unicode.IsLetter(v)
+判断是否为十进制数字： unicode.IsDigit(v)
+判断是否为数字： unicode.IsNumber(v)
+判断是否为空白符号： unicode.IsSpace(v)
+判断是否为Unicode标点字符 :unicode.IsPunct(v)
+```
+:::
 ::::
 
 ### 6. Array 数组
@@ -3102,6 +3111,11 @@ func main() {
 ### strings
 
 ```go
+/*======== 查 =========*/
+
+// 返回子串索引，不存在返回-1
+strings.index(s string, substr string)
+
 /*======== 判断 =========*/
 
 // 包含
@@ -3141,6 +3155,25 @@ strings.TrimFunc("¡¡¡$6521.123Hello, Gophers!!!", func(r rune) bool {
 }) // 6521.123Hello, Gophers
 ```
 
+
+
+
+### unicode
+
+```go
+// 判断是否为字母(a-z|A-Z)
+unicode.IsLetter(v)
+
+// 判断是否为十进制数字(0-9)
+unicode.IsDigit(v)
+// 判断是否为数字(0-9)
+unicode.IsNumber(v)
+
+// 判断是否为空白符号(' ')
+unicode.IsSpace(v)
+// 判断是否为Unicode标点字符(';', ',', ...)
+unicode.IsPunct(v)
+```
 ### strconv
 
 ```go
@@ -3893,6 +3926,8 @@ func Delete() {
 	fmt.Println(rows) // return 1: success
 }
 ```
+
+
 
 ### net & net/url
 
