@@ -1,9 +1,10 @@
 # [Golang](https://golang.google.cn)
 
-Designer: `Google` in `2007`
+`Google` in `2007`
 simple, reliable and efficient software.
 
-[Go中文学习网](https://www.topgoer.com/)
+[Go 中文学习网](https://www.topgoer.com/)
+
 ## Getting Started
 
 ### 1. Hello World
@@ -57,7 +58,7 @@ fmt.Printf()    // 格式化输出
 
 **Input**
 
-```go
+```go{3}
 var name string
 // fmt.Print("请输入名称(name): ")
 fmt.Scanln(&name)
@@ -150,17 +151,18 @@ func main() {
 :::: code-group
 ::: code-group-item 单个变量
 
-```go
-var str string  // 有默认值: ""
+```go{1,5}
 var str string = "Tom"
-var str = "Tom"
+var str string  // 有默认值: ""
+var str = "Tom"	// 类型可省略
+
 str := "Tom"	// 仅可作为局部变量(函数体内声明)
 ```
 
 :::
 ::: code-group-item 多个变量
 
-```go
+```go{24}
 // 全局变量
 var (
     name     string
@@ -255,7 +257,7 @@ package main
 
 import "fmt"
 
-// 常量可以定义后暂不调用
+// 常量可以定义后可暂不调用
 const str string = "constant"
 
 const (
@@ -324,7 +326,7 @@ func main() {
 :::
 ::: code-group-item 全局变量
 
-```go
+```go{6}
 package main
 import "fmt"
 
@@ -334,6 +336,7 @@ func change() {
 	x += 1
 }
 
+// 函数参数为局部作用域
 func set(x int) {
 	x += 1
 }
@@ -350,7 +353,7 @@ func main() {
 :::
 ::: code-group-item 局部变量
 
-```go
+```go{8}
 package main
 import "fmt"
 
@@ -414,18 +417,36 @@ func main() {
 
 ```go
 // 基础数据类型
-byte, rune<int32>  // 字符, rune是int32的别名，其他语言为char; byte是uint8
-int       		   // 整数
-float32, float64   // 浮点数
-string             // 字符串
-bool               // 布尔
+
+// 1.数字 (整数、浮点数、复数)
+int  <int8/int16/int32/int64>     	// 带符号整数, rune = int32
+uint <uint8/uint16/uint32/uint64>	// 无符号整数(非负数), byte = uint8
+
+// int大小: 与具体的平台有关, int在32位系统中是4字节，在64位系统中是8字节
+
+/*
+int8: -128 ~ 127
+int16: -32768 ~ 32767
+int32: -2147483648 ~ 2147483647
+int64: -9223372036854775808 ~ 9223372036854775807
+uint8: 0 ~ 255
+uint16: 0 ~ 65535
+uint32: 0 ~ 4294967295
+uint64: 0 ~ 18446744073709551615
+*/
+
+float32/float64    		// 1.2 浮点数
+complex64/complex128	// 1.3 复数
+// 2.布尔
+bool
+// 3.字符串
+string
 
 
 // Array
-[]byte
-[]rune
 []int
 []string
+[]byte、[]rune
 // map
 map[string] int
 
@@ -438,16 +459,39 @@ map[string] interface{}
 type any = interface{}
 
 func toString[T int|float64|string](s T) T {}
-
-
-.(type) // 查询数据类型: nil, []int, ...
-func Leng(arr interface{}) {
-	switch arr.(type) {
-	case []int: ...
-	}
-}
 ```
 
+:::
+::: code-group-item Api
+```go
+// 查询 字节占用大小
+unsafe.Sizeof()
+
+// 查询 数据类型
+reflect.TypeOf()
+
+// 取值范围
+fmt.Printf("int: -%d ~ %d\n", math.MaxInt, math.MaxInt)
+```
+:::
+::: code-group-item 示例
+```go
+// 整数
+var num int = 12
+var pi float32 = 3.141
+var r = 3 + 2i
+
+// 布尔
+var bool = true
+
+// 字符串
+var name string = "john"
+
+// 字符
+var c rune = '你'	// fmt.Println(string(c)), 中文字符不能使用int8/uint8
+var b byte = 'v'	// fmt.Println(string(b))
+
+```
 :::
 ::: code-group-item 类型格式化输出
 
@@ -508,8 +552,10 @@ s := fmt.Sprintf()
 // 中文长度(1个中文占3个字节)
 len([]rune(s))	// []byte：不能用于中文字符数组
 ```
+
 :::
 ::: code-group-item 遍历
+
 ```go{5,14-15}
 // 遍历
 func forEach() {
@@ -556,6 +602,7 @@ str := string(k)
 
 :::
 ::: code-group-item Api
+
 ```go
 
 /** 字符串拼接方式
@@ -580,8 +627,10 @@ func buffer(arr []string) string {
 	return buf.String()
 }
 ```
+
 :::
 ::: code-group-item 字符
+
 ```go
 判断是否为字母： unicode.IsLetter(v)
 判断是否为十进制数字： unicode.IsDigit(v)
@@ -589,6 +638,7 @@ func buffer(arr []string) string {
 判断是否为空白符号： unicode.IsSpace(v)
 判断是否为Unicode标点字符 :unicode.IsPunct(v)
 ```
+
 :::
 ::::
 
@@ -860,6 +910,7 @@ func equal(s1 []int, s2 []int) bool {
 ::::
 
 **Api**
+
 ```go
 len()		// 长度
 cap()		// 容量
@@ -973,7 +1024,7 @@ func twoSum(nums []int, target int) []int {
 
 ## OOP
 
-### 9. Function
+### 9. Function 函数
 
 > 值传递(默认): 指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数
 >
@@ -998,7 +1049,7 @@ func main() {
 :::
 ::: code-group-item 有参
 
-```go{4-5}
+```go{4}
 package main
 import "fmt"
 
@@ -1015,7 +1066,7 @@ func main() {
 :::
 ::: code-group-item 不定参
 
-```go
+```go{4}
 package main
 import "fmt"
 
@@ -1030,7 +1081,8 @@ func sum(nums ...int) int {
 func main() {
     nums := []int {0, 2, 4, 6, 8}
 
-    fmt.Println(sum(nums...)) // 15
+	res := sum(nums...)
+    fmt.Println(res)	// 20
 }
 ```
 
@@ -1095,6 +1147,7 @@ func main() {
 * end
 */
 ```
+
 ```go
 func main() {
 	fmt.Println("start")
@@ -1126,7 +1179,7 @@ end
 :::
 ::: code-group-item 闭包
 
-```go
+```go{7}
 package main
 
 import "fmt"
@@ -1151,16 +1204,20 @@ func main() {
 
 :::
 ::: code-group-item 内函数
-```go
-func demo() {
-	cnt := 0
-	print := func(file_path string) {
-		cnt++
-		fmt.Printf("%-4d: %s\n", cnt, file_path)
-		// os.Remove(file_path)
+
+```go{2}
+func main() {
+	Hello("coulson")
+}
+
+func Hello(name string) {
+	print := func(a ...interface{}) {
+		fmt.Printf("Hello %s", a...)
 	}
+	print(name)
 }
 ```
+
 :::
 ::::
 
@@ -1262,6 +1319,42 @@ func main() {
 }
 ```
 
+:::
+::: code-group-item 方法
+```go
+package main
+
+import "fmt"
+
+type Student struct {
+	name string
+	age  int
+}
+
+func hello(s Student) {
+	fmt.Printf("name: %s, age: %d\n", s.name, s.age)
+}
+
+func (s Student) welcome() {
+	fmt.Printf("name: %s, age: %d\n", s.name, s.age)
+}
+
+func (s *Student) change_ptr() {
+	s.age += 1
+	fmt.Printf("name: %s, age: %d\n", s.name, s.age)
+}
+
+func main() {
+	s := Student{"James", 20}
+
+	// 结构体作为函数的参数
+	hello(s)
+	// `结构体`.方法()
+	s.welcome()
+	// 使用指针作为接收者修改结构体的数据
+	s.change_ptr()
+}
+```
 :::
 ::: code-group-item 继承
 
@@ -1601,6 +1694,18 @@ func main() {
 
 > 浅拷贝: 修改其中一个，另一个也会随之改变
 
+::: tip
+```
+1. 变量
+全局变量: 使用无参方法修改
+局部变量: 使用指针修改
+2. 函数内的参数
+局部作用域, 栈内存
+3. 结构体的数据
+使用指针修改
+```
+:::
+
 :::: code-group
 ::: code-group-item pointer
 
@@ -1625,9 +1730,17 @@ func main() {
 ```
 
 :::
-::: code-group-item pointer in Func
+::: code-group-item input
+```go{2}
+var input string
+fmt.Scanln(&input)
 
-```go
+fmt.Println(input)
+```
+:::
+::: code-group-item func
+
+```go{8}
 package main
 import "fmt"
 
@@ -1652,7 +1765,8 @@ func main() {
 
 :::
 ::: code-group-item struct
-```go
+
+```go{17,23}
 package main
 
 import (
@@ -1664,14 +1778,31 @@ type student struct {
 	age  int
 }
 
+func (p Student) change() {
+	p.age += 1
+}
+
+// 使用指针修改结构体中的数据
+func (p *Student) change_ptr() {
+	p.age += 1
+}
+
+
 func main() {
 	s := &student{"john", 20}
 
-	fmt.Println(*s)     // {john 20}
-	fmt.Println(s)      // &{john 20}
-	fmt.Println(s.name) // john
+	fmt.Println(*s)     	//  {john 20}
+	fmt.Println(s)      	// &{john 20}
+	fmt.Println((*s).name)  // john
+	fmt.Println(s.name) 	// john
+
+	s.change()
+	fmt.Println(s.age) // 20
+	s.change_ptr()
+	fmt.Println(s.age) // 21
 }
 ```
+
 :::
 ::::
 
@@ -1721,9 +1852,24 @@ import (
 
 :::
 
+### Comments
+
+```go
+// a single comment
+
+/*
+This is a multi-line comment
+*/
+
+/**
+ * @author
+ * @version
+ */
+```
+
 ### Modules
 
-https://pkg.go.dev/cmd
+[golang 模块](https://pkg.go.dev/cmd)
 
 ```bash
 # 查看go版本
@@ -1757,21 +1903,6 @@ go test
 go vet
 ```
 
-### Comments
-
-```go
-// a single comment
-
-/*
-This is a multi-line comment
-*/
-
-/**
- * @author
- * @version
- */
-```
-
 ### Operators
 
 ```go
@@ -1787,23 +1918,29 @@ func isEven( num int ) bool {
 	// return num % 2 == 0
     return num & 1 == 0
 }
-
-
 ```
 
 ## Control
+::: tip
+1. if/switch statement: 局部变量作用域
+2. switch statement: 条件判断
+3. for loop: 推荐range写法, 可忽略
+4. while loop: 使用for代替
+:::
 
 ### Statement
+
 
 ::: danger
 
 > 注意变量作用域, 在 condition 中声明外部无法访问！
-> :::
+
+:::
 
 :::: code-group
 ::: code-group-item if
 
-```go{1, 9}
+```go{1,9}
 if x := 42; x > 18 {
     //statement(s)
 } else if x == 18 {
@@ -1968,6 +2105,7 @@ func main() {
 
 :::
 ::: code-group-item goroutine + channel
+
 ```go
 func main() {
 	ch := make(chan int)
@@ -1981,6 +2119,7 @@ func main() {
 }
 
 ```
+
 :::
 ::: code-group-item Channels1
 
@@ -2479,9 +2618,9 @@ package main
 
 ### Redis: WRONGTYPE Operation against a key holding the wrong kind of value
 
-> redis中已经存在同名，但不同类型的key值， 删除此key再重新执行即可
+> redis 中已经存在同名，但不同类型的 key 值， 删除此 key 再重新执行即可
 
-### Golang注解 ？
+### Golang 注解 ？
 
 **方法弃用**
 
@@ -2492,9 +2631,10 @@ package main
 func Title(s string) string {}
 ```
 
-### uint64与int64的区别 ？
+### uint64 与 int64 的区别 ？
 
-> uint为无符号整数，取值范围不同
+
+> uint 为无符号整数，取值范围不同
 
 ```go
 int8:   -128 ~ 127
@@ -2506,6 +2646,60 @@ uint8:  0 ~ 255
 uint16: 0 ~ 65535
 uint32: 0 ~ 4294967295
 uint64: 0 ~ 18446744073709551615
+```
+
+
+### golang中struct的接收者使用指针与不使用指针的区别 ？
+
+> 如果想要修改结构体中的数据，接收者应该为指针类型，否则，接收者类型就为非指针类型
+
+```go
+package main
+
+import "fmt"
+
+type Inter interface {
+	Say(name string)
+}
+
+type Cat struct {
+	Name string
+}
+
+func (c Cat) Say(name string) {
+    // 修改结构体数据无效
+	c.Name = name
+	fmt.Printf("cat name is : %s\n", c.Name)
+}
+
+type Dog struct {
+	Name string
+}
+
+func (d *Dog) Say(name string) {
+    // 可以修改结构体数据
+	d.Name = name
+	fmt.Printf("dog name is : %s\n", d.Name)
+}
+
+func main() {
+	c := Cat{}
+	c.Name = "zhangsan"
+	c.Say("lisi")
+	fmt.Println("c.Name = ", c.Name)
+
+	d := new(Dog)
+	d.Name = "zhangsan"
+	d.Say("lisi")
+	fmt.Println("d.Name = ", d.Name)
+}
+
+
+// 执行结果
+cat name is : lisi
+c.Name =  zhangsan
+dog name is : lisi
+d.Name =  lisi
 ```
 
 
@@ -3155,9 +3349,6 @@ strings.TrimFunc("¡¡¡$6521.123Hello, Gophers!!!", func(r rune) bool {
 }) // 6521.123Hello, Gophers
 ```
 
-
-
-
 ### unicode
 
 ```go
@@ -3174,6 +3365,23 @@ unicode.IsSpace(v)
 // 判断是否为Unicode标点字符(';', ',', ...)
 unicode.IsPunct(v)
 ```
+
+### math
+
+```go
+// |x|: 绝对值
+math.Abs(x float64)
+```
+
+::: details 示例
+
+```go
+x := -123
+fmt.Println(math.Abs(float64(x)))	// 123
+```
+
+:::
+
 ### strconv
 
 ```go
@@ -3927,8 +4135,6 @@ func Delete() {
 }
 ```
 
-
-
 ### net & net/url
 
 ```go
@@ -4042,13 +4248,12 @@ func WriteCsv(filename string) {
 
 :::
 
-
-
 ### redis
 
 #### connect redis
 
 **go-redis.go**
+
 ```go
 package main
 
@@ -4076,6 +4281,7 @@ func main() {
 #### connect redis & operator
 
 **go-redis-string.go**
+
 ```go
 package main
 
@@ -4103,10 +4309,11 @@ func main() {
 }
 ```
 
-#### 使用函数封装Redis
+#### 使用函数封装 Redis
 
 :::: code-group
 ::: code-group-item go-redis-string-encapsulate.go
+
 ```go
 package main
 
@@ -4147,8 +4354,10 @@ func getString(conn redis.Conn, field string) {
 	fmt.Printf("Get %s: %s \n", field, res)
 }
 ```
+
 :::
 ::: code-group-item go-redis-struct
+
 ```go
 package main
 
@@ -4193,8 +4402,10 @@ func (conn *Conn) GetString(field string) {
 	fmt.Printf("Get %s: %s \n", field, res)
 }
 ```
+
 :::
 ::: code-group-item 排行榜示例
+
 ```go
 package main
 
@@ -4239,6 +4450,7 @@ func (conn *Conn) GetString(field string) {
 	fmt.Printf("Get %s: %s \n", field, res)
 }
 ```
+
 :::
 ::::
 
@@ -4281,6 +4493,7 @@ mu.RUnlock()
 
 :::: code-group
 ::: code-group-item 互斥量实现并发
+
 ```go{5,17,20,22,26}
 package main
 
@@ -4322,8 +4535,10 @@ func syncWait() {
 10
 *
 ```
+
 :::
 ::: code-group-item 线程同步锁
+
 ```go{3,10,13}
 func syncWaitLock() {
 	var wg sync.WaitGroup
@@ -4358,10 +4573,9 @@ func syncWaitLock() {
 10
 */
 ```
+
 :::
 ::::
-
-
 
 ### md5
 
