@@ -18,5 +18,13 @@
 @import "./container/comment";
 @import "./container/back-to-top";
 
+header .hero {
+    /* 禁止选中 */
+    user-select: none;
+    -webkit-user-select: none;
+}
 
 
+.home .hero img {
+    -webkit-user-drag: none;
+}
