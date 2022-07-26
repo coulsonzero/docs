@@ -2409,7 +2409,7 @@ msg := <-ch
 defer close(ch)
 ```
 
-
+**示例**
 ```go
 package main
 import ("fmt"; "time")
