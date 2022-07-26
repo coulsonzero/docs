@@ -1,0 +1,1 @@
+const e={key:"v-05c5a0cd",path:"/guide/other/mac/openidea.html",title:"Mac\u65E0\u6CD5\u6253\u5F00IDEA \uFF1F",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1646573109e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:1}]},filePathRelative:"guide/other/mac/openidea.md"};export{e as data};

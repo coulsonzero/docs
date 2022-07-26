@@ -1,0 +1,1 @@
+const t={key:"v-15f1e964",path:"/guide/algorithm/Array/1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html",title:"Two Sum",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1658241988e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:2}]},filePathRelative:"guide/algorithm/Array/1-\u4E24\u6570\u4E4B\u548C.md"};export{t as data};

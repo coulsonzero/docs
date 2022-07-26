@@ -1,0 +1,1 @@
+const e={key:"v-42213e1d",path:"/guide/backend/c.html",title:"C",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1646490083e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:1}]},filePathRelative:"guide/backend/c.md"};export{e as data};
