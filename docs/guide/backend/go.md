@@ -2043,6 +2043,10 @@ fmt.Println(res)    //500500
 
 ### Goroutine 协程
 
+```go
+go hello()
+```
+
 :::: code-group
 ::: code-group-item goroutine
 
