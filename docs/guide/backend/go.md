@@ -2041,45 +2041,9 @@ fmt.Println(res)    //500500
 
 ## 高并发
 
-### Goroutine
+### Goroutine 协程
 
 :::: code-group
-::: code-group-item 单线程并行
-
-```go
-package main
-import (
-    "fmt"
-    //"time"
-)
-
-func out(from, to int) {
-    for i := from; i <= to; i++ {
-        fmt.Println(i)
-    }
-}
-
-func main() {
-    out(0, 5)
-    out(6, 10)
-}
-
-/*
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-*/
-```
-
-:::
 ::: code-group-item goroutine
 
 ```go
@@ -2103,6 +2067,27 @@ func main() {
 // No Output， 因为主线程main()于go子线程并发完成前退出了
 ```
 
+:::
+::: code-group-item goroutine + time.sleep
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func out(from, to int) {
+	for i := from; i <= to; i++ {
+		fmt.Println(i)
+	}
+}
+
+func main() {
+	go out(0, 5)	// 子线程
+	go out(6, 10)	// 子线程
+	time.Sleep(500 * time.Millisecond)	// 手动控制 主线程 等待时间
+}
+```
 :::
 ::: code-group-item goroutine + channel
 
@@ -2393,7 +2378,33 @@ Nothing available
 :::
 ::::
 
-### Cannel
+### Channel 管道通信
+
+**1.创建管道**
+```go
+// 无缓存通道 (默认为0)
+ch := make(chan int)
+// 带缓存通道
+ch := make(chan int, 2)
+```
+
+**2.发送数据**
+```go
+ch <- 8
+```
+
+**3.接收数据**
+```go
+msg := <-ch
+```
+```go
+<-ch
+```
+**4.关闭通道**
+```go
+defer close(ch)
+```
+
 
 ```go
 package main
@@ -2419,6 +2430,41 @@ func main() {
 ```
 
 ### Select 多管道并发等待
+
+**select**
+
+```go
+// select: 等待多个通道, 只随机执行其中一个
+select {
+	case <- ch1:
+		fmt.Println("received from ch1")
+	case <- ch2:
+		fmt.Println("received from ch2")
+}
+```
+
+**for**
+
+```go
+// for: 等待其中一个通道接收数据, 没有通道准备时执行default, 需避免死锁
+for {
+	select {
+		case x := <-ch1:
+			fmt.Println("received from ch1")
+			// 获取到数据后退出for循环
+			return
+		case y := <-ch2:
+			fmt.Println("received from ch2")
+			return
+		// 没有通道准备时执行default, 避免死锁
+		default:
+			fmt.Println("Nothing available")
+			// 避免死锁
+			time.sleep(50 * time.Millisecond)
+	}
+}
+```
+
 
 ::: details 点击查看代码
 

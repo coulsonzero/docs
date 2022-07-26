@@ -64,11 +64,6 @@ print("Hello World!")
 System.out.println("Hello World!");
 ```
 :::
-::: code-group-item C++
-```cpp
-cout << "Hello World!" << endl;
-```
-:::
 ::: code-group-item JavaScript
 ```javascript
 console.log("Hello World!")
