@@ -463,6 +463,7 @@ func toString[T int|float64|string](s T) T {}
 
 :::
 ::: code-group-item Api
+
 ```go
 // 查询 字节占用大小
 unsafe.Sizeof()
@@ -473,8 +474,10 @@ reflect.TypeOf()
 // 取值范围
 fmt.Printf("int: -%d ~ %d\n", math.MaxInt, math.MaxInt)
 ```
+
 :::
 ::: code-group-item 示例
+
 ```go
 // 整数
 var num int = 12
@@ -492,6 +495,7 @@ var c rune = '你'	// fmt.Println(string(c)), 中文字符不能使用int8/uint8
 var b byte = 'v'	// fmt.Println(string(b))
 
 ```
+
 :::
 ::: code-group-item 类型格式化输出
 
@@ -1030,6 +1034,26 @@ func twoSum(nums []int, target int) []int {
 >
 > 引用传递(指针): 指在调用函数时将实际参数的地址传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数
 
+#### 1) 函数定义
+
+::: details 详情
+```go{8}
+package main
+import "fmt"
+
+func main() {
+	hello()
+}
+
+func hello() {
+	fmt.Println("hello world!")
+}
+```
+:::
+
+#### 2) 参数
+
+::::: details 详情
 :::: code-group
 ::: code-group-item 无参
 
@@ -1087,8 +1111,13 @@ func main() {
 ```
 
 :::
-::: code-group-item 返回值
+::::
+:::::
 
+#### 3) 返回值
+
+
+::: details 详情
 ```go {4-5}
 package main
 import "fmt"
@@ -1103,8 +1132,10 @@ func main() {
     fmt.Println(b)
 }
 ```
-
 :::
+
+#### 4) defer、匿名函数、闭包、递归、作用域
+:::: code-group
 ::: code-group-item defer 析构器
 
 ```go{10}
@@ -1181,11 +1212,11 @@ end
 
 ```go{7}
 package main
-
 import "fmt"
 
 func intSeq() func() int {
 	i := 0
+	// 闭包：函数内的函数
 	return func() int {
 		i++
 		return i
@@ -1203,18 +1234,18 @@ func main() {
 ```
 
 :::
-::: code-group-item 内函数
+::: code-group-item 匿名函数
 
-```go{2}
+```go{6}
+package main
+import "fmt"
+
 func main() {
-	Hello("coulson")
-}
-
-func Hello(name string) {
+	// 匿名函数：像变量一样声明函数
 	print := func(a ...interface{}) {
 		fmt.Printf("Hello %s", a...)
 	}
-	print(name)
+	print("coulson")
 }
 ```
 
@@ -1321,6 +1352,7 @@ func main() {
 
 :::
 ::: code-group-item 方法
+
 ```go
 package main
 
@@ -1355,6 +1387,7 @@ func main() {
 	s.change_ptr()
 }
 ```
+
 :::
 ::: code-group-item 继承
 
@@ -1695,6 +1728,7 @@ func main() {
 > 浅拷贝: 修改其中一个，另一个也会随之改变
 
 ::: tip
+
 ```
 1. 变量
 全局变量: 使用无参方法修改
@@ -1704,6 +1738,7 @@ func main() {
 3. 结构体的数据
 使用指针修改
 ```
+
 :::
 
 :::: code-group
@@ -1731,12 +1766,14 @@ func main() {
 
 :::
 ::: code-group-item input
+
 ```go{2}
 var input string
 fmt.Scanln(&input)
 
 fmt.Println(input)
 ```
+
 :::
 ::: code-group-item func
 
@@ -1921,15 +1958,16 @@ func isEven( num int ) bool {
 ```
 
 ## Control
+
 ::: tip
+
 1. if/switch statement: 局部变量作用域
 2. switch statement: 条件判断
-3. for loop: 推荐range写法, 可忽略
-4. while loop: 使用for代替
-:::
+3. for loop: 推荐 range 写法, 可忽略
+4. while loop: 使用 for 代替
+   :::
 
 ### Statement
-
 
 ::: danger
 
@@ -2073,6 +2111,7 @@ func main() {
 
 :::
 ::: code-group-item goroutine + time.sleep
+
 ```go
 package main
 
@@ -2092,6 +2131,7 @@ func main() {
 	time.Sleep(500 * time.Millisecond)	// 手动控制 主线程 等待时间
 }
 ```
+
 :::
 ::: code-group-item goroutine + channel
 
@@ -2385,6 +2425,7 @@ Nothing available
 ### Channel 管道通信
 
 **1.创建管道**
+
 ```go
 // 无缓存通道 (默认为0)
 ch := make(chan int)
@@ -2393,23 +2434,29 @@ ch := make(chan int, 2)
 ```
 
 **2.发送数据**
+
 ```go
 ch <- 8
 ```
 
 **3.接收数据**
+
 ```go
 msg := <-ch
 ```
+
 ```go
 <-ch
 ```
+
 **4.关闭通道**
+
 ```go
 defer close(ch)
 ```
 
 **示例**
+
 ```go
 package main
 import ("fmt"; "time")
@@ -2468,7 +2515,6 @@ for {
 	}
 }
 ```
-
 
 ::: details 点击查看代码
 
@@ -2683,7 +2729,6 @@ func Title(s string) string {}
 
 ### uint64 与 int64 的区别 ？
 
-
 > uint 为无符号整数，取值范围不同
 
 ```go
@@ -2698,8 +2743,7 @@ uint32: 0 ~ 4294967295
 uint64: 0 ~ 18446744073709551615
 ```
 
-
-### golang中struct的接收者使用指针与不使用指针的区别 ？
+### golang 中 struct 的接收者使用指针与不使用指针的区别 ？
 
 > 如果想要修改结构体中的数据，接收者应该为指针类型，否则，接收者类型就为非指针类型
 
@@ -2751,7 +2795,6 @@ c.Name =  zhangsan
 dog name is : lisi
 d.Name =  lisi
 ```
-
 
 ## Libs 标准库
 
