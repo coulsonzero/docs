@@ -322,7 +322,7 @@ for c in "Hi, Swift" {
 .count
 .isEmpty
 // 增
-.append(e) | +=
+.append(e|arr) | +=
 .insert(e, i)
 // 删
 .remove(i)
@@ -342,6 +342,7 @@ print(arr.count)    // 3
 print(arr.isEmpty)  // false
 // 新增元素(末尾)
 arr.append("hello")  // ["hi", "swift", "world", "hello"]
+// arr.append(contentsOf: ["h1", "h2", "h3"])
 arr += ["golang"]    // ["hi", "swift", "world", "hello", "golang"]
 // 查询元素
 print(arr[0])        // "hi"
@@ -356,4 +357,16 @@ arr.remove(at: 0)   // ["good", "banana", "orange", "golang"]
 arr.removeLast()    // ["good", "banana", "orange"]
 arr.removeFirst()   // ["banana", "orange"]
 arr.removeAll()     // []
+
+
+// 数组遍历
+var arr: Array = ["hi", "swift", "world"]
+
+for v in arr {
+    print(v)
+}
+
+for (i, v) in arr.enumerated() {
+    print("\(i): \(v)")
+}
 ```
