@@ -76,16 +76,35 @@ print("Hello, " + "Swift")
 var gender = 1
 gender == 0 ? print("male") : print("female")
 
+```
+
+**1.空指针**
+```swift
 // String?
 var myCode: String?
 print(myCode)   // nil
 
 var myCode2: String? = "hi"
 print(myCode2)   // "hi"
+```
 
+**2.Range**
+```swift
 // 1...5   -> 1,2,3,4,5
 // 1..<5   -> 1,2,3,4
 
+
+for i in 1...5 {
+    print(i)
+}
+
+/*
+1
+2
+3
+4
+5
+*/
 ```
 
 
@@ -144,7 +163,7 @@ if age == 18 {
 ### Switch Statement
 
 ```swift
-// 不需要break
+// 不需要 break, fallthrough 继续下一个
 
 switch day {
 case 1:
@@ -240,5 +259,101 @@ for i in 1...5 {
 > fallthrough 用于switch statement陈述语句中以不跳出
 
 
+## Core
+
+### String
+
+```swift
+// 字符计数
+.count
+// 字符串格式化
+\(str)
+// 判断空串
+.isEmpty
+```
 
 
+```swift
+// 1. 空串(字符串初始化)
+var str1 = ""        // var str: String = ""
+var str2 = String()  // var str: String = String()
+// 判断 `空串`
+print(str1.isEmpty)  // true
+
+
+// 2. 拼接
+// +
+print("Hello " + "World")
+// +=
+var msg = "Hi"
+msg += " World"
+print(msg) // "Hi World"
+
+
+// 3. 格式化
+let n: Int = 3
+let message: String = "num: \(n) times 2 is \(Double(n) * 2)"
+print(message)  // num: 3 times 2 is 6.0
+
+// 4. 字符计数
+let str: String = "Hello, Swift"
+print(str.count)   // 12
+
+// 5. 判断相等
+print(str1 == str2)
+
+
+// 6. 前后缀 startswith/endswith
+print("main.swift".hasPrefix("main"))   // true
+print("main.swift".hasSuffix("swift"))  // true
+
+
+// 7. 字符串遍历
+for c in "Hi, Swift" {
+    print(c)
+}
+```
+
+
+
+### Array
+
+```swift
+.count
+.isEmpty
+// 增
+.append(e) | +=
+.insert(e, i)
+// 删
+.remove(i)
+.removeAll()
+// 查(改)
+arr[i]
+arr[l...r]
+```
+
+```swift
+var arr: Array = ["hi", "swift", "world"]
+
+print(arr)          // ["hi", "swift", "world"]
+// 数组大小
+print(arr.count)    // 3
+// 空数组
+print(arr.isEmpty)  // false
+// 新增元素(末尾)
+arr.append("hello")  // ["hi", "swift", "world", "hello"]
+arr += ["golang"]    // ["hi", "swift", "world", "hello", "golang"]
+// 查询元素
+print(arr[0])        // "hi"
+// 修改元素
+arr[0] = "good"      // ["good", "swift", "world", "hello", "golang"]
+arr[1...3] = ["banana", "orange"]   // ["good", "banana", "orange", "golang"]
+// 插入元素
+arr.insert("ie", at: 0)
+print(arr)
+// 删除元素
+arr.remove(at: 0)   // ["good", "banana", "orange", "golang"]
+arr.removeLast()    // ["good", "banana", "orange"]
+arr.removeFirst()   // ["banana", "orange"]
+arr.removeAll()     // []
+```
