@@ -43,6 +43,14 @@ var PI2: Double = 3.14159
 var flag: Bool = true
 // 字符串
 var msg: String = "Hello"
+// 字符
+var char: Character = "A"
+
+// 引用类型
+// Array
+var nums: Array = [1, 3, 5, 1]
+// Set
+var set: Set<Int> = [1, 2, 3]
 ```
 
 > 定义同一类型时，可放在同一行
@@ -259,7 +267,7 @@ for i in 1...5 {
 > fallthrough 用于switch statement陈述语句中以不跳出
 
 
-## Core
+## *Collections
 
 ### String
 
@@ -318,6 +326,8 @@ for c in "Hi, Swift" {
 
 ### Array
 
+> 存储相同类型元素的集合
+
 ```swift
 .count
 .isEmpty
@@ -333,7 +343,9 @@ arr[l...r]
 ```
 
 ```swift
+var arr: [String] = ["hi", "swift", "world"]
 var arr: Array = ["hi", "swift", "world"]
+
 
 print(arr)          // ["hi", "swift", "world"]
 // 数组大小
@@ -366,8 +378,224 @@ for v in arr {
     print(v)
 }
 
+for v in arr[0..<arr.count] {
+    print(v)
+}
+
 for (i, v) in arr.enumerated() {
     print("\(i): \(v)")
 }
 ```
+
+
+
+### Set
+
+> 存储相同类型元素不同值的集合
+
+::: warning
+set按`随机`顺序输出
+:::
+
+```swift
+// 长度大小
+.count
+// 排序
+.sorted()
+// 增
+.insert(e)
+// 删
+.removeAll()
+// 包含
+.contains(e)
+```
+
+```swift
+// 1. init
+var set = Set<Character>()  // []
+var set: Set<String> = ["David", "Susan", "Robert"]
+var set: Set = ["David", "Susan", "Robert"]   // 简写
+
+// 2. api
+print(set.count)      // 3
+print(set.contains("Paul"))
+set.insert("Paul")    // ["Robert", "David", "Paul", "Susan"]
+set.removeAll()
+
+
+// 3. 遍历
+for v in set {
+    print(v)
+}
+
+for v in set.sorted() {
+    print(v)
+}
+
+// 4. 集合运算
+let set_a: Set = ["A", "B", "C"]
+let set_b: Set = ["B", "D", "E", "A"]
+// 交集 A ∩ B
+print(set_a.intersection(set_b))        // ["A", "B"]
+// 并集 A ∪ B
+print(set_a.union(set_b))               // ["A", "B", "C", "D", "E"]
+// A ⊕ B (不属于他们的交集的集合)
+print(set_a.symmetricDifference(set_b)) // ["C", "D", "E"]
+// A - B (在 A 而不在 B)
+print(set_a.subtracting(set_b))         // ["C"]
+
+// 5. 子集、超集
+
+// 判断集合相等
+set_a == set_b
+// 子集
+.isSubset(set)
+// 超集
+.isSuperset(set)
+// 不相交
+.isDisjoint(set)
+```
+
+
+### Dict
+
+> 存储键值对的集合
+
+```swift
+// 1. init
+var dict = [Int: String]()      // [:]
+var dict = [1 : "A", 2: "B", 3: "C"]
+var dict: [Int: String] = [1 : "A", 2: "B", 3: "C"]
+
+
+// 2. api
+var airports: [String: String] = ["TOR": "Toronto", "NY": "New York"]
+// 新增(随机顺序)
+airports["LHR"] = "London"          // ["LHR": "London", "TOR": "Toronto", "NY": "New York"]
+// 修改
+airports["LHR"] = "London Heathrow" // ["LHR": "London Heathrow", "TOR": "London", "NY": "New York"]
+airports.updateValue("London Update", forKey: "LHR")
+// 查询 (不存在时为nil)
+print(airports["LHR"])
+// 删
+airports.removeValue(forKey: "LHR")
+
+// 遍历
+for (key, value) in airports {
+    print("key: \(key), value: \(value)")
+}
+for key in airports.keys {
+    print(key)
+for value in airports.values {
+    print(value)
+}
+
+// 排序输出key或value
+for key in airports.keys.sorted() {
+    print(key)
+}
+for value in airports.values.sorted() {
+    print(value)
+}
+```
+
+
+
+## OOP
+
+### Function
+
+- parameters
+- return type
+
+```swift
+func hello(name: String) -> String {
+    return "Hello, \(name)!"
+}
+
+print(hello("Coulson"))
+
+// 比较两数最大值
+func max(a: Int, b: Int) -> Int {
+    return a > b ? a : b
+}
+
+print(max(3, 5))    // 5
+
+// 求数组最值
+func minMax(arr: [Int]) -> (min: Int, max: Int) {
+    var curMin: Int = arr[0]
+    var curMax: Int = arr[0]
+    for v in arr[1..<arr.count] {
+        if v < curMin {
+            curMin = v
+        } else if v > curMax {
+            curMax = v
+        }
+    }
+    return (curMin, curMax)
+}
+
+print(minMax(arr: [1, 3, 6, 2, -2]))    // (min: -2, max: 6)
+```
+
+
+**参数**
+:::: code-group
+::: code-group-item 额外参数
+```swift
+// 额外显式参数
+func min(num1 a: Int, num2 b: Int) -> Int {
+    return a < b ? a : b
+}
+print(min(num1: 3, num2: 5))
+```
+:::
+::: code-group-item 参数默认值
+```swift
+// 默认参数
+func hi(name: String = "Coulson") -> String {
+    return "hi, \(name)"
+}
+
+print(hi())                // "hi, Coulson"
+print(hi(name: "John"))    // "hi, John"
+```
+:::
+::: code-group-item 不定参
+```swift
+// 不定参
+func sum(nums: Double...) -> Double {
+    var total: Double = 0
+    for n in nums {
+        total += n
+    }
+    return total
+}
+
+print(sum(nums: 3.3, 1.2, 5.1))     // 9.6
+```
+:::
+::: code-group-item 指针参数
+```swift
+// 函数指针 (原地修改)
+func swap(a: inout Int, b: inout Int) {
+    let temp = a
+    a = b
+    b = temp
+}
+
+var a: Int = 3
+var b: Int = 5
+swap(a: &a, b: &b)
+print(a, b)     // 5, 3
+```
+:::
+::::
+
+
+
+
+
+
 
