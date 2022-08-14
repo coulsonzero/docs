@@ -340,6 +340,10 @@ for c in "Hi, Swift" {
 // 查(改)
 arr[i]
 arr[l...r]
+
+// 原地排序
+.sort()
+.sort(by: >)    // 降序
 ```
 
 ```swift
@@ -500,6 +504,33 @@ for value in airports.values.sorted() {
 ```
 
 
+### Tuple
+
+```swift
+let error = (404, "Not Found")
+print(error.0)          // 404
+let httpStatus = (code: 200, description: "OK")
+print(httpStatus.code)  // 200
+```
+
+
+### Enum
+
+```swift
+enum Compass {
+    case North
+    case South
+    case East
+    case West
+}
+
+enum Compass {
+    case North, South, East, West
+}
+
+print(Compass.West) // West
+```
+
 
 ## OOP
 
@@ -593,8 +624,125 @@ print(a, b)     // 5, 3
 :::
 ::::
 
+**返回值**
+:::: code-group
+::: code-group-item 闭包
+```swift
+// 闭包：函数作为函数的返回值, 可以将其他函数写在函数内
+func plus(num: Int) -> Int {
+    return num + 1
+}
+
+func minus(num: Int) -> Int {
+    return num - 1
+}
+
+// 闭包
+func chooseFunc(flag: Bool) -> (Int) -> Int {
+    return flag ? plus : minus
+}
+
+var f = chooseFunc(flag: false)
+print(f(12))    // 11
+print(chooseFunc(flag: true)(12))   // 13
+```
+:::
+::: code-group-item 递归
+```swift
+// 递归
+func fact(n: Int) -> Int {
+    return n == 0 ? 1 : n * fact(n: n-1)
+}
+
+func fib(n: Int) -> Int {
+    return n < 2 ? n : fib(n: n-1) + fib(n: n-2)
+}
+```
+:::
+::::
 
 
+### Class
+
+```swift
+class Demo {
+    // 成员变量
+    var count: Int = 0
+    var x = 0.0, y = 0.0
+    static var s: String = "Hi"
+    static var step: Int = 0 {
+        willSet {
+            print("NewStep: \(newValue)")
+        }
+        didSet {
+            print("OldStep: \(oldValue)")
+        }
+    }
+    // 成员方法
+    static var f: Int {
+        return 12
+    }
+    lazy var ma = m()
+    func reset() {
+        count = 1
+    }
+    func add(a: Int) {
+        self.count += a
+    }
+    func isRight(x : Double) -> Bool {
+        return self.x > x
+    }
+    static func hello() {
+        print("hello class")
+    }
+
+}
+
+
+func m() -> String {
+    return "Hello"
+}
+
+print(Demo.s)
+print(Demo.f)
+Demo.step = 20
+Demo.step = 30
+
+var d = Demo()
+print(d.ma)
+
+d.add(a: 2)
+print(d.count)
+
+print(d.isRight(x: 3.1))
+
+
+```
+
+### Struct
+```swift
+
+struct Point {
+    var x = 0.0, y = 0.0
+    mutating func moveByX(dx: Double, dy: Double) {
+        x += dx
+        y += dy
+    }
+}
+
+var p = Point()
+p.moveByX(dx: 2.2, dy: 1.2)
+print(p)
+
+struct Times {
+    let mult: Int
+    subscript(index: Int) -> Int {
+        return mult * index
+    }
+}
+print(Times(mult: 3)[5])    // 15
+
+```
 
 
 
