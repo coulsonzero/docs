@@ -135,3 +135,26 @@ do {
     // statement(s)
 } while (condition);
 ```
+
+
+## Collections
+
+### Strings
+
+```cpp
+// 1. 初始化
+string s = "Hello World";
+string s("Hello World");
+
+// 2. 长度
+s.size()
+// 增
+s.append(str)
+s.insert(index, str)
+s.replace(start, end, str)  // 替换
+
+// 删
+s.clear()
+```
+
+### Array
