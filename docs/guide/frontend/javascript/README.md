@@ -601,8 +601,8 @@ toLowerCase()
 padStart()
 padEnd() // 自动补全位数
 
-Number(str)			// str -> number
-!isNaN(Number(str))	// 是否为数字
+Number(str) // str -> number
+!isNaN(Number(str)) // 是否为数字
 ```
 
 :::: code-group
@@ -674,11 +674,11 @@ console.log(str.replace(/(\w+)\s(\w+)/, "$2, $1")) // Hello, React
 
 let str = "Hello, React !"
 
-console.log(str.slice(-5, -1))   // act
-console.log(str.slice(3))		 // lo, React !
-console.log(str.slice(3, 5))	 // lo
+console.log(str.slice(-5, -1)) // act
+console.log(str.slice(3)) // lo, React !
+console.log(str.slice(3, 5)) // lo
 console.log(str.substring(3, 5)) // lo
-console.log(str.substr(3, 5))	 // lo, R
+console.log(str.substr(3, 5)) // lo, R
 ```
 
 :::
@@ -718,7 +718,7 @@ console.log(str.startsWith("main")) // false
 console.log(str.endsWith("js")) // true
 
 // 判断字符串中的字符是否为非数字
-!isNaN(Number('3'))   // true
+!isNaN(Number("3")) // true
 ```
 
 :::
@@ -1183,19 +1183,18 @@ Object.values(obj)
 
 ```js
 const obj = {
-  title: '项目名称',
-  dataIndex: 'projectName',
-  fixed: 'left',
-  width: 100
-};
+	title: "项目名称",
+	dataIndex: "projectName",
+	fixed: "left",
+	width: 100,
+}
 
 console.log(Object.keys(obj))
 // Output: [ 'title', 'dataIndex', 'fixed', 'width' ]
 
-
 // 通过对象值返回对应的键
 function getkeyByvalue(object, value) {
-    return Object.keys(object).find(key => object[key] === value)
+	return Object.keys(object).find((key) => object[key] === value)
 }
 
 console.log(obj, "left")
@@ -1203,16 +1202,15 @@ console.log(obj, "left")
 
 ```js
 const data = [
-  { id: '1', name: 'A', rank: 0 },
-  { id: '2', name: 'B', rank: 1 },
-  { id: '3', name: 'C', rank: 1 },
-  { id: '4', name: 'D', rank: 2 },
+	{id: "1", name: "A", rank: 0},
+	{id: "2", name: "B", rank: 1},
+	{id: "3", name: "C", rank: 1},
+	{id: "4", name: "D", rank: 2},
 ]
 
-let res = data.map(item => item = {id: item.id, name: item.name})
+let res = data.map((item) => (item = {id: item.id, name: item.name}))
 console.log(res)
 ```
-
 
 ### 4. Map
 
@@ -1400,8 +1398,6 @@ console.log(s.name) // "Bob"
 console.log(s.age) // 18
 console.log(s.sex) // "male"
 console.log(s.xp) // "2"
-
-
 ```
 
 ### 解构
@@ -1635,21 +1631,20 @@ console.log(Person.staticSay())
 
 ```js
 class PrivateStaticField {
-  static #PRIVATE_STATIC_FIELD
+	static #PRIVATE_STATIC_FIELD
 
-  static #privateMethod() {
-    return 'hello world';
-  }
+	static #privateMethod() {
+		return "hello world"
+	}
 
-  static basePublicStaticMethod() {
-    this.#PRIVATE_STATIC_FIELD = 42
-    return this.#PRIVATE_STATIC_FIELD
-  }
+	static basePublicStaticMethod() {
+		this.#PRIVATE_STATIC_FIELD = 42
+		return this.#PRIVATE_STATIC_FIELD
+	}
 }
 
 console.log(PrivateStaticField.publicStaticMethod())
 // Output: 42
-
 ```
 
 ::: details private
@@ -2194,7 +2189,6 @@ scroll
 ```js
 window.addEventListener("scroll", function () {})
 
-
 window.innerWidth
 window.innerHeight
 // 滚动距离
@@ -2202,9 +2196,9 @@ window.scrollY
 window.pageYOffset
 window.open() - 打开新窗口
 window.close() - 关闭当前窗口
-window.moveTo() -移动当前窗口
-window.resizeTo() -重新调整当前窗口
-window.scroll({ top: 0 });
+window.moveTo() - 移动当前窗口
+window.resizeTo() - 重新调整当前窗口
+window.scroll({top: 0})
 ```
 
 ```js
@@ -2218,16 +2212,14 @@ window.addEventListener("scroll", function () {
 置顶按钮
 
 ```js
-const scrollToTop = document.querySelector(".scrollToTop");
+const scrollToTop = document.querySelector(".scrollToTop")
 
 window.addEventListener("scroll", () => {
-  window.pageYOffset > 400
-    ? (scrollToTop.style.display = "block")
-    : (scrollToTop.style.display = "none");
-});
+	window.pageYOffset > 400 ? (scrollToTop.style.display = "block") : (scrollToTop.style.display = "none")
+})
 scrollToTop.addEventListener("click", () => {
-  window.scroll({ top: 0 });
-});
+	window.scroll({top: 0})
+})
 ```
 
 ```
@@ -2243,10 +2235,10 @@ screen.pixelDepth
 document.cookie
 ```
 
-### html与javascript交互
+### html 与 javascript 交互
 
 ```javascript
-window.onload = function() {};
+window.onload = function () {}
 
 /*
 document.createElement()
@@ -2266,78 +2258,68 @@ removeChild()
 replaceChild(new, old)
 */
 
-btn.onclick = function() {};
-<button onclick="show();">Click Me</button>
+btn.onclick = function () {}
+;<button onclick="show();">Click Me</button>
 
-btn.addEventListener("click", myFunction, true);
-btn.removeEventListener("click", myFunction);
+btn.addEventListener("click", myFunction, true)
+btn.removeEventListener("click", myFunction)
 
-setInterval(func, 100);
-setTimeout (func, 500);
+setInterval(func, 100)
+setTimeout(func, 500)
 ```
 
 #### 1. 更改子元素内容
 
 ```html
-/**
- * document.getElementById()
- * .childNodes
- * .innerHTML
- * setTimeout(func, 500);
- */
+/** * document.getElementById() * .childNodes * .innerHTML * setTimeout(func, 500); */
 
-<div id ="demo">
-  <p>some text</p>
-  <p>some other text</p>
+<div id="demo">
+	<p>some text</p>
+	<p>some other text</p>
 </div>
 
 <script>
-function setText() {
-	var a = document.getElementById("demo");
-	var arr = a.childNodes;
-	for(var x = 0; x < arr.length; x++) {
-		arr[x].innerHTML = "new text";
+	function setText() {
+		var a = document.getElementById("demo")
+		var arr = a.childNodes
+		for (var x = 0; x < arr.length; x++) {
+			arr[x].innerHTML = "new text"
+		}
 	}
-}
-setTimeout(setText, 500);
+	setTimeout(setText, 500)
 </script>
 
-/*
-new text
-new text
- */
+/* new text new text */
 ```
 
-#### 2. 更改元素src属性值 (更换图片)
+#### 2. 更改元素 src 属性值 (更换图片)
 
 ```html
 <img id="mying" src="orange.png" alt="" />
 
 <script>
-	var e = document.getElementById("mying");
-	e.src = "apple.png";
+	var e = document.getElementById("mying")
+	e.src = "apple.png"
 </script>
 ```
+
 #### 3. 更改样式颜色
 
 ```html
-/*
- * window.onload = function() {};
- * arr[i].style.color = "#33EA73";
- */
+/* * window.onload = function() {}; * arr[i].style.color = "#33EA73"; */
 
 <div>
-  <span>...</span>
-  <span>...</span>
+	<span>...</span>
+	<span>...</span>
 </div>
 
 <script>
-window.onload = function() {
-    var el = document.getElementsByTagName('span');
-    for(int i = 0; i < el.length; i++){
-        el[i].style.color = "#33EA73";
-    }
-};
+	window.onload = function() {
+	    var el = document.getElementsByTagName('span');
+	    for(int i = 0; i < el.length; i++){
+	        el[i].style.color = "#33EA73";
+	    }
+	};
 </script>
 ```
 
@@ -2345,86 +2327,85 @@ window.onload = function() {
 <div id="demo" style="width:200px">some text</div>
 
 <script>
-window.onload = function() {
-    var x = document.getElementById("demo");
-    x.style.color = '#6600FF';
-    x.style.width = '100px';
-};
+	window.onload = function () {
+		var x = document.getElementById("demo")
+		x.style.color = "#6600FF"
+		x.style.width = "100px"
+	}
 </script>
 ```
 
-#### 4. 新建html段落
+#### 4. 新建 html 段落
 
 ```html
 <div id="demo">some content</div>
 
 <script>
-window.onload = function() {
-    //creating a new paragraph
-    var p = document.createElement("p");
-    var node = document.createTextNode("Some new text");
-    //adding the text to the paragraph
-    p.appendChild(node);
-    var div = document.getElementById("demo");
-    //adding the paragraph to the div
-    div.appendChild(p);
-};
+	window.onload = function () {
+		//creating a new paragraph
+		var p = document.createElement("p")
+		var node = document.createTextNode("Some new text")
+		//adding the text to the paragraph
+		p.appendChild(node)
+		var div = document.getElementById("demo")
+		//adding the paragraph to the div
+		div.appendChild(p)
+	}
 </script>
 
-/*
-some content
-Some new text
- */
+/* some content Some new text */
 ```
 
-#### 5. js动画
+#### 5. js 动画
 
 ```html
 <div id="container">
-  <div id="box"> </div>
+	<div id="box"></div>
 </div>
 ```
+
 ```css
 #container {
-    width: 200px;
-    height: 200px;
-    background: green;
-    position: relative;
+	width: 200px;
+	height: 200px;
+	background: green;
+	position: relative;
 }
 #box {
-    width: 50px;
-    height: 50px;
-    background: red;
-    position: absolute;
+	width: 50px;
+	height: 50px;
+	background: red;
+	position: absolute;
 }
 ```
-```javascript
-window.onload = function() {
-     var pos = 0;
-    //our box element
-    var box = document.getElementById('box');
-    var t = setInterval(move, 10);
 
-    function move() {
-        if(pos >= 150) {
-            clearInterval(t);
-        }
-        else {
-            pos += 1;
-            box.style.left = pos+'px';
-        }
-    }
-};
+```javascript
+window.onload = function () {
+	var pos = 0
+	//our box element
+	var box = document.getElementById("box")
+	var t = setInterval(move, 10)
+
+	function move() {
+		if (pos >= 150) {
+			clearInterval(t)
+		} else {
+			pos += 1
+			box.style.left = pos + "px"
+		}
+	}
+}
 ```
+
 #### 6. 鼠标点击事件
 
 ```html
 <button onclick="show();">Click Me</button>
 
 <script>
-function show() {
-    alert("Hi there");
-}
+	function show() {
+		alert("Hi there")
+	}
 </script>
 ```
 
@@ -2432,57 +2413,62 @@ function show() {
 <button id="demo">Click Me</button>
 
 <script>
-window.onload = function() {
-    var x = document.getElementById('demo');
-    x.onclick = function () {
-        document.body.innerHTML = Date();
-    }
-};
+	window.onload = function () {
+		var x = document.getElementById("demo")
+		x.onclick = function () {
+			document.body.innerHTML = Date()
+		}
+	}
 </script>
 ```
 
 ```javascript
-window.onload = function() {
-    var btn = document.getElementById("demo");
-    btn.addEventListener("click", myFunction, true);
-    function myFunction() {
-        alert(Math.random());
-        btn.removeEventListener("click", myFunction);
-    }
-};
+window.onload = function () {
+	var btn = document.getElementById("demo")
+	btn.addEventListener("click", myFunction, true)
+	function myFunction() {
+		alert(Math.random())
+		btn.removeEventListener("click", myFunction)
+	}
+}
 ```
 
 #### 7. 验证登录
 
 ```html
 <form onsubmit="return validate()" method="post">
-    Number: <input type="text" name="num1" id="num1" /><br />
-    Repeat: <input type="text" name="num2" id="num2" /><br />
-    <input type="submit" value="Submit" />
+	Number:
+	<input type="text" name="num1" id="num1" />
+	<br />
+	Repeat:
+	<input type="text" name="num2" id="num2" />
+	<br />
+	<input type="submit" value="Submit" />
 </form>
 
 <script>
-function validate() {
-    var n1 = document.getElementById('num1');
-    var n2 = document.getElementById('num2');
-    if(n1.value != '' && n2.value != '') {
-        if(n1.value == n2.value) {
-            return true;
-        }
-    }
-    alert("The values should be equal and not blank");
-    return false;
-}
+	function validate() {
+		var n1 = document.getElementById("num1")
+		var n2 = document.getElementById("num2")
+		if (n1.value != "" && n2.value != "") {
+			if (n1.value == n2.value) {
+				return true
+			}
+		}
+		alert("The values should be equal and not blank")
+		return false
+	}
 </script>
 ```
 
 ## BOM
 
 ### window
+
 ```javascript
 window.addEventListener("scroll", () => {})
 // 置顶
-window.scroll({ top: 0 })
+window.scroll({top: 0})
 ```
 
 ### screen
@@ -2816,12 +2802,12 @@ console.log(moneyFormat("暂无数据"))
 
 :::
 
-
 ### 数组去重
+
 ```js
 export function removeDup(arr) {
-  // if (arr == undefined || arr == null || arr.length == 0 || Array.isArray(arr)) return
-  return arr.filter((v, i, self) => self.indexOf(v) === i);
+	// if (arr == undefined || arr == null || arr.length == 0 || Array.isArray(arr)) return
+	return arr.filter((v, i, self) => self.indexOf(v) === i)
 }
 ```
 
@@ -2829,10 +2815,10 @@ export function removeDup(arr) {
 
 ```js
 export function setCurrency(record) {
-  const currency = { USD: '$', CNY: '¥' }
-  const type = record.current_valuation_currency
-  return type != undefined ? currency[type] : ''
-  // return record.current_valuation_currency === 'CNY' ? '¥' : '$';
+	const currency = {USD: "$", CNY: "¥"}
+	const type = record.current_valuation_currency
+	return type != undefined ? currency[type] : ""
+	// return record.current_valuation_currency === 'CNY' ? '¥' : '$';
 }
 ```
 
@@ -2850,4 +2836,15 @@ const arr = [
 
 arr.sort((a, b) => b.date.localeCompare(a.date))
 console.log(arr)
+```
+
+### Session
+
+```js
+// 存储
+window.sessionStorage[“user_name”] = "shville"
+// 取
+var username = window.sessionStorage.getItem(“user_name”)
+// 删除
+window.sessionStorage.removeItem(“user_name”)
 ```
