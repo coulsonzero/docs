@@ -2848,3 +2848,22 @@ var username = window.sessionStorage.getItem(“user_name”)
 // 删除
 window.sessionStorage.removeItem(“user_name”)
 ```
+
+### 鼠标导航栏上现下隐
+
+```js
+document.addEventListener("mousewheel", mouseNav, false)
+
+function mouseNav(e) {
+    const header = document.getElementById("header")
+	if (e.wheelDelta) {
+		// if (e.wheelDelta > 0) {
+		// 	console.log("鼠标向上滚动了")
+		// } else {
+		// 	console.log("鼠标向下滚动了")
+		// }
+
+        header.classList[e.wheelDelta > 0 ? "remove" : "add"]("header-hidden")
+	}
+}
+```
