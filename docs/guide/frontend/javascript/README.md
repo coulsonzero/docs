@@ -2913,3 +2913,138 @@ scrollToTop.addEventListener("click", () => {
   height: 6vh;
 }
 ```
+
+### 数字递增效果
+
+```html
+<div class="section milestones semiDark" id="milestones">
+    <div class="milestones__container">
+        <div class="milestone" id="ms1">
+            <div class="milestone__icon">
+                <img src="./assets/heart.svg" alt="" />
+            </div>
+            <h2 class="milestone__number">199</h2>
+            <p class="milestone__info">Satisfied Customers</p>
+        </div>
+        <div class="milestone" id="ms2">
+            <div class="milestone__icon">
+                <img src="./assets/clock.svg" alt="" />
+            </div>
+            <h2 class="milestone__number">575</h2>
+            <p class="milestone__info">Days of operations</p>
+        </div>
+        <div class="milestone" id="ms3">
+            <div class="milestone__icon">
+                <img src="./assets/check-circle.svg" alt="" />
+            </div>
+            <h2 class="milestone__number">49</h2>
+            <p class="milestone__info">Completed Projects</p>
+        </div>
+        <div class="milestone" id="ms4">
+            <div class="milestone__icon">
+                <img src="./assets/award.svg" alt="" />
+            </div>
+            <h2 class="milestone__number">55</h2>
+            <p class="milestone__info">Awards Won</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+
+
+<script>
+// 数字滚动
+let isMilestonesLoaded = false
+const observer = new IntersectionObserver(
+  function (entries) {
+    if (entries[0].isIntersecting === true) startMilestonesCount();
+  },
+  { threshold: [0.5] }
+);
+
+observer.observe(document.querySelector(".milestones__container"));
+
+const startMilestonesCount = () => {
+  if (!isMilestonesLoaded) {
+    isMilestonesLoaded = true;
+    $(".milestone__number").each(function () {
+      $(this)
+        .prop("Counter", 0)
+        .animate(
+          {
+            Counter: $(this).text(),
+          },
+          {
+            duration: 4000,
+            easing: "swing",
+            step: function (now) {
+              $(this).text(Math.ceil(now));
+            },
+          }
+        );
+    });
+  }
+};
+</script>
+
+<style>
+body {
+  background-color: #101010;
+  font-family: "Rubik", sans-serif;
+  /* overflow-x: hidden !important; */
+}
+
+.milestones {
+  display: -ms-grid;
+  display: grid;
+  gap: 4vw;
+}
+
+.milestones .milestones__container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(250px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 5vh;
+}
+
+.milestones .milestones__container .milestone {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2vh;
+  background-color: black;
+  padding: 2.5vw;
+  border-radius: 1rem;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.milestones .milestones__container .milestone:hover {
+  -webkit-box-shadow: rgba(161, 12, 117, 0.534) 0px 2px 4px 0px, rgba(18, 79, 105, 0.829) 0px 2px 16px 0px;
+          box-shadow: rgba(161, 12, 117, 0.534) 0px 2px 4px 0px, rgba(18, 79, 105, 0.829) 0px 2px 16px 0px;
+  -webkit-transform: translateY(-10px);
+          transform: translateY(-10px);
+}
+
+.milestones .milestones__container .milestone .milestone__icon img {
+  height: 8vh;
+}
+
+.milestones .milestones__container .milestone .milestone__number {
+  color: white;
+}
+
+.milestones .milestones__container .milestone .milestone__info {
+  color: #3d3c3c;
+}
+</style>
+```

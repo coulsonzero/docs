@@ -15,7 +15,7 @@
     height: 25px;
     border-radius: 100%;
     text-align: center;
-    line-height: 20px;
+    line-height: 23px;
     font-weight: 700;
     font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
     font-size: 14px;
@@ -30,22 +30,27 @@
     // border-left-width: 0.3rem;
     border-left-width: 0.2rem;
 }
-/*
+
 .custom-container.tip:before {
-    content: url(https://v3.cn.vuejs.org/images/icons/bulb.svg);
+    // content: url(https://v3.cn.vuejs.org/images/icons/bulb.svg);
+    content: "!";
+    background-color: #42b983;
 }
 
 .custom-container.warning:before {
-    content: url(https://v3.cn.vuejs.org/images/icons/danger.svg);
+    // content: url(https://v3.cn.vuejs.org/images/icons/danger.svg);
+    content: "!";
+    background-color: #ffa500;
 }
 
 .custom-container.danger:before {
-    content: url(https://v3.cn.vuejs.org/images/icons/stop.svg)
+    // content: url(https://v3.cn.vuejs.org/images/icons/stop.svg);
+    content: "!";
+    background-color: #f66;
 }
-*/
 
 .custom-container.tip {
-    background: var(--c-tip-bg)
+    background: var(--c-tip-bg);
 }
 
 p.custom-container-title {
