@@ -2469,6 +2469,7 @@ window.onload = function () {
 window.addEventListener("scroll", () => {})
 // 置顶
 window.scroll({top: 0})
+window.pageYOffset
 ```
 
 ### screen
@@ -2855,7 +2856,7 @@ window.sessionStorage.removeItem(“user_name”)
 document.addEventListener("mousewheel", mouseNav, false)
 
 function mouseNav(e) {
-    const header = document.getElementById("header")
+	const header = document.getElementById("header")
 	if (e.wheelDelta) {
 		// if (e.wheelDelta > 0) {
 		// 	console.log("鼠标向上滚动了")
@@ -2863,7 +2864,52 @@ function mouseNav(e) {
 		// 	console.log("鼠标向下滚动了")
 		// }
 
-        header.classList[e.wheelDelta > 0 ? "remove" : "add"]("header-hidden")
+		header.classList[e.wheelDelta > 0 ? "remove" : "add"]("header-hidden")
 	}
+}
+```
+
+```css
+.header-hidden {
+	/* position: relative; */
+	/* top: -100px !important; */
+	opacity: 0 !important;
+}
+```
+
+### 置顶按钮
+
+```javascript
+const scrollToTop = document.querySelector(".scrollToTop")
+
+window.addEventListener("scroll", () => {
+	window.pageYOffset > 400 ? (scrollToTop.style.display = "block") : (scrollToTop.style.display = "none")
+})
+scrollToTop.addEventListener("click", () => {
+	window.scroll({top: 0})
+})
+```
+
+```html
+<section class="scrollToTop">
+	<img src="./assets/logo.png" alt="" />
+</section>
+```
+
+```css
+.scrollToTop {
+  display: none;
+  position: fixed;
+  bottom: 5vh;
+  right: 3vw;
+  z-index: 1;
+  background-color: black;
+  padding: 1rem;
+  border-radius: 3rem 3rem;
+  cursor: pointer;
+}
+
+.scrollToTop img {
+  height: 6vh;
 }
 ```
