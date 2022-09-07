@@ -508,6 +508,16 @@ frameborder="0": 移除边框
 
 ### Video (视频)
 
+```html
+<video src="" muted playsinline autoplay loop></video>
+```
+
+- muted: 静音
+- playinline: 手机页面直接播放
+- autoplay
+- loop
+- controls
+
 ::: normal-demo Video演示
 ```html
 <video controls width="250">
@@ -519,15 +529,7 @@ frameborder="0": 移除边框
 :::
 
 
-:::tip Video选项
-`controls`: 必填项
 
-`autoplay`: 可选项, 自动播放
-
-`loop`: 可选项, 循环播放
-
-`muted`: 音频，设置后，音频会初始化为静音。默认值是 false
-:::
 
 ```html
 <video width="320" height="240" controls autoplay loop>

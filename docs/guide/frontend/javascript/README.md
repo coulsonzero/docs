@@ -2510,6 +2510,18 @@ document.exitFullscreen()
 </script>
 ```
 
+### document.documentElement
+
+```js
+document.documentElement.scrollTop
+document.documentElement.scrollHeight
+document.documentElement.clientHeight
+document.documentElement.clientWidth
+
+// [0, 1]
+let scrolled = document.documentElement.scrollTop / (document.documentElement.scrollHeight - document.documentElement.clientHeight)
+```
+
 :::
 ::::
 
