@@ -278,6 +278,77 @@ export default {
 
 :::
 
+### vue-template
+
+::: vue-demo vue-temp
+
+```vue
+<script>
+export default {
+	data: () => ({
+		branches: ["main", "v2-compat"],
+		currentBranch: "main",
+	}),
+}
+</script>
+
+<template>
+	<template v-for="branch in branches">
+		<input type="radio" :id="branch" :value="branch" name="branch" v-model="currentBranch" />
+		<label :for="branch">{{ branch }}</label>
+	</template>
+	<p>vuejs/vue@{{ currentBranch }}</p>
+</template>
+```
+
+:::
+
+::: vue-demo vue-temp-2
+
+```vue
+<template>
+	<ol>
+		<TodoItem v-for="item in groceryList" :todo="item" :key="item.id"></TodoItem>
+	</ol>
+</template>
+
+<script>
+import TodoItem from "./TodoItem.vue"
+
+export default {
+	components: {
+		TodoItem,
+	},
+	data() {
+		return {
+			groceryList: [
+				{id: 0, text: "Vegetables"},
+				{id: 1, text: "Cheese"},
+				{id: 2, text: "Whatever else humans are supposed to eat"},
+			],
+		}
+	},
+}
+</script>
+```
+
+```vue
+<!-- TodoItem.vue -->
+<script>
+export default {
+	props: {
+		todo: Object,
+	},
+}
+</script>
+
+<template>
+	<li>{{ todo.text }}</li>
+</template>
+```
+
+:::
+
 ### vue-model
 
 ::: vue-demo vue-model.vue
@@ -303,16 +374,16 @@ export default {
 
 <style>
 input {
-  outline: none;
-  padding: 10px 5px;
-  /* border-radius: 30px; */
-  border: 1px solid rgba(32,32,32, .3);
-  letter-spacing: 1px;
-  width: 300px;
-  transition: all .3s ease;
+	outline: none;
+	padding: 10px 5px;
+	/* border-radius: 30px; */
+	border: 1px solid rgba(32, 32, 32, 0.3);
+	letter-spacing: 1px;
+	width: 300px;
+	transition: all 0.3s ease;
 }
 input:focus {
-  border-color: #323232;
+	border-color: #323232;
 }
 </style>
 ```
@@ -341,6 +412,88 @@ export default {
 </script>
 
 <style></style>
+```
+
+:::
+
+### vue-fetch
+
+::: vue-demo vue-fetch
+
+```vue
+<script>
+const API_URL = `https://api.github.com/repos/vuejs/core/commits?per_page=3&sha=`
+
+export default {
+  data: () => ({
+    branches: ['main', 'v2-compat'],
+    currentBranch: 'main',
+    commits: null
+  }),
+
+  created() {
+    // 在初始化的时候进行获取
+    this.fetchData()
+  },
+
+  watch: {
+    // 当 currentBranch 改变时重新获取
+    currentBranch: 'fetchData'
+  },
+
+  methods: {
+    async fetchData() {
+      const url = `${API_URL}${this.currentBranch}`
+      this.commits = await (await fetch(url)).json()
+    },
+    truncate(v) {
+      const newline = v.indexOf('\n')
+      return newline > 0 ? v.slice(0, newline) : v
+    },
+    formatDate(v) {
+      return v.replace(/T|Z/g, ' ')
+    }
+  }
+}
+</script>
+
+<template>
+  <h1>Latest Vue Core Commits</h1>
+  <template v-for="branch in branches">
+    <input type="radio"
+      :id="branch"
+      :value="branch"
+      name="branch"
+      v-model="currentBranch">
+    <label :for="branch">{{ branch }}</label>
+  </template>
+  <p>vuejs/vue@{{ currentBranch }}</p>
+  <ul>
+    <li v-for="{ html_url, sha, author, commit } in commits">
+      <a :href="html_url" target="_blank" class="commit">{{ sha.slice(0, 7) }}</a>
+      - <span class="message">{{ truncate(commit.message) }}</span><br>
+      by <span class="author">
+        <a :href="author.html_url" target="_blank">{{ commit.author.name }}</a>
+      </span>
+      at <span class="date">{{ formatDate(commit.author.date) }}</span>
+    </li>
+  </ul>
+</template>
+
+<style>
+a {
+  text-decoration: none;
+  color: #42b883;
+}
+li {
+  line-height: 1.5em;
+  margin-bottom: 20px;
+}
+.author,
+.date {
+  font-weight: bold;
+}
+</style>
 ```
 
 :::

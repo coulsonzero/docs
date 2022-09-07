@@ -1,77 +1,72 @@
 # CSS
 
+## html 中引用 css
 
-
-## html中引用css
 ```html
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css" />
 ```
 
 ## Seletor
+
 ```html
 <div id="demo1"></div>
 <div class="demo2"></div>
 ```
+
 ```css
-#demo1 {}
-.demo2 {}
-
+#demo1 {
+}
+.demo2 {
+}
 ```
-
 
 ## 通用样式
 
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 	box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+	font-family: "Poppins", sans-serif;
 }
 body {
-    /* flex 居中显示 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /*
+	/* flex 居中显示 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/*
      * grid 居中显示
      * display: grid;
      * place-items: center;
      */
 
-    /* 设置高度后才会垂直居中 */
-    min-height: 100vh;
+	/* 设置高度后才会垂直居中 */
+	min-height: 100vh;
 
-    /* 子元素竖排 */
-    flex-direction: column;
-    background-color: bisque;
+	/* 子元素竖排 */
+	flex-direction: column;
+	background-color: bisque;
 }
 
 li {
-  	list-style: none;
+	list-style: none;
 }
 ```
-
-
-
-
 
 ## Text
 
 ![](@/assets/css/text-yinxiang.png)
 ![](@/assets/css/text-win.png)
 
-
 ```css
 /* font: italic bord 15px Arial; */
 
-
 /* 字体类型 */
-font-family: 'Poppins', sans-serif;
+font-family: "Poppins", sans-serif;
 /* 字体大小*/
 font-size: 16px/1rem;
 
@@ -95,14 +90,10 @@ text-transform: capitalize/uppercase/lowercase;
 /* 上下标 */
 vertical-align: super/sub;
 
-
 /* 水平对齐方式 */
 text-align: left/center/right;
 /* 垂直对齐方式 */
 vertical-align: top/middle/bottom;
-
-
-
 
 /* 缩进 */
 text-indent: 30px;
@@ -112,7 +103,6 @@ line-height: 36px;
 letter-spacing: 3px;
 /* 单词间距 */
 word-spacing: 5px;
-
 
 /* 换行 */
 white-space: nowrap/pre-warp;
@@ -126,8 +116,8 @@ user-select: none;
 -webkit-user-select: none;
 ```
 
-
 ::: tip
+
 ```css
 /**
  * 字体颜色：
@@ -137,10 +127,10 @@ user-select: none;
  * hsl()、hsla()
  */
 ```
+
 :::
 
 ![](@/assets/css/text-mac.png)
-
 
 ## Properties
 
@@ -151,31 +141,23 @@ width: 200px;
 height: 50px;
 
 /* 圆角 */
-border-radius: 50%;   /* top right bottom left */
+border-radius: 50%; /* top right bottom left */
 border-radius: 51% 49% 48% 52% / 62% 44% 56% 38%;
 border-radius: 44% 56% 46% 54% / 36% 50% 50% 64%;
 /* 边框 */
-border: 5px solid green;     /* dashed虚线 hidden隐藏边框线 */
+border: 5px solid green; /* dashed虚线 hidden隐藏边框线 */
 /* 内间距 */
 padding: 10px;
 /* 外间距 */
 margin: top right bottom left;
 
-
 /* 溢出 */
 overflow: hidden;
 overflow-y: scroll;
 /* 盒子阴影 */
-box-shadow: 6px 6px 20px 0 rgba(0,0,0,0.5);
-box-shadow: -20px 30px 16px #1B6CFB,
-            -40px 60px 32px #1b6cfb,
-            inset -6px 6px 10px #1B6CFB,
-            inset 2px 6px 10px #1a74e5,
-            inset 20px -20px 22px white,
-            inset 40px -40px 44px #a8ceff;
+box-shadow: 6px 6px 20px 0 rgba(0, 0, 0, 0.5);
+box-shadow: -20px 30px 16px #1b6cfb, -40px 60px 32px #1b6cfb, inset -6px 6px 10px #1b6cfb, inset 2px 6px 10px #1a74e5, inset 20px -20px 22px white, inset 40px -40px 44px #a8ceff;
 ```
-
-
 
 ### Background
 
@@ -198,72 +180,68 @@ background-attachment: fixed/scroll;
 background-clip: padding-box;
 ```
 
-
-
-
-
 ### List <列表>
+
 ```html
 <ul>
-	  <li><a href='#'>...</a></li>
-	  <li><a href='#'>...</a></li>
-	  <li><a href='#'>...</a></li>
+	<li><a href="#">...</a></li>
+	<li><a href="#">...</a></li>
+	<li><a href="#">...</a></li>
 </ul>
 ```
 
 ```css
 ul {
-    /* 有序列表 */
-    /* list-style: inside inside; */
-    list-style: inside outside;
+	/* 有序列表 */
+	/* list-style: inside inside; */
+	list-style: inside outside;
 
-    /* 无序列表 */
-    /* list-style: inside; */
+	/* 无序列表 */
+	/* list-style: inside; */
 }
 
 ul {
-    /* 项目列表 */
-  	list-style: type position image;
-    list-style: square outside none;
-    list-style: none inside url("logo.png");
+	/* 项目列表 */
+	list-style: type position image;
+	list-style: square outside none;
+	list-style: none inside url("logo.png");
 
-    list-style-type: circle/square/lower-alpha;
-    list-style-position: inside;
-    list-style-image: url("logo.png");
+	list-style-type: circle/square/lower-alpha;
+	list-style-position: inside;
+	list-style-image: url("logo.png");
 }
 ```
-
-
 
 ### Table <表格>
 
 ```html
 <table border="1">
-<caption>Table Name</caption>
-<tr>
-  <th>...</th>
-  <th>...</th>
-</tr>
-<tr>
-  <td>...</td>
-  <td>...</td>
-</tr>
+	<caption>Table Name</caption>
+	<tr>
+		<th>...</th>
+		<th>...</th>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+	</tr>
 </table>
 ```
 
 ```css
 table {
-    border-collapse: separate;
-    border-spacing: 0px 0px;
-    empty-cells: hide;
-    table-layout: auto/fixed;
+	border-collapse: separate;
+	border-spacing: 0px 0px;
+	empty-cells: hide;
+	table-layout: auto/fixed;
 }
 caption {
-    caption-side: top;
+	caption-side: top;
 }
 ```
 
 ### a <超链接>
+
 ```css
 a:hover
 a:link
@@ -276,6 +254,7 @@ a:active
 ```html
 <img src="assets/cat.png" alt="" />
 ```
+
 ```css
 /* 禁止图片拖动 */
 -webkit-user-drag: none;
@@ -356,44 +335,48 @@ clear: left/right/both;
 ```
 
 **示例**
+
 ```css
 /* flex弹性布局 */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
 }
 
 /* grid网格布局 */
 div {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    grid-gap: 4rem 1rem;
-    place-items: center;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+	grid-gap: 4rem 1rem;
+	place-items: center;
 }
 ```
 
-
-
 ## CSS3
+
 ### 圆角
+
 ```css
 border-radius: 10px;
 border-radius: 0 0 20px 20px;
 ```
+
 ### 盒子阴影
+
 ```css
 box-shadow: 10px 10px #888888;
 box-shadow: 10px 10px 5px 5px #888888;
 /* blur spread */
 box-shadow: -10px -10px 5px -5px #888888;
-box-shadow: inset 10px 10px 5px #888888,
-			inset -10px -10px 5px #888888;
+box-shadow: inset 10px 10px 5px #888888, inset -10px -10px 5px #888888;
 ```
+
 ```css
 rgba(..., alpha)
 ```
+
 ```css
 box-reflect: below 1px linear-gradient(transparent, #0005);
 ```
@@ -446,14 +429,17 @@ div:hover {
 
 ```css
 /* 关键帧动画 */
-div{
-    animation-name: colorchange;
-    animation-duration: 3s;
+div {
+	animation-name: colorchange;
+	animation-duration: 3s;
 }
 @keyframes colorchange {
-    0% {}       /* from */
-    50% {}
-    100% {}     /* to */
+	0% {
+	} /* from */
+	50% {
+	}
+	100% {
+	} /* to */
 }
 ```
 
@@ -462,17 +448,13 @@ animation: colorchange 3s ease-in 1s infinite reverse;
 ```
 
 ```css
-animation-time-function: ease/linear/ease-in/ease-out/ease-in-out/cubic-bezier(n,n,n,n);
+animation-time-function: ease/linear/ease-in/ease-out/ease-in-out/cubic-bezier(n, n, n, n);
 /* 动画延迟数秒后开始播放 */
 animation-delay: 2s;
 /* 循环播放次数 */
 animation-iteration-count: infinite/5;
 animation-direction: normal/reverse/alternate/alternate-reverse;
 ```
-
-
-
-
 
 ## Filter
 
@@ -501,37 +483,35 @@ filter: invert(70%);
 filter: drop-shadow(5px 5px 2px gray);
 ```
 
-## CSS拓展
+## CSS 拓展
+
 ### 滚动条
 
 ```css
 html::-webkit-scrollbar {
-    width: .8rem;
+	width: 0.8rem;
 }
 /* 滚动条背景色 */
 html::-webkit-scrollbar-track {
-    background: #000;
+	background: #000;
 }
 /* 滚动条色 */
 html::-webkit-scrollbar-thumb {
-    background: #0097e6;
+	background: #0097e6;
 }
-
 ```
 
 ### 拖动选中
 
 ```css
 ::selection {
-    background-color: rgb(34, 34, 34);
-    color: rgb(236, 231, 231);
+	background-color: rgb(34, 34, 34);
+	color: rgb(236, 231, 231);
 }
 ```
 
-
-
-
 文字不可选中复制
+
 ```css
 user-select: none;
 -moz-user-select: none;
@@ -540,25 +520,19 @@ user-select: none;
 ```
 
 图片不可拖动
+
 ```css
 img {
-    user-drag: none;
-    -webkit-user-drag: none;
+	user-drag: none;
+	-webkit-user-drag: none;
 }
 ```
 
 按钮禁用事件
+
 ```css
 pointer-events: none;
 ```
-
-
-
-
-
-
-
-
 
 ## FAQ
 
@@ -574,21 +548,22 @@ user-select: none;
 ```css
 -webkit-user-drag: none;
 ```
-### 去掉label点击时的背景色
+
+### 去掉 label 点击时的背景色
 
 ```css
 label {
-    -webkit-tap-highlight-color: transparent;
+	-webkit-tap-highlight-color: transparent;
 }
 ```
 
-## 高级CSS特效
+## 高级 CSS 特效
 
 ### 渐变字体色
 
 ```css
 /* 字体色渐变 */
-background: linear-gradient(120deg, rgb(132,111,244), rgb(241,118,116));
+background: linear-gradient(120deg, rgb(132, 111, 244), rgb(241, 118, 116));
 background-clip: text;
 -webkit-text-fill-color: transparent;
 -webkit-background-clip: text;
@@ -597,8 +572,8 @@ background-clip: text;
 ### 毛玻璃效果
 
 ```css
-background: hsla(0, 0%, 100%, .72);
+background: hsla(0, 0%, 100%, 0.72);
 backdrop-filter: blur(16px) saturate(180%);
 -webkit-backdrop-filter: blur(16px) saturate(180%);
+--tw-backdrop-blur: blur(16px);
 ```
-

@@ -127,6 +127,7 @@ import img05 from "../../assets/img05.png"
 
 export {img01, img02, img03, img04, img05}
 ```
+
 ```jsx
 import {img01, img02, img03, img04, img05} from "./imports"
 ```
@@ -190,8 +191,7 @@ function handleSubmit(e) {
 
 ```jsx
 import "./Com.css"
-
-<div className="container"></div>
+;<div className="container"></div>
 ```
 
 ```css
@@ -201,13 +201,15 @@ import "./Com.css"
 	font-weight: bold;
 }
 ```
+
 :::
 ::: code-group-item scss
+
 ```jsx
 import "@/styles/home.scss"
-
-<div className="container"></div>
+;<div className="container"></div>
 ```
+
 ```scss
 * {
 	margin: 0;
@@ -215,6 +217,7 @@ import "@/styles/home.scss"
 	box-sizing: border-box;
 }
 ```
+
 :::
 ::: code-group-item styled-components
 
@@ -356,8 +359,6 @@ ReactDOM.render(
 
 :::
 ::::
-
-
 
 #### react
 
@@ -956,21 +957,21 @@ setCount((count) => count + 1)
 ```jsx
 // 删除指定数据
 const handleDelete = (key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
-};
+	const newData = dataSource.filter((item) => item.key !== key)
+	setDataSource(newData)
+}
 
 // 添加数据
 const handleAdd = () => {
-    const newData = {
-      key: count,
-      name: `Edward King ${count}`,
-      age: '32',
-      address: `London, Park Lane no. ${count}`,
-    };
-    setDataSource([...dataSource, newData]);
-	setCount(count + 1);
-};
+	const newData = {
+		key: count,
+		name: `Edward King ${count}`,
+		age: "32",
+		address: `London, Park Lane no. ${count}`,
+	}
+	setDataSource([...dataSource, newData])
+	setCount(count + 1)
+}
 
 // 筛选数据
 onFilter: (value, record) => record.address.indexOf(value) === 0
@@ -1057,6 +1058,132 @@ export default SetStateDemo
 
 :::
 ::::
+
+### 3.5 点击事件
+
+**1.无参**
+:::: code-group
+::: code-group-item class 方式
+
+```jsx
+import React from "react"
+
+class MyButton extends React.Component {
+	handleClick = () => {
+		this.setState({})
+	}
+	render() {
+		return <button onClick={this.handleClick}>Button</button>
+	}
+}
+```
+
+:::
+::: code-group-item class 方式 2
+
+```jsx
+import React from "react"
+
+class MyButton extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {}
+		this.handleClick = this.handleClick.bind(this)
+	}
+	handleClick() {
+		this.setState({})
+	}
+	render() {
+		return <button onClick={this.handleClick}>Button</button>
+	}
+}
+```
+
+:::
+::: code-group-item class 方式 3
+```jsx
+import React from "react"
+
+class MyButton extends React.Component {
+	handleClick() {
+		this.setState({})
+	}
+	render() {
+		return <button onClick={() => this.handleClick()}>Button</button>
+	}
+}
+```
+:::
+::: code-group-item hooks 方式
+
+```jsx
+const MyButton = () => {
+	function handleClick() {}
+	return (
+		<button onClick={handleClick}>Button</button>
+	)
+}
+```
+
+:::
+
+::::
+
+**2.传参**
+
+```jsx
+<button onClick={() => this.handleClick(record)}>Button</button>
+<button onClick={(e) => this.deleteRow(e, id)}>Delete Row</button>
+```
+
+**阻止默认行为**
+
+```jsx
+function handleClick(e) {
+	e.preventDefault()
+}
+```
+
+### 3.5 表单处理
+
+```jsx
+class MyForm extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {value: ''}
+	}
+	handleChange = (e) => {
+		this.setState({value: e.target.value})
+	}
+
+	handleSubmit = (e) => {
+		e.preventDefault()
+		alert('提交的名字: ' + this.state.value)
+	}
+	render() {
+		return (
+			<form onSubmit={this.handleSubmit}>
+				<label>Name:<input type="text" value={this.state.value} onChange={this.handleChange} /></label>
+				<input type="submit" value="提交" />
+			</form>
+		)
+	}
+}
+
+```
+
+### 3.6 多选框处理
+```jsx
+handleChange = (e) => {
+    this.setState({value: e.target.value})
+}
+<select value={this.state.value} onChange={this.handleChange}>
+	<option value="grapefruit">葡萄柚</option>
+	<option value="lime">酸橙</option>
+	<option value="coconut">椰子</option>
+	<option value="mango">芒果</option>
+</select>
+```
 
 ## 四. Class
 
@@ -1162,12 +1289,12 @@ class App extends React.Component {
   - componentDidUpdate()
   - componentWillUnmount()
 
-
 ### Lifecycle Methods
 
-::::: details dispatch请求
+::::: details dispatch 请求
 :::: code-group
 ::: code-group-item Demo.jsx
+
 ```jsx{12-18}
 import React from 'react'
 import { connect } from 'dva'
@@ -1206,8 +1333,10 @@ export default class Demo extends React.Component {
 	}
 }
 ```
+
 :::
 ::: code-group-item namespace.js
+
 ```js{7,10,23}
 import { APIGetList } from '@/services/API'
 
@@ -1240,8 +1369,10 @@ export default {
 	}
 }
 ```
+
 :::
 ::: code-group-item API.js
+
 ```js{11-12}
 import request from '@/utils/request'
 import { getToken } from '../utils/authority'
@@ -1261,11 +1392,13 @@ export async function APIGetList(params) {
   });
 }
 ```
+
 :::
 ::::
 :::::
 
-::: details axios请求
+::: details axios 请求
+
 ```jsx
 import React from "react"
 import axios from "axios"
@@ -1305,9 +1438,11 @@ export default class AxiosEffect extends React.Component {
 	}
 }
 ```
+
 :::
 
-::: details fetch请求
+::: details fetch 请求
+
 ```jsx
 import React from "react"
 
@@ -1346,6 +1481,7 @@ export default class FetchEffect extends React.Component {
 	}
 }
 ```
+
 :::
 
 ## 五. Hooks
@@ -1661,8 +1797,6 @@ export default function AxiosEffect() {
 ```
 
 :::
-
-
 
 ## Event Handles
 
@@ -2309,7 +2443,6 @@ export default function App() {
 
 :::
 
-
 ## 七. package.json 依赖
 
 > "dependencies": 生产环境所需要的依赖，
@@ -2321,15 +2454,19 @@ export default function App() {
 开发环境	npm i --save-dev，npm i -D xxx   (devDependencies)
 全局安装	npm i -g xxx   (安装到磁盘)
 ```
+
 ### 7.1 Scss
 
-> CSS预处理器, 功能更强大，比less好用
+> CSS 预处理器, 功能更强大，比 less 好用
 
 1. 安装
+
 ```sh
 yarn add sass -D 	// -D表示开发环境想要依赖，生产环境不依赖
 ```
+
 2. 使用方法
+
 ```jsx
 import "./index.scss"
 ```
@@ -2845,7 +2982,6 @@ export default connect(null, mapDipatchToProps)(AddPeosonForm)
 yarn add react-router-dom
 ```
 
-
 ::: tip
 [login](http://localhost:3000/login)
 http://localhost:3000/login
@@ -2975,42 +3111,45 @@ export default Navbar
 
 ### 7.4 antd
 
-> 阿里开发的React组件库
+> 阿里开发的 React 组件库
 
 ```
 yarn add antd
 ```
 
 修改 src/App.css，在文件顶部引入 antd/dist/antd.css
+
 ```css
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 ```
 
 ### 7.5 craco
 
 > 使用 "@/components/Header" 代替 "./components/Header"
 >
-> 配合jsconfig.json配置@/别名提示
+> 配合 jsconfig.json 配置@/别名提示
 
-1. 安装craco
+1. 安装 craco
+
 ```sh
 yarn add @craco/craco
 ```
 
-2. 创建craco.config.js配置路径别名
+2. 创建 craco.config.js 配置路径别名
+
 ```js
-const path = require('path')
+const path = require("path")
 
 module.exports = {
 	webpack: {
 		alias: {
-			'@': path.resolve(__dirname, 'src')
-		}
-	}
+			"@": path.resolve(__dirname, "src"),
+		},
+	},
 }
 ```
 
-3. 修改package.json
+3. 修改 package.json
 
 ```json
 "scripts": {
@@ -3018,7 +3157,9 @@ module.exports = {
 	"build": "react-scripts build",
 },
 ```
+
 改为
+
 ```json
 "scripts": {
 	"start": "craco start",
@@ -3026,16 +3167,18 @@ module.exports = {
 },
 ```
 
-4. 通过@表示src目录路径
+4. 通过@表示 src 目录路径
 
 ```jsx
-import { Header } from '@/components/header'
+import {Header} from "@/components/header"
 ```
 
 5. 重启项目生效
+
 ```sh
 yarn start
 ```
+
 ### 7.6 jsconfig.json
 
 > 别名@路径提示
@@ -3052,26 +3195,26 @@ yarn start
 ```
 
 ```jsx
-import { Header } from '@/components/header'
+import {Header} from "@/components/header"
 ```
-
 
 ### 7.7 axios
 
-> 前端接口请求，有拦截器，比原生fetch更强大
+> 前端接口请求，有拦截器，比原生 fetch 更强大
 
 ```sh
 yarn add axios
 ```
 
 ```jsx
-import axios from 'axios'
+import axios from "axios"
 ```
 
 ```jsx
 async function axiosFetch() {
 	let url = "http://geek.itheima.net/v1_0/channels"
-	await axios.get(url)
+	await axios
+		.get(url)
 		.then(function (response) {
 			let data = response.data
 			console.log(JSON.stringify(data, null, 2))
@@ -3084,14 +3227,16 @@ async function axiosFetch() {
 
 ### 7.8 ECharts
 
-1. 安装echarts
+1. 安装 echarts
+
 ```sh
 yarn add echarts
 ```
 
-2. 挂载echarts
-:::: code-group
-::: code-group-item React class
+2. 挂载 echarts
+   :::: code-group
+   ::: code-group-item React class
+
 ```jsx{8}
 import React, {Component} from "react"
 import * as echarts from "echarts"
@@ -3140,8 +3285,10 @@ export default class BarChart extends Component {
 	}
 }
 ```
+
 :::
 ::: code-group-item React Hooks
+
 ```jsx{7}
 import React from 'react'
 import * as echarts from 'echarts'
@@ -3190,6 +3337,7 @@ const BarChart = () => {
 
 export default BarChart
 ```
+
 :::
 ::::
 
@@ -3197,41 +3345,46 @@ export default BarChart
 
 > 安装扩展 `vscode-styled-components` 语法提示
 
-
 :::: code-group
 ::: code-group-item install
+
 ```sh
 $ yarn add styled-components
 ```
+
 :::
 ::: code-group-item usage
+
 ```jsx
-import React, { Component } from 'react'
+import React, {Component} from "react"
 import styled from "styled-components"
 
 export default class App extends Component {
-  render () {
-    return <Div>App Dashboard</Div>
-  }
+	render() {
+		return <Div>App Dashboard</Div>
+	}
 }
 
 const Div = styled.div`
 	background: red;
 `
 ```
+
 :::
 ::::
 
 ### 7.10 react-icons
 
-[react-icons官网](https://react-icons.github.io/react-icons)
+[react-icons 官网](https://react-icons.github.io/react-icons)
 
 step 1. install
+
 ```bash
 $ yarn add react-icons
 ```
 
 step 2. usage
+
 ```jsx
 import React from "react"
 import {MdSpaceDashboard} from "react-icons/md"
@@ -3260,16 +3413,18 @@ export default class App extends React.Component {
 
 ### 7.11 ScrollReveal
 
-[ScrollReveal官网](https://scrollrevealjs.org)
+[ScrollReveal 官网](https://scrollrevealjs.org)
 
 step1. install
+
 ```bash
 $ yarn add scrollreveal
 ```
 
 step2. usage
 :::: code-group
-::: code-group-item React class式
+::: code-group-item React class 式
+
 ```jsx
 import React from "react"
 import scrollreveal from "scrollreveal"
@@ -3298,8 +3453,10 @@ export default App extends React.Component {
 	}
 }
 ```
+
 :::
-::: code-group-item React hooks式
+::: code-group-item React hooks 式
+
 ```jsx
 import React, {useEffect} from "react"
 import scrollreveal from "scrollreveal"
@@ -3330,10 +3487,9 @@ const App = () => {
 
 export default App
 ```
+
 :::
 ::::
-
-
 
 ## Other
 
@@ -3483,7 +3639,7 @@ this.setState({count: this.state.count + 1}) // 6
 
 13. [React Echarts]报错：There is a chart instance already initialized on the dom
 
-> 新增echarts卸载`componentWillUnmount() {echarts.dispose(this.barRef.current)}`
+> 新增 echarts 卸载`componentWillUnmount() {echarts.dispose(this.barRef.current)}`
 
 ```jsx
 import React, {Component} from "react"
@@ -3503,7 +3659,6 @@ export default class BarChart extends Component {
 
 	chartInit() {
 		const myChart = echarts.init(this.barRef.current)
-
 
 		myChart.setOption({
 			title: {
@@ -3538,6 +3693,7 @@ export default class BarChart extends Component {
 ### 13. [ECharts] DEPRECATED: 'normal' hierarchy in itemStyle has been removed since 4.0. All style properties are configured in itemStyle directly now.
 
 原先
+
 ```jsx
 itemStyle: {
 	normal: {
@@ -3545,7 +3701,9 @@ itemStyle: {
 	},
 },
 ```
+
 现在
+
 ```js
 itemStyle: {
 	color: "#0078FF",
@@ -3555,6 +3713,7 @@ itemStyle: {
 ### 14. [ECharts] DEPRECATED: textStyle hierarchy in name has been removed since 4.0. All textStyle properti
 
 原先
+
 ```js
 radar: {
 	name: {
@@ -3566,6 +3725,7 @@ radar: {
 ```
 
 现在
+
 ```js
 radar: {
 	axisName: {
@@ -3574,9 +3734,10 @@ radar: {
 }
 ```
 
-### 15. 如何在 React 项目中引用 html文件
+### 15. 如何在 React 项目中引用 html 文件
+
 ```md
-将html、css、js文件放在`public`目录下即可, 之后使用`./test.html`即可引用
+将 html、css、js 文件放在`public`目录下即可, 之后使用`./test.html`即可引用
 ```
 
 ```bash
@@ -3587,24 +3748,27 @@ $ tree
 ```
 
 ```jsx
-import React, { Component } from 'react'
+import React, {Component} from "react"
 
 export default class Works extends Component {
 	render() {
 		return (
-            <div>
-                <a href="./test.html" target="_blank">Link</a>
-            </div>
-        )
+			<div>
+				<a href="./test.html" target="_blank">
+					Link
+				</a>
+			</div>
+		)
 	}
 }
 ```
 
-### 16. React项目yarn build之后页面显示空白
+### 16. React 项目 yarn build 之后页面显示空白
 
 > package.json 中添加 `"homepage": "./"`即可
 
 **package.json**
+
 ```json
 {
 	"version": "0.1.0",
