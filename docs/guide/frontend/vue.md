@@ -425,75 +425,153 @@ export default {
 const API_URL = `https://api.github.com/repos/vuejs/core/commits?per_page=3&sha=`
 
 export default {
-  data: () => ({
-    branches: ['main', 'v2-compat'],
-    currentBranch: 'main',
-    commits: null
-  }),
+	data: () => ({
+		branches: ["main", "v2-compat"],
+		currentBranch: "main",
+		commits: null,
+	}),
 
-  created() {
-    // 在初始化的时候进行获取
-    this.fetchData()
-  },
+	created() {
+		// 在初始化的时候进行获取
+		this.fetchData()
+	},
 
-  watch: {
-    // 当 currentBranch 改变时重新获取
-    currentBranch: 'fetchData'
-  },
+	watch: {
+		// 当 currentBranch 改变时重新获取
+		currentBranch: "fetchData",
+	},
 
-  methods: {
-    async fetchData() {
-      const url = `${API_URL}${this.currentBranch}`
-      this.commits = await (await fetch(url)).json()
-    },
-    truncate(v) {
-      const newline = v.indexOf('\n')
-      return newline > 0 ? v.slice(0, newline) : v
-    },
-    formatDate(v) {
-      return v.replace(/T|Z/g, ' ')
-    }
-  }
+	methods: {
+		async fetchData() {
+			const url = `${API_URL}${this.currentBranch}`
+			this.commits = await (await fetch(url)).json()
+		},
+		truncate(v) {
+			const newline = v.indexOf("\n")
+			return newline > 0 ? v.slice(0, newline) : v
+		},
+		formatDate(v) {
+			return v.replace(/T|Z/g, " ")
+		},
+	},
 }
 </script>
 
 <template>
-  <h1>Latest Vue Core Commits</h1>
-  <template v-for="branch in branches">
-    <input type="radio"
-      :id="branch"
-      :value="branch"
-      name="branch"
-      v-model="currentBranch">
-    <label :for="branch">{{ branch }}</label>
-  </template>
-  <p>vuejs/vue@{{ currentBranch }}</p>
-  <ul>
-    <li v-for="{ html_url, sha, author, commit } in commits">
-      <a :href="html_url" target="_blank" class="commit">{{ sha.slice(0, 7) }}</a>
-      - <span class="message">{{ truncate(commit.message) }}</span><br>
-      by <span class="author">
-        <a :href="author.html_url" target="_blank">{{ commit.author.name }}</a>
-      </span>
-      at <span class="date">{{ formatDate(commit.author.date) }}</span>
-    </li>
-  </ul>
+	<h1>Latest Vue Core Commits</h1>
+	<template v-for="branch in branches">
+		<input type="radio" :id="branch" :value="branch" name="branch" v-model="currentBranch" />
+		<label :for="branch">{{ branch }}</label>
+	</template>
+	<p>vuejs/vue@{{ currentBranch }}</p>
+	<ul>
+		<li v-for="{html_url, sha, author, commit} in commits">
+			<a :href="html_url" target="_blank" class="commit">{{ sha.slice(0, 7) }}</a>
+			-
+			<span class="message">{{ truncate(commit.message) }}</span>
+			<br />
+			by
+			<span class="author">
+				<a :href="author.html_url" target="_blank">{{ commit.author.name }}</a>
+			</span>
+			at
+			<span class="date">{{ formatDate(commit.author.date) }}</span>
+		</li>
+	</ul>
 </template>
 
 <style>
 a {
-  text-decoration: none;
-  color: #42b883;
+	text-decoration: none;
+	color: #42b883;
 }
 li {
-  line-height: 1.5em;
-  margin-bottom: 20px;
+	line-height: 1.5em;
+	margin-bottom: 20px;
 }
 .author,
 .date {
-  font-weight: bold;
+	font-weight: bold;
 }
 </style>
+```
+
+:::
+
+## 应用案例
+
+### 单行输入框
+
+::: vue-demo 单行输入框
+
+```vue
+<template>
+	<p>Message is: {{ message }}</p>
+	<input v-model="message" placeholder="edit me" />
+</template>
+
+<script>
+export default {
+	data() {
+		return {
+			message: "",
+		}
+	},
+}
+</script>
+```
+
+:::
+
+### 多行文本框
+
+::: vue-demo 多行文本框
+
+```vue
+<template>
+	<p>Multiline message is: {{ message }}</p>
+	<textarea v-model="message"></textarea>
+</template>
+<script>
+	export default {
+		data() {
+			return {
+				message: '',
+			}
+		}
+	}
+</script>
+```
+
+:::
+### 多选框
+
+::: vue-demo 多选框
+
+```vue
+<template>
+	<select v-model="selected">
+		<option v-for="option in options" :value="option.value">
+			{{ option.text }}
+		</option>
+	</select>
+	<div>Selected: {{ selected }}</div>
+</template>
+
+<script>
+export default {
+	data() {
+		return {
+			selected: "A",
+			options: [
+				{text: "One", value: "A"},
+				{text: "Two", value: "B"},
+				{text: "Three", value: "C"},
+			],
+		}
+	},
+}
+</script>
 ```
 
 :::

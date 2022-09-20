@@ -3210,6 +3210,13 @@ yarn add axios
 import axios from "axios"
 ```
 
+
+```jsx
+axiosFetch = async () => {
+	await axios.get('http://localhost:8080/api/v1/rank')
+}
+```
+
 ```jsx
 async function axiosFetch() {
 	let url = "http://geek.itheima.net/v1_0/channels"
@@ -3225,6 +3232,114 @@ async function axiosFetch() {
 }
 ```
 
+```jsx
+import axios from 'axios'
+
+
+axios.defaults.baseURL = 'http://localhost:8080/api/v1'
+axios.defaults.timeout = 3000
+
+// ...
+axiosFetchRank = async () => {
+	await axios
+		.get('/rank')
+		.then((res) => {
+			this.setState({
+				rank_data: res.data.data
+			})
+		})
+		.catch((err) => {
+			console.log(err)
+		})
+}
+```
+
+**Get**
+```jsx
+axios.get(url, {
+	params: {
+		name: "lilei",
+		age: 30
+	}
+}).then()
+```
+
+**Post**
+```jsx
+axios.post(url, params).then().catch()
+```
+
+```jsx
+axios({
+	url: "https://httpbin.org/post",
+	data: {
+		name: "kobe",
+		age: 40
+	},
+	method: "post"
+}).then(res => {
+	console.log(res)
+}).catch(err => {
+	console.error(err)
+})
+```
+
+**同时调用**
+
+```jsx
+const request1 = axios({
+	url: "/get",
+	params: { name: "why", age: 18 }
+})
+
+const request2 = axios({
+	url: "/post",
+	data: { name: "kobe", age: 40 },
+	method: "post"
+})
+
+axios.all([request1, request2]).then(([res1, res2]) => {
+	console.log(res1, res2)
+})
+```
+
+
+**请求拦截**
+
+```jsx
+//请求拦截
+axios.interceptors.request.use(config => {
+   // 1、发送网络请求时，在界面中间位置显示loading的组件
+
+    // 2、某一些请求要求用户必须携带token，如果没有读取到，那么直接跳转到登录页面
+
+    // 3、params/data序列化的操作
+    return config;
+}, err => {
+
+})
+//响应拦截
+axios.interceptors.response.use(res => {
+  return res.data;
+}, err => {
+  if (err && err.response) {
+    switch (err.response.status) {
+      case 400:
+        console.log("请求错误");
+        break;
+      case 401:
+        console.log("未授权访问");
+        break;
+      default:
+        console.log("其他错误信息");
+    }
+  }
+  return err;
+});
+
+```
+
+
 ### 7.8 ECharts
 
 1. 安装 echarts
@@ -3234,8 +3349,9 @@ yarn add echarts
 ```
 
 2. 挂载 echarts
-   :::: code-group
-   ::: code-group-item React class
+
+:::: code-group
+::: code-group-item React class
 
 ```jsx{8}
 import React, {Component} from "react"

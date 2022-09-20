@@ -59,7 +59,7 @@ window中设置“打开鼠标指针轨迹“，并设置为”最短"
 - iostat
 - du (磁盘)
 - df (文件磁盘)
-- top： cpu占用
+- top： cpu 占用
 - chkconfig iptables off (关闭防火墙)
 - ifconfig
 - ping (网络)
@@ -249,6 +249,9 @@ tail [-n -2] file.txt
 tail [-n +2] file.txt
 # 显示第10行
 tail -n +10 file.txt | head -1
+
+# 从第18行开始显示
+tail -n +18 file.txt
 ```
 
 #### more
