@@ -43,7 +43,7 @@ Docker技术的三大核心概念，分别是：
 
 ## Docker 部署 Golang Web后端项目
 
-```shell
+```dockerfile
 # Dockerfile
 
 FROM golang:1.18-alpine
@@ -73,4 +73,78 @@ EXPOSE 8080
 
 # 声明docker目录
 ENTRYPOINT ["/project/go-docker/v1"]
+```
+
+
+```sh
+$ cd <project-name>
+# 打包go项目
+$ go build .
+
+# 打包docker程序
+$ docker build -t go-docker:v1 .
+$ docker build -f Dockerfile -t go-docker:latest .
+
+# 运行docker程序
+$ docker run -d -p 8080:8080 go-docker:v1
+$ docker run -d -p 9000:8080 go-docker:latest
+
+$ docker --version
+# 查看docker打包程序
+$ docker images
+# 查看docker进程
+$ docker ps -a
+```
+
+
+## docker 部署mysql
+
+```sh
+# docker 拉取 mysql 镜像环境
+$ docker pull  mysql:8.0.23
+# docker 启动 mysql 服务
+$ docker start mysql
+# docker 停止 mysql 服务
+$ docker stop  mysql
+```
+
+```sh
+# 查看镜像
+$ docker images
+# docker 运行 mysql 镜像环境
+$ docker run -d -p 9306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=root mysql:8.0.23
+# 查看镜像运行程序
+$ docker ps -a
+# docker 执行 mysql 操作
+$ docker exec -it mysql mysql -u root -p root
+Enter password:
+mysql>
+```
+
+## docker 测试 nginx 简单页面
+
+```
+$ docker run -it --rm -p 3000:80 nginx:alpine
+```
+[https://localhost:3000/](https://localhost:3000/)
+
+
+## docker 部署 react 前端项目
+
+**Dockerfile**
+```Dockerfile
+FROM node:14-alpine
+WORKDIR /code
+ADD . /code
+RUN yarn
+EXPOSE 3000
+CMD npm start
+```
+
+
+```sh
+$ docker build -f Dockerfile -t react-docker:v1 .
+# --name: 重命名, --rm: 停止服务则自动删除镜像容器
+$ docker run -d -p 80:3000 --name react-docker react-docker:v1
+# $ docker run --rm -d -p 80:3000 --name react-docker react-docker:v1
 ```

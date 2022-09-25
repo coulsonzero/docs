@@ -341,3 +341,11 @@ $ du -sh ./*
 608K    ./src
 420K    ./yarn.lock
 ```
+
+## Linux常用命令
+
+
+```shell
+# 寻找文件名并重命名文件
+$ find . -name '微信支付账*.csv' -exec mv {} bill.csv \;
+```
