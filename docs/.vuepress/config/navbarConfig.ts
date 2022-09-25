@@ -102,7 +102,8 @@ const navbarConfig: NavbarConfig = [
 			{text: "Redis", link: "/guide/operations/redis"},
 			{text: "MongoDB", link: "/guide/operations/mongodb"},
 			{text: "Linux", link: "/guide/operations/linux"},
-			{text: "Shell", link: "/guide/operations/shell"},
+			{ text: "Shell",link: "/guide/operations/shell" },
+			{text: "Docker", link:"/guide/operations/docker"},
 		],
 	},
 	{
