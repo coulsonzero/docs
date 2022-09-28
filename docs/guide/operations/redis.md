@@ -6,6 +6,19 @@ Redis
 $ brew install redis
 ```
 
+## 启动客户端
+```sh
+# step1. 后台启动redis服务端
+$ brew services restart redis
+
+# step2. 启动redis客户端
+$ redis-cli
+127.0.0.1:6379>         # ^ + C: 关闭客户端
+
+# step3. 关闭后台服务
+$ brew services stop redis
+```
+
 > 1. 启动redis服务
 ```sh
 # 方式一: 后台运行redis服务
@@ -27,7 +40,7 @@ redis> shutdown
 not connected> quit
 
 ```
-> 4.关闭服务
+> 4. 关闭服务
 ```sh
 $ brew services stop redis
 
@@ -39,9 +52,20 @@ $ brew services stop redis
 ```sh
 $ brew services info redis
 ```
+
 > 查看redis进程
 ```sh
 $ ps axu | grep redis
+```
+
+> 查询redis密码
+```sh
+127.0.0.1:6379> config get requirepass
+```
+
+> 修改redis密码为"root"
+```sh
+127.0.0.1:6379> config set requirepass root
 ```
 
 ## RedisInsight
