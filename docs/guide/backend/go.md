@@ -2796,7 +2796,7 @@ dog name is : lisi
 d.Name =  lisi
 ```
 
-## Libs 标准库
+## Packages
 
 [golang 标准库](https://pkg.go.dev/std)
 
@@ -2975,6 +2975,10 @@ func main() {
 :::
 ::::
 
+
+
+
+## 读取文件相关库
 ### os
 
 **文件操作**
@@ -3394,6 +3398,679 @@ func main() {
 }
 
 ```
+
+
+
+### env
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/joho/godotenv"
+	"os"
+)
+
+func main() {
+	if err := godotenv.Load(); err != nil {
+		panic("Failed to load env file")
+	}
+	host := os.Getenv("HOST")
+	port := os.Getenv("PORT")
+
+	fmt.Printf("host: %s, post: %s \n", host, port)
+}
+
+```
+
+```.env
+HOST = 127.0.0.1
+PORT = 8090
+```
+
+### ini
+
+```go
+package main
+
+import (
+	"fmt"
+	"gopkg.in/ini.v1"
+)
+
+func main() {
+	file, err := ini.Load("config.ini")
+	if err != nil {
+		panic("Failed to load ini file")
+	}
+
+	Db := file.Section("mysql").Key("Db").String()
+	DbHost := file.Section("mysql").Key("DbHost").String()
+
+	fmt.Printf("database: %s, host: %s \n", Db, DbHost)
+}
+```
+
+```ini
+# debug开发模式,release生产模式
+[service]
+AppMode = debug
+HttpPort = :3000
+# 运行端口号 3000端口
+
+[redis]
+RedisDb = redis
+RedisAddr = 127.0.0.1:6379
+# redis ip地址和端口号
+RedisPw =
+# redis 密码
+RedisDbName = 2
+# redis 名字
+
+[mysql]
+Db = mysql
+DbHost = 127.0.0.1
+# mysql ip地址
+DbPort = 3306
+# mysql 端口号
+DbUser = root
+# mysql 用户名
+DbPassWord = root
+# mysql 密码
+DbName = todolist_db
+# mysql 名字
+```
+
+### csv
+
+```go
+// 读取csv文件
+reader := csv.NewReader()
+reader.ReadAll()
+reader.Read()
+
+// 写入csv文件
+csv.NewWriter(file)
+w.WriteAll([][]string{})
+```
+
+::: details 示例
+**For Example**
+
+```go
+func ReadCsv(filename string) {
+	file, _ := os.Open(filename)
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	reader.Comma = ','
+
+	// for {
+	// 	record, _ := reader.Read()
+	// }
+
+	records, err := reader.ReadAll()
+	if err != nil {
+		log.Printf("Failed to read csv file, err: %s", err)
+	}
+	for _, record := range records {
+		fmt.Printf("%#v\n", record)
+	}
+	log.Printf("Read csv file successfully, the data is updated")
+}
+
+func WriteCsv(filename string) {
+	file, _ := os.Create(filename)
+	defer file.Close()
+
+	// file.WriteString("\xEF\xBB\xBF")	// 写入utf-8 BOM
+	w := csv.NewWriter(file)
+	_ = w.WriteAll([][]string{
+		{"id", "name", "score"},
+		{"1", "Barry", "97"},
+		{"2", "Shirdon", "89"},
+		{"3", "Jack", "92"},
+		{"4", "Tom", "78"},
+	})
+	w.Flush()
+}
+```
+
+:::
+
+## 数据库相关库
+
+### mysql
+
+```bash
+go get -u "github.com/go-sql-driver/mysql"
+```
+
+::: details Example
+
+```go
+package main
+
+import (
+	"database/sql"
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"log"
+	"strings"
+)
+
+var DB *sql.DB
+
+type User struct {
+	id    int
+	name  string
+	email string
+}
+
+func main() {
+	db := ConnectDB()
+	defer db.Close()
+	// Query(2)
+	// QueryAll()
+
+	// Insert()
+	// Insert2()
+	// Insert3()
+
+	// parms := []string{"name", "email", "password"}
+	// data := []map[string]string{
+	// 	{"username": "test1", "email": "test1@gmail.com", "password": "123456"},
+	// 	{"username": "test2", "email": "test2@gmail.com", "password": "admin123"},
+	// }
+	// InsertAny(parms, data)
+
+	// Update()
+	// Delete()
+}
+
+func ConnectDB() *sql.DB {
+	dsn := "root:root@tcp(localhost:3306)/golang_api?charset=utf8mb4&parseTime=True"
+	db, err := sql.Open("mysql", dsn)
+	if err != nil {
+		log.Fatal("数据库连接失败！")
+	}
+
+	DB = db
+	return db
+}
+
+// id查询一条数据
+func Query(id int) {
+	sqlStr := "select id, name, email from users where id = ?"
+	var u User
+	err := DB.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.email)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("id: %d, name: %s, email: %s\n", u.id, u.name, u.email)
+}
+
+// 查询全部数据
+func QueryAll() {
+	sqlStr := "select id, name, email from users where id > ?"
+	rows, _ := DB.Query(sqlStr, 0)
+	defer rows.Close()
+	for rows.Next() {
+		var u User
+		err := rows.Scan(&u.id, &u.name, &u.email)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("id: %d, name: %s, email: %s\n", u.id, u.name, u.email)
+	}
+}
+
+// 插入数据
+func Insert() {
+	sqlStr := "insert into users(name, email) values(?, ?)"
+	res, _ := DB.Exec(sqlStr, "aqwq", "aqwq@gmail.com")
+	id, _ := res.LastInsertId()
+	fmt.Printf("id: %d insert success!", id)
+}
+
+// 插入多条数据
+func Insert2() {
+	sqlStr := "insert into users(name, email) values (?, ?), (?, ?)"
+
+	res, _ := DB.Exec(sqlStr, "tom", "tom@gmail.com", "john", "john@gmail.com")
+	id, _ := res.LastInsertId()
+	fmt.Printf("id: %d insert success!", id)
+}
+
+// 插入多条数据
+func Insert3() {
+	data := []map[string]string{
+		{"name": "test1", "email": "test1@gmail.com"},
+		{"name": "test2", "email": "test2@gmail.com"},
+		{"name": "test3", "email": "test3@gmail.com"},
+	}
+	sqlStr := "insert into users(name, email) values"
+	vals := []interface{}{}
+	for index, row := range data {
+		if index == len(data)-1 {
+			sqlStr += "(?, ?)"
+		} else {
+			sqlStr += "(?, ?), "
+		}
+		vals = append(vals, row["name"], row["email"])
+	}
+
+	res, _ := DB.Exec(sqlStr, vals...) // vals...: 解构
+	id, _ := res.LastInsertId()
+	fmt.Printf("lastId: %d insert success!", id)
+}
+
+func InsertAny(parms []string, data []map[string]string) {
+	sqlStr := "insert into users("
+	for i, v := range parms {
+		if i == len(parms)-1 {
+			sqlStr += v
+		} else {
+			sqlStr += v + ", "
+		}
+	}
+	sqlStr += ") values "
+
+	vals := []interface{}{}
+	sqlQuery := fmt.Sprintf("(%s)", strings.Join(strings.Split(strings.Repeat("?", len(parms)), ""), ","))
+	for index, row := range data {
+		if index == len(data)-1 {
+			sqlStr += sqlQuery
+		} else {
+			sqlStr += sqlQuery + ", "
+		}
+
+		for _, v := range parms {
+			vals = append(vals, row[v])
+		}
+	}
+
+	res, _ := DB.Exec(sqlStr, vals...) // vals...: 解构
+	id, _ := res.LastInsertId()
+	fmt.Printf("lastId: %d insert success!", id)
+}
+
+func Update() {
+	sqlStr := "update users set name = ?, email = ? where id = ?"
+	res, _ := DB.Exec(sqlStr, "yop", "yop@gmail.com", 10)
+	affected, _ := res.RowsAffected()
+	fmt.Println(affected) // return 1: success
+}
+
+func Delete() {
+	sqlStr := "delete from users where id = ?"
+	res, _ := DB.Exec(sqlStr, 12)
+	rows, _ := res.RowsAffected()
+	fmt.Println(rows) // return 1: success
+}
+```
+
+:::
+
+- 连接数据库
+
+```go{4}
+var DB *sql.DB
+func ConnectDB() *sql.DB {
+	dsn := "root:root@tcp(localhost:3306)/golang_api?charset=utf8mb4&parseTime=True"
+	db, err := sql.Open("mysql", dsn)
+	if err != nil {
+		log.Fatal("数据库连接失败！")
+	}
+
+	DB = db
+	return db
+}
+```
+
+- 查询一条数据
+
+```go{4}
+func Query(id int) {
+	sqlStr := "select id, name, email from users where id = ?"
+	var u User
+	err := DB.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.email)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("id: %d, name: %s, email: %s\n", u.id, u.name, u.email)
+}
+```
+
+- 查询全部数据
+
+```go{3,5,7}
+func QueryAll() {
+	sqlStr := "select id, name, email from users where id > ?"
+	rows, _ := DB.Query(sqlStr, 0)
+	defer rows.Close()
+	for rows.Next() {
+		var u User
+		err := rows.Scan(&u.id, &u.name, &u.email)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("id: %d, name: %s, email: %s\n", u.id, u.name, u.email)
+	}
+}
+```
+
+- 插入一条数据
+
+```go{3-4}
+func Insert() {
+	sqlStr := "insert into users(name, email) values(?, ?)"
+	res, _ := DB.Exec(sqlStr, "aqwq", "aqwq@gmail.com")
+	id, _ := res.LastInsertId()
+	fmt.Printf("id: %d insert success!", id)
+}
+```
+
+- 插入多条数据
+
+```go{3-4}
+func Insert2() {
+	sqlStr := "insert into users(name, email) values (?, ?), (?, ?)"
+	res, _ := DB.Exec(sqlStr, "tom", "tom@gmail.com", "john", "john@gmail.com")
+	id, _ := res.LastInsertId()
+	fmt.Printf("id: %d insert success!", id)
+}
+```
+
+- 插入多条数据 2
+
+```go
+func Insert3() {
+	data := []map[string]string{
+		{"name": "test1", "email": "test1@gmail.com"},
+		{"name": "test2", "email": "test2@gmail.com"},
+		{"name": "test3", "email": "test3@gmail.com"},
+	}
+	sqlStr := "insert into users(name, email) values"
+	vals := []interface{}{}
+	for index, row := range data {
+		if index == len(data)-1 {
+			sqlStr += "(?, ?)"
+		} else {
+			sqlStr += "(?, ?), "
+		}
+		vals = append(vals, row["name"], row["email"])
+	}
+
+	res, _ := DB.Exec(sqlStr, vals...) // vals...: 解构
+	id, _ := res.LastInsertId()
+	fmt.Printf("lastId: %d insert success!", id)
+}
+```
+
+- 插入任意数量字段
+
+```go
+func InsertAny(parms []string, data []map[string]string) {
+	sqlStr := "insert into users("
+	for i, v := range parms {
+		if i == len(parms)-1 {
+			sqlStr += v
+		} else {
+			sqlStr += v + ", "
+		}
+	}
+	sqlStr += ") values "
+
+	vals := []interface{}{}
+	sqlQuery := fmt.Sprintf("(%s)", strings.Join(strings.Split(strings.Repeat("?", len(parms)), ""), ","))
+	for index, row := range data {
+		if index == len(data)-1 {
+			sqlStr += sqlQuery
+		} else {
+			sqlStr += sqlQuery + ", "
+		}
+
+		for _, v := range parms {
+			vals = append(vals, row[v])
+		}
+	}
+
+	res, _ := DB.Exec(sqlStr, vals...) // vals...: 解构
+	id, _ := res.LastInsertId()
+	fmt.Printf("lastId: %d insert success!", id)
+}
+```
+
+- 更新数据
+
+```go{3-4}
+func Update() {
+	sqlStr := "update users set name = ?, email = ? where id = ?"
+	res, _ := DB.Exec(sqlStr, "yop", "yop@gmail.com", 10)
+	affected, _ := res.RowsAffected()
+	fmt.Println(affected) // return 1: success
+}
+```
+
+- 删除数据
+
+```go{3-4}
+func Delete() {
+	sqlStr := "delete from users where id = ?"
+	res, _ := DB.Exec(sqlStr, 12)
+	rows, _ := res.RowsAffected()
+	fmt.Println(rows) // return 1: success
+}
+```
+
+### redis
+
+#### connect redis
+
+**go-redis.go**
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+)
+
+/**
+ * 使用go连接Redis
+ * 需先在命令行启动redis服务
+ */
+
+func main() {
+	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	if err != nil {
+		fmt.Println("connect redis server:", err)
+		return
+	}
+	fmt.Println("connect redis success!")
+	defer conn.Close()
+}
+```
+
+#### connect redis & operator
+
+**go-redis-string.go**
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+)
+
+func main() {
+	// connect redis
+	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	if err != nil {
+		fmt.Println("connect redis error:", err)
+		return
+	}
+	fmt.Println("connect redis success!")
+	defer conn.Close()
+
+	// SET Age 20
+	_, _ = conn.Do("SET", "name", "Coulson")
+
+	// GET name
+	name, _ := redis.String(conn.Do("GET", "name"))
+	fmt.Printf("Get name: %s \n", name)
+}
+```
+
+#### 使用函数封装 Redis
+
+:::: code-group
+::: code-group-item go-redis-string-encapsulate.go
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+)
+
+func main() {
+	conn := redisConnect()
+	defer conn.Close()
+
+	setString(conn, "country", "China")
+	getString(conn, "country")
+
+}
+
+// connect redis
+func redisConnect() redis.Conn {
+	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	if err != nil {
+		fmt.Println("connect redis error:", err)
+		return nil
+	}
+	fmt.Println("connect redis success!")
+
+	return conn
+}
+
+// setString SET filed value
+func setString(conn redis.Conn, field string, value interface{}) {
+	_, _ = conn.Do("SET", field, value)
+}
+
+// getString GET field
+func getString(conn redis.Conn, field string) {
+	res, _ := redis.String(conn.Do("GET", field))
+	fmt.Printf("Get %s: %s \n", field, res)
+}
+```
+
+:::
+::: code-group-item go-redis-struct
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+)
+
+func main() {
+	conn := RedisConnect()
+	defer conn.Close()
+
+	db := Conn{conn}
+	db.SetString("score", 97.2)
+	db.GetString("score")
+}
+
+// RedisConnect connect redis
+func RedisConnect() redis.Conn {
+	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	if err != nil {
+		fmt.Println("connect redis error:", err)
+		return nil
+	}
+	fmt.Println("connect redis success!")
+
+	return conn
+}
+
+type Conn struct {
+	redis.Conn
+}
+
+// SetString SET filed value
+func (conn *Conn) SetString(field string, value interface{}) {
+	_, _ = conn.Do("SET", field, value)
+}
+
+// GetString GET field
+func (conn *Conn) GetString(field string) {
+	res, _ := redis.String(conn.Do("GET", field))
+	fmt.Printf("Get %s: %s \n", field, res)
+}
+```
+
+:::
+::: code-group-item 排行榜示例
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+)
+
+func main() {
+	conn := RedisConnect()
+	defer conn.Close()
+
+	db := Conn{conn}
+	db.SetString("score", 97.2)
+	db.GetString("score")
+}
+
+// RedisConnect connect redis
+func RedisConnect() redis.Conn {
+	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	if err != nil {
+		fmt.Println("connect redis error:", err)
+		return nil
+	}
+	fmt.Println("connect redis success!")
+
+	return conn
+}
+
+type Conn struct {
+	redis.Conn
+}
+
+// SetString SET filed value
+func (conn *Conn) SetString(field string, value interface{}) {
+	_, _ = conn.Do("SET", field, value)
+}
+
+// GetString GET field
+func (conn *Conn) GetString(field string) {
+	res, _ := redis.String(conn.Do("GET", field))
+	fmt.Printf("Get %s: %s \n", field, res)
+}
+```
+
+:::
+::::
+
 
 ### strings
 
@@ -3904,329 +4581,6 @@ func main() {
 
 :::
 
-### mysql
-
-```bash
-go get -u "github.com/go-sql-driver/mysql"
-```
-
-::: details Example
-
-```go
-package main
-
-import (
-	"database/sql"
-	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"log"
-	"strings"
-)
-
-var DB *sql.DB
-
-type User struct {
-	id    int
-	name  string
-	email string
-}
-
-func main() {
-	db := ConnectDB()
-	defer db.Close()
-	// Query(2)
-	// QueryAll()
-
-	// Insert()
-	// Insert2()
-	// Insert3()
-
-	// parms := []string{"name", "email", "password"}
-	// data := []map[string]string{
-	// 	{"username": "test1", "email": "test1@gmail.com", "password": "123456"},
-	// 	{"username": "test2", "email": "test2@gmail.com", "password": "admin123"},
-	// }
-	// InsertAny(parms, data)
-
-	// Update()
-	// Delete()
-}
-
-func ConnectDB() *sql.DB {
-	dsn := "root:root@tcp(localhost:3306)/golang_api?charset=utf8mb4&parseTime=True"
-	db, err := sql.Open("mysql", dsn)
-	if err != nil {
-		log.Fatal("数据库连接失败！")
-	}
-
-	DB = db
-	return db
-}
-
-// id查询一条数据
-func Query(id int) {
-	sqlStr := "select id, name, email from users where id = ?"
-	var u User
-	err := DB.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.email)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("id: %d, name: %s, email: %s\n", u.id, u.name, u.email)
-}
-
-// 查询全部数据
-func QueryAll() {
-	sqlStr := "select id, name, email from users where id > ?"
-	rows, _ := DB.Query(sqlStr, 0)
-	defer rows.Close()
-	for rows.Next() {
-		var u User
-		err := rows.Scan(&u.id, &u.name, &u.email)
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Printf("id: %d, name: %s, email: %s\n", u.id, u.name, u.email)
-	}
-}
-
-// 插入数据
-func Insert() {
-	sqlStr := "insert into users(name, email) values(?, ?)"
-	res, _ := DB.Exec(sqlStr, "aqwq", "aqwq@gmail.com")
-	id, _ := res.LastInsertId()
-	fmt.Printf("id: %d insert success!", id)
-}
-
-// 插入多条数据
-func Insert2() {
-	sqlStr := "insert into users(name, email) values (?, ?), (?, ?)"
-
-	res, _ := DB.Exec(sqlStr, "tom", "tom@gmail.com", "john", "john@gmail.com")
-	id, _ := res.LastInsertId()
-	fmt.Printf("id: %d insert success!", id)
-}
-
-// 插入多条数据
-func Insert3() {
-	data := []map[string]string{
-		{"name": "test1", "email": "test1@gmail.com"},
-		{"name": "test2", "email": "test2@gmail.com"},
-		{"name": "test3", "email": "test3@gmail.com"},
-	}
-	sqlStr := "insert into users(name, email) values"
-	vals := []interface{}{}
-	for index, row := range data {
-		if index == len(data)-1 {
-			sqlStr += "(?, ?)"
-		} else {
-			sqlStr += "(?, ?), "
-		}
-		vals = append(vals, row["name"], row["email"])
-	}
-
-	res, _ := DB.Exec(sqlStr, vals...) // vals...: 解构
-	id, _ := res.LastInsertId()
-	fmt.Printf("lastId: %d insert success!", id)
-}
-
-func InsertAny(parms []string, data []map[string]string) {
-	sqlStr := "insert into users("
-	for i, v := range parms {
-		if i == len(parms)-1 {
-			sqlStr += v
-		} else {
-			sqlStr += v + ", "
-		}
-	}
-	sqlStr += ") values "
-
-	vals := []interface{}{}
-	sqlQuery := fmt.Sprintf("(%s)", strings.Join(strings.Split(strings.Repeat("?", len(parms)), ""), ","))
-	for index, row := range data {
-		if index == len(data)-1 {
-			sqlStr += sqlQuery
-		} else {
-			sqlStr += sqlQuery + ", "
-		}
-
-		for _, v := range parms {
-			vals = append(vals, row[v])
-		}
-	}
-
-	res, _ := DB.Exec(sqlStr, vals...) // vals...: 解构
-	id, _ := res.LastInsertId()
-	fmt.Printf("lastId: %d insert success!", id)
-}
-
-func Update() {
-	sqlStr := "update users set name = ?, email = ? where id = ?"
-	res, _ := DB.Exec(sqlStr, "yop", "yop@gmail.com", 10)
-	affected, _ := res.RowsAffected()
-	fmt.Println(affected) // return 1: success
-}
-
-func Delete() {
-	sqlStr := "delete from users where id = ?"
-	res, _ := DB.Exec(sqlStr, 12)
-	rows, _ := res.RowsAffected()
-	fmt.Println(rows) // return 1: success
-}
-```
-
-:::
-
-- 连接数据库
-
-```go{4}
-var DB *sql.DB
-func ConnectDB() *sql.DB {
-	dsn := "root:root@tcp(localhost:3306)/golang_api?charset=utf8mb4&parseTime=True"
-	db, err := sql.Open("mysql", dsn)
-	if err != nil {
-		log.Fatal("数据库连接失败！")
-	}
-
-	DB = db
-	return db
-}
-```
-
-- 查询一条数据
-
-```go{4}
-func Query(id int) {
-	sqlStr := "select id, name, email from users where id = ?"
-	var u User
-	err := DB.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.email)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("id: %d, name: %s, email: %s\n", u.id, u.name, u.email)
-}
-```
-
-- 查询全部数据
-
-```go{3,5,7}
-func QueryAll() {
-	sqlStr := "select id, name, email from users where id > ?"
-	rows, _ := DB.Query(sqlStr, 0)
-	defer rows.Close()
-	for rows.Next() {
-		var u User
-		err := rows.Scan(&u.id, &u.name, &u.email)
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Printf("id: %d, name: %s, email: %s\n", u.id, u.name, u.email)
-	}
-}
-```
-
-- 插入一条数据
-
-```go{3-4}
-func Insert() {
-	sqlStr := "insert into users(name, email) values(?, ?)"
-	res, _ := DB.Exec(sqlStr, "aqwq", "aqwq@gmail.com")
-	id, _ := res.LastInsertId()
-	fmt.Printf("id: %d insert success!", id)
-}
-```
-
-- 插入多条数据
-
-```go{3-4}
-func Insert2() {
-	sqlStr := "insert into users(name, email) values (?, ?), (?, ?)"
-	res, _ := DB.Exec(sqlStr, "tom", "tom@gmail.com", "john", "john@gmail.com")
-	id, _ := res.LastInsertId()
-	fmt.Printf("id: %d insert success!", id)
-}
-```
-
-- 插入多条数据 2
-
-```go
-func Insert3() {
-	data := []map[string]string{
-		{"name": "test1", "email": "test1@gmail.com"},
-		{"name": "test2", "email": "test2@gmail.com"},
-		{"name": "test3", "email": "test3@gmail.com"},
-	}
-	sqlStr := "insert into users(name, email) values"
-	vals := []interface{}{}
-	for index, row := range data {
-		if index == len(data)-1 {
-			sqlStr += "(?, ?)"
-		} else {
-			sqlStr += "(?, ?), "
-		}
-		vals = append(vals, row["name"], row["email"])
-	}
-
-	res, _ := DB.Exec(sqlStr, vals...) // vals...: 解构
-	id, _ := res.LastInsertId()
-	fmt.Printf("lastId: %d insert success!", id)
-}
-```
-
-- 插入任意数量字段
-
-```go
-func InsertAny(parms []string, data []map[string]string) {
-	sqlStr := "insert into users("
-	for i, v := range parms {
-		if i == len(parms)-1 {
-			sqlStr += v
-		} else {
-			sqlStr += v + ", "
-		}
-	}
-	sqlStr += ") values "
-
-	vals := []interface{}{}
-	sqlQuery := fmt.Sprintf("(%s)", strings.Join(strings.Split(strings.Repeat("?", len(parms)), ""), ","))
-	for index, row := range data {
-		if index == len(data)-1 {
-			sqlStr += sqlQuery
-		} else {
-			sqlStr += sqlQuery + ", "
-		}
-
-		for _, v := range parms {
-			vals = append(vals, row[v])
-		}
-	}
-
-	res, _ := DB.Exec(sqlStr, vals...) // vals...: 解构
-	id, _ := res.LastInsertId()
-	fmt.Printf("lastId: %d insert success!", id)
-}
-```
-
-- 更新数据
-
-```go{3-4}
-func Update() {
-	sqlStr := "update users set name = ?, email = ? where id = ?"
-	res, _ := DB.Exec(sqlStr, "yop", "yop@gmail.com", 10)
-	affected, _ := res.RowsAffected()
-	fmt.Println(affected) // return 1: success
-}
-```
-
-- 删除数据
-
-```go{3-4}
-func Delete() {
-	sqlStr := "delete from users where id = ?"
-	res, _ := DB.Exec(sqlStr, 12)
-	rows, _ := res.RowsAffected()
-	fmt.Println(rows) // return 1: success
-}
-```
 
 ### net & net/url
 
@@ -4284,268 +4638,8 @@ log.Println()
 log.Fatal(err)
 ```
 
-### csv
 
-```go
-// 读取csv文件
-reader := csv.NewReader()
-reader.ReadAll()
-reader.Read()
 
-// 写入csv文件
-csv.NewWriter(file)
-w.WriteAll([][]string{})
-```
-
-::: details 示例
-**For Example**
-
-```go
-func ReadCsv(filename string) {
-	file, _ := os.Open(filename)
-	defer file.Close()
-
-	reader := csv.NewReader(file)
-	reader.Comma = ','
-
-	// for {
-	// 	record, _ := reader.Read()
-	// }
-
-	records, err := reader.ReadAll()
-	if err != nil {
-		log.Printf("Failed to read csv file, err: %s", err)
-	}
-	for _, record := range records {
-		fmt.Printf("%#v\n", record)
-	}
-	log.Printf("Read csv file successfully, the data is updated")
-}
-
-func WriteCsv(filename string) {
-	file, _ := os.Create(filename)
-	defer file.Close()
-
-	// file.WriteString("\xEF\xBB\xBF")	// 写入utf-8 BOM
-	w := csv.NewWriter(file)
-	_ = w.WriteAll([][]string{
-		{"id", "name", "score"},
-		{"1", "Barry", "97"},
-		{"2", "Shirdon", "89"},
-		{"3", "Jack", "92"},
-		{"4", "Tom", "78"},
-	})
-	w.Flush()
-}
-```
-
-:::
-
-### redis
-
-#### connect redis
-
-**go-redis.go**
-
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/garyburd/redigo/redis"
-)
-
-/**
- * 使用go连接Redis
- * 需先在命令行启动redis服务
- */
-
-func main() {
-	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
-	if err != nil {
-		fmt.Println("connect redis server:", err)
-		return
-	}
-	fmt.Println("connect redis success!")
-	defer conn.Close()
-}
-```
-
-#### connect redis & operator
-
-**go-redis-string.go**
-
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/garyburd/redigo/redis"
-)
-
-func main() {
-	// connect redis
-	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
-	if err != nil {
-		fmt.Println("connect redis error:", err)
-		return
-	}
-	fmt.Println("connect redis success!")
-	defer conn.Close()
-
-	// SET Age 20
-	_, _ = conn.Do("SET", "name", "Coulson")
-
-	// GET name
-	name, _ := redis.String(conn.Do("GET", "name"))
-	fmt.Printf("Get name: %s \n", name)
-}
-```
-
-#### 使用函数封装 Redis
-
-:::: code-group
-::: code-group-item go-redis-string-encapsulate.go
-
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/garyburd/redigo/redis"
-)
-
-func main() {
-	conn := redisConnect()
-	defer conn.Close()
-
-	setString(conn, "country", "China")
-	getString(conn, "country")
-
-}
-
-// connect redis
-func redisConnect() redis.Conn {
-	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
-	if err != nil {
-		fmt.Println("connect redis error:", err)
-		return nil
-	}
-	fmt.Println("connect redis success!")
-
-	return conn
-}
-
-// setString SET filed value
-func setString(conn redis.Conn, field string, value interface{}) {
-	_, _ = conn.Do("SET", field, value)
-}
-
-// getString GET field
-func getString(conn redis.Conn, field string) {
-	res, _ := redis.String(conn.Do("GET", field))
-	fmt.Printf("Get %s: %s \n", field, res)
-}
-```
-
-:::
-::: code-group-item go-redis-struct
-
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/garyburd/redigo/redis"
-)
-
-func main() {
-	conn := RedisConnect()
-	defer conn.Close()
-
-	db := Conn{conn}
-	db.SetString("score", 97.2)
-	db.GetString("score")
-}
-
-// RedisConnect connect redis
-func RedisConnect() redis.Conn {
-	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
-	if err != nil {
-		fmt.Println("connect redis error:", err)
-		return nil
-	}
-	fmt.Println("connect redis success!")
-
-	return conn
-}
-
-type Conn struct {
-	redis.Conn
-}
-
-// SetString SET filed value
-func (conn *Conn) SetString(field string, value interface{}) {
-	_, _ = conn.Do("SET", field, value)
-}
-
-// GetString GET field
-func (conn *Conn) GetString(field string) {
-	res, _ := redis.String(conn.Do("GET", field))
-	fmt.Printf("Get %s: %s \n", field, res)
-}
-```
-
-:::
-::: code-group-item 排行榜示例
-
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/garyburd/redigo/redis"
-)
-
-func main() {
-	conn := RedisConnect()
-	defer conn.Close()
-
-	db := Conn{conn}
-	db.SetString("score", 97.2)
-	db.GetString("score")
-}
-
-// RedisConnect connect redis
-func RedisConnect() redis.Conn {
-	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
-	if err != nil {
-		fmt.Println("connect redis error:", err)
-		return nil
-	}
-	fmt.Println("connect redis success!")
-
-	return conn
-}
-
-type Conn struct {
-	redis.Conn
-}
-
-// SetString SET filed value
-func (conn *Conn) SetString(field string, value interface{}) {
-	_, _ = conn.Do("SET", field, value)
-}
-
-// GetString GET field
-func (conn *Conn) GetString(field string) {
-	res, _ := redis.String(conn.Do("GET", field))
-	fmt.Printf("Get %s: %s \n", field, res)
-}
-```
-
-:::
-::::
 
 ### reflect
 
