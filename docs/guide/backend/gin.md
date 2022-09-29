@@ -2,17 +2,16 @@
 
 ## Overview
 
-### 1. 快速开始
+### 1. 快速入门
 
-1. 创建gin项目
-```bash{3-4}
-$ mkdir [project_name]
-$ cd [project_name]
-$ go mod init [project_name]
+1. 初始化golang项目
+
+```sh
+$ go mod init <project-name>
 $ go mod tidy
 ```
 
-2. 安装依赖包
+2. 安装gin依赖包
 
 ```sh
 $ go get -u "github.com/gin-gonic/gin"
@@ -20,8 +19,8 @@ $ go get -u "github.com/gin-gonic/gin"
 
 3. 创建main.go文件
 
-```bash
-$ vim main.go   # or `touch main.go`
+```sh
+$ vim main.go
 ```
 
 ```go
@@ -31,12 +30,12 @@ import "github.com/gin-gonic/gin"
 
 func main() {
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
+	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "Hello Gin !",
+			"message": "pong",
 		})
 	})
-	r.Run()
+	r.Run()	// curl http://localhost:8080/ping
 }
 ```
 
@@ -46,10 +45,10 @@ func main() {
 
 ```sh
 $ go run main.go
-$ curl "http://localhost:8080/"
+$ curl "http://localhost:8080/ping"
 ```
 
-### 2. 结构化
+### 2. 结构化项目
 
 ```md
 $ tree
@@ -110,7 +109,7 @@ func HelloController(c *gin.Context) {
 }
 ```
 :::
-::: code-group-item http://localhost:8080/
+::: code-group-item http://localhost:8080/hello
 ```json
 {"message":"Welcome to Gin !"}
 ```
@@ -253,6 +252,384 @@ type DateInfo struct {
 	dvp_2 string
 	dvp_3 string
 }
+```
+
+## Sample
+
+### HTTP 方法
+
+```go
+r.GET("/someGet", getting)
+r.POST("/somePost", posting)
+r.PUT("/somePut", putting)
+r.DELETE("/someDelete", deleting)
+r.PATCH("/somePatch", patching)
+r.HEAD("/someHead", head)
+r.OPTIONS("/someOptions", options)
+```
+
+### GET 无参方法
+
+```go
+// curl http://localhost:8080/hello
+r.GET("/hello", func(c *gin.Context) {
+	c.JSON(200, gin.H{"message": "Hello Gin !"})
+})
+```
+
+### GET 路径解析参数
+
+```go
+// curl http://localhost:8080/user/john
+r.GET("/user/:name", func(c *gin.Context) {
+	name := c.Param("name")
+	c.String(http.StatusOK, "Hello %s", name)
+})
+```
+
+### GET Query参数
+
+```go
+// curl http://localhost:8080/users?name=coulson&role=developer
+r.GET("/users", func(c *gin.Context) {
+	name := c.Query("name")
+	role := c.DefaultQuery("role", "teacher")
+	c.String(http.StatusOK, "%s is a %s", name, role)
+})
+```
+
+### POST 无参方法
+
+```go
+r.POST("/post", func(c *gin.Context) {
+	c.String(200, "post方法")
+})
+```
+
+### POST Body-form表单
+
+```go
+// curl http://localhost:8080/form  -X POST -d 'username=geektutu&password=1234'
+r.POST("/form", func(c *gin.Context) {
+	username := c.PostForm("username")
+	password := c.DefaultPostForm("password", "000000") // 可设置默认值
+
+	c.JSON(http.StatusOK, gin.H{
+		"username": username,
+		"password": password,
+	})
+})
+```
+
+### POST Query参数与From表单
+
+```go
+// curl "http://localhost:8080/posts?id=9876&page=7"  -X POST -d 'username=geektutu&password=1234'
+r.POST("/posts", func(c *gin.Context) {
+	id := c.Query("id")
+	page := c.DefaultQuery("page", "0")
+	username := c.PostForm("username")
+	password := c.DefaultPostForm("password", "000000") // 可设置默认值
+
+	c.JSON(http.StatusOK, gin.H{
+		"id":       id,
+		"page":     page,
+		"username": username,
+		"password": password,
+	})
+})
+```
+
+### POST map
+
+```go
+// curl -g "http://localhost:8080/post?ids[Jack]=001&ids[Tom]=002" -X POST -d 'names[a]=Sam&names[b]=David'
+r.POST("/postmap", func(c *gin.Context) {
+	ids := c.QueryMap("ids")
+	names := c.PostFormMap("names")
+
+	c.JSON(http.StatusOK, gin.H{"ids": ids,"names": names})
+})
+```
+
+### POST json参数
+
+```go
+r.POST("/json", ShowUser)
+
+func ShowUser(c *gin.Context) {
+	var user models.User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, user)
+}
+```
+
+### 路由组
+
+```go
+// group: v1
+// http://localhost:8080/api/v1/task
+v1 := r.Group("/api/v1")
+{
+	v1.GET("/task", defaultHandler)
+	v1.GET("/series", defaultHandler)
+}
+// group: v2
+v2 := r.Group("/api/v2")
+{
+	v2.GET("/task", defaultHandler)
+	v2.GET("/series", defaultHandler)
+}
+```
+
+### 路由参数
+
+```go
+// 解析路径参数: "/user/:name" -> /user/john
+c.Param("name")
+// Query参数: users?name=coulson&role=developer，role可选
+c.Query("name")
+c.DefaultQuery("role", "teacher")
+
+// post-form表单
+c.PostForm("username")
+c.DefaultPostForm("password", "000000")
+
+// map: curl -g "http://localhost:8080/post?ids[Jack]=001&ids[Tom]=002" -X POST -d 'names[a]=Sam&names[b]=David'
+c.QueryMap("ids")
+c.PostFormMap("names")
+
+// json
+c.ShouldBindJSON(&user)
+```
+
+### 路由参数-路径参数 :name
+```go{2-3}
+// /user/john
+r.GET("/user/:name", func(c *gin.Context) {
+	name := c.Param("name")
+	c.String(http.StatusOK, "Hello %s", name)
+})
+```
+
+### 路由参数-Params ?name
+
+
+```go{3-4}
+// curl http://localhost:8080/user?name=tom&role=developer, role可选
+router.GET("/user", func(c *gin.Context) {
+	name := c.Query("name")
+	role := c.DefaultQuery("role", "teacher")
+	c.String(http.StatusOK, "%s is a %s", name, role)
+})
+```
+
+
+### 路由参数-Body参数
+
+```go
+// curl http://localhost:8080/form  -X POST -d 'username=geektutu&password=1234'
+r.POST("/form", func(c *gin.Context) {
+	username := c.PostForm("username")
+	password := c.DefaultPostForm("password", "000000") // 可设置默认值
+
+	c.JSON(http.StatusOK, gin.H{
+		"username": username,
+		"password": password,
+	})
+})
+```
+
+### 路由绑定uri
+
+```go{6-7,12,14}
+package main
+
+import "github.com/gin-gonic/gin"
+
+type Person struct {
+	ID   string `uri:"id" binding:"required,uuid"`
+	Name string `uri:"name" binding:"required"`
+}
+
+func main() {
+	route := gin.Default()
+	route.GET("/:name/:id", func(c *gin.Context) {
+		var person Person
+		if err := c.ShouldBindUri(&person); err != nil {
+			c.JSON(400, gin.H{"msg": err.Error()})
+			return
+		}
+		c.JSON(200, gin.H{"name": person.Name, "uuid": person.ID})
+	})
+	route.Run(":8080")
+}
+```
+
+### 模型绑定与验证
+
+```go{3-4,13,34,51}
+// 绑定 JSON
+type Login struct {
+	User     string `form:"user" json:"user" xml:"user"  binding:"required"`
+	Password string `form:"password" json:"password" xml:"password" binding:"required"`
+}
+
+func main() {
+	router := gin.Default()
+
+	// 绑定 JSON ({"user": "manu", "password": "123"})
+	router.POST("/loginJSON", func(c *gin.Context) {
+		var json Login
+		if err := c.ShouldBindJSON(&json); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		if json.User != "manu" || json.Password != "123" {
+			c.JSON(http.StatusUnauthorized, gin.H{"status": "unauthorized"})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"status": "you are logged in"})
+	})
+
+	// 绑定 XML (
+	//	<?xml version="1.0" encoding="UTF-8"?>
+	//	<root>
+	//		<user>manu</user>
+	//		<password>123</password>
+	//	</root>)
+	router.POST("/loginXML", func(c *gin.Context) {
+		var xml Login
+		if err := c.ShouldBindXML(&xml); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		if xml.User != "manu" || xml.Password != "123" {
+			c.JSON(http.StatusUnauthorized, gin.H{"status": "unauthorized"})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"status": "you are logged in"})
+	})
+
+	// 绑定 HTML form表单 (user=manu&password=123)
+	router.POST("/loginForm", func(c *gin.Context) {
+		var form Login
+		// 根据 Content-Type Header 推断使用哪个绑定器。
+		if err := c.ShouldBind(&form); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		if form.User != "manu" || form.Password != "123" {
+			c.JSON(http.StatusUnauthorized, gin.H{"status": "unauthorized"})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"status": "you are logged in"})
+	})
+
+	// 监听并在 0.0.0.0:8080 上启动服务
+	router.Run(":8080")
+}
+```
+
+### 渲染String
+
+```go
+c.String(200, "Hello world !")
+```
+
+### 渲染JSON
+
+```go
+r.GET("/json", func(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"code":    200,
+		"message": "请求成功",
+	})
+})
+```
+
+### 渲染XML
+
+```go
+r.GET("/xml", func(c *gin.Context) {
+	c.XML(http.StatusOK, gin.H{
+		"message": "hey",
+		"status": 200
+	})
+})
+```
+
+### 渲染YAML
+
+```go
+r.GET("/yaml", func(c *gin.Context) {
+	c.YAML(http.StatusOK, gin.H{
+		"message": "hey",
+		"status": http.StatusOK
+	})
+})
+```
+
+### 记录日志
+
+```go
+// 默认禁用控制台颜色(仅记录到文件时)
+// gin.DisableConsoleColor()
+
+// 记录到文件。
+f, _ := os.Create("gin.log")
+gin.DefaultWriter = io.MultiWriter(f)
+```
+
+```go
+// 强制日志颜色化(需要记录到控制台时)
+gin.ForceConsoleColor()
+
+// 记录到文件和控制台
+f, _ := os.Create("gin.log")
+gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
+```
+
+### curl
+
+```sh
+$ curl -v -X POST \
+  http://localhost:8080/loginJSON \
+  -H 'content-type: application/json' \
+  -d '{ "user": "manu" }'
+```
+
+### 使用默认的中间件
+
+```go
+// Default 使用 Logger 和 Recovery 中间件
+r := gin.Default()
+```
+
+### 不使用默认的中间件
+
+```go
+// 新建一个没有任何默认中间件的路由
+r := gin.New()
+
+// 全局中间件
+// Logger 中间件将日志写入 gin.DefaultWriter，即使你将 GIN_MODE 设置为 release。
+// By default gin.DefaultWriter = os.Stdout
+r.Use(gin.Logger())
+
+// Recovery 中间件会 recover 任何 panic。如果有 panic 的话，会写入 500。
+r.Use(gin.Recovery())
 ```
 
 
