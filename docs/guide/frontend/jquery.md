@@ -11,8 +11,8 @@
 ### jquery加载DOM元素
 
 ```js
-$(function() {...}
-$(document).ready(function () {...}
+$(function() {...})
+$(document).ready(function () {...})
 ```
 
 ### 快速开始
@@ -52,7 +52,7 @@ $(this)
 ### jquery操作HTML
 
 * innerHTML
-  
+
 ```js
 // 获取
 $(this).html()
@@ -63,7 +63,7 @@ $(this).html('test')
 ```
 
 * class
-  
+
 ```js
 $(this).addClass('active')
 $(this).removeClass('active')
@@ -76,7 +76,7 @@ $(this).toggleClass('active')
 // 获取
 $(this).attr("href")
 // 修改
-$(this).attr("href", "https://www.baidu.com") 
+$(this).attr("href", "https://www.baidu.com")
 $("img").attr("src", "cat.png");
 
 // 删除
@@ -84,7 +84,7 @@ $("#test").removeAttr("border");
 ```
 
 * input的value
-  
+
 ```js
 $(this).val()
 ```
@@ -94,13 +94,13 @@ $(this).val()
 ```js
 $(this).css('color', 'red')
 $("div").css({
-  "color": "red", 
+  "color": "red",
   "font-size": "200%"
 })
 ```
 
 * width()、innerWidth()、outerWidth()、height()、...
-  
+
 ```
 innerWidth() = padding*2 + width
 outerWidth() = padding*2 + width + border-width*2
@@ -163,7 +163,7 @@ $("selector").empty()
 //Mouse Events
 $("selector").click(function() {})		  //单击
 dbclick		  //双击
-trigger      
+trigger
 mouseenter    //鼠标进入
 mouseleave    //鼠标离开
 mouseover     //鼠标悬浮

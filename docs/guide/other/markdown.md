@@ -68,8 +68,7 @@ class Main {
 ### 图片
 
 ```md
-
-
+![](@/assets/css/text-yinxiang.png)
 ```
 
 

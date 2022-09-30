@@ -76,7 +76,7 @@ const navbarConfig: NavbarConfig = [
 			},
 			{
 				text: "Java框架",
-				children: [{text: "SpringBoot", link: "https://spring.io/projects/spring-boot#learn"}],
+				children: [{text: "SpringBoot", link: "/guide/backend/springboot.md"}],
 			},
 			{
 				text: "Python框架",
