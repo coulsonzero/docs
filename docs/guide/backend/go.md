@@ -3030,77 +3030,7 @@ os.TempDir()
 os.ReadDir(name string)
 ```
 
-**程序退出**
 
-```go
-// defers will not be run when using os.Exit, so this fmt.Println will never be called.
-// defer fmt.Println("!")
-os.Exit(1)
-```
-
-**Cmd 命令**
-
-```go
-res, _ := exec.Command("ls").Output()
-res, _ := exec.Command("bash", "-c", "ls -a -l -h").Output()
-// 使用string(res)输出
-```
-
-::: details cmd 示例
-
-```go
-package main
-
-import (
-	"fmt"
-	"os/exec"
-)
-
-func main() {
-	goCmd3()
-}
-
-/**
- * go程序执行cmd命令
- */
-
-func goCmd() {
-	cmd := exec.Command("ls")
-	res, _ := cmd.Output()
-	fmt.Println(string(res))
-}
-
-// 简写
-func goCmd2() {
-	res, _ := exec.Command("ls").Output()
-	fmt.Println(string(res))
-}
-
-// 带参数
-func goCmd3() {
-	lsOut, _ := exec.Command("bash", "-c", "ls -a -l -h").Output()
-	fmt.Printf("> ls -a -l -h: %s", string(lsOut))
-}
-
-// 与方法3相同，此方法会将目录着重显示
-func goCmd4() {
-	binary, lookErr := exec.LookPath("ls")
-	if lookErr != nil {
-		panic(lookErr)
-	}
-
-	args := []string{"ls", "-a", "-l", "-h"}
-
-	env := os.Environ()
-
-	execErr := syscall.Exec(binary, args, env)
-	if execErr != nil {
-		panic(execErr)
-	}
-}
-```
-
-:::
 
 **目录遍历**
 
@@ -3534,6 +3464,79 @@ func WriteCsv(filename string) {
 		{"4", "Tom", "78"},
 	})
 	w.Flush()
+}
+```
+
+:::
+### cmd
+
+**程序退出**
+
+```go
+// defers will not be run when using os.Exit, so this fmt.Println will never be called.
+// defer fmt.Println("!")
+os.Exit(1)
+```
+
+**Cmd 命令**
+
+```go
+res, _ := exec.Command("ls").Output()
+res, _ := exec.Command("bash", "-c", "ls -a -l -h").Output()
+// 使用string(res)输出
+```
+
+::: details cmd 示例
+
+```go
+package main
+
+import (
+	"fmt"
+	"os/exec"
+)
+
+func main() {
+	goCmd3()
+}
+
+/**
+ * go程序执行cmd命令
+ */
+
+func goCmd() {
+	cmd := exec.Command("ls")
+	res, _ := cmd.Output()
+	fmt.Println(string(res))
+}
+
+// 简写
+func goCmd2() {
+	res, _ := exec.Command("ls").Output()
+	fmt.Println(string(res))
+}
+
+// 带参数
+func goCmd3() {
+	lsOut, _ := exec.Command("bash", "-c", "ls -a -l -h").Output()
+	fmt.Printf("> ls -a -l -h: %s", string(lsOut))
+}
+
+// 与方法3相同，此方法会将目录着重显示
+func goCmd4() {
+	binary, lookErr := exec.LookPath("ls")
+	if lookErr != nil {
+		panic(lookErr)
+	}
+
+	args := []string{"ls", "-a", "-l", "-h"}
+
+	env := os.Environ()
+
+	execErr := syscall.Exec(binary, args, env)
+	if execErr != nil {
+		panic(execErr)
+	}
 }
 ```
 
