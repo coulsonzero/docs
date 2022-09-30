@@ -3412,6 +3412,62 @@ DbName = todolist_db
 # mysql 名字
 ```
 
+### yml
+
+```sh
+$ go get -u "github.com/spf13/viper"
+```
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/spf13/viper"
+)
+
+func main() {
+	// 初始化yml配置
+	InitConfigYml("config.yml")
+
+	// 获取yml配置项
+	host := viper.GetString("mysql.host")
+	fmt.Println(host)
+}
+
+func InitConfigYml(fileName string) {
+	viper.SetConfigType("yml")
+	viper.SetConfigFile(fileName)
+	if err := viper.ReadInConfig(); err != nil {
+		panic(err)
+	}
+}
+```
+
+```yml
+server:
+  domain: task
+  version: 1.0
+  jwtSecret: 38324
+  grpcAddress: "127.0.0.1:10002"
+
+mysql:
+  driverName: mysql
+  host: 127.0.0.1
+  port: 3306
+  database: grpc_todo_list
+  username: root
+  password: root
+  charset: utf8mb4
+
+etcd:
+  address: 127.0.0.1:2379
+
+redis:
+  address: 127.0.0.1:6379
+  password:
+```
+
 ### csv
 
 ```go
