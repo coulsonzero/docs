@@ -657,7 +657,59 @@ $ go get -u github.com/gin-gonic/gin
 
 ```sh
 # 安装fresh
-$ go get github.com/pilu/fresh
-# 运行fresh 代替 go run main.go
-$ fresh
+$ go get -u github.com/pilu/fresh
+
+$ cd <project-name>
+$ fresh		# 运行fresh 代替 go run main.go
+```
+
+### swag
+
+```sh
+# 安装swag (go-v1.17版本使用install)
+$ go install github.com/swaggo/swag/cmd/swag
+# 查看swag是否安装成功
+$ swag -v
+# 生成docs文档
+$ swag init
+# 启动项目, 并查看接口文档: http://localhost:8080/swagger/index.html
+$ go run main.go
+```
+
+```go
+// main.go
+package main
+
+import (
+	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	_ "go-gin-swagger/docs"
+)
+
+func main() {
+	r := gin.Default()
+
+	// http://localhost:8080/swagger/index.html
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/hello", handleSwagger)
+
+	r.Run()
+}
+
+// 测试接口 godoc
+// @tags admin
+// @router /hello [get]
+// @summary 测试接口
+// @description 测试swagger-hello接口
+// @accept json
+// @produce json
+// @param name body string true "用户名，建议使用姓名拼音"
+// @success 200 {json} {"success":true,"data":{},"msg":"ok"}
+// @failure 500 {json} {"status":500,"data":{},"Msg":{},"Error":"error"}
+func handleSwagger(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "Welcome to Gin !",
+	})
+}
 ```
