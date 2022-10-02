@@ -1037,6 +1037,7 @@ func twoSum(nums []int, target int) []int {
 #### 1) 函数定义
 
 ::: details 详情
+
 ```go{8}
 package main
 import "fmt"
@@ -1049,6 +1050,7 @@ func hello() {
 	fmt.Println("hello world!")
 }
 ```
+
 :::
 
 #### 2) 参数
@@ -1116,8 +1118,8 @@ func main() {
 
 #### 3) 返回值
 
-
 ::: details 详情
+
 ```go {4-5}
 package main
 import "fmt"
@@ -1132,9 +1134,11 @@ func main() {
     fmt.Println(b)
 }
 ```
+
 :::
 
 #### 4) defer、匿名函数、闭包、递归、作用域
+
 :::: code-group
 ::: code-group-item defer 析构器
 
@@ -2975,10 +2979,8 @@ func main() {
 :::
 ::::
 
-
-
-
 ## 读取文件相关库
+
 ### os
 
 **文件操作**
@@ -3029,8 +3031,6 @@ os.TempDir()
 // 读取目录
 os.ReadDir(name string)
 ```
-
-
 
 **目录遍历**
 
@@ -3329,8 +3329,6 @@ func main() {
 
 ```
 
-
-
 ### env
 
 ```go
@@ -3524,6 +3522,7 @@ func WriteCsv(filename string) {
 ```
 
 :::
+
 ### cmd
 
 **程序退出**
@@ -4130,7 +4129,6 @@ func (conn *Conn) GetString(field string) {
 :::
 ::::
 
-
 ### strings
 
 ```go
@@ -4640,18 +4638,13 @@ func main() {
 
 :::
 
-
-
-
-
-
 ### jwt
 
 [jwt.io](https://jwt.io)
 
 > JSON Web Tokens
 
-**获取jwt仓库**
+**获取 jwt 仓库**
 
 ```sh
 $ go get -u "github.com/golang-jwt/jwt"
@@ -4783,7 +4776,6 @@ log.Printf("%s", time.Now())
 log.Println()
 log.Fatal(err)
 ```
-
 
 ### reflect
 
@@ -4981,3 +4973,47 @@ Match:    true
 runtime.Version()
 ```
 
+### regexp
+
+> 正则表达式
+
+| 符号   | 含义            |
+| ------ | --------------- |
+| \w     | [a-zA-Z0-9_]    |
+| \d     | [0-9]           |
+| \s     | 空白字符        |
+| .      | 单个字符        |
+| ^...   | 以...开头       |
+| ...$   | 以...结尾       |
+| +      | [1, +∞)         |
+| \*     | [0, +∞)         |
+| ?      | [0， 1]         |
+| {m}    | n 次            |
+| {m,n}  | [m, n]次        |
+| a \| b | a 或 b 任意一个 |
+| a(bc)d | 分组匹配        |
+| .\*?   | 贪婪匹配        |
+
+**Example**
+
+```go
+package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+const str string = `{"confirmed":"4234","died":"9","crued":"4179"}`
+
+func main() {
+	// reg := regexp.MustCompile(`"confirmed":"(\d+)","died":"(\d+)","crued":"(\d+)"`)
+	reg := regexp.MustCompile(`"[\w]+":"[\d]+"`)
+
+	// res := reg.FindString(str)			  // "confirmed":"4234"
+	// res := reg.FindStringSubmatch(str)     // ["confirmed":"4234"]
+	res := reg.FindAllStringSubmatch(str, -1) // [["confirmed":"4234"] ["died":"9"] ["crued":"4179"]]
+
+	fmt.Println(res)
+}
+```
