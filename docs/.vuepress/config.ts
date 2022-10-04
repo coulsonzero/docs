@@ -5,6 +5,7 @@ import {navbarConfig, sidebarConfig, pluginConfig} from './config/index'
 import path from "path"
 
 
+
 export default defineUserConfig({
 	lang: "zh-CN",
 	/* 如果设置了域名解析则需要删除base: '/' */

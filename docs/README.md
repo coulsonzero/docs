@@ -25,6 +25,12 @@ sidebar: false
 # comment: false
 ---
 
+<!-- <MyTemplate></MyTemplate> -->
+
+
+<FooBar></FooBar>
+
+
 ::: normal-demo Demo 演示
 
 ```html
