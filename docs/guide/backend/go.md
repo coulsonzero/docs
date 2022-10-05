@@ -83,7 +83,7 @@ func main() {
 	// %-3d ——以10进制显示，3表示输出的数字占3个字符的位置，-表示左对齐；
 	fmt.Printf("%d*%d=%-3d ", j, i, i*j)
 
-	// 格式化输入(赋值)
+	// 字符串格式化
 	s := fmt.Sprintf("name: %s, age: %d.\n", "coulson", 20)
 	fmt.Println(s)
 }
@@ -421,32 +421,19 @@ func main() {
 // 1.数字 (整数、浮点数、复数)
 int  <int8/int16/int32/int64>     	// 带符号整数, rune = int32
 uint <uint8/uint16/uint32/uint64>	// 无符号整数(非负数), byte = uint8
-
 // int大小: 与具体的平台有关, int在32位系统中是4字节，在64位系统中是8字节
-
-/*
-int8: -128 ~ 127
-int16: -32768 ~ 32767
-int32: -2147483648 ~ 2147483647
-int64: -9223372036854775808 ~ 9223372036854775807
-uint8: 0 ~ 255
-uint16: 0 ~ 65535
-uint32: 0 ~ 4294967295
-uint64: 0 ~ 18446744073709551615
-*/
-
 float32/float64    		// 1.2 浮点数
 complex64/complex128	// 1.3 复数
 // 2.布尔
 bool
 // 3.字符串
-string
+string, []byte, []rune
 
 
 // Array
 []int
 []string
-[]byte、[]rune
+
 // map
 map[string] int
 
@@ -2694,6 +2681,49 @@ $ rm -rf ~/.gvm
 $ rm -rf ~/.gvm/archive/
 ```
 
+
+### 开源Golang包给其他人使用
+
+step1. 新建public仓库
+step2. 初始化模块
+
+> 将以下github用户名和仓库名替换为自己的即可
+
+```sh
+$ git clone https://github.com/coulsonzero/gopkg.git
+$ cd gopkg
+# 将模块导入为github仓库地址名
+$ go mod init github.com/coulsonzero/gopkg
+$ go mod tidy
+```
+
+**推送仓库内容**
+```sh
+$ git add .
+$ git commit -m "update"
+```
+**目录结构**
+```go
+➡︎  🍭  tree
+.
+├── config.yml
+└── fileConfig
+    ├── env.go
+    ├── ini.go
+    └── yml.go
+```
+
+step3. 使用github仓库包
+```sh
+$ go get -u "github.com/coulsonzero/gopkg"
+```
+
+**使用仓库包需根据模块所在目录导入**
+```go
+import "github.com/coulsonzero/gopkg/fileconfig"
+```
+
+如需在根目录下导入则不使用目录，但是查询和阅读比较麻烦, 看个人需求而定
 ### GO vscode 的 package main 红色波浪性问题
 
 ```
