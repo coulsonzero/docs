@@ -2681,13 +2681,12 @@ $ rm -rf ~/.gvm
 $ rm -rf ~/.gvm/archive/
 ```
 
+### 开源 Golang 包给其他人使用
 
-### 开源Golang包给其他人使用
-
-step1. 新建public仓库
+step1. 新建 public 仓库
 step2. 初始化模块
 
-> 将以下github用户名和仓库名替换为自己的即可
+> 将以下 github 用户名和仓库名替换为自己的即可
 
 ```sh
 $ git clone https://github.com/coulsonzero/gopkg.git
@@ -2698,11 +2697,14 @@ $ go mod tidy
 ```
 
 **推送仓库内容**
+
 ```sh
 $ git add .
 $ git commit -m "update"
 ```
+
 **目录结构**
+
 ```go
 ➡︎  🍭  tree
 .
@@ -2713,17 +2715,118 @@ $ git commit -m "update"
     └── yml.go
 ```
 
-step3. 使用github仓库包
+step3. 使用 github 仓库包
+
 ```sh
 $ go get -u "github.com/coulsonzero/gopkg"
 ```
 
-**使用仓库包需根据模块所在目录导入**
+**方式一. 使用仓库包需根据模块所在目录导入**
+
+> 库文件包导出
+
 ```go
-import "github.com/coulsonzero/gopkg/fileconfig"
+package fileconfig
 ```
 
+> 使用方式
+
+```go
+import "github.com/coulsonzero/gopkg/fileconfig"
+
+func main() {
+	fileconfig.ConfigEnv()
+}
+```
+
+**方式二. 使用 gopkg 统一导出**
+
+> 库文件包导出
+
+```go
+package gopkg
+```
+
+> 使用方式
+
+```go
+import	(
+	gopkg "github.com/coulsonzero/gopkg/fileconfig"
+	gopkg2 "github.com/coulsonzero/gopkg/encrypt"
+)
+
+func main() {
+	gopkg.ConfigEnv()
+	gopkg2.HashPassword()
+}
+```
+
+### 方式三
+### What I've done ?  (v0.4.0)
+remove all subdirectories to update the import package
+
+before
+```sh
+$ tree
+.
+├── encrypt
+├   ├── md5.go          # package gopkg
+├   └── bcrypt.go       # package gopkg
+└── fileconfig
+    ├── env.go          # package gopkg
+    ├── ini.go          # package gopkg
+    └── yml.go          # package gopkg
+```
+before usage (v0.2.0)
+```go
+import (
+    gopkg1 "github.com/coulsonzero/gopkg/encrypt"
+    gopkg2 "github.com/coulsonzero/gopkg/fileconfig"
+)
+```
+```go
+gopkg1.HashPassword("admin123")
+gopkg2.ConfigEnv()
+```
+
+now
+
+```sh
+➡︎  🍭  tree
+.
+├── bcrypt.go
+├── md5.go
+├── env.go
+├── ini.go
+├── yml.go
+├── go.mod
+├── go.sum
+├── LICENSE
+└── README.md
+```
+
+### Usage (v0.4.0)
+#### Install module
+```go
+$ go get github.com/coulsonzero/gopkg
+```
+
+#### How to import it ?
+
+```go
+import "github.com/coulsonzero/gopkg"
+```
+
+#### How to use it ?
+```go
+gopkg.HashPassword("admin123")
+gopkg.ConfigEnv(testEnvArr)
+```
+
+**Full Changelog**: https://github.com/coulsonzero/gopkg/compare/v0.2.0...v0.4.0
+
 如需在根目录下导入则不使用目录，但是查询和阅读比较麻烦, 看个人需求而定
+
 ### GO vscode 的 package main 红色波浪性问题
 
 ```
@@ -3496,7 +3599,6 @@ redis:
   password:
 ```
 
-
 ### sql
 
 ```go
@@ -3525,6 +3627,7 @@ func main() {
 	fmt.Println(ReadSqlFile("./src/Libs/mysql/sqlFile/demo.sql"))
 }
 ```
+
 ### csv
 
 ```go

@@ -4,6 +4,16 @@
 
 ### 发布新版本: Releases-tag
 
+:::warning
+```sh
+# 发布前请先推送
+$ git add .
+$ git commit -m "update"
+$ git push
+```
+:::
+
+**发布新版本**
 ```sh
 # 查看所有已发布的版本号
 $ git tag
