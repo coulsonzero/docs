@@ -64,7 +64,7 @@ const navbarConfig: NavbarConfig = [
 			// {text: "C", link: "/guide/backend/c"},
 			// {text: "C++", link: "/guide/backend/c++"},
 			{text: "Go", link: "/guide/backend/go"},
-			{text: "Kotlin", link: "/guide/backend/kotlin"},
+			// {text: "Kotlin", link: "/guide/backend/kotlin"},
 			// {text: "Swift", link: "/guide/backend/swift"},
 			{
 				text: "Golang框架",
@@ -98,9 +98,14 @@ const navbarConfig: NavbarConfig = [
 	{
 		text: "运维",
 		children: [
-			{text: "SQL", link: "/guide/operations/sql"},
-			{text: "Redis", link: "/guide/operations/redis"},
-			{text: "MongoDB", link: "/guide/operations/mongodb"},
+			{
+				text: "数据库",
+				children: [
+					{text: "SQL", link: "/guide/operations/sql"},
+					{text: "Redis", link: "/guide/operations/redis"},
+					{text: "MongoDB", link: "/guide/operations/mongodb"},
+				],
+			},
 			{text: "Linux", link: "/guide/opGi tions/linux"},
 			{text: "Shell", link: "/guide/operations/shell"},
 			{text: "Docker", link: "/guide/operations/docker"},
