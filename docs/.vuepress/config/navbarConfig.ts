@@ -114,15 +114,13 @@ const navbarConfig: NavbarConfig = [
 					{text: "Shell",link: "/guide/operations/shell"},
 					{text: "Git", link: "/guide/operations/git"},
 				]
-			}
+			},
 			{
 				text: "部署",
 				children: [
 					{text: "Docker", link: "/guide/operations/docker"},
 				]
-			}
-
-
+			},
 		],
 	},
 	{
