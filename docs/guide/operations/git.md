@@ -60,3 +60,23 @@ $ git merge dev
 # 删除分支
 # $ git checkout -d dev
 ```
+
+
+## FAQ
+
+### git pull
+
+**Question**
+
+> 例如: 拉取4，更新1
+
+```sh
+$ git pull
+fatal: Not possible to fast-forward, aborting.
+```
+
+**Solution**
+
+```sh
+$ git pull origin master --rebase
+```
