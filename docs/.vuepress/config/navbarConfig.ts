@@ -11,8 +11,8 @@ const navbarConfig: NavbarConfig = [
 			{
 				text: "web框架",
 				children: [
-					{text: "Vue", link: "/guide/frontend/vue"},
 					{text: "React", link: "/guide/frontend/react/"},
+					{text: "Vue", link: "/guide/frontend/vue"},
 					{text: "jQuery", link: "/guide/frontend/jquery"},
 				],
 			},
@@ -24,7 +24,7 @@ const navbarConfig: NavbarConfig = [
 				],
 			},
 			{
-				text: "可视化",
+				text: "可视化库",
 				children: [
 					{text: "Echarts", link: "/guide/frontend/echarts/"},
 					{text: "Canvas", link: "/guide/frontend/canvas"},
@@ -32,18 +32,19 @@ const navbarConfig: NavbarConfig = [
 				],
 			},
 			{
-				text: "web js库",
+				text: "js库",
 				children: [
 					{text: "Swiper", link: "https://swiperjs.com/demos"},
 					{text: "ScroolReveal", link: "https://scrollrevealjs.org/"},
 				],
 			},
 			{
-				text: "打包工具",
+				text: "命令行工具",
 				children: [
-					{text: "Webpack", link: "https://www.webpackjs.com/"},
-					{text: "Vite", link: "https://cn.vitejs.dev/"},
+					// {text: "Webpack", link: "https://www.webpackjs.com/"},
 					{text: "yarn", link: "https://www.yarnpkg.cn/"},
+					{text: "Vite", link: "https://cn.vitejs.dev/"},
+
 				],
 			},
 			{
@@ -106,10 +107,22 @@ const navbarConfig: NavbarConfig = [
 					{text: "MongoDB", link: "/guide/operations/mongodb"},
 				],
 			},
-			{text: "Linux", link: "/guide/opGi tions/linux"},
-			{text: "Shell", link: "/guide/operations/shell"},
-			{text: "Docker", link: "/guide/operations/docker"},
-			{text: "Git", link: "/guide/operations/git"},
+			{
+				text: "命令",
+				children: [
+					{text: "Linux", link: "/guide/opGi tions/linux"},
+					{text: "Shell",link: "/guide/operations/shell"},
+					{text: "Git", link: "/guide/operations/git"},
+				]
+			}
+			{
+				text: "部署",
+				children: [
+					{text: "Docker", link: "/guide/operations/docker"},
+				]
+			}
+
+
 		],
 	},
 	{
