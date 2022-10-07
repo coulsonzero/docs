@@ -4,13 +4,13 @@
 
 ### Hello World
 
-```shell
+```sh
 echo "Hello World!"
 ```
 
 ### Variable
 
-```shell
+```sh
 name="coulsonzero";
 echo "Hello ${name}";
 ```
@@ -33,7 +33,7 @@ echo ${basePath}    # /Users/coulsonzero/Documents/web/docs
 :::
 ### Comment
 
-```shell
+```sh
 # This is a single-line comment.
 ```
 
@@ -44,6 +44,7 @@ echo ${basePath}    # /Users/coulsonzero/Documents/web/docs
 
 ```sh
 sh deploy.sh
+bash deploy.sh
 ```
 
 :::
