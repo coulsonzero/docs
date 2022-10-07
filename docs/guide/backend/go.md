@@ -7,6 +7,18 @@ simple, reliable and efficient software.
 
 ## Getting Started
 
+### Install
+
+[Go 环境安装](https://golang.google.cn/dl/)
+
+检查版本: `go version`
+
+```sh
+$ vim ~/.bash_profile
+export PATH=$PATH:/usr/local/go/bin
+$ source ~/.bash_profile
+```
+
 ### 1. Hello World
 
 ::: tip
