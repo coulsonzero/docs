@@ -30,7 +30,7 @@ v0.1.0
 v0.2.0
 
 
-# 删除tag标签并推送至远程仓库
+# 删除tag标签(本地和远程)
 $ git tag -d v0.1.0
 $ git push origin :refs/tags/v0.1.0
 

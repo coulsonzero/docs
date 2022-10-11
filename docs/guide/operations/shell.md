@@ -4,17 +4,24 @@
 
 ### Hello World
 
+:::tip
+shell 文件以 `.sh` 为后缀
+
+使用 `bash main.sh` 命令执行 shell 脚本
+
+可定义输入参数进行终端`交互`： `bash main.sh start -l`
+
+#!声明bash解释器的位置 `#!/bin/bash`, 因为可能会有多个bash版本, 如果升级了bash版本后可设置为 `#!/usr/bin/env bash`
+:::
+
+**hello.sh**
 ```sh
+#!/bin/bash
+
 echo "Hello World!"
 ```
 
 ### Variable
-
-```sh
-name="coulsonzero";
-echo "Hello ${name}";
-```
-
 ::: warning
 
 1. 区分大小写
@@ -22,113 +29,343 @@ echo "Hello ${name}";
 
 :::
 
-::: tip
-**实用命令**
-
+**变量定义**
 ```sh
-basePath=$(cd `dirname $0`/; pwd)
-echo ${basePath}    # /Users/coulsonzero/Documents/web/docs
+# 方式一: 直接初始化变量值
+name="john"
+
+# 方式二: 通过命令获取并设置变量值
+export CURPATH="$(cd .. && pwd)"
+count=$(ps -ef | grep -c "ssh")
+
+# 方式三: 读取终端输入参数
+read -t 20 -p "enter version >>> " version
 ```
 
+**变量使用**
+```sh
+# 方式一："$p"
+# 使用变量
+"$name" "$CURPATH"
+# 控制台输入参数
+"$#"   "$1"   "$2"
+
+# 方式二: $p
+$CURPATH
+
+# 方式三: ${p}
+${p}  ${#}
+```
+
+**变量的操作**
+```sh
+# 只读(不可更改)
+readonly name
+# 删除
+unset name
+```
+
+变量类型
+- 环境变量
+- 局部变量
+- shell变量
+
+
+**示例**
+
+```sh
+basePath=$(cd public && pwd)
+echo ${basePath}    # /Users/coulsonzero/Documents/web/public
+```
+
+### 控制台输入参数
+
+:::tip
+从终端传递参数作用:
+1. 进行`终端交互`
+2. 设置`可执行权限`
 :::
+
+```sh
+$0          # sh文件名(路径)
+$#          # 所有从终端传递到shell脚本的参数的数
+$1  $2  $3  # 输出参数
+```
+
+**输入参数示例**
+
+```sh
+# bash | sh
+$ bash push.sh dev      # $#: 2, #0: "push.sh", $1: "dev"
+$ bash push.sh tag -d   # $#: 3, $0: "push.sh", $1: "tag", $2="-d"
+```
+
+**输入参数数量**
+
+```sh
+# 判断输入参数数量 > 1 ？
+if [ $# -ge 1 ]; then
+    # statement
+else
+    # statement
+fi
+```
+
+**输入参数值**
+
+```sh
+# 判断第二个输入参数是否为'-l'
+if [[ "$2" == "-l" ]]; then
+    # statement
+# 判断第二个输入参数是否为空 -z 相当于 ! -n
+elif [[ -z $2 ]]; then
+    # statement
+else
+    echo "undefined the second argument"
+fi
+```
+
+
+### string
+
+```sh
+"hello shell !"     # 初始化
+"hello $name"       # 字符串格式化
+${#name}            # 长度
+${#name:1:4}        # 子串切片
+`expr index "$name" io` # 查找字符i或o在字符串中的索引
+```
+
+### array
+
+```sh
+arr=("apple", "pie", "pear")
+arr[0]="orange"     # arr[i]设置值
+${arr[i]}           # 读取数组值
+${arr[@]}           # 读取数组所有元素
+${#arr[@]}          # 数组长度
+${#arr[*]}          # 数组长度
+```
+
 ### Comment
 
 ```sh
 # This is a single-line comment.
+
+:<<EOF
+This is a milt-line comment
+EOF
+
+:<<'
+This is a milt-line comment also
+'
+
+:<<!
+This is a milt-line comment also
+!
 ```
 
-### 执行 Bash shell 脚本
+### Input & Output
 
-:::: code-group
-::: code-group-item bash
+**input**
+```sh
+# -t 等待时间(秒), -p 提示输入
+read -p "Enter name: " name
+read -t 30 -p "Enter name: " name
+```
+
+**output**
 
 ```sh
-sh deploy.sh
-bash deploy.sh
+echo "Hello World!"
+
+# 字符串格式化输出
+echo "hello $name"
+
+# 换行输出
+echo -n "please enter your name: "
+
+
+printf "Input a character: " # 定义输出前缀
+printf "\nletter\n"
 ```
 
-:::
+### Symbols
 
-::: code-group-item zsh
 
-```zsh
-source shellFile.sh
+```sh
+# && 命令顺序执行
+cd test && pwd
+# |  管道 （连结上个指令的标准输出，做为下个指令的标准输入）
+who | wc -l
 ```
 
-:::
-::::
+### operators
+
+```sh
+&& || !
+# ==
+-eq
+# !=
+-ne
+# >
+-gt
+# <
+-lt
+# >=
+-ge
+# <=
+-le
+```
 
 ### If Statement
 
+
+
 ```sh
-if [ ] then
+# 写法一
+if [ ]; then
     # statement(s)
-elif [ ] then
+elif [ ]; then
+    # statement(s)
+elif [ ]; then
     # statement(s)
 else
     # statement(s)
+fi
+
+# 写法二
+if [ ]
+then
+    # statement(s)
+elif [ ]
+then
+    # statement(s)
+elif [ ]
+then
+    # statement(s)
+else
+    # statement(s)
+fi
+
+
+# 写法二
+if   [ ]; then echo "a"
+elif [ ]; then echo "b"
+elif [ ]; then echo "c"
+else echo "other"
 fi
 ```
 
-::: details 查看示例
-
+**Tips**
 ```sh
-name="coulson"
+# [ ]中间需要空格隔开!
+# ==
+if [ "$p" = "--l" ]
+# !=
+if [ "$p" != "--l" ]
 
-if [ ${name} == "coulsonAlpha" ]
-then
-    echo "hello ${name}"
-elif [ "${name}zero" == "coulsonzero" ]
-then
-    echo "hi ${name}"
-else
-    echo "pass"
-fi
+# 长度不为0 (not null)
+if [ -n "$p" ]
+# 长度为0 (null)
+if [ -z "$p" ]     # ! -n "$p"
+
+if [ ! -f run.bash ]
+```
+
+**其他写法**
+```sh
+# ==
+if [[ $p == "--l" ]]
+# -z
+if [[ ! -n "$p" ]]
+
+# [[ ]] 里面可以直接使用 &&
+if [[ && ]]
+if [  ] && [ ]
+```
+
+**示例**
+```sh
+if [ $(ps -ef | grep -c "ssh") -gt 1 ]; then echo "true"; fi
 ```
 
 ### Case Statement
 
+> case可以使用通配符，写起来更简洁明了，但是不能使用-z之类的判断！
+
 ```sh
-case ${name} in
-    v1)
-        # statement(s)
+case "$1" in
+    "dev"   ) bash dev-push.sh                        ;;
+    "master") bash master-push.sh                     ;;
+    "both"  ) bash dev-push.sh && bash master-push.sh ;;
+    "tag"   ) main                                    ;;
+    *       ) echo   "not input argument"             ;;
+esac
+
+
+# 写法二
+case $1 in
+    "dev"   ) bash dev-push.sh
     ;;
-    v2)
-        # statement(s)
+    "master") bash master-push.sh
     ;;
-    *)  # other
-        # statement(s)
+    "both"  ) bash dev-push.sh && bash master-push.sh
+    ;;
+    "tag"   ) main
+    ;;
+    *       ) echo   "not input argument"
     ;;
 esac
 ```
 
-::: details 点击查看代码
+**示例**
 
 ```sh
-name="coulsonAlpha"
-
-function hello() {
-    case ${name} in
-        "coulsonZero")
-            echo "Zero"
-        ;;
-        "coulsonAlpha")
-            echo "Alpha"
-        ;;
-        *)
-            echo "${name} is not a valid name"
-        ;;
-    esac
-}
-
-function main() {
-    hello
-}
-
-main
+case $str in
+    [a-zA-Z] ) echo "字母" ;;
+    [0-99999]) echo "数字" ;;
+    [,.?!]   ) echo "符号" ;;
+    *        ) echo "其他" ;;
+esac
 ```
 
-:::
+### For Loop
+
+```sh
+for i in "$*"; do
+    echo $i
+done
+```
+
+### While Loop
+
+```sh
+i=1
+while(( $i<=5 )); do
+    echo $i
+    let "int++"
+done
+```
+
+### break and continue
+
+```sh
+while :
+do
+    echo -n "输入 1 到 5 之间的数字:"
+    read num
+    case $num in
+        1|2|3|4|5) echo "你输入的数字为 $num!"
+        ;;
+        *) echo "你输入的数字不是 1 到 5 之间的! 游戏结束"
+            continue echo "游戏结束"    # break
+        ;;
+    esac
+done
+```
+
+
 
 ### Function
 
@@ -137,54 +374,32 @@ function main() {
     echo "Hello"
 }
 
-# 启动函数必须置于底部
+# 启动函数必须置于顶部
 main
 ```
 
-### Input
+
+
+### 执行 Bash shell 脚本
 
 ```sh
-read -p "请输入name: " read_name
-# echo "Output: ${read_name}"
+# 执行shell文件
+sh deploy.sh
+bash deploy.sh
+
+# 刷新
+source shellFile.sh
 ```
 
-::: details 示例
+### 自定义 shell 交互命令
 
-```sh
-name="coulsonAlpha"
-
-function readUsername() {}
-    read -p "输入用户名(默认：${name})：" read_username
-    if [ ${read_username} ]
-    then
-        name=${read_username}
-    fi
-    echo "您输入的用户名为：${name}"
-}
-
-read_username
-```
-
-:::
-
-### Output
-
-```sh
-echo "Hello World!"
-```
-
-### 自定义shell执行命令
-
-::: warning
-不可用function main() {}包裹！
-:::
 
 :::: code-group
 ::: code-group-item Bash
 
 ```sh
 $ sh ./start.sh stop
-> "Close"
+> "close"
 
 $ sh start.sh start
 > "running"
@@ -198,26 +413,22 @@ $ sh start.sh deploy
 ::: code-group-item start.sh
 
 ```sh
+#!/bin/bash
 
 if [ ${#} -ge 1 ]
 then
-    case ${1} in
-        "start")
-            echo "Running"
-        ;;
-        "stop")
-            echo "Close"
-        ;;
-        *)
-            echo "${1}无任何操作"
-        ;;
+    case $1 in
+        "start") echo "running"      ;;
+        "stop" ) echo "close"        ;;
+        *      ) echo "$1无任何操作"   ;;
     esac
 else
     echo "
-    command如下命令:
-    start: 启动
-    stop: 停止进程
-    示例命令如：sh ./start.sh stop
+    [基础命令]
+    1) start: 启动
+    2) stop : 停止进程
+
+    示例：bash main.sh start
     "
 fi
 ```
@@ -225,7 +436,70 @@ fi
 :::
 ::::
 
-::: details SpringBoot部署示例
+
+
+
+### exit
+
+```sh
+# 直接退出shell脚本, 后续命令不再执行
+exit 0  # success
+exit 1  # failure: 非0
+```
+
+## 示例
+
+### golang项目push
+
+::: details golang项目发布
+```sh
+#! /bin/bash
+
+export CUR="shell"
+
+# shellcheck disable=SC2120
+function main() {
+   if [ "$2" = "-d" ]; then         # 判断第二个输入参数为'-d' ?
+       bash tag-delete.sh
+   elif [ -z "$2" ]; then           # 判断第二个输入参数为空 ?
+       bash tag-release.sh
+   else                             # 只有一个输入参数
+       echo 'undefined the second argument '
+   fi
+   exit 0
+}
+
+# shellcheck disable=SC2164
+cd $CUR
+# 判断输入参数数量 > 1 ？
+if [ ${#} -ge 1 ]; then
+  case "$1" in
+    "dev"   ) bash dev-push.sh                        ;;
+    "master") bash master-push.sh                     ;;
+    "both"  ) bash dev-push.sh && bash master-push.sh ;;
+    "tag"   ) main                                    ;;
+    *) echo   "not input argument"                    ;;
+  esac
+else
+    echo "
+    [Bash基础命令]:
+    1) dev    : 推送dev
+    2) master : 推送master
+    3) both   : 同时推送dev与master
+    4) tag    : 推送tag
+    5) tag -d : 删除tag
+
+    命令示例: sh push.sh dev
+    "
+fi
+
+```
+:::
+
+### SprintBoot部署
+
+::: details SpringBoot 部署示例
+
 ```sh
 #!/usr/bin/env bash
 #可变参数变量
@@ -395,6 +669,7 @@ fi
 
 :::
 
+
 ## FAQ
 
 - name: command not found
@@ -416,26 +691,11 @@ else
 fi
 ```
 
-- linux空格和window空格不一致
+- linux 空格和 window 空格不一致
 
 ```sh
 $ vim start.sh
 # 添加此命令保存
 set ff=unix
 ```
-
-- 打印文件的最后5行
-
-```shell
-# 打印文件的最后5行
-tail -n 5 filename.txt
-# tail -5 filename.txt
-```
-
-- 从第17行开始打印
-
-```shell
-sed '1,16d' filename.txt
-```
-
 

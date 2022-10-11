@@ -44,7 +44,6 @@ const navbarConfig: NavbarConfig = [
 					// {text: "Webpack", link: "https://www.webpackjs.com/"},
 					{text: "yarn", link: "https://www.yarnpkg.cn/"},
 					{text: "Vite", link: "https://cn.vitejs.dev/"},
-
 				],
 			},
 			{
@@ -110,16 +109,14 @@ const navbarConfig: NavbarConfig = [
 			{
 				text: "命令",
 				children: [
-					{text: "Linux", link: "/guide/opGi tions/linux"},
-					{text: "Shell",link: "/guide/operations/shell"},
+					{text: "Linux", link: "/guide/operations/linux"},
+					{text: "Shell", link: "/guide/operations/shell"},
 					{text: "Git", link: "/guide/operations/git"},
-				]
+				],
 			},
 			{
 				text: "部署",
-				children: [
-					{text: "Docker", link: "/guide/operations/docker"},
-				]
+				children: [{text: "Docker", link: "/guide/operations/docker"}],
 			},
 		],
 	},
@@ -129,10 +126,10 @@ const navbarConfig: NavbarConfig = [
 			{text: "Leetcode算法", link: "https://coulsonzero.github.io/leetcode-1/"},
 			{text: "Leetcode-Golang", link: "https://books.halfrost.com/leetcode/"},
 			{text: "排序算法", link: "/guide/algorithm/Sort/README.md"},
-			// {text: "字符串", link: "/guide/algorithm/String/README.md"},
-			// {text: "数组", link: "/guide/algorithm/Array/README.md"},
-			// {text: "链表", link: "/guide/algorithm/ListNode/README.md"},
-			// {text: "二叉树", link: "/guide/algorithm/Binarytree/README.md"},
+			{text: "字符串", link: "/guide/algorithm/String/README.md"},
+			{text: "数组", link: "/guide/algorithm/Array/README.md"},
+			{text: "链表", link: "/guide/algorithm/ListNode/README.md"},
+			{text: "二叉树", link: "/guide/algorithm/Binarytree/README.md"},
 		],
 	},
 	{

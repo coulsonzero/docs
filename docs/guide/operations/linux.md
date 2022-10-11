@@ -384,3 +384,26 @@ YAML                             1              0              0              6
 SUM:                            26             78             61            678
 -------------------------------------------------------------------------------
 ```
+
+统计web服务的吞吐量
+```sh
+$ brew install wrk
+# Running 10s test @ http://127.0.0.1:8080/api/v1/covid-19 12 threads and 40 connections
+$ wrk -t12 -c40 -d10s http://127.0.0.1:8080/api/v1/covid-19
+```
+
+- 打印文件的最后 5 行
+
+```shell
+# 打印文件的最后5行
+tail -n 5 filename.txt
+# tail -5 filename.txt
+```
+
+- 从第 17 行开始打印
+
+```shell
+sed '1,16d' filename.txt
+```
+
+

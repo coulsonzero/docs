@@ -3,21 +3,54 @@
 `Google` in `2007`
 simple, reliable and efficient software.
 
+## 一. 快速开始
+
 [Go 中文学习网](https://www.topgoer.com/)
 
-## Getting Started
+### 1.1 环境安装
 
-### Install
+Step1. [下载 Go SDK](https://golang.google.cn/dl/)
 
-[Go 环境安装](https://golang.google.cn/dl/)
+Step2. 终端输入 `go version` 查看 golang SDK 是否安装成功
 
-检查版本: `go version`
+Step3. 更改 go 系统环境变量
 
 ```sh
 $ vim ~/.bash_profile
 export PATH=$PATH:/usr/local/go/bin
+
 $ source ~/.bash_profile
 ```
+
+### 1.3 配置 env 环境变量
+
+> 方便从 github 下载依赖包
+
+```sh
+# 查看go环境变量
+$ go env
+# enable module
+$ go env -w GO111MODULE=on
+# 设置国内代理 https://goproxy.io
+$ go env -w GOPROXY=https://goproxy.cn,direct
+# http://mirrors.aliyun.com/goproxy/
+```
+
+### 1.3 初始化 Go 项目
+
+```sh
+$ mkdir go-hello
+$ cd go-hello
+# 初始化go项目
+$ go mod init go-hello
+# 下载依赖包
+$ go mod tidy
+
+# 运行go程序
+$ go run main.go
+```
+
+## Basis Grammar
 
 ### 1. Hello World
 
@@ -34,7 +67,7 @@ package main
 import "fmt"
 
 func main() {
-    fmt.Println("hello world!")
+    fmt.Println("Hello, World!")
 }
 ```
 
@@ -158,7 +191,7 @@ func main() {
 :::
 ::::
 
-### 3. Variable
+### 3. Variable & Constants
 
 :::: code-group
 ::: code-group-item 单个变量
@@ -453,11 +486,22 @@ map[string] int
 interface{}
 []interface{}
 map[string] interface{}
+```
 
+```go
 // go1.18泛型
 type any = interface{}
 
-func toString[T int|float64|string](s T) T {}
+// 写法一
+func toString[T int|float64](s T) []T {}
+
+
+// 写法二(推荐)
+type Number interface {
+	int | float64
+}
+
+func toString[T Number](s T) []T {}
 ```
 
 :::
@@ -541,16 +585,20 @@ func main() {
 :::
 ::::
 
-## Core
-
 ### 5. String 字符串
 
+[strings pkg](#strings)
+
 :::: code-group
-::: code-group-item Api
+::: code-group-item 初始化
 
 ```go
+// 初始化
+var s string // 全局变量初始化
+s := ""		 // 局部变量初始化
+
 // 字符串格式化
-s := fmt.Sprintf()
+s := fmt.Sprintf("name: %s", name)
 
 // 中文长度(1个中文占3个字节)
 len([]rune(s))	// []byte：不能用于中文字符数组
@@ -559,25 +607,53 @@ len([]rune(s))	// []byte：不能用于中文字符数组
 :::
 ::: code-group-item 遍历
 
-```go{5,14-15}
-// 遍历
-func forEach() {
-	s := "Github官网"
-	for _, v := range s {
-		fmt.Printf("%c ", v)
-		// fmt.Println(string(v))
-	}
-	fmt.Println()
-	// G i t h u b 官 网
+```go{15-16}
+package main
+
+import "fmt"
+
+func main() {
+	s1 := "hello world"
+	s2 := "Github官网"
+
+	traversalString1(s1) // hello world
+	traversalString2(s1) // hello world
+	traversalString3(s1) // hello world
+	traversalString4(s1) // hello world
+
+	traversalString1(s2) // Githubå®®ç½
+	traversalString2(s2) // Githubå®
+	traversalString3(s2) // Github官网
+	traversalString4(s2) // Github官网
 }
 
-func forEach2() {
-	s := "Github官网"
-	for _, v := range []rune(s) {
-		fmt.Println(string(v))
+func traversalString1(s string) {
+	for i := 0; i < len(s); i++ {
+		fmt.Print(string(s[i]))
 	}
 	fmt.Println()
-	// G i t h u b 官 网
+}
+
+func traversalString2(s string) {
+	for i := 0; i < len([]rune(s)); i++ {
+		fmt.Print(string(s[i]))
+	}
+	fmt.Println()
+}
+
+func traversalString3(s string) {
+	for _, v := range s { // rune
+		fmt.Printf(string(v))
+	}
+	fmt.Println()
+
+}
+
+func traversalString4(s string) {
+	for _, v := range []rune(s) {
+		fmt.Printf(string(v))
+	}
+	fmt.Println()
 }
 ```
 
@@ -586,8 +662,8 @@ func forEach2() {
 
 ```go{2,6}
 // string -> int
-num, _ := strconv.Atoi(str)
-num, _ := strconv.ParseInt(str, 0, 0)
+num, _ := strconv.Atoi(str)		// return int
+num, _ := strconv.ParseInt(str, 10, 64)	// return int64
 
 // int -> string
 str := strconv.Itoa(num)
@@ -597,10 +673,10 @@ str := fmt.Sprintf("%d", num)
 strings.Join(s, "")
 
 // string -> []byte
-charArr := []byte(str)
+[]byte("hello")
 
 // byte -> string
-str := string(k)
+string('z')
 ```
 
 :::
@@ -632,14 +708,22 @@ func buffer(arr []string) string {
 ```
 
 :::
-::: code-group-item 字符
+::: code-group-item char
 
 ```go
-判断是否为字母： unicode.IsLetter(v)
-判断是否为十进制数字： unicode.IsDigit(v)
-判断是否为数字： unicode.IsNumber(v)
-判断是否为空白符号： unicode.IsSpace(v)
-判断是否为Unicode标点字符 :unicode.IsPunct(v)
+// 判断字符类型
+unicode.IsLetter(v): 字母
+unicode.IsDigit(v) : 十进制数字
+unicode.IsNumber(v): 数字
+unicode.IsSpace(v) : 空白符号
+unicode.IsPunct(v) : Unicode标点字符
+
+c := 'a'
+fmt.Printf("char: %c, value: %v, typeof: %T \n", c, c, c)
+// char: a, value: 97, typeof: int32
+
+arr := [...]int{'a': 1}
+// len: 98, cap: 98, array: [..., 1]
 ```
 
 :::
@@ -756,12 +840,25 @@ slice := make([]int, len, cap)  // make: 使用len分配slice长度；cap: 可�
 ```
 
 :::
+::: code-group-item api
+```go
+len()		// 长度
+cap()		// 容量
+make()		// 主动分配扩容
+append()    // 容量不足自动扩容
+copy()      // 容量不变, 元素覆盖多余自动截断
+reflect.DeepEqual() // 判断两个切片是否相等
+slice[1:3]
+// 不定参可使用解构
+...slice
+slice...
+```
+:::
 ::: code-group-item 查
 
 ```go
 // 查询
 fmt.Printf("len: %d, cap: %d, slice: %v \n", len(slice), cap(slice), slice)
-
 ```
 
 :::
@@ -769,10 +866,10 @@ fmt.Printf("len: %d, cap: %d, slice: %v \n", len(slice), cap(slice), slice)
 
 ```go
 // 增加(末尾)
-slice := []int{1, 2, 3, 0, 0}
+// slice := []int{1, 2, 3, 0, 0}
 slice = append(slice, 4)         // len: 6, cap: 10, slice: [1 2 3 0 0 4]
 slice = append(slice, 4, 5, 6)   // len: 8, cap: 10, slice: [1 2 3 0 0 4 5 6]
-nums := []int{4, 5}
+// nums := []int{4, 5}
 slice = append(slice, nums...)   // len: 7, cap: 10, slice: [1 2 3 0 0 4 5]
 
 // 中间插入元素
@@ -780,12 +877,11 @@ slice = append(slice[:i], append([]int{v}, slice[i:]...)...)	// 在index=i的位
 
 
 // 插入单个元素
-func sliceInsert(slice []int, index int, value int) []int {
-	slice = append(slice[:index], append([]int{value}, slice[index:]...)...)
-	return slice
+func SliceInsert(slice []int, index int, value int) []int {
+	return append(slice[:index], append([]int{value}, slice[index:]...)...)
 }
 
-func sliceInsert2(slice []int, index int, value int) []int {
+func sliceInsert(slice []int, index int, value int) []int {
 	slice = append(slice, 0)
 	copy(slice[index+1:], slice[index:])
 	slice[index] = value
@@ -894,34 +990,25 @@ copy(newSlice, slice)                   // len: 3, cap: 10, newSlice: [1 2 3]
 ::: code-group-item 判断
 
 ```go
-// 判断两个切片相等
-func equal(s1 []int, s2 []int) bool {
-	if len(s1) != len(s2) {
-		return false
-	}
+// 判断两个对象(slice\map\struct)是否相等
+func IsEqual(x any, y any) bool {
+	return reflect.DeepEqual(x, y)
+}
 
-	for i, _ := range s1 {
-		if s1[i] != s2[i] {
-			return false
+// 判断是否包含目标元素
+func SliceContains[T sl](slice []T, target T) bool {
+	for _, v := range slice {
+		if v == target {
+			return true
 		}
 	}
-	return true
+	return false
 }
 ```
 
 :::
 ::::
 
-**Api**
-
-```go
-len()		// 长度
-cap()		// 容量
-make()		// 分配容量
-append()	// 增(末尾)
-copy()		// 拷贝
-slice[1:3]	// 切片
-```
 
 ### 8. Map 哈希表
 
@@ -929,44 +1016,43 @@ slice[1:3]	// 切片
 ::: code-group-item 创建 Map
 
 ```go
-// 方式一：初始化map
+// 方式一：声明map, 使用make分配空间
+m := make(map[string] int)
+
+// 方式二：初始化map
 cityMap := map[string] string{
 	"us": "USA",
 	"fr": "France",
 	"cn": "China",	// 末尾加逗号，或者将大括号放在此行！
 }
 
-// 方式二：声明map, 使用make分配空间
-m := make(map[string] int)
 
 m["Jame"] = 97
 m["Amye"] = 86
 
-// // 解构: cityMap...
+// 解构: cityMap...
 ```
 
 :::
-::: code-group-item Api
+::: code-group-item api
 
 ```go
-scoreMap := make(map[string] int)
-
-// 判断包含
-if _, ok := scoreMap[key]; ok {}
-
-// 增 改
-scoreMap["Jame"] = 97
-
-// 删
-delete(scoreMap, "Jame")
+m := make(map[string]int)
 
 // 查
-fmt.Println(scoreMap)
+fmt.Println(m)
 
+// 增改
+m["Jame"] = 97
+
+// 删
+delete(m, "Jame")
+
+// 判断包含
+if _, ok := m[key]; ok {...}
 
 // 遍历
-
-for _, v := range scoreMap {
+for k, v := range m {
 	// statement
 }
 
@@ -979,7 +1065,7 @@ for _, v := range scoreMap {
 package main
 import "fmt"
 
-func main() {
+func sumScore() {
     team := map[string] float32 {
         "P1": 1.98,
         "P2": 2.05,
@@ -993,30 +1079,14 @@ func main() {
     }
     fmt.Println(sum / 5)
 }
-```
 
-:::
-::: code-group-item TwoSum
-
-```go
 func twoSum(nums []int, target int) []int {
-    /*
-    for i := range nums {
-        for j := i+1; j < len(nums); j++ {
-            if(nums[i] + nums[j] == target) {
-                return []int {i, j}
-            }
-        }
-    }
-    return nil
-    */
-
-    dict := map[int]int {}
-    for i, x := range nums {
-        if j, ok := dict[target - x]; ok {
+    m := make(map[int]int)
+    for i, v := range nums {
+        if j, ok := m[target - v]; ok {
             return []int {j, i}
         }
-        dict[x] = i
+        m[v] = i
     }
     return nil
 }
@@ -1024,8 +1094,6 @@ func twoSum(nums []int, target int) []int {
 
 :::
 ::::
-
-## OOP
 
 ### 9. Function 函数
 
@@ -2693,7 +2761,7 @@ $ rm -rf ~/.gvm
 $ rm -rf ~/.gvm/archive/
 ```
 
-### 开源 Golang 包给其他人使用
+### 开源 Golang 包给其他人使用 ?
 
 step1. 新建 public 仓库
 step2. 初始化模块
@@ -2773,11 +2841,14 @@ func main() {
 }
 ```
 
-### 方式三
-### What I've done ?  (v0.4.0)
+##### 方式三
+
+#### What I've done ? (v0.4.0)
+
 remove all subdirectories to update the import package
 
 before
+
 ```sh
 $ tree
 .
@@ -2789,13 +2860,16 @@ $ tree
     ├── ini.go          # package gopkg
     └── yml.go          # package gopkg
 ```
+
 before usage (v0.2.0)
+
 ```go
 import (
     gopkg1 "github.com/coulsonzero/gopkg/encrypt"
     gopkg2 "github.com/coulsonzero/gopkg/fileconfig"
 )
 ```
+
 ```go
 gopkg1.HashPassword("admin123")
 gopkg2.ConfigEnv()
@@ -2818,7 +2892,9 @@ now
 ```
 
 ### Usage (v0.4.0)
+
 #### Install module
+
 ```go
 $ go get github.com/coulsonzero/gopkg
 ```
@@ -2830,6 +2906,7 @@ import "github.com/coulsonzero/gopkg"
 ```
 
 #### How to use it ?
+
 ```go
 gopkg.HashPassword("admin123")
 gopkg.ConfigEnv(testEnvArr)
@@ -2943,6 +3020,21 @@ cat name is : lisi
 c.Name =  zhangsan
 dog name is : lisi
 d.Name =  lisi
+```
+
+
+
+### //go:linkname
+
+```go
+//go:linkname localname linkname
+// 这种方式将本地的私有函数/变量，提供给外部使用
+```
+### //go:nosplit
+
+```go
+//go:nosplit
+// 其实就是告诉编译器，下面的函数不会产生堆栈溢出，不需要插入堆栈溢出检查。
 ```
 
 ## Packages
@@ -4304,6 +4396,8 @@ func (conn *Conn) GetString(field string) {
 ::::
 
 ### strings
+
+<div id="strings"></div>
 
 ```go
 /*======== 查 =========*/
