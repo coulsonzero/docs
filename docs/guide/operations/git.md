@@ -80,3 +80,24 @@ fatal: Not possible to fast-forward, aborting.
 ```sh
 $ git pull origin master --rebase
 ```
+
+### git push
+
+**Q: error: failed to push some refs to**
+
+```sh
+$ git push origin master
+To github.com:coulsonzero/Go-project.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'github.com:coulsonzero/Go-project.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+```
+
+**Solution: git pull**
+
+```sh
+$ git pull origin master --rebase
+$ git push origin master
+```
