@@ -41,6 +41,7 @@ $ go env -w GOPROXY=https://goproxy.cn,direct
 ```sh
 $ mkdir go-hello
 $ cd go-hello
+
 # 初始化go项目
 $ go mod init go-hello
 # 下载依赖包
@@ -1348,114 +1349,106 @@ var fib func(n int) int {
 > 不同类型或相同类型的数据集
 
 :::: code-group
-::: code-group-item 类
+::: code-group-item struct
 
 ```go
-package main
-
-import "fmt"
-
-type Student struct {
+type person struct {
 	name string
 	age  int
 }
-
-func main() {
-	s := Student{"Tom", 21}
-	s.age = 8
-	fmt.Println(s.name) // "Tom"
-	fmt.Println(s.age)  // 8
-	fmt.Println(s)      // {"Tom", 8}
-}
-
 ```
 
 :::
-::: code-group-item Struct 初始化
+::: code-group-item init
 
 ```go
 package main
 
 import "fmt"
 
-type Person struct {
-	Name   string
-	Age    int
-	Gender bool
-	Score  float64
+type person struct {
+	name   string
+	age    int
 }
 
 func main() {
 	// 方式一
-	var person Person
-	person.Name = "John"
-	person.Age = 20
-	fmt.Println(person)
-	// Output: {John 20 false 0}
+	var p1 person
+	p1.name = "John"
+	p1.age = 20
 
 	// 方式二
-	var p3 = new(Person)
-	p3.Name = "John"
-	(*p3).Age = 20
-	fmt.Println(*p3)
-	// Output: {John 20 false 0}
+	p2 := new(person)
+	p2.name = "John"
+	(*p2).age = 20
 
 	// 方式三：必须要写全！
-	p1 := Person{"John", 20, true, 97.2}
-	fmt.Println(p1)
-	// Output: {John 20 true 97.2}
+	p3 := person{"John", 20}
 
 	// 方式四(推荐)
-	p2 := Person{Name: "John", Age: 20}
-	p2.Score = 97.2
-	fmt.Println(p2)
-	// Output: {John 20 false 97.2}
+	p4 := person{name: "John", age: 20}
 
 	// 方式五(推荐)
-	p4 := &Person{Score: 97.2}
-	// var p4 = &Person{Score: 97.2}
-	p4.Name = "John"
-	(*p4).Age = 20
-	fmt.Println(*p4)
-	// Output: {John 20 false 97.2}
+	p5 := &person{name: "John"}
+	(*p5).age = 20
+
+	// 方式六
+	p := newPerson("John", 20)
 }
+
+// 需要使用指针
+func newPerson(name string, age int) *person {
+	return &person{name: name, age: age}
+}
+
 ```
 
 :::
-::: code-group-item 方法
+::: code-group-item method
 
 ```go
-package main
-
-import "fmt"
-
-type Student struct {
+type person struct {
 	name string
 	age  int
 }
 
-func hello(s Student) {
-	fmt.Printf("name: %s, age: %d\n", s.name, s.age)
+/*--------------------------------*/
+// 需要使用指针: 作为接收者才能修改struct实例变量的值
+func (p *person) setName(name string) {
+	p.name = name
 }
 
-func (s Student) welcome() {
-	fmt.Printf("name: %s, age: %d\n", s.name, s.age)
+func (p person) getName(name string) {
+	return p.name
 }
 
-func (s *Student) change_ptr() {
-	s.age += 1
-	fmt.Printf("name: %s, age: %d\n", s.name, s.age)
+/*--------------------------------*/
+// 需要使用指针: struct作为method参数(即使不是修改操作)
+func setName(p *person, name string) {
+	p.name = name
 }
 
-func main() {
-	s := Student{"James", 20}
+// 需要使用指针
+func newPerson(name string, age int) *person {
+	return &person{name: name, age: age}
+}
 
-	// 结构体作为函数的参数
-	hello(s)
-	// `结构体`.方法()
-	s.welcome()
-	// 使用指针作为接收者修改结构体的数据
-	s.change_ptr()
+/*--------------------------------*/
+
+// public struct
+type Student struct {
+	Score float64	// public  field
+	class int       // private field
+}
+
+// public method: 首字母大写
+func (p *person) GetAge() {
+	return p.age
+}
+
+// private method
+func (p *person) setAge(age int) {
+	p.age = age
 }
 ```
 
@@ -1467,17 +1460,10 @@ package main
 
 import "fmt"
 
-func main() {
-	cat := Cat{}
-	cat.getName("Tim")
-
-}
-
 type Animal struct {
 	Name string
 }
 
-// private method
 func (a Animal) getName(name string) {
 	fmt.Printf("Good Morning! %s \n", name)
 }
@@ -1494,6 +1480,12 @@ func (c Cat) getName(name string) {
 	c.Animal.getName(name)
 
 	fmt.Printf("Nice to meet you! %s \n", name)
+}
+
+func main() {
+	cat := Cat{}
+	cat.getName("Tim")
+
 }
 ```
 
@@ -1608,90 +1600,6 @@ func main() {
 
 ```
 
-:::
-
-::: code-group-item 类指针
-
-```go{19,35,46}
-package main
-
-import "fmt"
-
-type Student struct {
-	name string
-	age  int
-}
-
-func (s Student) welcome() {
-	fmt.Println(s.name)
-	fmt.Println(s.age)
-}
-
-func (p Student) set(val int) {
-	p.age += val
-}
-
-func (ptr *Student) set_ptr(val int) {
-	ptr.age += val
-}
-
-func main() {
-	// 方式一
-	s := Student{"Jame", 20}
-	s.welcome() // "Jame", 20
-
-	s.set(3)
-	fmt.Println(s.age) // 20
-	s.set_ptr(4)
-	fmt.Println(s.age) // 24
-
-	// 方式二：指针
-	s2 := Student{"Tom", 16}
-	ptr2 := &s2
-
-	fmt.Println(*ptr2) // {"Tom", 16}
-	ptr2.name = "Coulson"
-	fmt.Println(s2) // {"Coulson", 16}
-	ptr2.set(4)
-	fmt.Println(s2) // {"Coulson", 16}
-	ptr2.set_ptr(4)
-	fmt.Println(s2) // {"Coulson", 20}
-
-	// 方式三：内存地址
-	s3 := &Student{"Yalo", 16}
-	fmt.Println(*s3)
-	s3.set(4)
-	fmt.Println(*s3) //{Yalo 16}
-	s3.set_ptr(4)
-	fmt.Println(*s3) // {Yalo 20}
-}
-```
-
-:::
-::: code-group-item 简化版
-
-```go
-package main
-import "fmt"
-
-type Car struct {
-    color string
-    brand string
-    year int
-}
-
-func (ptr *Car) change(c string) {
-    ptr.color = c
-}
-
-func main() {
-    c := Cat("white", "Ferrari", "2")  //创建类对象
-    // c := Cat(color:"white", brand:"Ferrari", year:"2"}
-    // c := &Cat("white", "Ferrari", "2"}
-    fmt.Println(x.color)
-    c.change("blue")
-}
-```
 
 :::
 ::: code-group-item 类输入遍历
@@ -2160,46 +2068,25 @@ go hello()
 ::: code-group-item goroutine
 
 ```go
-package main
-
-import (
-	"fmt"
-)
-
-func out(from, to int) {
-	for i := from; i <= to; i++ {
-		fmt.Println(i)
-	}
+func hello() {
+	fmt.Println("hello world")
 }
 
 func main() {
-	go out(0, 5)
-	go out(6, 10)
+	go hello()  // 子线程
 }
 
-// No Output， 因为主线程main()于go子线程并发完成前退出了
+// No Output， 因为主线程main()退出了，而子线程未完成便随主线程销毁了
 ```
 
 :::
-::: code-group-item goroutine + time.sleep
+::: code-group-item goroutine + time.Sleep
 
 ```go
-package main
-
-import (
-	"fmt"
-)
-
-func out(from, to int) {
-	for i := from; i <= to; i++ {
-		fmt.Println(i)
-	}
-}
 
 func main() {
-	go out(0, 5)	// 子线程
-	go out(6, 10)	// 子线程
-	time.Sleep(500 * time.Millisecond)	// 手动控制 主线程 等待时间
+	go hello()
+	time.Sleep(500 * time.Millisecond)	// 手动控制 主线程 等待时间, 但不靠谱
 }
 ```
 
@@ -2208,21 +2095,39 @@ func main() {
 
 ```go
 func main() {
-	ch := make(chan int)
+	ch := make(chan bool)	// 无缓存通道
 
 	go func() {
 		fmt.Println("Hello World!")
+		// 接收通道
 		<-ch
 	}()
-
-	ch<-1
+	// 发送通道
+	ch<-true
 }
 
 ```
 
 :::
-::: code-group-item Channels1
+::: code-group-item 带缓存通道
 
+```go
+func main() {
+	ch := make(chan bool, 3)	// 带缓存通道, 需要调换发送与接收方的位置
+
+	go func() {
+		fmt.Println("Hello World!")
+		// 发送通道
+		ch<-true
+	}()
+
+	// 等待接收通道
+	<-ch
+}
+```
+
+:::
+::: code-group-item select
 ```go
 package main
 
@@ -2231,40 +2136,88 @@ import (
 	"time"
 )
 
-func out(start, end int, ch chan bool) {
+func sum(start, end int, ch chan int) {
+	res := 0
 	for i := start; i <= end; i++ {
-		time.Sleep(50 * time.Millisecond) // 必须, 没有停顿会导致主线程结束后子线程也全部停止
-		fmt.Println(i)
+		// time.Sleep(50 * time.Millisecond)
+		res += i
 	}
-	ch <- true
+	ch <- res
 }
 
 func main() {
-	// 使用管道便不需要sleep，无需计算等待main()何时退出
-	ch := make(chan bool)
-	// 多线程异步方法，同时执行多个任务
-	go out(0, 5, ch)
-	go out(6, 10, ch)
+	ch1 := make(chan int)
+	ch2 := make(chan int)
+	// go实现并发,
 
-	<-ch
+	go sum(0, 5, ch1)
+	go sum(6, 10, ch2)
+
+	select {
+		case x := <-ch1:
+			fmt.Println("receive ch1")
+			fmt.Println(x)
+			return
+		case y := <-ch2:
+			fmt.Println("receive ch2")
+			fmt.Println(y)
+			return
+	}
 }
 
-/*
-0
-6
-7
-1
-2
-8
-9
-3
-4
-10
-*/
 ```
-
 :::
-::: code-group-item Channels2
+::: code-group-item for-select
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func sum(start, end int, ch chan int) {
+	res := 0
+	for i := start; i <= end; i++ {
+		// time.Sleep(50 * time.Millisecond)
+		res += i
+	}
+	ch <- res
+}
+
+func main() {
+	ch1 := make(chan int)
+	ch2 := make(chan int)
+
+	go sum(0, 5, ch1)
+	go sum(6, 10, ch2)
+
+    // 循环等待
+	for {
+		select {
+		default:
+			fmt.Println("receive default")
+			// 避免死锁
+			time.Sleep(50 * time.Millisecond)
+		case x := <-ch1:
+			fmt.Println("receive ch1")
+			fmt.Println(x)
+			return
+		case y := <-ch2:
+			fmt.Println("receive ch2")
+			fmt.Println(y)
+			return
+
+		}
+	}
+}
+```
+:::
+::::
+
+**示例**
+:::: code-group
+::: code-group-item Channel
 
 ```go
 package main
@@ -2336,8 +2289,11 @@ func main() {
 
 // Output: 173250
 ```
-
 :::
+::::
+
+**for-select**
+::::
 ::: code-group-item Select1
 
 ```go
@@ -2513,11 +2469,11 @@ ch <- 8
 **3.接收数据**
 
 ```go
-msg := <-ch
+<-ch
 ```
 
 ```go
-<-ch
+msg := <-ch
 ```
 
 **4.关闭通道**
@@ -2568,7 +2524,7 @@ select {
 **for**
 
 ```go
-// for: 等待其中一个通道接收数据, 没有通道准备时执行default, 需避免死锁
+// for: 循环等待其中一个通道接收数据, 没有通道准备时执行default, 需避免死锁
 for {
 	select {
 		case x := <-ch1:
@@ -2635,7 +2591,7 @@ func main() {
             //当管道没有准备好时，它将执行
             default:
                 fmt.Println("Nothing available")
-                time.Sleep(50 * time.Millisecond)
+                time.Sleep(50 * time.Millisecond)	// 防止死锁
         }
     }
 }
@@ -2662,22 +2618,55 @@ select {
 
 ### Error 异常处理
 
+**errors**
 ```go
-func Sqrt(f float64) (float64, error) {
-    if f < 0 {
-        return 0, errors.New("math: square root of negative number")
-    }
-    // 实现
-}
+// 错误被认为是一种可以预期的结果，而异常则是一种非预期的结果
+// 发生异常可能表示程序中存在bug或发生了其它不可控的问题
+
+// 错误处理：errors.New(), log.Fatal()/log.Fatalf(), panic
+// 异常捕获: defer()函数中直接调用recover(), 使用panic/log将异常抛出为明确的错误信息进行处理
+
+// errors.New(): 抛出错误
+// errors.ToJson(err)：将错误编码为json字符串
+
+// err := errors.NewWithCode(404, "not found")
+// err.(errors.Error).Code(): HTTP错误状态码
+
+return errors.New("math: square root of negative number")
 ```
 
+**错误判断**
 ```go
-func main() {
-    db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-    if err != nil {
-        fmt.Println(err)
-    }
-}
+// f, err := os.Open()
+// if err != nil {}
+
+// if v, ok := m["key"]; ok {}
+```
+
+**log**
+
+```go
+// log输出错误日志
+
+// log.Fatal()
+// log.Fatalf()
+```
+
+**recover & panic**
+```go
+// panic: 返回相应的错误信息, 终止程序运行
+
+// recover()：捕获所有可能发生的异常，并将内部异常转换为错误处理, 必须在defer()函数中直接调用recover()
+// recover()函数捕获的是父一级调用函数栈帧的异常
+// panic(): 将异常抛出为相应的错误信息
+
+defer func() {
+	if r := recover(); r != nil {
+		// r.(type): string, runtime.Error, error, ...
+		// err = ...
+		panic(r)
+	}
+}()
 ```
 
 ## FAQ
