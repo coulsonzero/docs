@@ -51,7 +51,7 @@ $ go mod tidy
 $ go run main.go
 ```
 
-## Basis Grammar
+## 基础语法
 
 ### 1. Hello World
 
@@ -1104,57 +1104,31 @@ func twoSum(nums []int, target int) []int {
 
 #### 1) 函数定义
 
-::: details 详情
-
 ```go{8}
-package main
-import "fmt"
-
-func main() {
-	hello()
-}
-
 func hello() {
 	fmt.Println("hello world!")
 }
 ```
 
-:::
 
 #### 2) 参数
 
-::::: details 详情
 :::: code-group
 ::: code-group-item 无参
 
-```go{4}
-package main
-import "fmt"
-
+```go
 func welcome() {
 	fmt.Println("hello, world")
-}
-
-func main() {
-	welcome()
 }
 ```
 
 :::
 ::: code-group-item 有参
 
-```go{4}
-package main
-import "fmt"
-
+```go
 func sum(a int, b int) {
 	fmt.Println(a + b)
 }
-
-func main() {
-	sum(12, 8)
-}
-
 ```
 
 :::
@@ -1182,28 +1156,13 @@ func main() {
 
 :::
 ::::
-:::::
 
 #### 3) 返回值
-
-::: details 详情
-
-```go {4-5}
-package main
-import "fmt"
-
+```go
 func swap(x, y int) (int, int) {
     return y, x
 }
-
-func main() {
-    a,b := swap(42, 8)
-    fmt.Println(a)
-    fmt.Println(b)
-}
 ```
-
-:::
 
 #### 4) defer、匿名函数、闭包、递归、作用域
 
@@ -1822,241 +1781,7 @@ func main() {
 :::
 ::::
 
-## Basic Concepts
 
-### import
-
-```go
-// 1. import single package
-import "fmt"
-
-// 2. import multiple package
-import (
-	"fmt"
-	"time"
-	"encoding/json"
-	"reflect"
-	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
-	"[your-project]/config"
-)
-```
-
-::: details 详情
-
-```go
-// 1. import single package
-import "fmt"
-
-// 2.1 import multiple packages
-import "fmt"
-import "time"
-
-// 2.2
-import (
-	"fmt";
-	"time"
-)
-
-// 2.3
-import (
-	"fmt"
-	"time"
-	"[your-project]/config"
-)
-```
-
-:::
-
-### Comments
-
-```go
-// a single comment
-
-/*
-This is a multi-line comment
-*/
-
-/**
- * @author
- * @version
- */
-```
-
-### Modules
-
-[golang 模块](https://pkg.go.dev/cmd)
-
-```bash
-# 查看go版本
-go version
-
-# 环境变量
-go env
-
-# 更改为国内代理(go get失败时)
-go env -w GOPROXY=https://goproxy.cn,direct
-
-# 新项目初始化
-go mod init <project name>
-
-# 依赖包自动管理
-go mod tidy
-
-# 运行main程序
-go run main.go
-
-# 编译
-go build -o hello.go
-
-# 代码格式化(git push前)
-go fmt
-
-# 测试
-go test
-
-# 检查Go源代码并报告可疑情况
-go vet
-```
-
-### Operators
-
-```go
-//Arithmetic Operators: + - * / %
-//Assignment Operators: += -= *= /= %=
-//Logical Operators: && || !
-//Relational Operators: == != < > <= >=
-//位运算: & | ^
-```
-
-```go
-func isEven( num int ) bool {
-	// return num % 2 == 0
-    return num & 1 == 0
-}
-```
-
-## Control
-
-::: tip
-
-1. if/switch statement: 局部变量作用域
-2. switch statement: 条件判断
-3. for loop: 推荐 range 写法, 可忽略
-4. while loop: 使用 for 代替
-   :::
-
-### Statement
-
-::: danger
-
-> 注意变量作用域, 在 condition 中声明外部无法访问！
-
-:::
-
-:::: code-group
-::: code-group-item if
-
-```go{1,9}
-if x := 42; x > 18 {
-    //statement(s)
-} else if x == 18 {
-    //statement(s)
-} else {
-    //statement(s)
-}
-
-// fmt.Println(x) // error: undefined: x
-```
-
-:::
-::: code-group-item switch
-
-```go {2}
-x := 8
-switch y := x%2; y {
-    case ...:
-        //statement(s)        //不需要break
-	case ...:
-		//statement(s)
-    default:
-        //statement(s)
-}
-```
-
-:::
-::: code-group-item switch 条件判断
-
-```go
-/* switch版的 if statement */
-x := 2
-switch {
-    case x>0 && x<10:
-        //statement(s)
-    case x>10:
-        //statement(s)
-}
-//  fallthrough: 执行多个case；默认只会执行一个，不需要break，支持多条件匹配
-```
-
-:::
-::::
-
-### Loops
-
-::: warning
-
-```go
-// golang 不支持该写法
-for i := 0, j := len(s); i < j; i++, j-- {...}
-// 支持以下写法
-for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {...}
-```
-
-:::
-
-:::: code-group
-::: code-group-item for
-
-```go{16}
-for i := 0; i < len(nums); i++ {
-    fmt.Println(i, nums[i])
-}
-
-// 读取 key 和 value
-for i, v := range nums {
-    fmt.Println(i, v)
-}
-
-// 仅读取 key
-for i := range nums {
-	fmt.Println(nums[i])
-}
-
-// 仅读取 value
-for _, v := range nums {
-    fmt.Println(v)
-}
-```
-
-:::
-::: code-group-item while
-
-```go{4}
-/* for版的while */
-sum := 1
-res := 0
-for sum <= 1000 {
-    res += sum
-    sum++
-}
-fmt.Println(res)    //500500
-```
-
-:::
-::::
-
-## 高并发
 
 ### Goroutine 协程
 
@@ -2669,6 +2394,243 @@ defer func() {
 }()
 ```
 
+### import
+
+```go
+// 1. import single package
+import "fmt"
+
+// 2. import multiple package
+import (
+	"fmt"
+	"time"
+	"encoding/json"
+	"reflect"
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
+	"[your-project]/config"
+)
+```
+
+::: details 详情
+
+```go
+// 1. import single package
+import "fmt"
+
+// 2.1 import multiple packages
+import "fmt"
+import "time"
+
+// 2.2
+import (
+	"fmt";
+	"time"
+)
+
+// 2.3
+import (
+	"fmt"
+	"time"
+	"[your-project]/config"
+)
+```
+
+:::
+
+### Comments
+
+```go
+// a single comment
+
+/*
+This is a multi-line comment
+*/
+
+/**
+ * @author
+ * @version
+ */
+```
+
+### Modules
+
+[golang 模块](https://pkg.go.dev/cmd)
+
+```bash
+# 查看go版本
+go version
+
+# 环境变量
+go env
+
+# 更改为国内代理(go get失败时)
+go env -w GOPROXY=https://goproxy.cn,direct
+
+# 新项目初始化
+go mod init <project name>
+
+# 依赖包自动管理
+go mod tidy
+
+# 运行main程序
+go run main.go
+
+# 编译
+go build -o hello.go
+
+# 代码格式化(git push前)
+go fmt
+
+# 测试
+go test
+
+# 检查Go源代码并报告可疑情况
+go vet
+```
+
+### Operators
+
+```go
+//Arithmetic Operators: + - * / %
+//Assignment Operators: += -= *= /= %=
+//Logical Operators: && || !
+//Relational Operators: == != < > <= >=
+//位运算: & | ^
+```
+
+```go
+func isEven( num int ) bool {
+	// return num % 2 == 0
+    return num & 1 == 0
+}
+```
+
+
+::: tip
+
+1. if/switch statement: 局部变量作用域
+2. switch statement: 条件判断
+3. for loop: 推荐 range 写法, 可忽略
+4. while loop: 使用 for 代替
+   :::
+
+### Statement
+
+::: danger
+
+> 注意变量作用域, 在 condition 中声明外部无法访问！
+
+:::
+
+:::: code-group
+::: code-group-item if
+
+```go{1,9}
+if x := 42; x > 18 {
+    //statement(s)
+} else if x == 18 {
+    //statement(s)
+} else {
+    //statement(s)
+}
+
+// fmt.Println(x) // error: undefined: x
+```
+
+:::
+::: code-group-item switch
+
+```go {2}
+x := 8
+switch y := x%2; y {
+    case ...:
+        //statement(s)        //不需要break
+	case ...:
+		//statement(s)
+    default:
+        //statement(s)
+}
+```
+
+:::
+::: code-group-item switch 条件判断
+
+```go
+/* switch版的 if statement */
+switch {
+case score < 60:
+	return "不及格"
+case score >= 60 && score < 80:
+	return "中等"
+case score >= 80 && score < 90:
+	return "良好"
+case score >= 90:
+	return "优秀"
+default:
+	return ""
+}
+//  fallthrough: 执行多个case；默认只会执行一个，不需要break，支持多条件匹配
+```
+
+:::
+::::
+
+### Loops
+
+::: warning
+
+```go
+// golang 不支持该写法
+for i := 0, j := len(s); i < j; i++, j-- {...}
+// 支持以下写法
+for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {...}
+```
+
+:::
+
+:::: code-group
+::: code-group-item for
+
+```go{16}
+for i := 0; i < len(nums); i++ {
+    fmt.Println(i, nums[i])
+}
+
+// 读取 key 和 value
+for i, v := range nums {
+    fmt.Println(i, v)
+}
+
+// 仅读取 key
+for i := range nums {
+	fmt.Println(nums[i])
+}
+
+// 仅读取 value
+for _, v := range nums {
+    fmt.Println(v)
+}
+```
+
+:::
+::: code-group-item while
+
+```go{4}
+/* for版的while */
+sum := 1
+res := 0
+for sum <= 1000 {
+    res += sum
+    sum++
+}
+fmt.Println(res)    //500500
+```
+
+:::
+::::
+
+
 ## FAQ
 
 ### GO 简介
@@ -3030,6 +2992,156 @@ d.Name =  lisi
 
 [golang 标准库](https://pkg.go.dev/std)
 
+### fmt
+
+```go
+// 输出
+fmp.Print()
+fmt.Println()
+fmt.Printf()
+// 字符串格式化
+fmt.Sprintf()
+// http请求写入网页
+fmt.Fprintf()
+```
+
+### log
+
+```go
+import "log"
+
+// 设置日志输出格式
+log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+// 设置日志前缀
+log.SetPrefix("[gin] ")
+
+log.Printf("%s", time.Now())
+log.Println()
+log.Fatal(err)
+log.Fatalf()
+```
+
+
+
+
+
+### math
+
+```go
+// |x|: 绝对值
+math.Abs(x float64)
+
+// 取整
+math.Ceil(12.6)		// 13
+math.Floor(12.6)    // 12
+
+
+// 随机数
+rand.Seed(time.Now().Unix())
+rand.Intn(100)
+
+// 打乱顺序
+rand.Shuffle(length int, swap func(i int, j int))
+
+// 生成随机数组
+rand.Perm(4)	// [2 0 1 3]
+```
+
+
+**example**
+```go
+// 打乱随机顺序
+nums := []int{1, 2, 3, 4, 5}
+
+rand.Shuffle(len(nums), func(i, j int) {
+	nums[i], nums[j] = nums[j], nums[i]
+})
+```
+
+
+### unicode
+
+```go
+// 判断是否为字母(a-z|A-Z)
+unicode.IsLetter(v)
+
+// 判断是否为十进制数字(0-9)
+unicode.IsDigit(v)
+// 判断是否为数字(0-9)
+unicode.IsNumber(v)
+
+// 判断是否为空白符号(' ')
+unicode.IsSpace(v)
+// 判断是否为Unicode标点字符(';', ',', ...)
+unicode.IsPunct(v)
+```
+### strconv
+
+```go
+import "strconv"
+
+strconv.Itoa(num int)   // int    -> string
+strconv.Atoi(s string)	// string -> int
+```
+
+**example**
+
+```go
+println(strconv.Itoa(123))
+
+num, _ := strconv.Atoi("123")
+println(num)
+```
+
+### strings
+
+<div id="strings"></div>
+
+```go
+/*======== 查 =========*/
+
+// 返回子串索引，不存在返回-1
+strings.index(s string, substr string)
+
+/*======== 判断 =========*/
+
+// 包含
+strings.Contains()
+// endswith
+strings.HasSuffix()
+// startswith
+strings.HasPrefix()
+
+/*======== 改：转换 =========*/
+
+// 数组 -> 字符串
+strings.Join()
+// 字符串 -> 数组
+strings.Split()
+
+// 替换
+strings.Replace(str, old, new , -1)	// -1为全部，等价于ReplaceAll()
+strings.ReplaceAll()
+
+
+// 大小写转换
+strings.ToLower()
+strings.ToUpper()
+// strings.Title()		// 此方法已弃用
+cases.Title(language.Und).String("hello, world!") // Hello, World!
+
+/*======== 删 =========*/
+
+// 移除空格(首尾)
+strings.Trim(str, " ")
+// 移除\n\t等换行符
+strings.TrimSpace(str)
+// 移除无效字符
+strings.TrimFunc("¡¡¡$6521.123Hello, Gophers!!!", func(r rune) bool {
+	return !unicode.IsLetter(r) && !unicode.IsNumber(r)
+}) // 6521.123Hello, Gophers
+```
+
 ### sort
 
 ```go
@@ -3205,7 +3317,7 @@ func main() {
 :::
 ::::
 
-## 读取文件相关库
+
 
 ### os
 
@@ -3515,11 +3627,19 @@ func TempDir() {
 
 :::
 
+### bufio
+
+> 读取终端标准输入
+
 **标准输入**
 
 ```go
 scanner := bufio.NewScanner(os.Stdin)
+for scanner.Scan() {
+}
 scanner.Text()
+scanner.Err()
+
 os.Exit(1)
 ```
 
@@ -3539,12 +3659,14 @@ func main() {
 
 	scanner := bufio.NewScanner(os.Stdin)
 
+	fmt.Print(">>> ")
 	for scanner.Scan() {
 		if scanner.Text() == "exit" {
 			os.Exit(1)
 		}
 		ucl := strings.ToUpper(scanner.Text())
 		fmt.Println(ucl)
+		fmt.Print(">>> ")
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -3552,6 +3674,15 @@ func main() {
 		os.Exit(1)
 	}
 }
+
+/*
+>>> hello
+HELLO
+>>> world
+WORLD
+>>> exit
+进程 已完成，退出代码为 1
+*/
 
 ```
 
@@ -3721,6 +3852,331 @@ func main() {
 }
 ```
 
+### json
+
+**Api**
+
+```go
+import "encoding/json"
+
+// object => json
+json.Marshal()
+// json => object(map、struct)
+json.Unmarshal()
+
+// read json file to struct
+json.NewDecoder(file).Decode(&user)
+```
+
+:::: code-group
+::: code-group-item json 与 object 转换
+
+```go
+// object -> json
+func objectToJson(obj interface{}) string {
+	res, _ := json.Marshal(obj)
+	return string(res)
+}
+
+// json -> object(map/struct)
+func jsonToObject(data string, ptr interface{}) interface{} {
+	json.Unmarshal([]byte(data), &ptr)
+	return ptr
+}
+```
+
+:::
+::: code-group-item 解析 json 文件
+
+```go
+// ReadJsonFile2 json file -> object -> json String
+func ReadJsonFile(jsonfile string, obj map[string]interface{}) string {
+	// 打开json文件
+	f, _ := os.Open(jsonfile)
+	defer f.Close()
+
+	// json文件 -> struct
+	// var bar map[string]interface{}
+	json.NewDecoder(f).Decode(&obj)
+	// fmt.Println(bar)
+
+	// struct -> json
+	data, _ := json.Marshal(obj)
+	return string(data)
+}
+```
+
+:::
+::::
+
+**Json-Object: For Example**
+::: details json-map 转换
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+)
+
+// map -> json
+func mapToJson() {
+	m := map[string]interface{}{
+		"name":  "John",
+		"email": "john@gmail.com",
+		"age":   20,
+	}
+
+	jsonStr, _ := json.Marshal(&m)
+	fmt.Println(string(jsonStr))
+	// Output: {"age":20,"email":"john@gmail.com","name":"John"}
+}
+
+// json -> map
+func jsonToMap() {
+	jsonStr := `{
+		"name":  "John",
+		"email": "john@gmail.com",
+		"age":   20,
+		"data": [120, 200, 150, 80, 70, 110, 130]
+	}`
+	var m map[string]interface{}
+	json.Unmarshal([]byte(jsonStr), &m)
+	fmt.Println(m)
+	// Output: map[age:20 data:[120 200 150 80 70 110 130] email:john@gmail.com name:John]
+}
+```
+
+:::
+
+::: details json-struct 转换
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type Student struct {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+	Age   int    `json:"age"`
+}
+
+func main() {
+
+}
+
+// GetJson struct -> json
+func GetJson() {
+	s := Student{
+		Name:  "John",
+		Email: "john@gmail.com",
+		Age:   20,
+	}
+
+	res, _ := json.Marshal(s)
+	fmt.Println(string(res))
+	// Output: {"Name":"John","Email":"john@gmail.com","Age":20}
+}
+
+// SetJson json -> struct
+func SetJson() {
+	obj := []byte(`{"Name":"John","Email":"john@gmail.com","Age":20}`)
+
+	s := Student{}
+	json.Unmarshal(obj, &s)
+	fmt.Println(s)
+	// Output: {John john@gmail.com 20}
+}
+```
+
+:::
+
+**JsonFile-Object-Json**
+
+```go
+import "encoding/json"
+
+var user map[string]interface{}
+// json file -> object
+json.NewDecoder(file).Decode(&user)
+```
+
+::: details json.NewDecoder(f).Decode(&obj)
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+)
+
+type Bar struct {
+	xAxis  map[string]interface{}
+	yAxis  map[string]interface{}
+	series map[string]interface{}
+}
+
+func main() {
+	ReadJsonFile()
+}
+
+func ReadJsonFile() {
+	f, _ := os.Open("bar.json")
+	defer f.Close()
+	var bar map[string]interface{}
+	// json File -> object
+	json.NewDecoder(f).Decode(&bar)
+	// fmt.Println(bar)
+
+	// object -> jsonStr
+	data, _ := json.Marshal(bar)
+	fmt.Println(string(data))
+}
+```
+
+:::
+
+**json-http**
+::: details json-http 示例
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+)
+
+type User struct {
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
+	Age       int    `json:"age"`
+}
+
+func main() {
+	http.HandleFunc("/decode", func(w http.ResponseWriter, r *http.Request) {
+		var user User
+		json.NewDecoder(r.Body).Decode(&user)
+
+		fmt.Fprintf(w, "%s %s is %d years old!\n", user.Firstname, user.Lastname, user.Age)
+	})
+
+	http.HandleFunc("/encode", func(w http.ResponseWriter, r *http.Request) {
+		peter := User{
+			Firstname: "John",
+			Lastname:  "Doe",
+			Age:       25,
+		}
+
+		json.NewEncoder(w).Encode(peter)
+	})
+
+	http.ListenAndServe(":8080", nil)
+}
+
+/*
+$ curl -s -XPOST -d'{"firstname":"Elon","lastname":"Musk","age":48}' http://localhost:8080/decode
+Elon Musk is 48 years old!
+
+$ curl -s http://localhost:8080/encode
+{"firstname":"John","lastname":"Doe","age":25}
+*/
+
+```
+
+:::
+
+### gjson & sjson
+
+> 能够直接将 json 字符串作为 json 对象调用！
+
+```go
+import (
+	"github.com/tidwall/gjson"
+	"github.com/tidwall/sjson"
+)
+
+gjson.Get(obj, "axisLine.lineStyle")
+sjson.Set(obj, "axisLine.lineStyle.color", "skyblue")
+```
+
+::: details gjson & sjson
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/tidwall/gjson"
+	"github.com/tidwall/sjson"
+)
+
+func main() {
+	setJson()
+}
+
+func getJson() {
+	const obj = `{
+	"type": "bar",
+	"data": [120, 200, 150, 80, 70, 110, 130],
+	"axisLine": {"lineStyle": {"type": "solid", "color": "blue"}}
+}`
+	res := gjson.Get(obj, "axisLine.lineStyle")
+	fmt.Println(res)
+}
+
+func setJson() {
+	const obj = `{
+	"type": "bar",
+	"data": [120, 200, 150, 80, 70, 110, 130],
+	"axisLine": {"lineStyle": {"type": "solid", "color": "blue"}}
+}`
+	value, _ := sjson.Set(obj, "axisLine.lineStyle.color", "skyblue")
+	fmt.Println(value)
+}
+
+```
+
+:::
+
+::: details gjson-readjson File
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/tidwall/gjson"
+	"os"
+)
+
+type Bar struct {
+	xAxis  map[string]interface{}
+	yAxis  map[string]interface{}
+	series map[string]interface{}
+}
+
+func main() {
+	// 读取json文件
+	f, _ := os.ReadFile("bar.json")
+	// 获取json文件中的配置项
+	res := gjson.Get(string(f), "xAxis")
+	fmt.Println(res)
+}
+
+```
+
+:::
+
 ### csv
 
 ```go
@@ -3791,68 +4247,37 @@ os.Exit(1)
 **Cmd 命令**
 
 ```go
-res, _ := exec.Command("ls").Output()
-res, _ := exec.Command("bash", "-c", "ls -a -l -h").Output()
-// 使用string(res)输出
+// 运行cmd命令
+exec.Command("bash", "-c","ls").Run()
+// 输出运行cmd命令的结果
+exec.Command("bash", "-c", "ls -a -l -h").Output()
 ```
 
 ::: details cmd 示例
 
 ```go
-package main
-
-import (
-	"fmt"
-	"os/exec"
-)
-
-func main() {
-	goCmd3()
-}
-
-/**
- * go程序执行cmd命令
- */
-
-func goCmd() {
-	cmd := exec.Command("ls")
-	res, _ := cmd.Output()
-	fmt.Println(string(res))
-}
-
-// 简写
-func goCmd2() {
-	res, _ := exec.Command("ls").Output()
-	fmt.Println(string(res))
-}
-
-// 带参数
-func goCmd3() {
-	lsOut, _ := exec.Command("bash", "-c", "ls -a -l -h").Output()
-	fmt.Printf("> ls -a -l -h: %s", string(lsOut))
-}
-
-// 与方法3相同，此方法会将目录着重显示
-func goCmd4() {
-	binary, lookErr := exec.LookPath("ls")
-	if lookErr != nil {
-		panic(lookErr)
+//go:linkname cmdExec github.com/coulsonzero/gopkg/pro.CmdExec
+func cmdExec(command string) error {
+	err := exec.Command("bash", "-c", command).Run() // Run() wait the result, Start() cannot
+	if err != nil {
+		return errors.New("error: exec the cmd command")
 	}
+	return nil
+}
 
-	args := []string{"ls", "-a", "-l", "-h"}
-
-	env := os.Environ()
-
-	execErr := syscall.Exec(binary, args, env)
-	if execErr != nil {
-		panic(execErr)
+//go:linkname cmdOutput github.com/coulsonzero/gopkg/pro.CmdOutput
+func cmdOutput(command string) ([]byte, error) {
+	cmd := exec.Command("bash", "-c", command)
+	res, err := cmd.Output()
+	if err != nil {
+		return nil, errors.New("exec: Stdout already set")
 	}
+	return res, nil
 }
 ```
 
 :::
 
-## 数据库相关库
 
 ### mysql
 
@@ -4384,110 +4809,9 @@ func (conn *Conn) GetString(field string) {
 :::
 ::::
 
-### strings
-
-<div id="strings"></div>
-
-```go
-/*======== 查 =========*/
-
-// 返回子串索引，不存在返回-1
-strings.index(s string, substr string)
-
-/*======== 判断 =========*/
-
-// 包含
-strings.Contains()
-// endswith
-strings.HasSuffix()
-// startswith
-strings.HasPrefix()
-
-/*======== 改：转换 =========*/
-
-// 数组 -> 字符串
-strings.Join()
-// 字符串 -> 数组
-strings.Split()
-
-// 替换
-strings.Replace(str, old, new , -1)	// -1为全部，等价于ReplaceAll()
-strings.ReplaceAll()
 
 
-// 大小写转换
-strings.ToLower()
-strings.ToUpper()
-// strings.Title()		// 此方法已弃用
-cases.Title(language.Und).String("hello, world!") // Hello, World!
 
-/*======== 删 =========*/
-
-// 移除空格(首尾)
-strings.Trim(str, " ")
-// 移除\n\t等换行符
-strings.TrimSpace(str)
-// 移除无效字符
-strings.TrimFunc("¡¡¡$6521.123Hello, Gophers!!!", func(r rune) bool {
-	return !unicode.IsLetter(r) && !unicode.IsNumber(r)
-}) // 6521.123Hello, Gophers
-```
-
-### unicode
-
-```go
-// 判断是否为字母(a-z|A-Z)
-unicode.IsLetter(v)
-
-// 判断是否为十进制数字(0-9)
-unicode.IsDigit(v)
-// 判断是否为数字(0-9)
-unicode.IsNumber(v)
-
-// 判断是否为空白符号(' ')
-unicode.IsSpace(v)
-// 判断是否为Unicode标点字符(';', ',', ...)
-unicode.IsPunct(v)
-```
-
-### math
-
-```go
-// |x|: 绝对值
-math.Abs(x float64)
-```
-
-::: details 示例
-
-```go
-x := -123
-fmt.Println(math.Abs(float64(x)))	// 123
-```
-
-:::
-
-### strconv
-
-```go
-package main
-
-import (
-	"fmt"
-	"strconv"
-)
-
-func main() {
-	v := "3.1415926535"
-	if s, err := strconv.ParseFloat(v, 64); err == nil {
-		fmt.Printf("%T, %v\n", s, s) // float64, 3.1415926535
-	}
-
-	v64 := "-3546343826"
-	if s, err := strconv.ParseInt(v64, 10, 64); err == nil {
-		fmt.Printf("%T, %v\n", s, s) // int64, -3546343826
-	}
-}
-```
 
 ### time
 
@@ -4570,330 +4894,6 @@ for i := range ticker {
 }
 ```
 
-### json
-
-**Api**
-
-```go
-import "encoding/json"
-
-// object => json
-json.Marshal()
-// json => object(map、struct)
-json.Unmarshal()
-
-// read json file to struct
-json.NewDecoder(file).Decode(&user)
-```
-
-:::: code-group
-::: code-group-item json 与 object 转换
-
-```go
-// object -> json
-func objectToJson(obj interface{}) string {
-	res, _ := json.Marshal(obj)
-	return string(res)
-}
-
-// json -> object(map/struct)
-func jsonToObject(data string, ptr interface{}) interface{} {
-	json.Unmarshal([]byte(data), &ptr)
-	return ptr
-}
-```
-
-:::
-::: code-group-item 解析 json 文件
-
-```go
-// ReadJsonFile2 json file -> object -> json String
-func ReadJsonFile(jsonfile string, obj map[string]interface{}) string {
-	// 打开json文件
-	f, _ := os.Open(jsonfile)
-	defer f.Close()
-
-	// json文件 -> struct
-	// var bar map[string]interface{}
-	json.NewDecoder(f).Decode(&obj)
-	// fmt.Println(bar)
-
-	// struct -> json
-	data, _ := json.Marshal(obj)
-	return string(data)
-}
-```
-
-:::
-::::
-
-**Json-Object: For Example**
-::: details json-map 转换
-
-```go
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-	"log"
-)
-
-// map -> json
-func mapToJson() {
-	m := map[string]interface{}{
-		"name":  "John",
-		"email": "john@gmail.com",
-		"age":   20,
-	}
-
-	jsonStr, _ := json.Marshal(&m)
-	fmt.Println(string(jsonStr))
-	// Output: {"age":20,"email":"john@gmail.com","name":"John"}
-}
-
-// json -> map
-func jsonToMap() {
-	jsonStr := `{
-		"name":  "John",
-		"email": "john@gmail.com",
-		"age":   20,
-		"data": [120, 200, 150, 80, 70, 110, 130]
-	}`
-	var m map[string]interface{}
-	json.Unmarshal([]byte(jsonStr), &m)
-	fmt.Println(m)
-	// Output: map[age:20 data:[120 200 150 80 70 110 130] email:john@gmail.com name:John]
-}
-```
-
-:::
-
-::: details json-struct 转换
-
-```go
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-)
-
-type Student struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
-	Age   int    `json:"age"`
-}
-
-func main() {
-
-}
-
-// GetJson struct -> json
-func GetJson() {
-	s := Student{
-		Name:  "John",
-		Email: "john@gmail.com",
-		Age:   20,
-	}
-
-	res, _ := json.Marshal(s)
-	fmt.Println(string(res))
-	// Output: {"Name":"John","Email":"john@gmail.com","Age":20}
-}
-
-// SetJson json -> struct
-func SetJson() {
-	obj := []byte(`{"Name":"John","Email":"john@gmail.com","Age":20}`)
-
-	s := Student{}
-	json.Unmarshal(obj, &s)
-	fmt.Println(s)
-	// Output: {John john@gmail.com 20}
-}
-```
-
-:::
-
-**JsonFile-Object-Json**
-
-```go
-import "encoding/json"
-
-var user map[string]interface{}
-// json file -> object
-json.NewDecoder(file).Decode(&user)
-```
-
-::: details json.NewDecoder(f).Decode(&obj)
-
-```go
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-	"os"
-)
-
-type Bar struct {
-	xAxis  map[string]interface{}
-	yAxis  map[string]interface{}
-	series map[string]interface{}
-}
-
-func main() {
-	ReadJsonFile()
-}
-
-func ReadJsonFile() {
-	f, _ := os.Open("bar.json")
-	defer f.Close()
-	var bar map[string]interface{}
-	// json File -> object
-	json.NewDecoder(f).Decode(&bar)
-	// fmt.Println(bar)
-
-	// object -> jsonStr
-	data, _ := json.Marshal(bar)
-	fmt.Println(string(data))
-}
-```
-
-:::
-
-**json-http**
-::: details json-http 示例
-
-```go
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-	"net/http"
-)
-
-type User struct {
-	Firstname string `json:"firstname"`
-	Lastname  string `json:"lastname"`
-	Age       int    `json:"age"`
-}
-
-func main() {
-	http.HandleFunc("/decode", func(w http.ResponseWriter, r *http.Request) {
-		var user User
-		json.NewDecoder(r.Body).Decode(&user)
-
-		fmt.Fprintf(w, "%s %s is %d years old!\n", user.Firstname, user.Lastname, user.Age)
-	})
-
-	http.HandleFunc("/encode", func(w http.ResponseWriter, r *http.Request) {
-		peter := User{
-			Firstname: "John",
-			Lastname:  "Doe",
-			Age:       25,
-		}
-
-		json.NewEncoder(w).Encode(peter)
-	})
-
-	http.ListenAndServe(":8080", nil)
-}
-
-/*
-$ curl -s -XPOST -d'{"firstname":"Elon","lastname":"Musk","age":48}' http://localhost:8080/decode
-Elon Musk is 48 years old!
-
-$ curl -s http://localhost:8080/encode
-{"firstname":"John","lastname":"Doe","age":25}
-*/
-
-```
-
-:::
-
-### gjson & sjson
-
-> 能够直接将 json 字符串作为 json 对象调用！
-
-```go
-import (
-	"github.com/tidwall/gjson"
-	"github.com/tidwall/sjson"
-)
-
-gjson.Get(obj, "axisLine.lineStyle")
-sjson.Set(obj, "axisLine.lineStyle.color", "skyblue")
-```
-
-::: details gjson & sjson
-
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/tidwall/gjson"
-	"github.com/tidwall/sjson"
-)
-
-func main() {
-	setJson()
-}
-
-func getJson() {
-	const obj = `{
-	"type": "bar",
-	"data": [120, 200, 150, 80, 70, 110, 130],
-	"axisLine": {"lineStyle": {"type": "solid", "color": "blue"}}
-}`
-	res := gjson.Get(obj, "axisLine.lineStyle")
-	fmt.Println(res)
-}
-
-func setJson() {
-	const obj = `{
-	"type": "bar",
-	"data": [120, 200, 150, 80, 70, 110, 130],
-	"axisLine": {"lineStyle": {"type": "solid", "color": "blue"}}
-}`
-	value, _ := sjson.Set(obj, "axisLine.lineStyle.color", "skyblue")
-	fmt.Println(value)
-}
-
-```
-
-:::
-
-::: details gjson-readjson File
-
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/tidwall/gjson"
-	"os"
-)
-
-type Bar struct {
-	xAxis  map[string]interface{}
-	yAxis  map[string]interface{}
-	series map[string]interface{}
-}
-
-func main() {
-	// 读取json文件
-	f, _ := os.ReadFile("bar.json")
-	// 获取json文件中的配置项
-	res := gjson.Get(string(f), "xAxis")
-	fmt.Println(res)
-}
-
-```
-
-:::
 
 ### jwt
 
@@ -5011,28 +5011,6 @@ func main() {
 }
 ```
 
-### fmt
-
-```go
-// 输出
-fmp.Print()
-fmt.Println()
-fmt.Printf()
-// 字符串格式化
-fmt.Sprintf()
-// http请求写入网页
-fmt.Fprintf()
-```
-
-### log
-
-```go
-import "log"
-
-log.Printf("%s", time.Now())
-log.Println()
-log.Fatal(err)
-```
 
 ### reflect
 
