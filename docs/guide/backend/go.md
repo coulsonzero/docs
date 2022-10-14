@@ -2631,360 +2631,6 @@ fmt.Println(res)    //500500
 ::::
 
 
-## FAQ
-
-### GO 简介
-
-```
-Go 不允许导入未被使用的包，以避免将未使用的代码链接到程序里而造成的不必要的膨胀
-Go 是一种用于编写系统的语言
-该语言本身的主要不寻常属性——并发性——解决了 2010 年代多核 CPU 激增所出现的问题。但更重要的是为软件开发世界的打包、依赖关系、构建、测试、部署和其他日常任务建立基础的早期工作，这些方面通常在语言设计中并不重要
-不是每个人都喜欢——例如，有些人反对这种语言省略了继承和泛型类型等常见的特性。但是 Go 以开发为中心的理念足够有趣和有效，以至于社区在保持最初推动 Go 存在的核心原则的同时蓬勃发展。在很大程度上要归功于该社区及其构建的技术，Go 现在已成为现代云计算环境的重要组成部分。
-```
-
-### 如何查看 Go 版本 ？
-
-```sh
-$ go version
-go version go1.17.7 darwin/amd64
-```
-
-### 如何 安装不同的 Go 版本 ？
-
-> 方式一：gvm
-> 方式二: Goland 中卸载 gdk (推荐)
-
-1. install gvm
-
-```sh
-$ curl -sSL https://github.com/soulteary/gvm/raw/master/binscripts/gvm-installer | bash
-Cloning from https://github.com/soulteary/gvm.git to /Users/coulsonzero/.gvm
-Created profile for existing install of Go at "/usr/local/go"
-Installed GVM v1.0.24
-
-Please restart your terminal session or to get started right away run
- `source /Users/coulsonzero/.gvm/scripts/gvm`
-```
-
-2. source terminal
-
-```sh
-$ source /Users/coulsonzero/.gvm/scripts/gvm
-# or 重新打开终端
-```
-
-3. install go version
-
-```sh
-$ gvm install go1.18.3 -B     # 本地编译(不想下载预编译好的内容)去掉 `-B`参数,
-Installing go1.18.3 from binary source
-```
-
-4. change go version
-
-```sh
-# 切换 go 版本
-$ gvm use go1.18.3
-Now using version go1.18.3
-
-# 设置 go 默认版本
-# $ gvm use go1.18.3  --default
-```
-
-5. 查看当前 go 版本
-
-```sh
-$ go version
-go version go1.18.3 darwin/arm64
-```
-
-- 如何卸载 gvm 或进行重置
-
-```sh
-$ rm -rf ~/.gvm
-
-# 然后清理 ~/.zshrc 或 ~/.bashrc 添加的内容
-```
-
-- 如何解决某个版本下载不顺利的问题
-
-```sh
-$ rm -rf ~/.gvm/archive/
-```
-
-### 如何开源 Golang 包给其他人使用 ?
-
-step1. 新建 public 仓库
-step2. 初始化模块
-
-> 将以下 github 用户名和仓库名替换为自己的即可
-
-```sh
-$ git clone https://github.com/coulsonzero/gopkg.git
-$ cd gopkg
-# 将模块导入为github仓库地址名
-$ go mod init github.com/coulsonzero/gopkg
-$ go mod tidy
-```
-
-**推送仓库内容**
-
-```sh
-$ git add .
-$ git commit -m "update"
-```
-
-**目录结构**
-
-```go
-➡︎  🍭  tree
-.
-├── config.yml
-└── fileConfig
-    ├── env.go
-    ├── ini.go
-    └── yml.go
-```
-
-step3. 使用 github 仓库包
-
-```sh
-$ go get -u "github.com/coulsonzero/gopkg"
-```
-
-**方式一. 使用仓库包需根据模块所在目录导入**
-
-> 库文件包导出
-
-```go
-package fileconfig
-```
-
-> 使用方式
-
-```go
-import "github.com/coulsonzero/gopkg/fileconfig"
-
-func main() {
-	fileconfig.ConfigEnv()
-}
-```
-
-**方式二. 使用 gopkg 统一导出**
-
-> 库文件包导出
-
-```go
-package gopkg
-```
-
-> 使用方式
-
-```go
-import	(
-	gopkg "github.com/coulsonzero/gopkg/fileconfig"
-	gopkg2 "github.com/coulsonzero/gopkg/encrypt"
-)
-
-func main() {
-	gopkg.ConfigEnv()
-	gopkg2.HashPassword()
-}
-```
-
-##### 方式三
-
-#### What I've done ? (v0.4.0)
-
-remove all subdirectories to update the import package
-
-before
-
-```sh
-$ tree
-.
-├── encrypt
-├   ├── md5.go          # package gopkg
-├   └── bcrypt.go       # package gopkg
-└── fileconfig
-    ├── env.go          # package gopkg
-    ├── ini.go          # package gopkg
-    └── yml.go          # package gopkg
-```
-
-before usage (v0.2.0)
-
-```go
-import (
-    gopkg1 "github.com/coulsonzero/gopkg/encrypt"
-    gopkg2 "github.com/coulsonzero/gopkg/fileconfig"
-)
-```
-
-```go
-gopkg1.HashPassword("admin123")
-gopkg2.ConfigEnv()
-```
-
-now
-
-```sh
-➡︎  🍭  tree
-.
-├── bcrypt.go
-├── md5.go
-├── env.go
-├── ini.go
-├── yml.go
-├── go.mod
-├── go.sum
-├── LICENSE
-└── README.md
-```
-
-#### Usage (v0.4.0)
-
-#### Install module
-
-```go
-$ go get github.com/coulsonzero/gopkg
-```
-
-#### How to import it ?
-
-```go
-import "github.com/coulsonzero/gopkg"
-```
-
-#### How to use it ?
-
-```go
-gopkg.HashPassword("admin123")
-gopkg.ConfigEnv(testEnvArr)
-```
-
-**Full Changelog**: https://github.com/coulsonzero/gopkg/compare/v0.2.0...v0.4.0
-
-如需在根目录下导入则不使用目录，但是查询和阅读比较麻烦, 看个人需求而定
-
-### GO vscode 的 package main 红色波浪性问题
-
-```
-1.终端上执行 go mod init [项目名]/[目录名]
-2.将项目文件夹移动至 GOPATH/src下 会自动配置Mod依赖
-```
-
-```sh
-go env -w GO111MODULE=on
-go env -w GOPROXY=https://goproxy.cn,direct
-go mod init <project name>
-go get -u github.com/gin-gonic/gin
-```
-
-### main redeclared in this block
-
-```go{1}
-// +build ignore
-
-package main
-```
-
-
-
-### Golang 注解 ？
-
-**方法弃用**
-
-> 在函数头部添加注释: `// Deprecated` 可表示 `弃用` 该方法，使用该方法时会出现`删除线`.
-
-```go
-// Deprecated
-func Title(s string) string {}
-```
-#### //go:linkname
-
-```go
-//go:linkname localname linkname
-// 这种方式将本地的私有函数/变量，提供给外部使用
-```
-#### //go:nosplit
-
-```go
-//go:nosplit
-// 其实就是告诉编译器，下面的函数不会产生堆栈溢出，不需要插入堆栈溢出检查。
-```
-
-### uint64 与 int64 的区别 ？
-
-> uint 为无符号整数，取值范围不同
-
-```go
-int8:   -128 ~ 127
-int16:  -32768 ~ 32767
-int32:  -2147483648 ~ 2147483647
-int64:  -9223372036854775808 ~ 9223372036854775807
-
-uint8:  0 ~ 255
-uint16: 0 ~ 65535
-uint32: 0 ~ 4294967295
-uint64: 0 ~ 18446744073709551615
-```
-
-### struct method 接收者使用指针与不使用指针的区别 ？
-
-> 如果想要修改结构体中的数据，接收者应该为指针类型，否则，接收者类型就为非指针类型
-
-```go
-package main
-
-import "fmt"
-
-type Inter interface {
-	Say(name string)
-}
-
-type Cat struct {
-	Name string
-}
-
-func (c Cat) Say(name string) {
-    // 修改结构体数据无效
-	c.Name = name
-	fmt.Printf("cat name is : %s\n", c.Name)
-}
-
-type Dog struct {
-	Name string
-}
-
-func (d *Dog) Say(name string) {
-    // 可以修改结构体数据
-	d.Name = name
-	fmt.Printf("dog name is : %s\n", d.Name)
-}
-
-func main() {
-	c := Cat{}
-	c.Name = "zhangsan"
-	c.Say("lisi")
-	fmt.Println("c.Name = ", c.Name)
-
-	d := new(Dog)
-	d.Name = "zhangsan"
-	d.Say("lisi")
-	fmt.Println("d.Name = ", d.Name)
-}
-
-
-// 执行结果
-cat name is : lisi
-c.Name =  zhangsan
-dog name is : lisi
-d.Name =  lisi
-```
-
-
-
 
 ## Packages
 
@@ -5250,3 +4896,359 @@ func main() {
 	fmt.Println(res)
 }
 ```
+
+
+## FAQ
+
+### GO 简介
+
+```
+Go 不允许导入未被使用的包，以避免将未使用的代码链接到程序里而造成的不必要的膨胀
+Go 是一种用于编写系统的语言
+该语言本身的主要不寻常属性——并发性——解决了 2010 年代多核 CPU 激增所出现的问题。但更重要的是为软件开发世界的打包、依赖关系、构建、测试、部署和其他日常任务建立基础的早期工作，这些方面通常在语言设计中并不重要
+不是每个人都喜欢——例如，有些人反对这种语言省略了继承和泛型类型等常见的特性。但是 Go 以开发为中心的理念足够有趣和有效，以至于社区在保持最初推动 Go 存在的核心原则的同时蓬勃发展。在很大程度上要归功于该社区及其构建的技术，Go 现在已成为现代云计算环境的重要组成部分。
+```
+
+### 如何查看 Go 版本 ？
+
+```sh
+$ go version
+go version go1.17.7 darwin/amd64
+```
+
+### 如何 安装不同的 Go 版本 ？
+
+> 方式一：gvm
+> 方式二: Goland 中卸载 gdk (推荐)
+
+1. install gvm
+
+```sh
+$ curl -sSL https://github.com/soulteary/gvm/raw/master/binscripts/gvm-installer | bash
+Cloning from https://github.com/soulteary/gvm.git to /Users/coulsonzero/.gvm
+Created profile for existing install of Go at "/usr/local/go"
+Installed GVM v1.0.24
+
+Please restart your terminal session or to get started right away run
+ `source /Users/coulsonzero/.gvm/scripts/gvm`
+```
+
+2. source terminal
+
+```sh
+$ source /Users/coulsonzero/.gvm/scripts/gvm
+# or 重新打开终端
+```
+
+3. install go version
+
+```sh
+$ gvm install go1.18.3 -B     # 本地编译(不想下载预编译好的内容)去掉 `-B`参数,
+Installing go1.18.3 from binary source
+```
+
+4. change go version
+
+```sh
+# 切换 go 版本
+$ gvm use go1.18.3
+Now using version go1.18.3
+
+# 设置 go 默认版本
+# $ gvm use go1.18.3  --default
+```
+
+5. 查看当前 go 版本
+
+```sh
+$ go version
+go version go1.18.3 darwin/arm64
+```
+
+- 如何卸载 gvm 或进行重置
+
+```sh
+$ rm -rf ~/.gvm
+
+# 然后清理 ~/.zshrc 或 ~/.bashrc 添加的内容
+```
+
+- 如何解决某个版本下载不顺利的问题
+
+```sh
+$ rm -rf ~/.gvm/archive/
+```
+
+### 如何开源 Golang 包给其他人使用 ?
+
+step1. 新建 public 仓库
+step2. 初始化模块
+
+> 将以下 github 用户名和仓库名替换为自己的即可
+
+```sh
+$ git clone https://github.com/coulsonzero/gopkg.git
+$ cd gopkg
+# 将模块导入为github仓库地址名
+$ go mod init github.com/coulsonzero/gopkg
+$ go mod tidy
+```
+
+**推送仓库内容**
+
+```sh
+$ git add .
+$ git commit -m "update"
+```
+
+**目录结构**
+
+```go
+➡︎  🍭  tree
+.
+├── config.yml
+└── fileConfig
+    ├── env.go
+    ├── ini.go
+    └── yml.go
+```
+
+step3. 使用 github 仓库包
+
+```sh
+$ go get -u "github.com/coulsonzero/gopkg"
+```
+
+**方式一. 使用仓库包需根据模块所在目录导入**
+
+> 库文件包导出
+
+```go
+package fileconfig
+```
+
+> 使用方式
+
+```go
+import "github.com/coulsonzero/gopkg/fileconfig"
+
+func main() {
+	fileconfig.ConfigEnv()
+}
+```
+
+**方式二. 使用 gopkg 统一导出**
+
+> 库文件包导出
+
+```go
+package gopkg
+```
+
+> 使用方式
+
+```go
+import	(
+	gopkg "github.com/coulsonzero/gopkg/fileconfig"
+	gopkg2 "github.com/coulsonzero/gopkg/encrypt"
+)
+
+func main() {
+	gopkg.ConfigEnv()
+	gopkg2.HashPassword()
+}
+```
+
+##### 方式三
+
+#### What I've done ? (v0.4.0)
+
+remove all subdirectories to update the import package
+
+before
+
+```sh
+$ tree
+.
+├── encrypt
+├   ├── md5.go          # package gopkg
+├   └── bcrypt.go       # package gopkg
+└── fileconfig
+    ├── env.go          # package gopkg
+    ├── ini.go          # package gopkg
+    └── yml.go          # package gopkg
+```
+
+before usage (v0.2.0)
+
+```go
+import (
+    gopkg1 "github.com/coulsonzero/gopkg/encrypt"
+    gopkg2 "github.com/coulsonzero/gopkg/fileconfig"
+)
+```
+
+```go
+gopkg1.HashPassword("admin123")
+gopkg2.ConfigEnv()
+```
+
+now
+
+```sh
+➡︎  🍭  tree
+.
+├── bcrypt.go
+├── md5.go
+├── env.go
+├── ini.go
+├── yml.go
+├── go.mod
+├── go.sum
+├── LICENSE
+└── README.md
+```
+
+#### Usage (v0.4.0)
+
+#### Install module
+
+```go
+$ go get github.com/coulsonzero/gopkg
+```
+
+#### How to import it ?
+
+```go
+import "github.com/coulsonzero/gopkg"
+```
+
+#### How to use it ?
+
+```go
+gopkg.HashPassword("admin123")
+gopkg.ConfigEnv(testEnvArr)
+```
+
+**Full Changelog**: https://github.com/coulsonzero/gopkg/compare/v0.2.0...v0.4.0
+
+如需在根目录下导入则不使用目录，但是查询和阅读比较麻烦, 看个人需求而定
+
+### GO vscode 的 package main 红色波浪性问题
+
+```
+1.终端上执行 go mod init [项目名]/[目录名]
+2.将项目文件夹移动至 GOPATH/src下 会自动配置Mod依赖
+```
+
+```sh
+go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
+go mod init <project name>
+go get -u github.com/gin-gonic/gin
+```
+
+### main redeclared in this block
+
+```go{1}
+// +build ignore
+
+package main
+```
+
+
+
+### Golang 注解 ？
+
+**方法弃用**
+
+> 在函数头部添加注释: `// Deprecated` 可表示 `弃用` 该方法，使用该方法时会出现`删除线`.
+
+```go
+// Deprecated
+func Title(s string) string {}
+```
+#### //go:linkname
+
+```go
+//go:linkname localname linkname
+// 这种方式将本地的私有函数/变量，提供给外部使用
+```
+#### //go:nosplit
+
+```go
+//go:nosplit
+// 其实就是告诉编译器，下面的函数不会产生堆栈溢出，不需要插入堆栈溢出检查。
+```
+
+### uint64 与 int64 的区别 ？
+
+> uint 为无符号整数，取值范围不同
+
+```go
+int8:   -128 ~ 127
+int16:  -32768 ~ 32767
+int32:  -2147483648 ~ 2147483647
+int64:  -9223372036854775808 ~ 9223372036854775807
+
+uint8:  0 ~ 255
+uint16: 0 ~ 65535
+uint32: 0 ~ 4294967295
+uint64: 0 ~ 18446744073709551615
+```
+
+### struct method 接收者使用指针与不使用指针的区别 ？
+
+> 如果想要修改结构体中的数据，接收者应该为指针类型，否则，接收者类型就为非指针类型
+
+```go
+package main
+
+import "fmt"
+
+type Inter interface {
+	Say(name string)
+}
+
+type Cat struct {
+	Name string
+}
+
+func (c Cat) Say(name string) {
+    // 修改结构体数据无效
+	c.Name = name
+	fmt.Printf("cat name is : %s\n", c.Name)
+}
+
+type Dog struct {
+	Name string
+}
+
+func (d *Dog) Say(name string) {
+    // 可以修改结构体数据
+	d.Name = name
+	fmt.Printf("dog name is : %s\n", d.Name)
+}
+
+func main() {
+	c := Cat{}
+	c.Name = "zhangsan"
+	c.Say("lisi")
+	fmt.Println("c.Name = ", c.Name)
+
+	d := new(Dog)
+	d.Name = "zhangsan"
+	d.Say("lisi")
+	fmt.Println("d.Name = ", d.Name)
+}
+
+
+// 执行结果
+cat name is : lisi
+c.Name =  zhangsan
+dog name is : lisi
+d.Name =  lisi
+```
+
+
+
