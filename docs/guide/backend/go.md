@@ -2712,7 +2712,7 @@ $ rm -rf ~/.gvm
 $ rm -rf ~/.gvm/archive/
 ```
 
-### 开源 Golang 包给其他人使用 ?
+### 如何开源 Golang 包给其他人使用 ?
 
 step1. 新建 public 仓库
 step2. 初始化模块
@@ -2842,7 +2842,7 @@ now
 └── README.md
 ```
 
-### Usage (v0.4.0)
+#### Usage (v0.4.0)
 
 #### Install module
 
@@ -2889,9 +2889,7 @@ go get -u github.com/gin-gonic/gin
 package main
 ```
 
-### Redis: WRONGTYPE Operation against a key holding the wrong kind of value
 
-> redis 中已经存在同名，但不同类型的 key 值， 删除此 key 再重新执行即可
 
 ### Golang 注解 ？
 
@@ -2902,6 +2900,18 @@ package main
 ```go
 // Deprecated
 func Title(s string) string {}
+```
+#### //go:linkname
+
+```go
+//go:linkname localname linkname
+// 这种方式将本地的私有函数/变量，提供给外部使用
+```
+#### //go:nosplit
+
+```go
+//go:nosplit
+// 其实就是告诉编译器，下面的函数不会产生堆栈溢出，不需要插入堆栈溢出检查。
 ```
 
 ### uint64 与 int64 的区别 ？
@@ -2920,7 +2930,7 @@ uint32: 0 ~ 4294967295
 uint64: 0 ~ 18446744073709551615
 ```
 
-### golang 中 struct 的接收者使用指针与不使用指针的区别 ？
+### struct method 接收者使用指针与不使用指针的区别 ？
 
 > 如果想要修改结构体中的数据，接收者应该为指针类型，否则，接收者类型就为非指针类型
 
@@ -2975,18 +2985,6 @@ d.Name =  lisi
 
 
 
-### //go:linkname
-
-```go
-//go:linkname localname linkname
-// 这种方式将本地的私有函数/变量，提供给外部使用
-```
-### //go:nosplit
-
-```go
-//go:nosplit
-// 其实就是告诉编译器，下面的函数不会产生堆栈溢出，不需要插入堆栈溢出检查。
-```
 
 ## Packages
 

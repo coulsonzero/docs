@@ -549,3 +549,6 @@ RDB: 将数据库快照以二进制的方式保存到磁盘中
 AOF: 以协议文本的方式，将所有对数据库进行写入的命令和参数记录到AOF文件，从而记录数据库状态
 ```
 
+- Redis: WRONGTYPE Operation against a key holding the wrong kind of value
+
+> redis 中已经存在同名，但不同类型的 key 值， 删除此 key 再重新执行即可
