@@ -1,10 +1,9 @@
 # [Golang](https://golang.google.cn)
 
-demo
-hello<demo-1/>this is
-
 `Google` in `2007`
 simple, reliable and efficient software.
+
+[Golang FAQ](http://faq.coulsonzero.cn/)
 
 ## 一. 快速开始
 
@@ -4898,6 +4897,8 @@ func main() {
 
 
 ## FAQ
+
+[Golang FAQ](http://faq.coulsonzero.cn/)
 
 ### GO 简介
 
