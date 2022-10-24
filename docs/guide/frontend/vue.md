@@ -575,3 +575,68 @@ export default {
 ```
 
 :::
+
+
+
+## Vue-Router
+
+- lnzy-loaded
+
+```js
+// method 1
+const HomeView = () => import('@/views/HomeView.vue')
+component: HomeView,
+
+// method 2
+component: () => import("@/views/AboutView.vue"),
+```
+- build history
+
+> build之后出现页面空白
+
+```js
+// router/index.js
+import {createRouter, createWebHistory, createWebHashHistory} from "vue-router"
+// import HomeView from '@/views/HomeView.vue'
+const HomeView = () => import('@/views/HomeView.vue')
+
+const router = createRouter({
+	// history: createWebHistory(import.meta.env.BASE_URL),
+	// build 环境
+	history: createWebHashHistory("./"),
+	routes: [
+		{
+			path: "/",
+			name: "home",
+			component: HomeView,
+		},
+		{
+			path: "/about",
+			name: "about",
+			// which is lazy-loaded when the route is visited.
+			component: () => import("@/views/AboutView.vue"),
+		},
+	],
+})
+
+export default router
+```
+
+```vue
+<script>
+import { RouterLink, RouterView } from 'vue-router'
+</script>
+
+<template>
+	<nav>
+		<RouterLink to="/">Home</RouterLink>
+		<RouterLink to="/about">About</RouterLink>
+	</nav>
+	<RouterView />
+</template>
+```
+
+```js
+// vite.config.js
+base: "./"
+```

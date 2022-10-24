@@ -1,5 +1,8 @@
 # [Golang](https://golang.google.cn)
 
+demo
+hello<demo-1/>this is
+
 `Google` in `2007`
 simple, reliable and efficient software.
 
@@ -740,6 +743,7 @@ arr := [...]int{'a': 1}
 > :::
 
 ::: tip Tip
+数组赋值和函数传参都是值复制的，每次内存地址都不同，这样会消耗掉大量的内存
 固定数组：值拷贝, 长度固定数组，无法扩容和修改元素(append(), make(), copy(), sort.Ints()等方法)
 
 动态数组(切片 slice): 引用拷贝
@@ -826,16 +830,11 @@ for _, v := range nums {
 ::::
 
 ### 7. Slice 切片
-
-::: tip
-动态数组，可使用 Array 所有**Api**方法，且长度不固定，可扩容
-:::
 :::: code-group
 ::: code-group-item 创建动态数组
 
 ```go
 var slice []int                 // len: 0, cap: 0, slice: []
-slice := []int                  // len: 0, cap: 0, slice: []
 slice := []int{1, 2, 3}         // len: 3, cap: 3, slice: [1, 2, 3]
 slice := make([]int, len, cap)  // make: 使用len分配slice长度；cap: 可选参数，为数组容量，长度小于容量时其他数值均为默认值
 ```
