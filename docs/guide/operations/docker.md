@@ -155,7 +155,7 @@ $ docker run -it --rm -p 3000:80 nginx:alpine
 [https://localhost:3000/](https://localhost:3000/)
 
 
-## docker 部署 react 前端项目
+## docker 使用 node 部署 前端项目
 
 Step1. 新建Dockerfile文件
 ```dockerfile
@@ -175,4 +175,24 @@ $ docker build -f Dockerfile -t react-docker:v1 .
 # --name: 重命名, --rm: 停止服务则自动删除镜像容器
 $ docker run -d -p 80:3000 --name react-docker react-docker:v1
 # $ docker run --rm -d -p 80:3000 --name react-docker react-docker:v1
+```
+
+
+### 使用nginx部署 前端(vue、react) 项目
+
+```yaml
+version: "3"
+services:
+  nginx-app:
+    build:
+      context: .
+      dockerfile: ./Docker/nginx.Dockerfile
+    ports:
+      - 3700:80
+```
+
+```Dockerfile
+FROM nginx:alpine
+
+ADD ./dist /usr/share/nginx/html/
 ```
