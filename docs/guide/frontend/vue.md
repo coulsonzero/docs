@@ -25,6 +25,32 @@ npm install -g @vue/cli
 
 ## 创建 vue3 项目的方式
 
+**方式一: npm init vue**
+
+```sh
+$ npm init vue@latest
+
+Vue.js - The Progressive JavaScript Framework
+
+✔ Project name: … `vue-admin`
+✔ Add TypeScript? … No / `Yes`
+✔ Add JSX Support? … `No` / Yes
+✔ Add Vue Router for Single Page Application development? … No / `Yes`
+✔ Add Pinia for state management? … `No` / Yes
+✔ Add Vitest for Unit Testing? … `No` / Yes
+✔ Add an End-to-End Testing Solution? › `No` / Yes
+✔ Add ESLint for code quality? … No / `Yes`
+✔ Add Prettier for code formatting? … No / `Yes`
+
+
+$ cd vue-admin
+$ yarn
+$ yarn lint | npm run lint
+$ yarn dev
+```
+
+**方式二：vue-cli**
+
 ```sh
 # 1.使用 vue-cli 命令行创建
 vue create <vue-project>
@@ -498,6 +524,108 @@ li {
 
 :::
 
+## 组建通信
+
+
+### 传参
+
+> 父组件向子组件传递参数
+
+```vue
+<template>
+	<!-- 传参 -->
+	<chart-circle
+		:percent="80"
+		:color="{circle_color: '#00cfde', circle_bg: '#557b88'}"
+	></chart-circle>
+</template>
+```
+
+```vue
+<script>
+export default {
+	props: {
+		percent: Number, // 数字
+		message: String, // 字符串
+		flag: Boolean, // 布尔值
+		arr: Array, // 数组
+		color: Object, // 对象
+	},
+}
+</script>
+```
+
+### 参数默认值
+
+> 未传参时使用参数默认值
+
+```vue
+<template>
+	<!--  没有传参时使用默认值 -->
+	<chart-circle
+		:percent="80"
+	></chart-circle>
+</template>
+```
+
+```vue
+<script>
+export default {
+	props: {
+		percent: {
+			type: Number,
+			required: true,
+			// 设置默认值
+			default: () => 20,
+		}
+		message: String,
+		flag: Boolean,
+		arr: Array,
+		color: {
+			type: Object,
+			required: false,
+			// 设置默认值
+			default: () => {
+				return {
+					circle_color: "#ff9f00",
+					circle_bg: "#776547",
+				};
+			},
+    	},
+	}
+}
+</script>
+```
+
+### 组件别名导入
+
+**父组件**
+
+```vue
+<template>
+	<!-- 组件别名 -->
+	
+	<!-- <ChartCirCle /> -->
+	<!-- <ChartCirCle></ChartCircle> -->
+	<chart-circle></chart-circle>
+</template>
+<script setup>
+import ChartCircle from "@/components/Chart/Circle.vue"
+</script>
+```
+
+**子组件**
+
+```vue
+<!-- components/Circle.vue -->
+<script>
+export default {
+	// 使用"chartCircle" 替代 "Circle"
+	name: "ChartCircle",
+}
+</script>
+```
+
 ## 应用案例
 
 ### 单行输入框
@@ -533,17 +661,18 @@ export default {
 	<textarea v-model="message"></textarea>
 </template>
 <script>
-	export default {
-		data() {
-			return {
-				message: '',
-			}
+export default {
+	data() {
+		return {
+			message: "",
 		}
-	}
+	},
+}
 </script>
 ```
 
 :::
+
 ### 多选框
 
 ::: vue-demo 多选框
@@ -576,8 +705,6 @@ export default {
 
 :::
 
-
-
 ## Vue-Router
 
 - lnzy-loaded
@@ -590,15 +717,16 @@ component: HomeView,
 // method 2
 component: () => import("@/views/AboutView.vue"),
 ```
+
 - build history
 
-> build之后出现页面空白
+> build 之后出现页面空白
 
 ```js
 // router/index.js
 import {createRouter, createWebHistory, createWebHashHistory} from "vue-router"
 // import HomeView from '@/views/HomeView.vue'
-const HomeView = () => import('@/views/HomeView.vue')
+const HomeView = () => import("@/views/HomeView.vue")
 
 const router = createRouter({
 	// history: createWebHistory(import.meta.env.BASE_URL),
@@ -624,7 +752,7 @@ export default router
 
 ```vue
 <script>
-import { RouterLink, RouterView } from 'vue-router'
+import {RouterLink, RouterView} from "vue-router"
 </script>
 
 <template>

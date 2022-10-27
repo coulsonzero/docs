@@ -590,27 +590,59 @@ func main() {
 
 ### 5. String 字符串
 
-[strings pkg](#strings)
+**常用标准库**
+
+- [strings](#strings)
+- [strconv](#strconv): string <-> number
+- [unicode](#unicode): byte
 
 :::: code-group
-::: code-group-item 初始化
+::: code-group-item Api
 
 ```go
-// 初始化
 var s string // 全局变量初始化
 s := ""		 // 局部变量初始化
+s := fmt.Sprintf("%d", num)	// 字符串格式化
 
-// 字符串格式化
-s := fmt.Sprintf("name: %s", name)
+// 查
+len(s string)    						// 字符串长度
+s[i]		     						// 索引字符
+strings.Index(s string, substr string)  // 子串索引, 不存在返回-1
 
-// 中文长度(1个中文占3个字节)
-len([]rune(s))	// []byte：不能用于中文字符数组
+// 改
+/** 字符串拼接方式
+ * 1. +
+ * 2. strings.Join()
+ * 3. strings.Build | bytes.Buffer
+ */
+
+// Build | Buffer
+var buf strings.Builder
+var buf bytes.Buffer
+buf.WriteString(s string)	// "hello"
+buf.WriteByte(c byte)		// ','
+buf.Write(p []byte)			// []byte("world")
+buf.String()
+
+// 大小写转换
+strings.ToUpper()							// 大写
+strings.ToLower()							// 小写
+strings.Title()								// 首字母大写
+cases.Title(language.Und).String(s string)  // 每个单词首字母大写
+
+// 替换
+strings.ReplaceAll()					// 替换
+strings.Replace(str, old, new , -1)		// -1为全部，等价于ReplaceAll()
+
+// 删除空白字符
+strings.Trim(s string, " ")	// 移除空格(首尾)
+strings.TrimSpace(s string)	// 移除\n\t等
 ```
 
 :::
 ::: code-group-item 遍历
 
-```go{15-16}
+```go{16-17}
 package main
 
 import "fmt"
@@ -645,7 +677,7 @@ func traversalString2(s string) {
 }
 
 func traversalString3(s string) {
-	for _, v := range s { // rune
+	for _, v := range s {
 		fmt.Printf(string(v))
 	}
 	fmt.Println()
@@ -661,57 +693,54 @@ func traversalString4(s string) {
 ```
 
 :::
+::: code-group-item 判断
+
+```go{2,7,12,13}
+/*============== 判断 ================*/
+strings.Contains()		// 包含
+strings.HasSuffix()		// endswith
+strings.HasPrefix()		// startswith
+
+// 判断字符类型
+unicode.IsLetter(v rune)     // 是否为 字母
+unicode.IsUpper(v rune)		 // 是否为 大写字母
+unicode.IsLower(v rune)		 // 是否为 小写字母
+
+// 数字判断的严格性：c >= '0' && c <= '9' ⇒ IsDigit ⇒ IsNumber
+fmt.Println(c >= '0' && c <= '9')	// 严格性更好
+unicode.IsDigit(v rune)      // 是否为 数字 ['1-9']
+unicode.IsNumber(v rune)     // 是否为 数字 ['1-9', 'Ⅷ', '½'], 范围更大
+
+unicode.IsSpace(v rune)      // 是否为 空白符号, [' ', '\n', '\t']
+unicode.IsPunct(v rune)      // 是否为 标点字符, [',', ...]
+```
+
+:::
 ::: code-group-item 类型转换
 
-```go{2,6}
-// string -> int
-num, _ := strconv.Atoi(str)		// return int
-num, _ := strconv.ParseInt(str, 10, 64)	// return int64
+```go{3,5}
+/*============== 类型转换 ================*/
+// string <-> number
+strconv.Atoi(s string)	        // string -> number(int)
+strconv.ParseInt(str, 10, 64)   // string -> number(int64)
+strconv.Itoa(n int)	            // number -> string
+fmt.Sprintf("%d", n int)        // number -> string
 
-// int -> string
-str := strconv.Itoa(num)
-str := fmt.Sprintf("%d", num)
 
-// array -> string
-strings.Join(s, "")
+// string <-> array
+strings.Split(s string, sep string)		// string -> array
+strings.Join(arr []string, sep, string)	// array  -> string
 
-// string -> []byte
-[]byte("hello")
-
-// byte -> string
-string('z')
+// byte | rune -> string
+string(c byte | r rune)
+// string -> []byte | []rune
+[]byte(s string)
+[]rune(s string)		// 可用于中文字符数组，中文长度(1个中文占3个字节)
 ```
 
 :::
-::: code-group-item Api
 
-```go
-
-/** 字符串拼接方式
- * 1. +
- * 2. strings.Join(arr, "")
- * 3. sb.WriteString(v)
- * 4. buf.Write([]byte(v))
- */
-func build(arr []string) string {
-	var sb strings.Builder
-	for _, v := range arr {
-		sb.WriteString(v)
-	}
-	return sb.String()
-}
-
-func buffer(arr []string) string {
-	buf := new(bytes.Buffer)
-	for _, v := range arr {
-		buf.Write([]byte(v))
-	}
-	return buf.String()
-}
-```
-
-:::
-::: code-group-item char
+::: code-group-item byte
 
 ```go
 // 判断字符类型
@@ -736,44 +765,19 @@ arr := [...]int{'a': 1}
 
 ::: warning
 
-> 一旦声明，长度固定无法修改，需要动态扩展数据参考切片`make([]int 5)`
+> 固定数组(数组 Array)：`值拷贝`, 以整体复制的形式会消耗大量内存, `长度固定，只能查询`，无法增删改扩容, 需要动态扩展数据参考切片
 >
-> 只能查询，无法增删改
-> :::
+> 动态数组(切片 slice)：`引用拷贝`
 
-::: tip Tip
-数组赋值和函数传参都是值复制的，每次内存地址都不同，这样会消耗掉大量的内存
-固定数组：值拷贝, 长度固定数组，无法扩容和修改元素(append(), make(), copy(), sort.Ints()等方法)
-
-动态数组(切片 slice): 引用拷贝
 :::
 
 :::: code-group
 ::: code-group-item 创建固定数组
 
 ```go
-// 数组声明 -> 有默认值
-arr := [3]int          // [0, 0, 0]
-// 数据声明初始化
-arr := []int{1, 2, 3}  // [1, 2, 3]
-
-
-// For Example
-var a [3]int                             // len: 3, cap: 3, array: [0 0 0], array: [3]int{0, 0, 0}
-var b = [...]int{1, 2, 3}                // len: 3, cap: 3, array: [1 2 3]
-var c = [...]int{1: 2, 2: 3}             // len: 3, cap: 3, array: [0 2 3]
-var d = [...]int{1, 2, 4: 5, 6}          // len: 6, cap: 6, array: [1 2 0 0 5 6]
-var e = [...]int{'a': 1}                 // len: 98, cap: 98, array: [..., 1]
-var f = [...]int{'a': 1, 'b': 2, 'c': 3} // len: 100, cap: 100, array: [..., 1 2 3]
-
-fmt.Printf("len: %d, cap: %d, array: %v, array: %#v \n", len(a), cap(a), a, a)
-fmt.Printf("len: %d, cap: %d, array: %v \n", len(b), cap(b), b)
-fmt.Printf("len: %d, cap: %d, array: %v \n", len(c), cap(c), c)
-fmt.Printf("len: %d, cap: %d, array: %v \n", len(d), cap(d), d)
-fmt.Printf("len: %d, cap: %d, array: %v \n", len(e), cap(e), e)
-fmt.Printf("len: %d, cap: %d, array: %v \n", len(f), cap(f), f)
-
-fmt.Printf("%v, %c, %T", 'a', 'a', 'a') // 97, a, int32
+arr := [3]int           			// 有默认值: [0, 0, 0]
+arr := [3]int{1, 2, 3} 			    // [1, 2, 3]
+arr := [...]int{1, 96: 0, 'a': 97}  // len: 98, cap: 98, array: [1, ..., 0, 97]
 ```
 
 :::
@@ -828,30 +832,67 @@ for _, v := range nums {
 :::
 ::::
 
-### 7. Slice 切片
-:::: code-group
-::: code-group-item 创建动态数组
+**Example**
 
 ```go
+// For Example
+var a [3]int                             // len: 3, cap: 3, array: [0 0 0], array: [3]int{0, 0, 0}
+var b = [...]int{1, 2, 3}                // len: 3, cap: 3, array: [1 2 3]
+var c = [...]int{1: 2, 2: 3}             // len: 3, cap: 3, array: [0 2 3]
+var d = [...]int{1, 2, 4: 5, 6}          // len: 6, cap: 6, array: [1 2 0 0 5 6]
+var e = [...]int{'a': 1}                 // len: 98, cap: 98, array: [..., 1]
+var f = [...]int{'a': 1, 'b': 2, 'c': 3} // len: 100, cap: 100, array: [..., 1 2 3]
+
+fmt.Printf("len: %d, cap: %d, array: %v, array: %#v \n", len(a), cap(a), a, a)
+fmt.Printf("len: %d, cap: %d, array: %v \n", len(b), cap(b), b)
+fmt.Printf("len: %d, cap: %d, array: %v \n", len(c), cap(c), c)
+fmt.Printf("len: %d, cap: %d, array: %v \n", len(d), cap(d), d)
+fmt.Printf("len: %d, cap: %d, array: %v \n", len(e), cap(e), e)
+fmt.Printf("len: %d, cap: %d, array: %v \n", len(f), cap(f), f)
+
+fmt.Printf("%v, %c, %T", 'a', 'a', 'a') // 97, a, int32
+```
+
+### 7. Slice 切片
+
+[sort](#sort)
+[gopkg-pro](https://github.com/coulsonzero/gopkg)
+
+:::: code-group
+::: code-group-item 创建
+
+```go
+// create slice
 var slice []int                 // len: 0, cap: 0, slice: []
 slice := []int{1, 2, 3}         // len: 3, cap: 3, slice: [1, 2, 3]
-slice := make([]int, len, cap)  // make: 使用len分配slice长度；cap: 可选参数，为数组容量，长度小于容量时其他数值均为默认值
+slice := make([]int, len, cap)  // len为必选，cap容量可选
+
+// example
+slice := make([]int, 0)
+slice := make([]int, 3, 5)		// len: 3, cap: 5, [0, 0, 0]
 ```
 
 :::
 ::: code-group-item api
+
 ```go
-len()		// 长度
-cap()		// 容量
-make()		// 主动分配扩容
-append()    // 容量不足自动扩容
-copy()      // 容量不变, 元素覆盖多余自动截断
-reflect.DeepEqual() // 判断两个切片是否相等
-slice[1:3]
-// 不定参可使用解构
+len()								// 长度
+cap()								// 容量
+make([]Type, len, cap)			    // 主动分配扩容
+/**
+ * append(): 末尾新增一个或多个元素
+ * copy()  : 修改切片前n个元素的值 -> s[:len(s2)] = s2[:]
+ */
+append(slice []Type, elem ...Type)  // 容量不足时自动扩容
+copy(slice, slice2)     			// 将slice2的元素拷贝到slice中，slice长度和容量不会改变,多余自动截断
+reflect.DeepEqual()					// 判断两个slice是否相等
+
+sclie[:]  slice[1:3]				// 不可用负数
+// 函数不定参可使用解构， 可选参可用判断
 ...slice
 slice...
 ```
+
 :::
 ::: code-group-item 查
 
@@ -865,11 +906,9 @@ fmt.Printf("len: %d, cap: %d, slice: %v \n", len(slice), cap(slice), slice)
 
 ```go
 // 增加(末尾)
-// slice := []int{1, 2, 3, 0, 0}
-slice = append(slice, 4)         // len: 6, cap: 10, slice: [1 2 3 0 0 4]
-slice = append(slice, 4, 5, 6)   // len: 8, cap: 10, slice: [1 2 3 0 0 4 5 6]
-// nums := []int{4, 5}
-slice = append(slice, nums...)   // len: 7, cap: 10, slice: [1 2 3 0 0 4 5]
+slice = append(slice, 4)			// 末尾新增一个元素
+slice = append(slice, 4, 5, 6)		// 末尾新增多个元素
+slice = append(slice, nums...)      // 末尾新增不定元素
 
 // 中间插入元素
 slice = append(slice[:i], append([]int{v}, slice[i:]...)...)	// 在index=i的位置插入value
@@ -880,7 +919,7 @@ func SliceInsert(slice []int, index int, value int) []int {
 	return append(slice[:index], append([]int{value}, slice[index:]...)...)
 }
 
-func sliceInsert(slice []int, index int, value int) []int {
+func SliceInsert(slice []int, index int, value int) []int {
 	slice = append(slice, 0)
 	copy(slice[index+1:], slice[index:])
 	slice[index] = value
@@ -892,10 +931,10 @@ func sliceInsert(slice []int, index int, value int) []int {
 ::: code-group-item 删
 
 ```go
-// 删除(指定索引元素)
+// 删除一个元素(指定索引元素)
 slice = append(slice[:i], slice[i + 1:]...)
 
-// 删除切片部分元素
+// 删除多个元素
 slice = slice[i:]
 ```
 
@@ -905,48 +944,13 @@ slice = slice[i:]
 ```go
 // 排序
 import "sort"
+
+// 数字切片排序
 sort.Ints(slice)
 sort.Sort(sort.Reverse(sort.IntSlice(slice)))
+// 字符串切片排序
+sort.Strings(strs)
 
-// 反转
-func sliceReverse(s []int) []int {
-	j := len(s) - 1
-	for i := 0; i < j; i++ {
-		s[i], s[j] = s[j], s[i]
-		j--
-	}
-	return s
-}
-
-/**
- * append(): 末尾新增一个或多个元素
- * copy()  : 修改切片前n个元素的值 -> slice[0:k]
- * 合并切片 :  将另一个切片数组放在该切片数组的特定位置 -> s[start:n]
- */
-
-
-// 切片合并(替代部分元素 -> slice[start:end])
-// nums1 := []int{1, 2, 3, 0, 0, 0}
-// nums2 := []int{4, 5, 6}
-// start := 3      // 如果 start := len(nums1) - len(nums2) ->  nums1[:k] = nums2[:]与copy()正好相反
-func sliceMerge(nums1, nums2 []int, start int) []int {
-    for i, _ := range nums2 {
-        // 超出部分将自动截断
-        if startIndex+i > len(nums1)-1 {
-			break
-		}
-        nums1[start + i] = nums2[i]
-    }
-    return nums1
-}
-// Output: nums1 = [1, 2, 3, 4, 5, 0, 0]
-
-
-
-// 切片拷贝(元素，长度，容量)
-// slice1 := []int{1, 3, 5}
-// slice2 := []int{}   // len=0 cap=0 slice=[]
-slice2 = slice[:]   // len=3 cap=3 slice=[1 3 5]
 
 // 元素拷贝(元素) -> slice[:len(slice2)] = slice2[:]
 // slice := []int{1, 2, 3, 4, 5, 6}
@@ -994,6 +998,9 @@ func IsEqual(x any, y any) bool {
 	return reflect.DeepEqual(x, y)
 }
 
+type sl interface {
+	int | int64 | float64 | string | bool
+}
 // 判断是否包含目标元素
 func SliceContains[T sl](slice []T, target T) bool {
 	for _, v := range slice {
@@ -1007,7 +1014,6 @@ func SliceContains[T sl](slice []T, target T) bool {
 
 :::
 ::::
-
 
 ### 8. Map 哈希表
 
@@ -1108,7 +1114,6 @@ func hello() {
 }
 ```
 
-
 #### 2) 参数
 
 :::: code-group
@@ -1156,6 +1161,7 @@ func main() {
 ::::
 
 #### 3) 返回值
+
 ```go
 func swap(x, y int) (int, int) {
     return y, x
@@ -1557,7 +1563,6 @@ func main() {
 
 ```
 
-
 :::
 ::: code-group-item 类输入遍历
 
@@ -1779,8 +1784,6 @@ func main() {
 :::
 ::::
 
-
-
 ### Goroutine 协程
 
 ```go
@@ -1851,6 +1854,7 @@ func main() {
 
 :::
 ::: code-group-item select
+
 ```go
 package main
 
@@ -1889,8 +1893,10 @@ func main() {
 }
 
 ```
+
 :::
 ::: code-group-item for-select
+
 ```go
 package main
 
@@ -1935,6 +1941,7 @@ func main() {
 	}
 }
 ```
+
 :::
 ::::
 
@@ -2012,6 +2019,7 @@ func main() {
 
 // Output: 173250
 ```
+
 :::
 ::::
 
@@ -2342,6 +2350,7 @@ select {
 ### Error 异常处理
 
 **errors**
+
 ```go
 // 错误被认为是一种可以预期的结果，而异常则是一种非预期的结果
 // 发生异常可能表示程序中存在bug或发生了其它不可控的问题
@@ -2359,6 +2368,7 @@ return errors.New("math: square root of negative number")
 ```
 
 **错误判断**
+
 ```go
 // f, err := os.Open()
 // if err != nil {}
@@ -2376,6 +2386,7 @@ return errors.New("math: square root of negative number")
 ```
 
 **recover & panic**
+
 ```go
 // panic: 返回相应的错误信息, 终止程序运行
 
@@ -2393,6 +2404,13 @@ defer func() {
 ```
 
 ### import
+
+```go
+import . "fmt"	// 省略包名: fmt.Println() => Println()
+import f "fmt"	// 别名导入: fmt.Println() => f.Println("hello world")
+import _ "github.com/go-sql-driver/mysql"
+import go-project/config    // 项目绝对路径导入
+```
 
 ```go
 // 1. import single package
@@ -2503,7 +2521,6 @@ func isEven( num int ) bool {
     return num & 1 == 0
 }
 ```
-
 
 ::: tip
 
@@ -2628,8 +2645,6 @@ fmt.Println(res)    //500500
 :::
 ::::
 
-
-
 ## Packages
 
 [golang 标准库](https://pkg.go.dev/std)
@@ -2663,10 +2678,6 @@ log.Fatal(err)
 log.Fatalf()
 ```
 
-
-
-
-
 ### math
 
 ```go
@@ -2689,8 +2700,8 @@ rand.Shuffle(length int, swap func(i int, j int))
 rand.Perm(4)	// [2 0 1 3]
 ```
 
-
 **example**
+
 ```go
 // 打乱随机顺序
 nums := []int{1, 2, 3, 4, 5}
@@ -2699,7 +2710,6 @@ rand.Shuffle(len(nums), func(i, j int) {
 	nums[i], nums[j] = nums[j], nums[i]
 })
 ```
-
 
 ### unicode
 
@@ -2717,6 +2727,7 @@ unicode.IsSpace(v)
 // 判断是否为Unicode标点字符(';', ',', ...)
 unicode.IsPunct(v)
 ```
+
 ### strconv
 
 ```go
@@ -2958,8 +2969,6 @@ func main() {
 
 :::
 ::::
-
-
 
 ### os
 
@@ -3920,7 +3929,6 @@ func cmdOutput(command string) ([]byte, error) {
 
 :::
 
-
 ### mysql
 
 ```bash
@@ -4451,10 +4459,6 @@ func (conn *Conn) GetString(field string) {
 :::
 ::::
 
-
-
-
-
 ### time
 
 ```go
@@ -4535,7 +4539,6 @@ for i := range ticker {
 	fmt.Println(i)
 }
 ```
-
 
 ### jwt
 
@@ -4652,7 +4655,6 @@ func main() {
 
 }
 ```
-
 
 ### reflect
 
@@ -4894,7 +4896,6 @@ func main() {
 	fmt.Println(res)
 }
 ```
-
 
 ## FAQ
 
@@ -5156,8 +5157,6 @@ go get -u github.com/gin-gonic/gin
 package main
 ```
 
-
-
 ### Golang 注解 ？
 
 **方法弃用**
@@ -5168,12 +5167,14 @@ package main
 // Deprecated
 func Title(s string) string {}
 ```
+
 #### //go:linkname
 
 ```go
 //go:linkname localname linkname
 // 这种方式将本地的私有函数/变量，提供给外部使用
 ```
+
 #### //go:nosplit
 
 ```go
@@ -5249,6 +5250,3 @@ c.Name =  zhangsan
 dog name is : lisi
 d.Name =  lisi
 ```
-
-
-

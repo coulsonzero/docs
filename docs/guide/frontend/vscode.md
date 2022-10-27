@@ -26,6 +26,9 @@
 "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
 },
+
+// 解决 vue3 + ts import 报红色波浪线
+"vetur.validation.script": false
 ```
 
 :::
