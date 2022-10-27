@@ -246,6 +246,11 @@ export default {
 
 :::
 
+```vue
+<div :class="['progress-color', color]"></div>
+<div :style="{width: item.amount, background: item.color}"></div>
+```
+
 ### vue-for
 
 ::: vue-demo vue-for-list.vue
@@ -253,7 +258,7 @@ export default {
 ```vue
 <template>
 	<ul>
-		<li v-for="item in list">{{ item }}</li>
+		<li v-for="(item, index) in list" :key="index">{{ item }}</li>
 	</ul>
 </template>
 
@@ -278,8 +283,8 @@ export default {
 <template>
 	<div id="list-rendering">
 		<ol>
-			<li v-for="todo in todos" :key="todo.id">
-				{{ todo.text }}
+			<li v-for="(item, index) in todos" :key="index">
+				{{ item.text }}
 			</li>
 		</ol>
 	</div>
@@ -526,7 +531,6 @@ li {
 
 ## 组建通信
 
-
 ### 传参
 
 > 父组件向子组件传递参数
@@ -534,10 +538,7 @@ li {
 ```vue
 <template>
 	<!-- 传参 -->
-	<chart-circle
-		:percent="80"
-		:color="{circle_color: '#00cfde', circle_bg: '#557b88'}"
-	></chart-circle>
+	<chart-circle :percent="80" :color="{circle_color: '#00cfde', circle_bg: '#557b88'}"></chart-circle>
 </template>
 ```
 
@@ -562,9 +563,7 @@ export default {
 ```vue
 <template>
 	<!--  没有传参时使用默认值 -->
-	<chart-circle
-		:percent="80"
-	></chart-circle>
+	<chart-circle :percent="80"></chart-circle>
 </template>
 ```
 
@@ -604,7 +603,7 @@ export default {
 ```vue
 <template>
 	<!-- 组件别名 -->
-	
+
 	<!-- <ChartCirCle /> -->
 	<!-- <ChartCirCle></ChartCircle> -->
 	<chart-circle></chart-circle>
