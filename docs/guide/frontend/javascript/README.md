@@ -2525,6 +2525,43 @@ let scrolled = document.documentElement.scrollTop / (document.documentElement.sc
 :::
 ::::
 
+### cookie & localStorage & sessionStorage
+
+> 三者都是临时存储客户端会话信息或者数据的方法
+
+1. 存储的时间有效期不同:
+- cookie的有效期是可以设置的，默认的情况下是关闭浏览器后失效
+- sessionStorage: 仅保持在当前页面，关闭当前会话页或者浏览器后就会失效, 键值对会被清空
+- localStorage: 永久性存储, 直到手动删除
+
+2. 存储的大小不同
+- cookie的存储是4kb左右，存储量较小，一般页面最多存储20条左右信息
+- localStorage和sessionStorage的存储容量是5Mb
+
+3. 与服务端的通信
+- cookie会参与到与服务端的通信中，一般会携带在http请求的头部中，例如一些关键密匙验证等。
+- localStorage和sessionStorage是单纯的前端存储，不参与与服务端的通信
+
+4. 读写操作的便捷程度
+- cookie的相关操作，cookie操作起来较为繁琐，并且部分数据不可以读取操作
+
+5. 对于浏览器的支持
+- cookie出现的时间较早，目前见到的浏览器都支持
+- localStorage和sessionStorage出现的时间较晚，对于版本较低的浏览器不支持(比如IE8版本以下的都不支持)
+
+```js
+// cookie
+document.cookie="username=John Doe; expires=Thu, 18 Dec 2043 12:00:00 GMT";
+console.log(document.cookie)
+document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+// storage
+localStorage.setItem("key", JSON.stringify(obj))
+localStorage.getItem("key")
+localStorage.removeItem('key')
+localStorage.clear()
+```
+
 ## Module
 
 ### Date
@@ -2910,19 +2947,19 @@ scrollToTop.addEventListener("click", () => {
 
 ```css
 .scrollToTop {
-  display: none;
-  position: fixed;
-  bottom: 5vh;
-  right: 3vw;
-  z-index: 1;
-  background-color: black;
-  padding: 1rem;
-  border-radius: 3rem 3rem;
-  cursor: pointer;
+	display: none;
+	position: fixed;
+	bottom: 5vh;
+	right: 3vw;
+	z-index: 1;
+	background-color: black;
+	padding: 1rem;
+	border-radius: 3rem 3rem;
+	cursor: pointer;
 }
 
 .scrollToTop img {
-  height: 6vh;
+	height: 6vh;
 }
 ```
 
@@ -2930,133 +2967,132 @@ scrollToTop.addEventListener("click", () => {
 
 ```html
 <div class="section milestones semiDark" id="milestones">
-    <div class="milestones__container">
-        <div class="milestone" id="ms1">
-            <div class="milestone__icon">
-                <img src="./assets/heart.svg" alt="" />
-            </div>
-            <h2 class="milestone__number">199</h2>
-            <p class="milestone__info">Satisfied Customers</p>
-        </div>
-        <div class="milestone" id="ms2">
-            <div class="milestone__icon">
-                <img src="./assets/clock.svg" alt="" />
-            </div>
-            <h2 class="milestone__number">575</h2>
-            <p class="milestone__info">Days of operations</p>
-        </div>
-        <div class="milestone" id="ms3">
-            <div class="milestone__icon">
-                <img src="./assets/check-circle.svg" alt="" />
-            </div>
-            <h2 class="milestone__number">49</h2>
-            <p class="milestone__info">Completed Projects</p>
-        </div>
-        <div class="milestone" id="ms4">
-            <div class="milestone__icon">
-                <img src="./assets/award.svg" alt="" />
-            </div>
-            <h2 class="milestone__number">55</h2>
-            <p class="milestone__info">Awards Won</p>
-        </div>
-    </div>
+	<div class="milestones__container">
+		<div class="milestone" id="ms1">
+			<div class="milestone__icon">
+				<img src="./assets/heart.svg" alt="" />
+			</div>
+			<h2 class="milestone__number">199</h2>
+			<p class="milestone__info">Satisfied Customers</p>
+		</div>
+		<div class="milestone" id="ms2">
+			<div class="milestone__icon">
+				<img src="./assets/clock.svg" alt="" />
+			</div>
+			<h2 class="milestone__number">575</h2>
+			<p class="milestone__info">Days of operations</p>
+		</div>
+		<div class="milestone" id="ms3">
+			<div class="milestone__icon">
+				<img src="./assets/check-circle.svg" alt="" />
+			</div>
+			<h2 class="milestone__number">49</h2>
+			<p class="milestone__info">Completed Projects</p>
+		</div>
+		<div class="milestone" id="ms4">
+			<div class="milestone__icon">
+				<img src="./assets/award.svg" alt="" />
+			</div>
+			<h2 class="milestone__number">55</h2>
+			<p class="milestone__info">Awards Won</p>
+		</div>
+	</div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 
-
 <script>
-// 数字滚动
-let isMilestonesLoaded = false
-const observer = new IntersectionObserver(
-  function (entries) {
-    if (entries[0].isIntersecting === true) startMilestonesCount();
-  },
-  { threshold: [0.5] }
-);
+	// 数字滚动
+	let isMilestonesLoaded = false
+	const observer = new IntersectionObserver(
+		function (entries) {
+			if (entries[0].isIntersecting === true) startMilestonesCount()
+		},
+		{threshold: [0.5]}
+	)
 
-observer.observe(document.querySelector(".milestones__container"));
+	observer.observe(document.querySelector(".milestones__container"))
 
-const startMilestonesCount = () => {
-  if (!isMilestonesLoaded) {
-    isMilestonesLoaded = true;
-    $(".milestone__number").each(function () {
-      $(this)
-        .prop("Counter", 0)
-        .animate(
-          {
-            Counter: $(this).text(),
-          },
-          {
-            duration: 4000,
-            easing: "swing",
-            step: function (now) {
-              $(this).text(Math.ceil(now));
-            },
-          }
-        );
-    });
-  }
-};
+	const startMilestonesCount = () => {
+		if (!isMilestonesLoaded) {
+			isMilestonesLoaded = true
+			$(".milestone__number").each(function () {
+				$(this)
+					.prop("Counter", 0)
+					.animate(
+						{
+							Counter: $(this).text(),
+						},
+						{
+							duration: 4000,
+							easing: "swing",
+							step: function (now) {
+								$(this).text(Math.ceil(now))
+							},
+						}
+					)
+			})
+		}
+	}
 </script>
 
 <style>
-body {
-  background-color: #101010;
-  font-family: "Rubik", sans-serif;
-  /* overflow-x: hidden !important; */
-}
+	body {
+		background-color: #101010;
+		font-family: "Rubik", sans-serif;
+		/* overflow-x: hidden !important; */
+	}
 
-.milestones {
-  display: -ms-grid;
-  display: grid;
-  gap: 4vw;
-}
+	.milestones {
+		display: -ms-grid;
+		display: grid;
+		gap: 4vw;
+	}
 
-.milestones .milestones__container {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (minmax(250px, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 5vh;
-}
+	.milestones .milestones__container {
+		display: -ms-grid;
+		display: grid;
+		-ms-grid-columns: (minmax(250px, 1fr)) [auto-fit];
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 5vh;
+	}
 
-.milestones .milestones__container .milestone {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  gap: 2vh;
-  background-color: black;
-  padding: 2.5vw;
-  border-radius: 1rem;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
-}
+	.milestones .milestones__container .milestone {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		gap: 2vh;
+		background-color: black;
+		padding: 2.5vw;
+		border-radius: 1rem;
+		-webkit-transition: 0.3s ease-in-out;
+		transition: 0.3s ease-in-out;
+	}
 
-.milestones .milestones__container .milestone:hover {
-  -webkit-box-shadow: rgba(161, 12, 117, 0.534) 0px 2px 4px 0px, rgba(18, 79, 105, 0.829) 0px 2px 16px 0px;
-          box-shadow: rgba(161, 12, 117, 0.534) 0px 2px 4px 0px, rgba(18, 79, 105, 0.829) 0px 2px 16px 0px;
-  -webkit-transform: translateY(-10px);
-          transform: translateY(-10px);
-}
+	.milestones .milestones__container .milestone:hover {
+		-webkit-box-shadow: rgba(161, 12, 117, 0.534) 0px 2px 4px 0px, rgba(18, 79, 105, 0.829) 0px 2px 16px 0px;
+		box-shadow: rgba(161, 12, 117, 0.534) 0px 2px 4px 0px, rgba(18, 79, 105, 0.829) 0px 2px 16px 0px;
+		-webkit-transform: translateY(-10px);
+		transform: translateY(-10px);
+	}
 
-.milestones .milestones__container .milestone .milestone__icon img {
-  height: 8vh;
-}
+	.milestones .milestones__container .milestone .milestone__icon img {
+		height: 8vh;
+	}
 
-.milestones .milestones__container .milestone .milestone__number {
-  color: white;
-}
+	.milestones .milestones__container .milestone .milestone__number {
+		color: white;
+	}
 
-.milestones .milestones__container .milestone .milestone__info {
-  color: #3d3c3c;
-}
+	.milestones .milestones__container .milestone .milestone__info {
+		color: #3d3c3c;
+	}
 </style>
 ```

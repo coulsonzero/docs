@@ -3,11 +3,10 @@
 `Google` in `2007`
 simple, reliable and efficient software.
 
+[Go 中文学习网](https://www.topgoer.com/)
 [Golang FAQ](http://faq.coulsonzero.cn/)
 
 ## 一. 快速开始
-
-[Go 中文学习网](https://www.topgoer.com/)
 
 ### 1.1 环境安装
 
@@ -106,10 +105,10 @@ fmt.Printf()    // 格式化输出
 
 **Input**
 
-```go{3}
-var name string
-// fmt.Print("请输入名称(name): ")
-fmt.Scanln(&name)
+```go
+var input string
+// fmt.Scan(&input)
+fmt.Scanln(&input)
 ```
 
 **For Example**
@@ -467,28 +466,31 @@ func main() {
 // 基础数据类型
 
 // 1.数字 (整数、浮点数、复数)
-int  <int8/int16/int32/int64>     	// 带符号整数, rune = int32
-uint <uint8/uint16/uint32/uint64>	// 无符号整数(非负数), byte = uint8
-// int大小: 与具体的平台有关, int在32位系统中是4字节，在64位系统中是8字节
-float32/float64    		// 1.2 浮点数
-complex64/complex128	// 1.3 复数
-// 2.布尔
-bool
-// 3.字符串
-string, []byte, []rune
+int       ( int8        | int16  | int32[rune] | int64  )
+uint      ( uint8[byte] | uint16 | uint32      | uint64 )
+float32   | float64
+complex64 | complex128
 
+// 2.字符串
+string | []byte | []rune
+
+// 3.布尔
+bool
+
+
+// 引用类型
 
 // Array
 []int
-[]string
 
 // map
-map[string] int
+map[string]int
 
 // 万能类型
 interface{}
 []interface{}
-map[string] interface{}
+map[string]interface{}
+any
 ```
 
 ```go
@@ -511,6 +513,13 @@ func toString[T Number](s T) []T {}
 ::: code-group-item Api
 
 ```go
+// 类型转换
+rune('k')			// byte -> rune
+string('k')			// byte | rune -> string
+strconv.Atoi("12")  // number -> string
+strconv.Itoa(12)    // string -> number
+
+
 // 查询 字节占用大小
 unsafe.Sizeof()
 
@@ -519,6 +528,10 @@ reflect.TypeOf()
 
 // 取值范围
 fmt.Printf("int: -%d ~ %d\n", math.MaxInt, math.MaxInt)
+
+// 比较相等
+// 1.基础类型: =
+// 2.引用类型: reflect.DeepEqual()
 ```
 
 :::
@@ -1307,7 +1320,127 @@ var fib func(n int) int {
 }
 ```
 
-### 10. Structs 结构体
+### 10. Pointer 指针
+
+> 浅拷贝: 修改其中一个，另一个也会随之改变
+
+::: tip
+
+```
+1. 变量
+全局变量: 使用无参方法修改
+局部变量: 使用指针修改
+2. 函数内的参数
+局部作用域, 栈内存
+3. 结构体的数据
+使用指针修改
+```
+
+:::
+
+:::: code-group
+::: code-group-item pointer
+
+```go{6,10,12,16}
+package main
+import "fmt"
+
+func main() {
+	x := 12
+	p := &x
+	fmt.Println(&x) // 0xc000018080, 重新运行程序内存地址会不断变化
+	fmt.Println(p)  // 0xc000018080
+	fmt.Println(&p) // 0xc00000e028
+	fmt.Println(*p) // 12
+
+	x += 2
+	fmt.Println(&x) // 0xc000018080
+	fmt.Println(p)  // 0xc000018080
+	fmt.Println(&p) // 0xc00000e028
+	fmt.Println(*p) // 14
+}
+```
+
+:::
+::: code-group-item input
+
+```go{2}
+var input string
+fmt.Scanln(&input)
+
+fmt.Println(input)
+```
+
+:::
+::: code-group-item func
+
+```go{8}
+package main
+import "fmt"
+
+func set(val int) {
+	val = 8
+}
+
+func set_ptr(ptr *int) {
+	*ptr = 8
+}
+
+func main() {
+	x := 12
+
+	set(x)
+	fmt.Println(x) // 12
+
+	set_ptr(&x)
+	fmt.Println(x) // 8
+}
+```
+
+:::
+::: code-group-item struct
+
+```go{17,23}
+package main
+
+import (
+	"fmt"
+)
+
+type student struct {
+	name string
+	age  int
+}
+
+func (p Student) change() {
+	p.age += 1
+}
+
+// 使用指针修改结构体中的数据
+func (p *Student) change_ptr() {
+	p.age += 1
+}
+
+
+func main() {
+	s := &student{"john", 20}
+
+	fmt.Println(*s)     	//  {john 20}
+	fmt.Println(s)      	// &{john 20}
+	fmt.Println((*s).name)  // john
+	fmt.Println(s.name) 	// john
+
+	s.change()
+	fmt.Println(s.age) // 20
+	s.change_ptr()
+	fmt.Println(s.age) // 21
+}
+```
+
+:::
+::::
+
+### 11. Structs 结构体
 
 > 不同类型或相同类型的数据集
 
@@ -1612,7 +1745,7 @@ type BarData struct {
 :::
 ::::
 
-### 11. Interface 接口
+### 12. Interface 接口
 
 ```go
 package main
@@ -1664,126 +1797,49 @@ func main() {
 
 ```
 
-### 12. Pointer 指针
 
-> 浅拷贝: 修改其中一个，另一个也会随之改变
-
-::: tip
-
-```
-1. 变量
-全局变量: 使用无参方法修改
-局部变量: 使用指针修改
-2. 函数内的参数
-局部作用域, 栈内存
-3. 结构体的数据
-使用指针修改
-```
-
-:::
-
-:::: code-group
-::: code-group-item pointer
-
-```go{6,10,12,16}
+### 13. 泛型
+```go
 package main
+
 import "fmt"
 
 func main() {
-	x := 12
-	p := &x
-	fmt.Println(&x) // 0xc000018080, 重新运行程序内存地址会不断变化
-	fmt.Println(p)  // 0xc000018080
-	fmt.Println(&p) // 0xc00000e028
-	fmt.Println(*p) // 12
+	// fmt.Println(sumInt(2, 3))
+	// fmt.Println(sumFloat(1.2, 1.3))
+	// fmt.Println(sum[float64](1.2, 1.3))
+	// fmt.Println(sum[int](1, 3))
+	fmt.Println(Sum(1, 3))
+	fmt.Println(Sum(1.2, 3.4))
 
-	x += 2
-	fmt.Println(&x) // 0xc000018080
-	fmt.Println(p)  // 0xc000018080
-	fmt.Println(&p) // 0xc00000e028
-	fmt.Println(*p) // 14
+}
+
+/*
+func sumInt(a, b int) int {
+	return a + b
+}
+
+func sumFloat(a, b float64) float64 {
+	return a + b
+}
+
+func sum[T int | float64](a, b T) T {
+	return a + b
+}
+*/
+
+type Type interface {
+	int | float64
+}
+
+func Sum[T Type](array []T) []T {
+	sum := 0
+	for _, v := range array {
+		sum += v
+	}
+	return sum
 }
 ```
-
-:::
-::: code-group-item input
-
-```go{2}
-var input string
-fmt.Scanln(&input)
-
-fmt.Println(input)
-```
-
-:::
-::: code-group-item func
-
-```go{8}
-package main
-import "fmt"
-
-func set(val int) {
-	val = 8
-}
-
-func set_ptr(ptr *int) {
-	*ptr = 8
-}
-
-func main() {
-	x := 12
-
-	set(x)
-	fmt.Println(x) // 12
-
-	set_ptr(&x)
-	fmt.Println(x) // 8
-}
-```
-
-:::
-::: code-group-item struct
-
-```go{17,23}
-package main
-
-import (
-	"fmt"
-)
-
-type student struct {
-	name string
-	age  int
-}
-
-func (p Student) change() {
-	p.age += 1
-}
-
-// 使用指针修改结构体中的数据
-func (p *Student) change_ptr() {
-	p.age += 1
-}
-
-
-func main() {
-	s := &student{"john", 20}
-
-	fmt.Println(*s)     	//  {john 20}
-	fmt.Println(s)      	// &{john 20}
-	fmt.Println((*s).name)  // john
-	fmt.Println(s.name) 	// john
-
-	s.change()
-	fmt.Println(s.age) // 20
-	s.change_ptr()
-	fmt.Println(s.age) // 21
-}
-```
-
-:::
-::::
-
 ### Goroutine 协程
 
 ```go
@@ -2755,6 +2811,9 @@ println(num)
 
 // 返回子串索引，不存在返回-1
 strings.index(s string, substr string)
+
+// 统计字符出现的次数, 不存在为0
+strings.Count(s string, substr string)
 
 /*======== 判断 =========*/
 
@@ -5187,6 +5246,7 @@ func Title(s string) string {}
 > uint 为无符号整数，取值范围不同
 
 ```go
+// int大小: 与具体的平台有关, int在32位系统中是4字节，在64位系统中是8字节
 int8:   -128 ~ 127
 int16:  -32768 ~ 32767
 int32:  -2147483648 ~ 2147483647

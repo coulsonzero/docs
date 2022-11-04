@@ -59,11 +59,11 @@ const navbarConfig: NavbarConfig = [
 	{
 		text: "后端",
 		children: [
+			{text: "Go", link: "/guide/backend/go"},
 			{text: "Python", link: "/guide/backend/python"},
 			{text: "Java", link: "/guide/backend/java"},
 			// {text: "C", link: "/guide/backend/c"},
 			// {text: "C++", link: "/guide/backend/c++"},
-			{text: "Go", link: "/guide/backend/go"},
 			// {text: "Kotlin", link: "/guide/backend/kotlin"},
 			// {text: "Swift", link: "/guide/backend/swift"},
 			{
@@ -101,7 +101,7 @@ const navbarConfig: NavbarConfig = [
 			{
 				text: "数据库",
 				children: [
-					{text: "SQL", link: "/guide/operations/sql"},
+					{text: "MySQL", link: "/guide/operations/sql"},
 					{text: "Redis", link: "/guide/operations/redis"},
 					{text: "MongoDB", link: "/guide/operations/mongodb"},
 				],
@@ -126,10 +126,10 @@ const navbarConfig: NavbarConfig = [
 			{text: "Leetcode算法", link: "https://coulsonzero.github.io/leetcode-1/"},
 			{text: "Leetcode-Golang", link: "https://books.halfrost.com/leetcode/"},
 			{text: "排序算法", link: "/guide/algorithm/Sort/README.md"},
-			{text: "字符串", link: "/guide/algorithm/String/README.md"},
-			{text: "数组", link: "/guide/algorithm/Array/README.md"},
-			{text: "链表", link: "/guide/algorithm/ListNode/README.md"},
-			{text: "二叉树", link: "/guide/algorithm/Binarytree/README.md"},
+			// {text: "字符串", link: "/guide/algorithm/String/README.md"},
+			// {text: "数组", link: "/guide/algorithm/Array/README.md"},
+			// {text: "链表", link: "/guide/algorithm/ListNode/README.md"},
+			// {text: "二叉树", link: "/guide/algorithm/Binarytree/README.md"},
 		],
 	},
 	{
