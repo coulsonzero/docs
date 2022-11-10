@@ -4,6 +4,7 @@
 simple, reliable and efficient software.
 
 [Go 中文学习网](https://www.topgoer.com/)
+
 [Golang FAQ](http://faq.coulsonzero.cn/)
 
 ## 一. 快速开始
@@ -655,10 +656,20 @@ strings.TrimSpace(s string)	// 移除\n\t等
 :::
 ::: code-group-item 遍历
 
-```go{16-17}
+```go
 package main
 
 import "fmt"
+
+/*
+for i := 0; i < len(s); i++ {
+	// s[v] : byte
+}
+
+for _, v := range s {
+	// v: rune
+}
+*/
 
 func main() {
 	s1 := "hello world"
@@ -769,6 +780,13 @@ fmt.Printf("char: %c, value: %v, typeof: %T \n", c, c, c)
 
 arr := [...]int{'a': 1}
 // len: 98, cap: 98, array: [..., 1]
+
+
+// 字符大小写转换  'a' -> 'A'
+func swapCase(c byte) byte {
+	c ^= 32
+	return c
+}
 ```
 
 :::
@@ -869,6 +887,7 @@ fmt.Printf("%v, %c, %T", 'a', 'a', 'a') // 97, a, int32
 ### 7. Slice 切片
 
 [sort](#sort)
+
 [gopkg-pro](https://github.com/coulsonzero/gopkg)
 
 :::: code-group
@@ -1797,8 +1816,8 @@ func main() {
 
 ```
 
-
 ### 13. 泛型
+
 ```go
 package main
 
@@ -1840,6 +1859,7 @@ func Sum[T Type](array []T) []T {
 	return sum
 }
 ```
+
 ### Goroutine 协程
 
 ```go
