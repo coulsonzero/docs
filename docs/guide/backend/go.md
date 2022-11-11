@@ -2811,6 +2811,8 @@ import "strconv"
 
 strconv.Itoa(num int)   // int    -> string
 strconv.Atoi(s string)	// string -> int
+
+strconv.ParseUint(s, 16, 64);	// 16进制字符串(如ipv6)转化为int64
 ```
 
 **example**
@@ -2820,6 +2822,14 @@ println(strconv.Itoa(123))
 
 num, _ := strconv.Atoi("123")
 println(num)
+
+// 判断是否为16进制字符串
+func isValid16(s string) bool {
+    if _, err := strconv.ParseUint(s, 16, 64); err != nil {
+        return false
+    }
+    return true
+}
 ```
 
 ### strings
