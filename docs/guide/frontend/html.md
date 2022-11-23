@@ -517,6 +517,7 @@ frameborder="0": 移除边框
 - autoplay
 - loop
 - controls
+- onerror：发生错误时执行的函数
 
 ::: normal-demo Video演示
 ```html
@@ -532,7 +533,7 @@ frameborder="0": 移除边框
 
 
 ```html
-<video width="320" height="240" controls autoplay loop>
+<video width="320" height="240" controls autoplay loop onerror="handleVideoError()">
 	<source src="/demo1.mp4" type="video/mp4">
     <source src="/movie.ogg" type="video/ogg">
 </video>

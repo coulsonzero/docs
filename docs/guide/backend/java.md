@@ -473,9 +473,10 @@ binarySeach(arr, start, end, *** v)
 ### List
 
 :::tip
-```
+```java
 ArrayList<T>: 数组列表 （存储和访问数据更快）
 LikedList<String>：链表 （操作数据更快：插入/删除/修改）
+// LikedList存储内存地址(或链接到)跟随它的元素，因为每个元素都包含一个链接到邻近的元素。
 ```
 :::
 
@@ -486,15 +487,62 @@ import java.until.LikedList;
 ArrayList<Integer> list = new ArrayList<>();
 LikedList<String>  list = new LikedList<>();
 
-增：add()
-删：remove(), clear()
-查：size(), get(), contains()
-改：set()
+// 初始化方式
+Integer[] nums = {2, 5, 3, 1, 7};
+List<Integer> list = new ArrayList<>(Arrays.asList(nums));
+List<Integer> ints = new ArrayList<>(List.of(new Integer[]{ 1, 2, 3 }));
+List<String>  strs = new ArrayList<>(List.of(new String[]{ "a", "b", "c" }));
 
-
-
-//LikedList存储内存地址(或链接到)跟随它的元素，因为每个元素都包含一个链接到邻近的元素。
+增：
+    a）add(e)：末尾新增
+    b）add(i, e)：中间插入
+删：
+    a）remove(i)：删除单个索引元素
+    b）clear()：  删除所有元素
+查：
+    a）size()：长度
+    b）get(i)：索引值
+    c）System.out.println(list)：所有值
+    d）contains(e)：判断包含
+改：set(i, e)
+排序：
+    a）升序：Collections.sort(list)
+    b）降序：Collections.reverse(list)
+    c）随机：Collections.shuffle(list)
+最值：
+    最大值：Collections.max(list)
+    最小值：Collections.min(list)
 ```
+
+:::details
+
+```java
+public class ArrayListDemo {
+    public static void IntegerList() {
+        Integer[] nums = {2, 5, 3, 1, 7};
+        List<Integer> list = new ArrayList<>(Arrays.asList(nums));
+        // 增
+        list.add(9);                    // 末尾增加
+        list.add(1, 2);   // 中间插入
+        // 删
+        list.remove(0);
+        // list.clear();
+        // 改
+        list.set(1, 8);
+        // 查
+        System.out.println(list.size());    // 长度
+        System.out.println(list.get(1));    // 索引值
+        System.out.println(list);           // 所有值
+        System.out.println(list.contains(4));
+
+        // 排序
+        Collections.sort(list);
+        Collections.reverse(list);
+        Collections.shuffle(list);
+    }
+}
+```
+:::
 
 
 ### HashMap
