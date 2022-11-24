@@ -162,44 +162,66 @@ rjust()
 s[::-1]
 ```
 
-### List
+### List 列表
 
+**初始化**
+```py
+nums = [1, 2, 3, 4]
+```
+
+**列表方法**
 ```python
-append(element)
-extend(interable)
-insert(i, e)
+# 增
+append(e)       # 末尾新增元素
+extend([1, 2])  # 末尾合并新的列表元素
+insert(i, e)    # 中间插入元素
 
-remove(e)  # 删除首次出现的元素
-pop([i])   # 末尾删除
-clear()
+# 删
+remove(e)       # 删除首次出现的元素
+pop() | pop(i)  # 末尾删除｜删除指定索引元素
+del nums[i]     # 删除指定索引元素
+clear()         # 清空元素
 
-index(e, [start=0, [stop=len(List)]])    #0:...:len(List)-1
-count(e)
-copy()
+# 查
+index(e, [start=0, [stop=len(List)]])    # 元素索引
+count(e)    # 计数
+copy()      # 浅复制
+id(nums)    # 内存地址
+x in nums   # 判断包含
 
+# 排序
 sort(key=None, reverse=False)
-reverse()
-random.shuffle(List)
+sort()                          # 升序
+sort(reverse=True)              # 降序
+reverse()                       # 降序
+random.shuffle(List)            # 随机顺序
+
+# 排序并返回新列表，原列表不变
 sorted()
+sorted(nums, reverse=True)  # 降序
 reversed()
 
 
-#切片[start:stop:step]
+# 切片[start:stop:step]
 List[::]--------------顺序返回所有列表元素
 List[::-1]------------倒序返回所有列表元素
 List[::-2]------------每隔1个元素提取到列表
 List[:3]--------------前三个元素
 List[3:]
 
-#访问元素
-List[index]
+# 访问元素
+List[i]
 
 
 # 删除重复项(末尾删除)
 for i in List[::-1]:
     if List[i] == x:
-        List.remove(List[i])
-        # del List[i]
+        List.remove(List[i])    # or `del List[i]`
+
+for i in range(len(nums)-1, -1, -1):
+    if nums[i] == target:
+        del nums[i]
+
 
 # 列表推导式
 效果：[0,1,...,99]:

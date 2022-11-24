@@ -63,7 +63,7 @@ const navbarConfig: NavbarConfig = [
 			{text: "Python", link: "/guide/backend/python"},
 			{text: "Java", link: "/guide/backend/java"},
 			// {text: "C", link: "/guide/backend/c"},
-			// {text: "C++", link: "/guide/backend/c++"},
+			{text: "C++", link: "/guide/backend/c++"},
 			// {text: "Kotlin", link: "/guide/backend/kotlin"},
 			// {text: "Swift", link: "/guide/backend/swift"},
 			{

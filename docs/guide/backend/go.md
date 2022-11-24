@@ -4748,16 +4748,40 @@ func main() {
 ### reflect
 
 ```go
-func ...(field interface{}) {switch ...}
-
-reflect.TypeOf(field)
-reflect.ValueOf(field)
-
-// 类型比较
-reflect.TypeOf(field).Name() == "int"
-// 值比较
-int(reflect.ValueOf(field).Int()) > 0
+// TypeOf 作用与 ValueOf 类似, 且功能不全
+reflect.ValueOf(i any)			// [1 2 3 4 5]
+reflect.ValueOf(i any).Kind()	// slice, 判断 == reflect.Slice
+reflect.ValueOf(i any).Type()	// []int
+reflect.ValueOf(i any).Len()	// 长度
+reflect.ValueOf(i any).Slice(start int, end int)	// 切片查询
+reflect.ValueOf(i any).CanSet()						// 判断是否可更改：false
+reflect.ValueOf(i any).Index(i int).CanSet()	    // 判断索引值是否可更改：true
+reflect.ValueOf(i any).Index(i int).SetInt(v any)   // 更改值
 ```
+
+::: details Example
+```go
+slice_int := []int{1, 2, 3, 4, 5}
+
+fmt.Println(reflect.TypeOf(slice_int))                         // []int
+fmt.Println(reflect.TypeOf(slice_int).String())                // []int
+fmt.Println(reflect.TypeOf(slice_int).Kind())                  // slice
+fmt.Println(reflect.TypeOf(slice_int).Kind() == reflect.Slice) // true
+fmt.Println(reflect.TypeOf(12).Name())                         // int, 仅适用于基础类型
+
+fmt.Println(reflect.ValueOf(slice_int))                         // [1 2 3 4 5]
+fmt.Println(reflect.ValueOf(slice_int).String())                // <[]int Value>
+fmt.Println(reflect.ValueOf(slice_int).Kind())                  // slice
+fmt.Println(reflect.ValueOf(slice_int).Kind() == reflect.Slice) // true
+fmt.Println(reflect.ValueOf(slice_int).Type())                  // []int
+fmt.Println(reflect.ValueOf(slice_int).Len())                   // 5
+fmt.Println(reflect.ValueOf(slice_int).Slice(1, 3))             // [2, 3]
+fmt.Println(reflect.ValueOf(slice_int).CanSet())                // false
+fmt.Println(reflect.ValueOf(slice_int).Index(0).CanSet())       // true
+reflect.ValueOf(slice_int).Index(0).SetInt(7)
+fmt.Println(reflect.ValueOf(slice_int)) 						// [7, 2, 3, 4, 5]
+```
+:::
 
 ### sync
 
