@@ -128,7 +128,11 @@ mysql -V;
 ### 查询数据库
 
 ```sql
+-- 查询所有数据库
 show databases;
+
+-- 查询当前所在数据库名
+select database();
 ```
 
 ### 使用数据库

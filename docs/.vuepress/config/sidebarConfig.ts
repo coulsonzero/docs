@@ -153,7 +153,7 @@ const sidebarConfig = {
 			title: "Operations",
 			collapsable: false,
 			sidebarDepth: 2,
-			children: ["sql.md", "linux.md", "mongodb.md", "redis.md", "shell.md", "docker.md"],
+			children: ["sql.md", "mysql.md", "linux.md", "mongodb.md", "redis.md", "shell.md", "docker.md"],
 		},
 	],
 	"/guide/backend/HarmonyOS/": [

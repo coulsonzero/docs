@@ -1,10 +1,14 @@
 # Java
 
-## Introduce
+## Overview
+
+### Introduce
 
 ::: tip
-Java 可运行于多个平台，如Windows, Mac OS，及其他多种UNIX版本的系统。
-Java 是平台独立的语言，用Java编写的应用程序不用修改就可以在不同的平台上运行。
+Java 可运行于多个平台，如 Windows, Mac OS，及其他多种 UNIX 版本的系统。
+
+Java 是平台独立的语言，用 Java 编写的应用程序不用修改就可以在不同的平台上运行。
+
 Java 具有简单性、面向对象、分布式、健壮性、安全性、平台独立与可移植性、多线程、动态性等特点，能够适应几乎任何类型的应用程序的需求。
 :::
 
@@ -18,23 +22,13 @@ public class Main {
 }
 ```
 
-## Basic Concepts
+## Ⅰ Basic Concepts
 
-### Comments
 
-```java
-// 单行注释
-/* 多行注释 */
 
-/**
- * 文档注释
- * @author coulsonzero
- * @version ${YEAR}-${MONTH}-${DAY} ${TIME}
- */
+### 输入 & 输出
 
-```
-
-### Output
+**Output**
 
 ```java
 System.out.print()                   // 不换行
@@ -42,8 +36,7 @@ System.out.println()                 // 换行
 System.out.printf(str, var1, var2)   // 格式化字符串
 ```
 
-
-### Input
+**Input**
 
 ```java
 import java.util.Scanner;
@@ -70,26 +63,36 @@ hasNextInt()
 hasNextDouble()
 ```
 
-### 变量类型
+### 变量 & 常量
 
 ```java
-public class Main {
-    public static void main(String[] args) {
-        // 整数
-        int  age = 20;
-        // 浮点型
-        double price = 12.5;
-        // 字符串
-        char c = 'Z';
-        // 字符串对象，不是基本数据类型
-        String name = "shville";
-        // 布尔
-        boolean online = true;
+// 变量
+int num = 12;
+// final 常量
+final double PI = 3.14;
 
-        final int c = 3;                  // 常量(不能再修改)
-        enum Color {red, blue, green};   // 枚举
-    }
-}
+// 枚举
+enum Color { red, blue, green };
+```
+
+### 基础数据类型
+
+```java
+/**
+ * 基础数据类型
+ * 1.数字：
+ *        整数：  byte  short  `int`  long
+ *        浮点数：float `double`
+ * 2.字符：char
+ * 3.布尔：boolean (false  true)
+ */
+```
+
+```java
+int num = 12;
+double pi = 3.14;
+char c = 'p';
+boolean flag = true;
 ```
 
 ```java
@@ -115,18 +118,31 @@ long num = 10_000_000_000L;
 float PI = 3.14F;   // 精度6-7位有效数字，很多情况下不能满足需求
 ```
 
-* 变量是对对象的引用
+- 变量是对对象的引用
 
-* 局部变量(方法内)：声明数据类型+初始化
-* 全局变量(类内)：声明数据类型，有默认值，可静态初始化
+- 局部变量(方法内)：声明数据类型+初始化
+- 全局变量(类内)：声明数据类型，有默认值，可静态初始化
 
-* 变量名不可重复，大小写敏感, 不能以数字开头，不能是关键字
-* 标志符：字母、数字、美元符$、下划线_
-* 源文件名：源文件名必须和类名相同,文件名的后缀为.java。
+- 变量名不可重复，大小写敏感, 不能以数字开头，不能是关键字
+- 标志符：字母、数字、美元符$、下划线\_
+- 源文件名：源文件名必须和类名相同,文件名的后缀为.java。
 
+### 注释
+
+```java
+// 单行注释
+/* 多行注释 */
+
+/**
+ * 文档注释
+ * @author coulsonzero
+ * @version ${YEAR}-${MONTH}-${DAY} ${TIME}
+ */
+
+```
 ### 运算符
 
-#### Math算术 (+ - * / %)
+#### Math 算术 (+ - \* / %)
 
 ```java
 1 + 2 + "hello" = "3hello"
@@ -134,7 +150,7 @@ float PI = 3.14F;   // 精度6-7位有效数字，很多情况下不能满足需
 15.0/3 = 5.0
 ```
 
-#### 赋值运算(+= -= *= /= %=)
+#### 赋值运算(+= -= \*= /= %=)
 
 ```java
 // 如果右侧类型与左侧数据类型不通，则强制转换
@@ -145,7 +161,7 @@ int x = (int) (x+5)
 += 与 = ...+...
 ```
 
-#### 自增自减 (x++  x--  ++x  --x)
+#### 自增自减 (x++ x-- ++x --x)
 
 ```java
 x++    (先赋值再递增)
@@ -161,13 +177,16 @@ int j = i++; //j is 34
 #### 逻辑(&& || !)
 
 :::tip
+
 ```
 短路原理
 && 当左侧为Fasle，则不再执行右侧
 || 当左侧为True， 则不再执行右侧
 ```
+
 :::
-#### 关系运算(== != >  >=  <  <=   ?)
+
+#### 关系运算(== != > >= < <= ?)
 
 ```java
 condition ? expression1 : expression2;
@@ -189,103 +208,239 @@ Math.min()
 Math.PI
 ```
 
+## Ⅱ Conditions and Loops
+
+### 1. 陈述语句
+
+:::: code-group
+::: code-group-item if
+
+```java
+if (condition) {
+    //statement;
+} else if (condition) {
+    ...
+} else if (condition) {
+    ...
+} else {
+    ...
+}
+
+/**
+ * if:      至少一个
+ * else if: 可以有多个
+ * else:    可以没有
+ * condition: 为了使变量能够在循环外重复使用，变量类型一般在循环外定义！
+ */
+```
+
+:::
+
+::: code-group-item switch
+
+```java
+switch (expression) {
+    case value1:
+        // statements
+        break;
+    case value2:
+        ...;
+        break;
+    case value3:
+        ...;
+        break;    // optional
+    default:      // optional
+        ...;
+        break;
+}
+```
+
+:::
+
+::: code-group-item switch2
+
+```java
+int day = 2;
+String dayType = switch(day) {
+    case 1, 2, 3, 4, 5 -> "Working day";
+    case 6, 7 -> "Weekend";
+    default -> "Invalid";
+};
+```
+
+:::
+::::
+
+::: warning
+Switch
+
+> 开始->case 1->case 2->case n->结束 🔚
+>
+> 存在 case ... 符合条件则跳出，否则继续往下判断
+>
+> `没有break则继续穿透`
+>
+> default 可选,总是位于最后一段.如果所有 case 都为 False，则执行 default
+
+:::
+
+
+
+### 2. 循环语句
+
+:::: code-group
+::: code-group-item for
+
+```java
+for (init; condition; increment) {
+    // statement(s)
+}
+
+// 如果希望在循环体外使用计数器的最终值,则在循环体外申明变量类型
+for(int i = 0; i < s.length; i++) {
+    // statement(s)
+}
+
+// 双指针
+for (int l = 0, r = s.length-1; l < r; l++, r--) {
+    // statement(s)
+}
+```
+:::
+::: code-group-item for-each
+
+```java
+for (int v : nums) {
+    // statement(s)
+}
+```
+
+:::
+::: code-group-item while
+
+```java
+int i = 0;
+while (condition) {
+    // statement;
+    i++;
+}
+```
+
+:::
+::: code-group-item do...while
+
+```java
+// 至少执行一次
+do {
+    // statement(s)
+    i++;
+}
+while (condition);
+```
+
+:::
+::::
+
+
+
+#### Loop Control Statements
+
+```java
+break     // 跳出循环体
+continue  // 跳至此次循环进入下一循环
+goto      // 跳出指定循环体
+```
+
+
 
 ## 字符串
 
-| API | String | StringBulid | api |
-| :-- | :----- | :---------: | :---------: |
-| 长度 | length()      | length()   |
-| 输出 |               | toString() | 查 |
-| 字符 | charAt() |    append()/insert() | 增 |
-| 索引 | indexOf() |   delete   | 删 |
-| 包含 | contains() |  reverse() | 反转 |
-| 子串 | substring() |
-| 拼接 | contact()/String.join() |
-| 分割 | split() |
-| 替换 | replace() | replace | 改
-| 重复 | repeat() |
-| 除空 | strip()/trim() |
-| 开头 | startsWith() |
-| 结尾 | endsWith() |
-| 相等 | equals()/equalsIgnoreCase()  |
-| 为空 | isEmpty()/Blank() |
-| 大写 | toUpperCase() |
-| 小写 | toLowCase() |
-| 转字符数组   | toCharArray() |
+| API          | String                              |    StringBulid    | api  |
+| :----------- | :---------------------------------- | :---------------: | :--: |
+| 长度         | length()                            |     length()      |
+| 输出         |                                     |    toString()     |  查  |
+| 字符         | charAt()                            | append()/insert() |  增  |
+| 索引         | indexOf()                           |      delete       |  删  |
+| 包含         | contains()                          |     reverse()     | 反转 |
+| 子串         | substring()                         |
+| 拼接         | contact()/String.join()             |
+| 分割         | split()                             |
+| 替换         | replace()                           |      replace      |  改  |
+| 重复         | repeat()                            |
+| 除空         | strip()/trim()                      |
+| 开头         | startsWith()                        |
+| 结尾         | endsWith()                          |
+| 相等         | equals()/equalsIgnoreCase()         |
+| 为空         | isEmpty()/Blank()                   |
+| 大写         | toUpperCase()                       |
+| 小写         | toLowCase()                         |
+| 转字符数组   | toCharArray()                       |
 | 整数转字符串 | String.valueOf()/Integer.toString() |
-| 字符串转整数 | Integer.parseInt() |
-
-
+| 字符串转整数 | Integer.parseInt()                  |
 
 ### String
 
 :::tip
-String不可变：内容不可变，引用可变 ==> 节省内存占用
+String 不可变：内容不可变，引用可变 ==> 节省内存占用
 :::
 
+**字符串初始化**
 ```java
 String name = "Coulson";
 ```
 
+**字符串Api**
 ```java
-//查
-长度：length()     <-- len(arr)
-字符：charAt()     <-- arr[i]
-索引：indexOf()    <-- arr.index()
-子串：substring()  <-- arr[i:j]
-```
+// String Api:
+长度：s.length()
+字符：s.chartAt(int i)
+索引：s.indexOf(string substr)
 
-```java
-拼接：concat(String)   // 多个用"+"号
-拼接：String.join("--", str1, str2, ...)   // 分隔符
-```
-:::details 点击查看 concat & String.join() 示例
-```java
-String name = "coulson";
-System.out.println("hello".concat(" " + name + "!"));  // "hello coulson!"
-System.out.println(String.join("-", "html", "css", "javascript")); // html-css-javascript
-```
-:::
+子串：s.substring(int start, int end)
+拼接：s.concat(string s2)
+重复：s.repeat(int count)
+替换：s.replace(string old, string new)
+去除空格：s.strip()
+去除空格(两端): s.trim()
 
-```java
-分割：split("-")
-```
+/***** 判断 *****/
+空串：isEmpty(), s == null, s.length() == 0, s.equals("")
+包含：s.contains(string substr)
+相等：==, s.equals(string s2), s.equalsIgnoreCase(string s2)
+开头：startsWith(string prefix)
+结尾：endsWith()
+类型：s instanceof String
 
-:::details 点击查看 split() 示例
+/***** 转换 *****/
+大写：s.toUpperCase()
+小写：s.toLowerCase()
 
-```java
-String ip = "2022-03-06";
-System.out.println(Arrays.toString(ip.split("-"))); // [2022, 03, 06]
-```
+字符串转数字：Integer.parseInt(string s)
+数字转字符串：Integer.toString(int num), String.valueOf(int num), "" + num
 
-:::
+字符串转数组：s.split(string regex)
+数组转字符串：String.join(string exp, ...elems)
 
-```
-替换：replace()
-重复：repeat()
-除空格(所有)：strip()
-除空格(两端)：trim()
-```
-
-**转换**
-```java
-String.valueOf(27)    // "27"
-Integer.parseInt("27") // 27
-大写：toUpperCase()
-小写：toLowCase()
-数组：toCharArray()
+字符串转字节数组：s.toCharArray(), s.getBytes()
+字节数组转字符串：new String(char[] chars)
 ```
 
 ```java
-// 相等
-equals(): 覆盖则比较内容/默认引用
-equalsIgnoreCase()
-==:       基本数据类型：比较值；引用数据类型：比较内存地址
+// 字符串遍历
+for(int i = 0; i < s.length(); i++) {
+    System.out.println(s.charAt(i));
+}
+
+for (char c : s.toCharArray()) {
+    System.out.println(c);
+}
 ```
 
-:::details 点击查看 equals() & == 示例
+:::details equals() & ==
 
 ```java
+// equals():覆盖则比较内容
+// == : 基本数据类型比较值；引用数据类型比较内存地址
 String name = "coulson";
 String name2 = new String("coulson");
 
@@ -294,22 +449,6 @@ System.out.println(name.equals(name2));  // true
 ```
 
 :::
-
-```md
-// 空串
-`isEmpty()` 相等于  `str.length() == 0`
-Blank()：空格串
-
-// 包含
-`contains()`
-startsWith()
-endsWith()
-
-if(str.length()==0)
-if(str.equals(""))
-if(str==null)   //null串（表示目前没有任何对象与该变量关联）
-```
-
 
 ```md
 @转换
@@ -327,46 +466,44 @@ String => int: `Integer.parseInt(s)`
 str `instanceof` String
 ```
 
-```java
-@字符串遍历
-for (char c : s.toCharArray()) {
-    System.out.println(c);
-}
-for(int i = 0; i < s.length(); i++) {
-    System.out.println(s.charAt(i));
-}
-```
-
 
 
 ### StringBuilder & StringBuffer
 
-
 :::tip
 字符串构造器（减少耗时，节约空间）
 
-* String:        少量字符串操作,每次新建对象
-* StringBuilder：单线程, 非线程安全
-* StringBuffer： 多线程，线程安全synchronized
-运行速度：StringBuilder > StringBuffer > String
-:::
+- String: 少量字符串操作,每次新建对象
+- StringBuilder：单线程, 非线程安全
+- StringBuffer： 多线程，线程安全 synchronized
+  运行速度：StringBuilder > StringBuffer > String
+  :::
 
+**初始化**
 ```java
-StringBulider s = new StringBulider();
+StringBulider sb = new StringBulider();
+StringBulider bf = new StringBuffer();
+
+StringBulider sb = new StringBulider("hello world");
 ```
 
 **增删改查**
 
 ```java
+// StringBuild Api:
+初始化：new StringBuild(string s), new StringBuffer(string s);
 
-长度：s.length()
-输出：s.toString()
+长度：length()
+输出：toString()
 
-增：s.append()
-插：s.insert(i, e)
-删：s.delete(start, end)
-改：s.replace(start, end, e)
-反转：s.reverse()
+增：append(e)
+插：insert(i, e)
+删：delete(int start, int end)
+改：replace(int start, int end, string s)
+
+字符：charAt(int i)
+索引：indexOf(e)
+反转：reverse()
 ```
 
 **链式编程**
@@ -378,6 +515,7 @@ s.append(str1).append(str2).append(str3);
 **转换**
 
 String => StringBuilder:
+
 ```java
 StringBuilder s = new StringBuilder(str)
 ```
@@ -395,38 +533,34 @@ return new StringBuilder(str).reverse().toString();
 
 ## 数组
 
-|    | Array |  List     | HashMap | HashSet |
-| :--  | :-- | :--      | :---:   | --:     |
-| 长度  | length | size()   | size()  | size()  |
-| 增   |     | add()    | `put()`   | add()   |
-| 删   |     | remove() |  remove() |     |
-| 查   | arr[i] |   get()    | get()      |     |
-| 改   | `arr[i] = v`<br/>fill(v) |set()    |       |     |
-| 包含 |          | `contains()` | `containsKey()`<br/>`containsValue()`    |    |
-| 排序 | `Arrays.sort(arr)` | Collections.sort(list) |
+|      | Array                    | List                   |                HashMap                | HashSet |
+| :--- | :----------------------- | :--------------------- | :-----------------------------------: | ------: |
+| 长度 | length                   | size()                 |                size()                 |  size() |
+| 增   |                          | add()                  |                `put()`                |   add() |
+| 删   |                          | remove()               |               remove()                |         |
+| 查   | arr[i]                   | get()                  |                 get()                 |         |
+| 改   | `arr[i] = v`<br/>fill(v) | set()                  |                                       |         |
+| 包含 |                          | `contains()`           | `containsKey()`<br/>`containsValue()` |         |
+| 排序 | `Arrays.sort(arr)`       | Collections.sort(list) |
 
 ### Array
+
 > 数组是一种存储同一类型值的集合
 
 ::: warning
+
 > 数组长度不能更改，需要经常扩展数组大小时，应该使用**数组列表**-List
 >
-> 长度为0的数组与null并不相同
+> 长度为 0 的数组与 null 并不相同
+
 :::
 
-
-#### 创建数组
+**创建数组**
 
 ```java
 int[]   arr = new int[length];
 int[]   arr = {1, 3, 5, 7, 9};
 int[][] arr = {{1,2,3}, {4,5,6}};
-```
-
-**导包**
-
-```java
-import java.util.Arrays;
 ```
 
 **数组遍历**
@@ -442,19 +576,20 @@ for(int v : nums) {
 ```
 
 **API**
-```java
-// 排序（从低到高）
-Arrays.sort(array)
 
-// Array -> List
-Arrays.asList()
+```java
+// 长度
+arr.length
 
 // 输出数组
-System.out.println(Arrays.toString(arr))
+System.out.println(Arrays.toString(arr)); // [1, 3, 5, 7]
 System.out.println(arr);     //arr数组对象的内存地址：[I@7a81197d
 System.out.println(arr[0]);  //数据的默认值：0
 
-
+// 排序（从低到高）
+Arrays.sort(array)
+// Array -> List
+Arrays.asList()
 
 // 打印二维数组元素
 Arrays.deepToString(arr)
@@ -469,15 +604,16 @@ binarySeach(arr, start, end, *** v)
 空指针异常：`NullPointerException`
 :::
 
-
-### List
+### ArrayList & LinkedList
 
 :::tip
+
 ```java
 ArrayList<T>: 数组列表 （存储和访问数据更快）
 LikedList<String>：链表 （操作数据更快：插入/删除/修改）
 // LikedList存储内存地址(或链接到)跟随它的元素，因为每个元素都包含一个链接到邻近的元素。
 ```
+
 :::
 
 ```java
@@ -542,46 +678,51 @@ public class ArrayListDemo {
     }
 }
 ```
-:::
 
+:::
 
 ### HashMap
 
 :::tip
+
 ```
 <Key, value>: 哈希表 （存储键 : 值）
 ```
+
 :::
 
 ```java
 import java.util.HashMap;
 
-HashMap<Integer, Integer> dict = new HashMap<Integer, Integer>();
+HashMap<Integer, Integer> map = new HashMap<>();
 
-//不能包含重复keys
 
-增：put()
-删：remove()
-查：size()、get(key)、containsKey(), containsValue()
+
+增：put(k, v)   // 已存在的键key新增会替换原来的value，相当于修改操作
+删：remove(k), clear()
+查：size()、get(k)
+判断：containsKey(k), containsValue(v)
+查所有键值对：System.out.println(map)
+
+// 遍历
+for (int k = 0; k < map.size(); k++) {
+    System.out.printf("key: %d, value: %d \n", k, map.get(k));
+}
 ```
 
 ### HashSet
 
-```
-< String>: 集合 （无重复元素的无序集合）
-```
-
 ```java
 import java.util.HashSet;
-HashSet<String> set = new HashSet<String>();
 
-add()
-size()
-//哈希表通过散列机制存储信息，哈希代码是用于确定唯一值的关键信息内容。基本上，HashSet中的每个元素都以其独特的哈希代码关联。
+HashSet<Integer> set = new HashSet<>();
+
+
+查：size(), System.out.println(set)
+增：add(e)
+删：remove(e), clear()
+判断：set.contains(e)
 ```
-
-### LikedHashSet
-> 集合（可以记住元素插入次序的集合）
 
 
 ### Collections
@@ -612,175 +753,14 @@ next()
 remove()
 ```
 
-## Ⅱ  Conditions and Loops
-
-### 1. 陈述语句
-
-:::: code-group
-::: code-group-item if
-
-```java
-if (condition) {
-    //statement;
-} else if (condition) {
-    ...
-} else if (condition) {
-    ...
-} else {
-    ...
-}
-
-/**
- * if:      至少一个
- * else if: 可以有多个
- * else:    可以没有
- * condition: 为了使变量能够在循环外重复使用，变量类型一般在循环外定义！
- */
-```
-:::
-
-::: code-group-item switch
-```java
-switch (expression) {
-    case value1:
-        // statements
-        break;
-    case value2:
-        ...;
-        break;
-    case value3:
-        ...;
-        break;    // optional
-    default:      // optional
-        ...;
-        break;
-}
-```
-:::
-
-::: code-group-item switch2
-```java
-int day = 2;
-String dayType = switch(day) {
-    case 1, 2, 3, 4, 5 -> "Working day";
-    case 6, 7 -> "Weekend";
-    default -> "Invalid";
-};
-```
-:::
-::::
-
-
-::: warning
-Switch
-> 开始->case 1->case 2->case n->结束🔚
->
-> 存在case ... 符合条件则跳出，否则继续往下判断
->
-> `没有break则继续穿透`
->
-> default可选,总是位于最后一段.如果所有case都为   False，则执行default
-:::
-
-
-### 2. 循环语句
-#### For Loops
-
-```java
-for (init; condition; increment) {
-    ...
-}
-```
-
-:::tip
-如果希望在循环体外使用计数器的最终值,则在循环体外申明变量类型
-:::
-```java
-for(int i = 0; i < s.length; i++) {}
-for (int l = 0, r = s.length-1; l < r; l++, r--) {}    // 双指针
-```
-
-#### for each
-
-```java
-for (int v : nums) {
-    //...
-}
-```
-
-#### while loops
-
-```java
-int i = 0;
-while (condition) {
-    // statement;
-    i++;
-}
-```
-
-#### do...while loops
-:::tip
-至少执行一次
-:::
-```java
-do {
-    statement;
-    i++;
-}
-while condition;
-```
-
-
-#### for, while, do...while的区别
-
-:::warning
-```
-1) for & while loops 先判断再输出
-     do...while 先输出再判断，所以至少会输出一次！
-2) for loops 变量在循环语句内，变量不可再次使用；
-3) 而while loops 变量在循环语句外，变量还可再次使用。
-```
-:::
-#### Loop Control Statements
-
-```
-break    //跳出循环体
-continue  //跳至此次循环进入下一循环
-```
-
-```java
-// 仅跳出最内层循环(for)
-...
-while (...) {
-    ...
-    for (...) {
-        ...
-        if (condition) break/continue;
-    }
-}
-```
-
-```java
-// goto跳出指定循环体(while)
-...
-***；
-while (...) {
-    ...
-    for (...) {
-        ...
-        if (condition) break/continue ***;
-    }
-}
-```
-
-## Java类与对象
+## Java 类与对象
 
 OOP :
 
-* encapsulation（封装：隐藏数据）
-* inheritance（继承：继承另一个类的全部"non-private"属性[变量和方法]用extends）
-* polymorphism（多态性）
-* abstraction.（抽象性）
+- encapsulation（封装：隐藏数据）
+- inheritance（继承：继承另一个类的全部"non-private"属性[变量和方法]用 extends）
+- polymorphism（多态性）
+- abstraction.（抽象性）
 
 ### 封装
 
@@ -938,7 +918,7 @@ void func(){}        //父类有public子类也得有
 public void func() {}    //去掉public也可以
 ```
 
-### 包package(文件夹)
+### 包 package(文件夹)
 
 ```java
 一、用包对类分类管理
@@ -1011,9 +991,9 @@ public static void main(String[]args){
 
 使用前提：
 
-* 继承关系
-* 方法重写
-* 父类引用指向多个子类对象
+- 继承关系
+- 方法重写
+- 父类引用指向多个子类对象
 
 ```java
 原始：Cat c = new Cat();
@@ -1229,7 +1209,7 @@ class Myclass {
 }
 ```
 
-### 枚举Enum(定义常量的集合，使用switch检查)
+### 枚举 Enum(定义常量的集合，使用 switch 检查)
 
 ```java
 //枚举Enums (定义常量的集合，使用switch检查)
@@ -1291,7 +1271,7 @@ java -ea: ...
 java -enablessertions ...
 ```
 
-## Swing图形界面设计
+## Swing 图形界面设计
 
 ```
 格式：*** ... = new ...();
@@ -1487,13 +1467,13 @@ setWrapStayleWord(boolean);
 
 ## 文件操作
 
-* read File
-  * new Scanner(new File(pathname)) -- fp.colse()
-  * new Scanner(new FileInputStream(filepath), StandardCharsets.UTF_8))
-* creat File
-  * new Formatter(filepath)
-* write File
-  * fp.format(str, arg1, ...) -- fp.close()
+- read File
+  - new Scanner(new File(pathname)) -- fp.colse()
+  - new Scanner(new FileInputStream(filepath), StandardCharsets.UTF_8))
+- creat File
+  - new Formatter(filepath)
+- write File
+  - fp.format(str, arg1, ...) -- fp.close()
 
 ```java
 File.exists()
@@ -1557,10 +1537,10 @@ try {
 
 ## 多线程
 
-* extends Thread
-* new ClassName()
-* implement Runnable
-* new Thread(new ClassName)
+- extends Thread
+- new ClassName()
+- implement Runnable
+- new Thread(new ClassName)
 
 ### Runnable 接口（推荐）
 
@@ -1663,49 +1643,49 @@ System.out.printf("执行时间%d ms\n", end-start);
 :::tip
 事后分析估算方法：
 
-* 可干预
+- 可干预
 
 1. 算法采用的策略和方案
 2. 问题的输入规模
 
-* 不可干预
+- 不可干预
 
 1. 编译产生的代码质量
 2. 机器执行指令的速度
 
 算法核心：
 
-* 执行时间（时间复杂度)
-  * O(1) -- 两数之和
-  * O(LogN) -- 二分查找
-  * O(N) -- 循环：找出最大元素
-  * N(logN) -- 分治思想：归并排序
-  * O(N^2) -- 双循环：检查所有元素对
-  * O(N^3) -- 三循环：检查所有三元组
-  * O(2^N) -- 穷举查找：检查所有子集
-  * ...
-* 内存消耗（现在内存都比较大，空间复杂度一般不要求。如果是做嵌入式开发，尤其是传感器上的内置程序，由于内存很小，一般为几Kb，这时需要做空间复杂度分析了）
-  * 基本数据类型内存消耗
-    * byte (1)
-    * short (2)
-    * int (4)
-    * long (8)
-    * float (4)
-    * double (8)
-    * boolean (1)
-    * char (2)
-  * 新建对象内存消耗new A()
-public class A {
+- 执行时间（时间复杂度)
+  - O(1) -- 两数之和
+  - O(LogN) -- 二分查找
+  - O(N) -- 循环：找出最大元素
+  - N(logN) -- 分治思想：归并排序
+  - O(N^2) -- 双循环：检查所有元素对
+  - O(N^3) -- 三循环：检查所有三元组
+  - O(2^N) -- 穷举查找：检查所有子集
+  - ...
+- 内存消耗（现在内存都比较大，空间复杂度一般不要求。如果是做嵌入式开发，尤其是传感器上的内置程序，由于内存很小，一般为几 Kb，这时需要做空间复杂度分析了）
+  - 基本数据类型内存消耗
+    - byte (1)
+    - short (2)
+    - int (4)
+    - long (8)
+    - float (4)
+    - double (8)
+    - boolean (1)
+    - char (2)
+  - 新建对象内存消耗 new A()
+    public class A {
     privete int a=1;
-}
-    * 整型成员变量a占用4个字节
-    * 对象本身占用16字节
-  * 引用：8个字节
-Date date = new Date();
-//new date：创建对象消耗8个字节
-//date：变量引用消耗8个字节
-  * 一般内存的使用，如果不够8个字节，都会被自动填充为8个字节
-:::
+    }
+    _ 整型成员变量 a 占用 4 个字节
+    _ 对象本身占用 16 字节
+  - 引用：8 个字节
+    Date date = new Date();
+    //new date：创建对象消耗 8 个字节
+    //date：变量引用消耗 8 个字节
+  - 一般内存的使用，如果不够 8 个字节，都会被自动填充为 8 个字节
+    :::
 
 ### 正则表达式
 
@@ -1717,12 +1697,10 @@ if(m.find()) {
     System.out.println(m.group());
 ```
 
-
-
 :::tip
 其他语言中：\\表示插入一个普通的反斜线"\"
 
-Java中
+Java 中
 
 1. 双斜线：\\表示想要插入一个正则表达式的反斜线，其后的字符才具有意义. 比如"\\d"表示匹配数字。
 2. 四斜线：\\\\表示插入"\\"或"\"
@@ -1734,20 +1712,34 @@ Java中
 \s: 空白符(" "、\t、\n、\f、Enter)
 \e: 转义符
 
-():    整体看待
-[abc]: 其中任一字符(同于a|b|c)
-{m,n}: 至少n次，且不少过m次("{n}":恰好n次；"{n,}":至少n次)
+(): 整体看待
+[abc]: 其中任一字符(同于 a|b|c)
+{m,n}: 至少 n 次，且不少过 m 次("{n}":恰好 n 次；"{n,}":至少 n 次)
 
-? : (0|1)个，有1个或没有；非贪婪匹配(匹配数量：尽可能匹配所需的最少字符数)
+? : (0|1)个，有 1 个或没有；非贪婪匹配(匹配数量：尽可能匹配所需的最少字符数)
 . : 任意数量字符
-* ：[1, +∞) 有/至少1次
 
-- ：范围([a-zA-Z0-9])
+- ：[1, +∞) 有/至少 1 次
 
-* : [0, +∞) 或许有
-\\: java正则匹配符或反斜线"\"
+* ：范围([a-zA-Z0-9])
 
-X|Y: X或Y "(-|\\+)?" => [0,1]个"+"/"-"
-^XY: 都非(单个非"[^X]Y")
-XY : X和Y
+- : [0, +∞) 或许有
+  \\: java 正则匹配符或反斜线"\"
+
+X|Y: X 或 Y "(-|\\+)?" => [0,1]个"+"/"-"
+^XY: 都非(单个非"[^x]Y")
+XY : X 和 Y
 :::
+
+
+## FAQ
+
+### for, while, do...while 的区别
+
+
+```
+1) for & while loops 先判断再输出
+     do...while 先输出再判断，所以至少会输出一次！
+2) for loops 变量在循环语句内，变量不可再次使用；
+3) 而while loops 变量在循环语句外，变量还可再次使用。
+```
