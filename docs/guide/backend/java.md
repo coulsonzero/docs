@@ -403,6 +403,8 @@ String name = "Coulson";
 去除空格：s.strip()
 去除空格(两端): s.trim()
 
+格式化：String.format()
+
 /***** 判断 *****/
 空串：isEmpty(), s == null, s.length() == 0, s.equals("")
 包含：s.contains(string substr)
@@ -632,6 +634,7 @@ List<String>  strs = new ArrayList<>(List.of(new String[]{ "a", "b", "c" }));
 增：
     a）add(e)：末尾新增
     b）add(i, e)：中间插入
+    c）Collections.addAll(list, 4, 5);
 删：
     a）remove(i)：删除单个索引元素
     b）clear()：  删除所有元素
@@ -735,6 +738,8 @@ Collections.reverse(List list);    //降序
 Collections.shuffle(List list);    //随机排序
 Collections.max(Collection c);
 Collections.min(Collection c);
+
+Collections.addAll(list, 1, 2)
 ```
 
 ### Iterator
@@ -1742,4 +1747,145 @@ XY : X 和 Y
      do...while 先输出再判断，所以至少会输出一次！
 2) for loops 变量在循环语句内，变量不可再次使用；
 3) 而while loops 变量在循环语句外，变量还可再次使用。
+```
+
+## Packages
+
+### Math
+
+```java
+最大值：Math.max()
+最小值：Math.min()
+
+下浮：Math.floor()
+上浮：Math.ceil()
+
+绝对值：Math.abs()
+幂：Math.pow()
+四舍五入：Math.round()
+随机数：Math.random()
+
+生成随机数:
+[0, 10]: Math.round(Math.random() * 10)
+[0, 10): (int)Math.floor(Math.random() * 10)
+```
+
+```java
+/**
+ * Math Api:
+ * Math.min()
+ * Math.max()
+ *
+ * Math.floor()
+ * Math.ceil()
+ *
+ * Math.abs()
+ * Math.round()
+ * Math.random()
+ *
+ * Math.pow()
+ */
+
+public class math {
+    public static void main(String[] args) {
+        System.out.println(Math.min(3, 5));     // 3
+        System.out.println(Math.max(3, 5));     // 5
+
+        System.out.println(Math.floor(3.4));    // 3.0
+        System.out.println(Math.ceil(3.4));     // 4.0
+
+        System.out.println(Math.abs(- 3.2));    // 3.2
+        System.out.println(Math.round(3.62));   // 4
+        //Math.random() 生成随机数
+        System.out.println(Math.round(Math.random() * 10)); // [0, 10]
+        System.out.println((int)Math.floor(Math.random() * 10)); // [0, 10)
+
+        int num = (int) (Math.random() * 10);
+        System.out.println(num);
+
+        //new Random() 生成随机数
+        Random r = new Random();
+        int i = r.nextInt(10);
+        System.out.println(i);
+
+        System.out.println(Math.pow(2, 3)); // 8.0
+    }
+}
+
+```
+
+### Date
+
+**日期格式化**
+```java
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class date {
+    public static void main(String[] args) {
+        System.out.println(dateToString());
+    }
+
+    public static String dateToString() {
+        Date date = new Date();
+        // System.out.println(date);   // Fri Nov 25 23:54:47 CST 2022
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        // System.out.println(dateFormat.format(date));    // 2022-11-25 11:55:56
+
+        return dateFormat.format(date);
+    }
+}
+```
+
+**休眠**
+```java
+try {
+    Thread.sleep(3000);
+} catch (InterruptedException e) {
+    e.printStackTrace();
+}
+```
+
+**执行时间计算**
+```java
+long start = System.currentTimeMillis();
+// function
+long end = System.currentTimeMillis();
+long diff = end - start;
+System.out.println("执行时间: " + diff);
+```
+
+### 正则 regex
+
+```java
+Matcher m = Pattern.compile(regex).matcher(s);
+
+while (m.find())  {
+    System.out.println(m.group());
+}
+```
+
+```java
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class regex {
+    public static void main(String[] args) {
+        String s = "hello, my name is Bob, I'm 20 yeas old, the date is 2021-10-12. you can send message to bob@gmail.com";
+
+        Pattern p = Pattern.compile("\\d+");
+        Matcher m = p.matcher(s);
+        while (m.find())  {
+            System.out.println(m.group());
+        }
+    }
+}
+
+/*
+20
+2021
+10
+12
+ */
+
 ```
