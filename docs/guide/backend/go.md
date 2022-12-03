@@ -614,45 +614,55 @@ func main() {
 ::: code-group-item Api
 
 ```go
+/* =========== 字符串初始化 =========== */
 var s string // 全局变量初始化
 s := ""		 // 局部变量初始化
 s := fmt.Sprintf("%d", num)	// 字符串格式化
 
-// 查
-len(s string)    						// 字符串长度
-s[i]		     						// 索引字符
-strings.Index(s string, substr string)  // 子串索引, 不存在返回-1
 
-// 改
+/* =========== 查 =========== */
+len(s string)    		  // 字符串长度
+s[i]		     		  // 索引字符
+strings.Index(s, substr)  // 子串索引, 不存在返回-1
+
+
+/* =========== 改 =========== */
 /** 字符串拼接方式
  * 1. +
  * 2. strings.Join()
  * 3. strings.Build | bytes.Buffer
  */
 
-// Build | Buffer
-var buf strings.Builder
-var buf bytes.Buffer
-buf.WriteString(s string)	// "hello"
-buf.WriteByte(c byte)		// ','
-buf.Write(p []byte)			// []byte("world")
-buf.String()
 
 // 大小写转换
 strings.ToUpper()							// 大写
 strings.ToLower()							// 小写
 strings.Title()								// 首字母大写
 cases.Title(language.Und).String(s string)  // 每个单词首字母大写
-
 // 替换
-strings.ReplaceAll()					// 替换
-strings.Replace(str, old, new , -1)		// -1为全部，等价于ReplaceAll()
+strings.ReplaceAll(str, old, new)			// 替换
+strings.Replace(str, old, new , -1)			// -1为全部, 等价于ReplaceAll()
 
+
+/* =========== 删 =========== */
 // 删除空白字符
-strings.Trim(s string, " ")	// 移除空格(首尾)
-strings.TrimSpace(s string)	// 移除\n\t等
+strings.Trim(s string, " ")		// 移除空格(首尾)
+strings.TrimSpace(s string)		// 移除\n\t等
 ```
 
+:::
+::: code-group-item Builder | Buffer
+```go
+// Build | Buffer
+var buf strings.Builder
+var buf bytes.Buffer
+
+buf.WriteString(s string)	// "hello"
+buf.WriteByte(c byte)		// ','
+buf.Write(p []byte)			// []byte("world")
+buf.String()
+
+```
 :::
 ::: code-group-item 遍历
 
@@ -2863,7 +2873,7 @@ strings.Split()
 
 // 替换
 strings.Replace(str, old, new , -1)	// -1为全部，等价于ReplaceAll()
-strings.ReplaceAll()
+strings.ReplaceAll(str, old, new)
 
 
 // 大小写转换
@@ -2889,9 +2899,25 @@ strings.TrimFunc("¡¡¡$6521.123Hello, Gophers!!!", func(r rune) bool {
 ```go
 import "sort"
 
+/* ========= 数字数组排序 ========== */
 sort.Ints(nums)
 sort.Sort(sort.Reverse(sort.IntSlice(nums)))
-sort.Strings(strs)
+
+/* ========= 字符串数组排序 ========== */
+sort.Strings(s []string)
+
+// 9 34 30 3
+sort.Sort(sort.Reverse(sort.StringSlice(s []string)))
+
+// 9 34 3 30
+sort.Slice(s, func(i, j int) bool {
+    return s[i]+s[j] > s[j]+s[i]
+})
+
+// 30 3 34 9
+sort.Slice(s, func(i, j int) bool {
+    return s[i]+s[j] < s[j]+s[i]
+})
 ```
 
 ```go
