@@ -652,6 +652,7 @@ strings.TrimSpace(s string)		// 移除\n\t等
 
 :::
 ::: code-group-item Builder | Buffer
+
 ```go
 // Build | Buffer
 var buf strings.Builder
@@ -663,6 +664,7 @@ buf.Write(p []byte)			// []byte("world")
 buf.String()
 
 ```
+
 :::
 ::: code-group-item 遍历
 
@@ -2823,6 +2825,8 @@ strconv.Itoa(num int)   // int    -> string
 strconv.Atoi(s string)	// string -> int
 
 strconv.ParseUint(s, 16, 64);	// 16进制字符串(如ipv6)转化为int64
+
+strconv.FormatInt(n int64, 2)  // 十进制转二进制 -> string
 ```
 
 **example**
@@ -4786,6 +4790,7 @@ reflect.ValueOf(i any).Index(i int).SetInt(v any)   // 更改值
 ```
 
 ::: details Example
+
 ```go
 slice_int := []int{1, 2, 3, 4, 5}
 
@@ -4807,6 +4812,7 @@ fmt.Println(reflect.ValueOf(slice_int).Index(0).CanSet())       // true
 reflect.ValueOf(slice_int).Index(0).SetInt(7)
 fmt.Println(reflect.ValueOf(slice_int)) 						// [7, 2, 3, 4, 5]
 ```
+
 :::
 
 ### sync
@@ -5011,6 +5017,15 @@ runtime.Version()
 | a \| b | a 或 b 任意一个 |
 | a(bc)d | 分组匹配        |
 | .\*?   | 贪婪匹配        |
+
+```go
+word := "a123bc34d8ef34"
+reg := regexp.MustCompile(`\d+`)
+
+reg.FindString(word) 				-> string	    // "123"
+reg.FindAllString(word, -1)			-> []string		// ["123", "34", "8", "34"]
+reg.FindAllStringSubmatch(word, -1)	-> [][]string   // [["123"], ["34"], ["8"], ["34"]]
+```
 
 **Example**
 
