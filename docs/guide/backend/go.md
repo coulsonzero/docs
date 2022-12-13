@@ -40,12 +40,12 @@ $ go env -w GOPROXY=https://goproxy.cn,direct
 
 ### 1.3 初始化 Go 项目
 
-```sh
+```sh{5,7}
 $ mkdir go-hello
 $ cd go-hello
 
 # 初始化go项目
-$ go mod init go-hello
+$ go mod init <go-hello>
 # 下载依赖包
 $ go mod tidy
 
@@ -1062,31 +1062,28 @@ func SliceContains[T sl](slice []T, target T) bool {
 ### 8. Map 哈希表
 
 :::: code-group
-::: code-group-item 创建 Map
+::: code-group-item init
 
 ```go
-// 方式一：声明map, 使用make分配空间
-m := make(map[string] int)
+// 方式一
+m := make(map[string]int)
 
-// 方式二：初始化map
-cityMap := map[string] string{
+// 方式二
+cityMap := map[string]string {
 	"us": "USA",
 	"fr": "France",
 	"cn": "China",	// 末尾加逗号，或者将大括号放在此行！
 }
-
-
-m["Jame"] = 97
-m["Amye"] = 86
-
-// 解构: cityMap...
 ```
 
 :::
 ::: code-group-item api
 
 ```go
-m := make(map[string]int)
+// 遍历
+for k, v := range m {
+	// statement
+}
 
 // 查
 fmt.Println(m)
@@ -1097,47 +1094,14 @@ m["Jame"] = 97
 // 删
 delete(m, "Jame")
 
-// 判断包含
-if _, ok := m[key]; ok {...}
 
-// 遍历
-for k, v := range m {
+// 判断包含
+if _, ok := m[k]; ok {
 	// statement
 }
 
-```
-
-:::
-::: code-group-item Example
-
-```go
-package main
-import "fmt"
-
-func sumScore() {
-    team := map[string] float32 {
-        "P1": 1.98,
-        "P2": 2.05,
-        "P3": 1.89,
-        "P4": 2.0,
-        "P5": 2.11}
-
-    var sum float32 = 0.0
-    for _, v := range team {
-        sum += v
-    }
-    fmt.Println(sum / 5)
-}
-
-func twoSum(nums []int, target int) []int {
-    m := make(map[int]int)
-    for i, v := range nums {
-        if j, ok := m[target - v]; ok {
-            return []int {j, i}
-        }
-        m[v] = i
-    }
-    return nil
+if m[v] == 1 {
+	// statement
 }
 ```
 
@@ -2112,7 +2076,8 @@ func main() {
 ::::
 
 **for-select**
-::::
+
+:::: code-group
 ::: code-group-item Select1
 
 ```go
@@ -2160,10 +2125,8 @@ func main() {
 }
 
 // Output: 173250
-
 // New Output: 171700
 ```
-
 :::
 ::: code-group-item Select2
 
@@ -2267,6 +2230,7 @@ Nothing available
 
 :::
 ::::
+
 
 ### Channel 管道通信
 
