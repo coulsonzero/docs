@@ -898,6 +898,8 @@ fmt.Printf("%v, %c, %T", 'a', 'a', 'a') // 97, a, int32
 
 ### 7. Slice 切片
 
+> 动态数组, 长度不固定, 可扩容
+
 [sort](#sort)
 
 [gopkg-pro](https://github.com/coulsonzero/gopkg)
@@ -906,6 +908,13 @@ fmt.Printf("%v, %c, %T", 'a', 'a', 'a') // 97, a, int32
 ::: code-group-item 创建
 
 ```go
+// nil 切片
+var slice []int
+// 空切片
+slice := make([]int, 0)
+slice := []int{}
+
+
 // create slice
 var slice []int                 // len: 0, cap: 0, slice: []
 slice := []int{1, 2, 3}         // len: 3, cap: 3, slice: [1, 2, 3]
@@ -958,11 +967,12 @@ slice = append(slice, nums...)      // 末尾新增不定元素
 slice = append(slice[:i], append([]int{v}, slice[i:]...)...)	// 在index=i的位置插入value
 
 
-// 插入单个元素
+// 插入单个元素  (第二个append()调用会创建一个临时切片)
 func SliceInsert(slice []int, index int, value int) []int {
 	return append(slice[:index], append([]int{value}, slice[index:]...)...)
 }
 
+// 插入单个元素  (减少中间创建的临时切片)
 func SliceInsert(slice []int, index int, value int) []int {
 	slice = append(slice, 0)
 	copy(slice[index+1:], slice[index:])
@@ -976,10 +986,13 @@ func SliceInsert(slice []int, index int, value int) []int {
 
 ```go
 // 删除一个元素(指定索引元素)
-slice = append(slice[:i], slice[i + 1:]...)
+slice = append(slice[:i], slice[i+1:]...)
 
 // 删除多个元素
 slice = slice[i:]
+
+// 删除末尾元素
+slice = slice[:len(slice)-1]
 ```
 
 :::
@@ -2826,7 +2839,7 @@ strings.Count(s string, substr string)
 /*======== 判断 =========*/
 
 // 包含
-strings.Contains()
+strings.Contains(s string, substr string)
 // endswith
 strings.HasSuffix()
 // startswith
@@ -2845,9 +2858,9 @@ strings.ReplaceAll(str, old, new)
 
 
 // 大小写转换
-strings.ToLower()
-strings.ToUpper()
-// strings.Title()		// 此方法已弃用
+strings.ToUpper(s string)
+strings.ToLower(s string)
+strings.Title(s string)		// 此方法已弃用
 cases.Title(language.Und).String("hello, world!") // Hello, World!
 
 /*======== 删 =========*/

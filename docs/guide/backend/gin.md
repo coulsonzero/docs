@@ -4,20 +4,20 @@
 
 ### 1. 快速入门
 
-1. 初始化golang项目
+1. 初始化 golang 项目
 
 ```sh
 $ go mod init <project-name>
 $ go mod tidy
 ```
 
-2. 安装gin依赖包
+2. 安装 gin 依赖包
 
 ```sh
 $ go get -u "github.com/gin-gonic/gin"
 ```
 
-3. 创建main.go文件
+3. 创建 main.go 文件
 
 ```sh
 $ vim main.go
@@ -39,8 +39,6 @@ func main() {
 }
 ```
 
-
-
 4. 运行项目并查看返回数据
 
 ```sh
@@ -53,17 +51,18 @@ $ curl "http://localhost:8080/ping"
 ```md
 $ tree
 .
-├── `controller`	<!-- 配置响应数据response -->
+├── `controller` <!-- 配置响应数据response -->
 │   └── hello.go
-├── `router`		<!-- 配置路由url -->
+├── `router` <!-- 配置路由url -->
 │   └── router.go
 ├── go.mod
 ├── go.sum
-└── `main.go`		<!-- 配置post -->
+└── `main.go` <!-- 配置post -->
 ```
 
 :::: code-group
 ::: code-group-item main.go
+
 ```go
 package main
 
@@ -78,8 +77,10 @@ func main() {
 }
 
 ```
+
 :::
 ::: code-group-item router.go
+
 ```go
 package router
 
@@ -95,8 +96,10 @@ func SetupRouter() *gin.Engine {
 	return r
 }
 ```
+
 :::
 ::: code-group-item hello.go
+
 ```go
 package controller
 
@@ -108,15 +111,16 @@ func HelloController(c *gin.Context) {
 	})
 }
 ```
+
 :::
 ::: code-group-item http://localhost:8080/hello
+
 ```json
-{"message":"Welcome to Gin !"}
+{"message": "Welcome to Gin !"}
 ```
+
 :::
 ::::
-
-
 
 ### 3. Example
 
@@ -254,6 +258,123 @@ type DateInfo struct {
 }
 ```
 
+## 总结
+
+### HTTP 方法
+
+```go
+// 获取资源
+r.GET()
+// 新增
+r.POST()
+// 修改
+r.PUT()
+// 删除
+r.DELETE()
+```
+
+### Body Response
+
+```go
+/* ===== JSON ===== */
+c.JSON(200, gin.H{
+	"success": true,
+	"code":    200,
+	"message": "请求成功",
+})
+c.PureJSON(200, gin.H{
+	"html": "<b>Hello, world!</b>",
+})
+c.JSONP()
+c.AsciiJSON()
+c.SecureJSON()
+
+/* ===== XML ===== */
+c.XML()
+
+/* ===== YML ===== */
+c.YAML()
+
+/* ===== String ==== */
+c.String(200, "hello world!")
+
+/* ===== HTML ==== */
+c.HTML(200, gin.H {
+	"html": "<b>Hello World !</b>"
+})
+c.HTML(200, "/html/index.tmpl", nil)
+
+/* ===== File ==== */
+file, err := c.FormFile("file")
+c.SaveUploadedFile(file, file.Filename)
+```
+
+### Body Request
+
+```go
+// 自动绑定
+// 如果是 `GET` 请求，只使用 `Form` 绑定引擎（`query`）。
+// 如果是 `POST` 请求，首先检查 `content-type` 是否为 `JSON` 或 `XML`，然后再使用 `Form`（`form-data`）
+c.ShouldBind()
+// 绑定json
+c.ShouldBindJSON()
+c.ShouldBindXML()
+c.ShouldBindYML()
+// 显式绑定声明
+c.ShouldBindWith(&obj, binding.Form)
+c.ShouldBindWith(&obj, binding.Query)
+c.ShouldBindBodyWith(&obj, binding.JSON)
+c.ShouldBindBodyWith(&obj, binding.XML)
+c.ShouldBindBodyWith(&obj, binding.YML)
+```
+
+
+### Body Parmas
+
+```go
+// curl http://localhost:8080/user/:name/*action
+c.Param("name")
+c.Param("action")
+
+// query
+// r.GET("/users")
+// curl http://localhost:8080/users?id=12&page=2，page可选
+c.Query("id")
+c.DefaultQuery("page", "0")
+
+// post form
+// r.POST("/form")
+// curl http://localhost:8080/form  -X POST -d 'username=geektutu&password=1234'
+c.PostForm("name")
+c.DefaultPostForm("password", "123456")
+
+// map
+// r.POST("/posts")
+// curl -g "http://localhost:8080/post?ids[Jack]=001&ids[Tom]=002" -X POST -d 'names[a]=Sam&names[b]=David'
+c.QueryMap("ids")
+c.PostFormMap("names")
+```
+
+### Cookie & Session
+
+```go
+cookie, err := c.Cookie("gin_cookie")
+if err != nil {
+	cookie = "NotSet"
+	c.SetCookie("gin_cookie", "test", 3600, "/", "localhost", false, true)
+}
+```
+
+```go
+session := sessions.Default(c)
+session.Get("hello")
+session.Set("hello", "world")
+session.Delete("tizi365")
+session.Save()
+// 删除整个session
+// session.Clear()
+```
+
 ## Sample
 
 ### HTTP 方法
@@ -287,7 +408,7 @@ r.GET("/user/:name", func(c *gin.Context) {
 })
 ```
 
-### GET Query参数
+### GET Query 参数
 
 ```go
 // curl http://localhost:8080/users?name=coulson&role=developer
@@ -306,7 +427,7 @@ r.POST("/post", func(c *gin.Context) {
 })
 ```
 
-### POST Body-form表单
+### POST Body-form 表单
 
 ```go
 // curl http://localhost:8080/form  -X POST -d 'username=geektutu&password=1234'
@@ -321,7 +442,7 @@ r.POST("/form", func(c *gin.Context) {
 })
 ```
 
-### POST Query参数与From表单
+### POST Query 参数与 From 表单
 
 ```go
 // curl "http://localhost:8080/posts?id=9876&page=7"  -X POST -d 'username=geektutu&password=1234'
@@ -352,7 +473,7 @@ r.POST("/postmap", func(c *gin.Context) {
 })
 ```
 
-### POST json参数
+### POST json 参数
 
 ```go
 r.POST("/json", ShowUser)
@@ -408,6 +529,7 @@ c.ShouldBindJSON(&user)
 ```
 
 ### 路由参数-路径参数 :name
+
 ```go{2-3}
 // /user/john
 r.GET("/user/:name", func(c *gin.Context) {
@@ -418,7 +540,6 @@ r.GET("/user/:name", func(c *gin.Context) {
 
 ### 路由参数-Params ?name
 
-
 ```go{3-4}
 // curl http://localhost:8080/user?name=tom&role=developer, role可选
 router.GET("/user", func(c *gin.Context) {
@@ -428,8 +549,7 @@ router.GET("/user", func(c *gin.Context) {
 })
 ```
 
-
-### 路由参数-Body参数
+### 路由参数-Body 参数
 
 ```go
 // curl http://localhost:8080/form  -X POST -d 'username=geektutu&password=1234'
@@ -444,7 +564,7 @@ r.POST("/form", func(c *gin.Context) {
 })
 ```
 
-### 路由绑定uri
+### 路由绑定 uri
 
 ```go{6-7,12,14}
 package main
@@ -541,13 +661,13 @@ func main() {
 }
 ```
 
-### 渲染String
+### 渲染 String
 
 ```go
 c.String(200, "Hello world !")
 ```
 
-### 渲染JSON
+### 渲染 JSON
 
 ```go
 r.GET("/json", func(c *gin.Context) {
@@ -559,7 +679,7 @@ r.GET("/json", func(c *gin.Context) {
 })
 ```
 
-### 渲染XML
+### 渲染 XML
 
 ```go
 r.GET("/xml", func(c *gin.Context) {
@@ -570,7 +690,7 @@ r.GET("/xml", func(c *gin.Context) {
 })
 ```
 
-### 渲染YAML
+### 渲染 YAML
 
 ```go
 r.GET("/yaml", func(c *gin.Context) {
@@ -632,10 +752,9 @@ r.Use(gin.Logger())
 r.Use(gin.Recovery())
 ```
 
-
 ## FAQ
 
-### 查看go环境配置
+### 查看 go 环境配置
 
 ```sh
 $ go env
@@ -653,7 +772,7 @@ $ go get -u github.com/gin-gonic/gin
 
 ### 热加载
 
-> 修改接口文档后默认需重启项目，页面内容才能刷新；使用fresh后可实时刷新
+> 修改接口文档后默认需重启项目，页面内容才能刷新；使用 fresh 后可实时刷新
 
 ```sh
 # 安装fresh
