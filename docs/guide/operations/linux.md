@@ -32,52 +32,59 @@ window中设置“打开鼠标指针轨迹“，并设置为”最短"
 
 ## 3. linux 常用命令
 
-- ls (列出所有目录和文件)----ls -a
+
 - shutdown(-h 关机，-r 重启)--shutdown -h now
 - su ( 切换用户) -- su - root (为安全起见输入密码时不回显)
 - exit
 - clear (清屏)
-- mkdir (创建目录)
-- rm (删除文件/目录)
-- pwd (当前目录)
-- cd ~ (切换目录)
+- history (查看命令历史记录)
+- ls        (列出所有目录和文件)
+- tree
+- mkdir     (创建目录)
+- rm        (删除文件/目录)
+- pwd       (当前目录)
+- cd        (切换目录)
 - mv (移动)
 - cp (复制目录/文件)
-- touch (创建空文件) --- touch dirName/fileName
+- touch (创建空文件)
 - vim/vi (修改文件,yy 复制,dd 剪切,p 粘贴,u 撤销)--Esc 退出编辑后":wq"保存内容
 - gedit (文件编译器)
-- cat/more/less/tail (查看文件)
+- head, tail
+- cat/more/less (查看文件)
+- wc -l 统计文件行数
 - find (查找文件)
+- grep
 - ll (查看目录/文件权限信息)
 - chomd (修改权限: u 用户，g 同组成员, o 其他成员，r 可读 w 可写 x 可执行) -- chmod u=rwx, g=r, o=r test.txt
-- tree
-- tar -zxvf
-- date (日期) --- date '+%Y/%m/%d'
-- cal (日历)-----cal -y 2021
+- ifconfig
+- top： cpu 占用
 - free (内存)
-- vmstat (虚拟内存统计)
-- iostat
 - du (磁盘)
 - df (文件磁盘)
-- top： cpu 占用
+- vmstat (虚拟内存统计)
+- iostat
 - chkconfig iptables off (关闭防火墙)
-- ifconfig
+- uptime
 - ping (网络)
 - netstat (端口)--netstat -an
+- nslookup
 - ps (查看进程) -- ps -ef
 - kill
+- tar -zxvf
+- date (日期) --- date '+%Y/%m/%d'
+- cal  (日历)-----cal -y 2021
 - id (查询用户信息)
-- who/whoami (查看当前用户名)/users
+- who/whoami/users (查看当前用户名)
 - passwd (修改密码)
 - echo (输出命令)/printf
-- history (查看命令历史记录)
 - dig (域名解析)
-- chmod (更改文件/目录权限)
 - bc (计算器)
 - uname -a (系统信息)
-- wc -l 统计文件行数
-- & |
+- curl (网络文件下载)
+- & | >  >>
 ### Commands 命令大全
+
+
 
 ### 目录
 
@@ -105,7 +112,7 @@ window中设置“打开鼠标指针轨迹“，并设置为”最短"
 解压
 
 ```
-压缩：tar
+压缩：tar、zip
 解压：unzip
 ```
 

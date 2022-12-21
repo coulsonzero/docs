@@ -5382,3 +5382,44 @@ c.Name =  zhangsan
 dog name is : lisi
 d.Name =  lisi
 ```
+
+### //go-generate
+
+> go generate命令是在Go语言 1.4 版本里面新添加的一个命令，当运行该命令时，它将扫描与当前包相关的源代码文件，找出所有包含//go:generate的特殊注释，提取并执行该特殊注释后面的命令
+
+**应用**
+```go
+//go:generate go version
+//go:generate go run main.go
+```
+
+**使用**
+```sh
+$ go generate
+```
+
+**For Example**
+```go
+package main
+
+import "fmt"
+
+//go:generate go run main.go
+//go:generate go version
+//go:generate ls
+func main() {
+	fmt.Println("hello world!")
+}
+```
+
+```sh
+$ go generate -x
+
+go run main.go
+hello world!
+go version
+go version go1.19.3 darwin/arm64
+ls
+main.go
+```
+
