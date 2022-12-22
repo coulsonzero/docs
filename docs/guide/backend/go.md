@@ -1081,6 +1081,8 @@ func SliceContains[T sl](slice []T, target T) bool {
 // 方式一
 m := make(map[string]int)
 
+m := map[string]int{}
+
 // 方式二
 cityMap := map[string]string {
 	"us": "USA",
