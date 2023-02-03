@@ -39,12 +39,16 @@ const navbarConfig: NavbarConfig = [
 				],
 			},
 			{
-				text: "命令行工具",
+				text: "package管理器",
 				children: [
-					// {text: "Webpack", link: "https://www.webpackjs.com/"},
 					{text: "yarn", link: "https://www.yarnpkg.cn/"},
 					{text: "Vite", link: "https://cn.vitejs.dev/"},
 				],
+			},
+			{
+				text: "打包器",
+				children: [{text: "webpack", link: "https://www.webpackjs.com/"}],
+				children: [{text: "parcel", link: "https://parceljs.org/"}],
 			},
 			{
 				text: "文档管理",
