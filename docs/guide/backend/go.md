@@ -53,9 +53,9 @@ $ go mod tidy
 $ go run main.go
 ```
 
-## 基础语法
+## 二. 基础语法
 
-### 1. Hello World
+### Hello World
 
 ::: tip
 Go 通过`main`方法启动, main()方法的`package`必须为`main`
@@ -77,7 +77,7 @@ func main() {
 :::
 ::::
 
-### 2. Input & Output
+### Input & Output
 
 **Output**
 
@@ -194,7 +194,7 @@ func main() {
 :::
 ::::
 
-### 3. Variable & Constants
+### Variable & Constants
 
 :::: code-group
 ::: code-group-item 单个变量
@@ -458,7 +458,7 @@ func main() {
 :::
 ::::
 
-### 4. DataTypes
+### DataTypes
 
 :::: code-group
 ::: code-group-item 数据类型
@@ -602,7 +602,253 @@ func main() {
 :::
 ::::
 
-### 5. String 字符串
+### Comments
+
+```go
+// a single comment
+
+/*
+This is a multi-line comment
+*/
+
+/**
+ * @author
+ * @version
+ */
+```
+
+### Operators
+
+```go
+//Arithmetic Operators: + - * / %
+//Assignment Operators: += -= *= /= %=
+//Logical Operators: && || !
+//Relational Operators: == != < > <= >=
+//位运算: & | ^
+```
+
+```go
+func isEven( num int ) bool {
+	// return num % 2 == 0
+    return num & 1 == 0
+}
+```
+
+::: tip
+
+1. if/switch statement: 局部变量作用域
+2. switch statement: 条件判断
+3. for loop: 推荐 range 写法, 可忽略
+4. while loop: 使用 for 代替
+   :::
+
+### Import
+
+```go
+import . "fmt"	// 省略包名: fmt.Println() => Println()
+import f "fmt"	// 别名导入: fmt.Println() => f.Println("hello world")
+import _ "github.com/go-sql-driver/mysql"
+import go-project/config    // 项目绝对路径导入
+```
+
+```go
+// 1. import single package
+import "fmt"
+
+// 2. import multiple package
+import (
+	"fmt"
+	"time"
+	"encoding/json"
+	"reflect"
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
+	"[your-project]/config"
+)
+```
+
+::: details 详情
+
+```go
+// 1. import single package
+import "fmt"
+
+// 2.1 import multiple packages
+import "fmt"
+import "time"
+
+// 2.2
+import (
+	"fmt";
+	"time"
+)
+
+// 2.3
+import (
+	"fmt"
+	"time"
+	"[your-project]/config"
+)
+```
+
+:::
+
+### Modules
+
+[golang 模块](https://pkg.go.dev/cmd)
+
+```bash
+# 查看go版本
+go version
+
+# 环境变量
+go env
+
+# 更改为国内代理(go get失败时)
+go env -w GOPROXY=https://goproxy.cn,direct
+
+# 新项目初始化
+go mod init <project name>
+
+# 依赖包自动管理
+go mod tidy
+
+# 运行main程序
+go run main.go
+
+# 编译
+go build -o hello.go
+
+# 代码格式化(git push前)
+go fmt
+
+# 测试
+go test
+
+# 检查Go源代码并报告可疑情况
+go vet
+```
+
+## 三. Conditions and Loops
+
+### Statement
+
+::: danger
+
+> 注意变量作用域, 在 condition 中声明外部无法访问！
+
+:::
+
+:::: code-group
+::: code-group-item if
+
+```go{1,9}
+if x := 42; x > 18 {
+    //statement(s)
+} else if x == 18 {
+    //statement(s)
+} else {
+    //statement(s)
+}
+
+// fmt.Println(x) // error: undefined: x
+```
+
+:::
+::: code-group-item switch
+
+```go {2}
+x := 8
+switch y := x%2; y {
+    case ...:
+        //statement(s)        //不需要break
+	case ...:
+		//statement(s)
+    default:
+        //statement(s)
+}
+```
+
+:::
+::: code-group-item switch 条件判断
+
+```go
+/* switch版的 if statement */
+switch {
+case score < 60:
+	return "不及格"
+case score >= 60 && score < 80:
+	return "中等"
+case score >= 80 && score < 90:
+	return "良好"
+case score >= 90:
+	return "优秀"
+default:
+	return ""
+}
+//  fallthrough: 执行多个case；默认只会执行一个，不需要break，支持多条件匹配
+```
+
+:::
+::::
+
+### Loops
+
+::: warning
+
+```go
+// golang 不支持该写法
+for i := 0, j := len(s); i < j; i++, j-- {...}
+// 支持以下写法
+for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {...}
+```
+
+:::
+
+:::: code-group
+::: code-group-item for
+
+```go{16}
+for i := 0; i < len(nums); i++ {
+    fmt.Println(i, nums[i])
+}
+
+// 读取 key 和 value
+for i, v := range nums {
+    fmt.Println(i, v)
+}
+
+// 仅读取 key
+for i := range nums {
+	fmt.Println(nums[i])
+}
+
+// 仅读取 value
+for _, v := range nums {
+    fmt.Println(v)
+}
+```
+
+:::
+::: code-group-item while
+
+```go{4}
+/* for版的while */
+sum := 1
+res := 0
+for sum <= 1000 {
+    res += sum
+    sum++
+}
+fmt.Println(res)    //500500
+```
+
+:::
+::::
+
+## 四. 核心数据类型
+
+### String 字符串
 
 **常用标准库**
 
@@ -804,7 +1050,7 @@ func swapCase(c byte) byte {
 :::
 ::::
 
-### 6. Array 数组
+### Array 数组
 
 ::: warning
 
@@ -896,7 +1142,7 @@ fmt.Printf("len: %d, cap: %d, array: %v \n", len(f), cap(f), f)
 fmt.Printf("%v, %c, %T", 'a', 'a', 'a') // 97, a, int32
 ```
 
-### 7. Slice 切片
+### Slice 切片
 
 > 动态数组, 长度不固定, 可扩容
 
@@ -1072,7 +1318,7 @@ func SliceContains[T sl](slice []T, target T) bool {
 :::
 ::::
 
-### 8. Map 哈希表
+### Map 哈希表
 
 :::: code-group
 ::: code-group-item init
@@ -1123,7 +1369,7 @@ if m[v] == 1 {
 :::
 ::::
 
-### 9. Function 函数
+### Function 函数
 
 > 值传递(默认): 指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数
 >
@@ -1330,7 +1576,7 @@ var fib func(n int) int {
 }
 ```
 
-### 10. Pointer 指针
+### Pointer 指针
 
 > 浅拷贝: 修改其中一个，另一个也会随之改变
 
@@ -1450,9 +1696,31 @@ func main() {
 :::
 ::::
 
-### 11. Structs 结构体
+### Structs 结构体
 
-> 不同类型或相同类型的数据集
+> Go doesn't support classes, instead, it has structs.
+>
+> Struct are collects of fields that allow you to group data together.
+
+- [struct 初始化](#❶struct初始化)
+  - value init
+  - pointer init
+- [struct method](#❷method)
+  1. struct receiver
+  2. pointer struct & value struct
+  3. public & private method
+- [struct 组合方式](#➂struct-组合方式)
+  1. 继承
+  2. 组合
+  3. 匿名结构体
+  4. 结构体嵌套
+- [struct tag](#➃struct-tag)
+- [struct oop](#struct-oop)
+  - 封装
+  - 继承
+  - 多态
+
+#### ❶struct 初始化
 
 :::: code-group
 ::: code-group-item struct
@@ -1468,48 +1736,140 @@ type person struct {
 ::: code-group-item init
 
 ```go
-package main
-
-import "fmt"
-
 type person struct {
-	name   string
-	age    int
+	name string
+	age  int
 }
 
 func main() {
-	// 方式一
-	var p1 person
-	p1.name = "John"
-	p1.age = 20
+	// 方式一: value init
+	var p person
+	p.name = "John"
+	p.age = 20
 
-	// 方式二
+	p3 := person{"John", 20}             // 方式三：必须要写全！
+	p4 := person{name: "John", age: 20}  // 方式四：字段初始化，相对比较灵活
+
+	// 方式二: pointer init
 	p2 := new(person)
-	p2.name = "John"
-	(*p2).age = 20
+	(*p2).name = "John"
+	(*p2).age = 20 // '(*p).age' allows to shorten use 'p.age' instead.
 
-	// 方式三：必须要写全！
-	p3 := person{"John", 20}
-
-	// 方式四(推荐)
-	p4 := person{name: "John", age: 20}
-
-	// 方式五(推荐)
-	p5 := &person{name: "John"}
-	(*p5).age = 20
-
-	// 方式六
-	p := newPerson("John", 20)
+	p5 := &person{name: "John", age: 20} // 方式五：返回的是指针
 }
-
-// 需要使用指针
-func newPerson(name string, age int) *person {
-	return &person{name: name, age: age}
-}
-
 ```
 
 :::
+::::
+
+#### ❷method
+
+1. struct receiver
+
+> 调用方式不同
+
+```go
+type Student struct {
+	name string
+}
+
+// receiver argument
+func (s *Student) setName(name string)
+
+// function argument
+func setName(s *Student, name string)
+
+// return argument
+func newStudent(name string) *Student
+```
+
+::: details example
+
+```go
+type Student struct {
+	name string
+	age  int
+}
+
+// 1. struct as receiver argument
+func (s *Student) setName(name string) {
+	s.name = name
+}
+
+// 2. struct as function argument
+func setName(s *Student, name string) {
+	s.name = name
+}
+
+// 3. struct as return argument
+func newStudent(name string) *Student {
+	return &Student{name: name}
+}
+
+func main() {
+	// 1. receiver argument example:
+	var s Student
+	s.setName("poul")
+	fmt.Println(s) // {poul 0}
+
+	// 2. function argument example:
+	var s2 Student
+	setName(&s2, "koup")
+	fmt.Println(s2) // {koup 0}
+
+	// 3. return argument example:
+	s3 := newStudent("yerc")
+	fmt.Println(*s3) // {yerc 0}
+}
+```
+
+:::
+
+2. pointer struct & value struct
+
+> 控制 struct fields 是否能被修改
+
+```go
+type person struct {
+	name string
+}
+
+// value receiver
+func (p person) getName(name string) {
+	return p.name
+}
+
+// pointer receiver: need to change the data of the struct in a methods.
+func (p *person) setName(name string) {
+	p.name = name
+}
+
+// since methods often need to modify their receiver,
+// pointer receiver are more common than value receiver
+```
+
+3. public method & private method
+
+```go
+// public struct
+type Person struct {
+	Name float64	// public  field
+	age int         // private field
+}
+
+// public method: 首字母大写
+func (p *Person) GetAge() {
+	return p.age
+}
+
+// private method
+func (p *Person) setAge(age int) {
+	p.age = age
+}
+```
+
+::::: details struct method 总结
+:::: code-group
 ::: code-group-item method
 
 ```go
@@ -1518,7 +1878,6 @@ type person struct {
 	age  int
 }
 
-/*--------------------------------*/
 // 需要使用指针: 作为接收者才能修改struct实例变量的值
 func (p *person) setName(name string) {
 	p.name = name
@@ -1559,52 +1918,60 @@ func (p *person) setAge(age int) {
 ```
 
 :::
+::::
+:::::
+
+#### ➂struct-组合方式
+
+:::: code-group
 ::: code-group-item 继承
 
-```go
-package main
-
-import "fmt"
+```go{18}
+/**
+ * 继承的意义：
+ * 子结构体能够继承父结构体的 methods 和 fields, 既能重写该方法，也能添加父结构体中没有的新方法
+ * 1. 通过 'this.父结构体.字段名' 调用父结构体字段
+ * 2. 通过 'this.父结构体.方法名' 调用父结构体方法
+ * 3. 通过'this.父结构体 = &父结构体{}' 实例化父结构体
+ */
 
 type Animal struct {
 	Name string
 }
 
-func (a Animal) getName(name string) {
-	fmt.Printf("Good Morning! %s \n", name)
+func (a Animal) getName(name string) string {
+	return a.Name
 }
 
 type Cat struct {
-	Animal // 继承
+	*Animal // 指针继承
 }
 
 // Method Rewriting
-// 子类重写父类方法(方法名、参数都相同)
-func (c Cat) getName(name string) {
-	// 调用父类 字段/方法
-	fmt.Println(c.Animal.Name)
-	c.Animal.getName(name)
+func (c Cat) getName() string {
+	return c.Animal.Name
+}
 
-	fmt.Printf("Nice to meet you! %s \n", name)
+func (c *Cat) setName(name string) {
+	// c.Animal = new(Animal) // 指针继承需要使用new开辟内存空间
+	// c.Animal.Name = name
+	c.Animal = &Animal{name}
 }
 
 func main() {
-	cat := Cat{}
-	cat.getName("Tim")
-
+	var c Cat
+	c.setName("poul")
+	// fmt.Println(c.Name)
+	// fmt.Println(c.Animal.Name)
+	fmt.Println(c.getName())
 }
 ```
 
 :::
 ::: code-group-item 组合
 
-```go
-package main
-
-import "fmt"
-
-type Person struct {
-}
+```go{13}
+type Person struct{}
 
 func (p *Person) GetName(name string) {
 	fmt.Printf("Good Morning! %s \n", name)
@@ -1615,10 +1982,8 @@ type Student struct {
 }
 
 func main() {
-	p := Person{}
-	p.GetName("John") // Good Morning! John
-
-	s := Student{&Person{}}
+	// 组合：继承基础上, 实例化子结构体时内部初始化父结构体，类似包含关系
+	s := &Student{&Person{}}
 	s.GetName("John") // Good Morning! John
 }
 ```
@@ -1626,7 +1991,7 @@ func main() {
 :::
 ::: code-group-item 匿名结构体
 
-```go
+```go{13-21}
 package main
 
 import "fmt"
@@ -1654,160 +2019,187 @@ func main() {
 ```
 
 :::
-::: code-group-item OOP
+::: code-group-item 结构体嵌套
 
-```go
-package main
-
-import "fmt"
-
-// 字段/方法大写：public, 小写：private
-type Person struct {
-	name string
-	age  int
+```go{6-13}
+type Item struct {
+	Title string
+	URL   string
 }
 
-// getter
-func (this *Person) GetName() string {
-	return this.name
-}
-
-// setter
-func (this *Person) SetName(name string) {
-	this.name = name
-}
-
-// toString
-func (this *Person) Show() {
-	fmt.Printf("name = %s, age = %d\n", this.name, this.age)
-}
-
-type Student struct {
-	Person  // 继承
-	level int
-}
-
-// 方法重写
-func (this *Student) Show() {
-	fmt.Printf("name = %s, age = %d, level = %d\n", this.name, this.age, this.level)
-}
-
-// 子类新方法
-func (this *Student) GetLeavel() int {
-	return this.level
+type Response struct {
+	// 内部结构体
+	Data struct {
+		Children []struct {
+			Data Item
+		}
+	}
 }
 
 func main() {
-	p := Person{"Tom", 21}
-
-	// 声明子类
-	s := Person{ Student{"John", 23}, 3 }
-}
-
-```
-
-:::
-::: code-group-item 类输入遍历
-
-```go
-package main
-
-import "fmt"
-
-type Cart struct {
-	prices []float32
-}
-
-func main() {
-	c := Cart{}
-	var n int
-	fmt.Scanln(&n)
-
-	var num float32
-	for i := 0; i < n; i++ {
-		fmt.Scanln(&num)
-		c.prices = append(c.prices, num)
-	}
-
-	c.show()
-}
-
-func (x Cart) show() {
-	var sum float32 = 0.0
-	for _, v := range x.prices {
-		sum += v
-	}
-	fmt.Println(sum)
-}
-```
-
-:::
-::: code-group-item 类标签
-
-```go
-type BarData struct {
-	Type     string      `json:"type"`
-	Data     []int       `json:"data"`
-	AxisLine interface{} `json:"axisLine"`
+	jsonStr := `{
+		"data": {
+			"children":[{
+				"data": {
+					"title": "Coulson's blog",
+					"url": "http://docs.coulsonzero.top"
+				}
+			}]
+		}
+	}`
+	res := Response{}
+	json.Unmarshal([]byte(jsonStr), &res)
+	fmt.Println(res)
+	// {{[{{Coulson's blog http://docs.coulsonzero.top}}]}}
 }
 ```
 
 :::
 ::::
 
-### 12. Interface 接口
+#### ➃struct-tag
 
 ```go
-package main
-
-import (
-	"fmt"
-	"math"
-)
-
-type geometry interface {
-	area() float64
-	perim() float64
-}
-
-type rect struct {
-	width, height float64
-}
-type circle struct {
-	radius float64
-}
-
-func (r rect) area() float64 {
-	return r.width * r.height
-}
-func (r rect) perim() float64 {
-	return 2*r.width + 2*r.height
-}
-
-func (c circle) area() float64 {
-	return math.Pi * c.radius * c.radius
-}
-func (c circle) perim() float64 {
-	return 2 * math.Pi * c.radius
-}
-
-func measure(g geometry) {
-	fmt.Println(g)
-	fmt.Println(g.area())
-	fmt.Println(g.perim())
+type Student struct {
+	Name string `json:"name" level:"12" csv:"name"`
+	Age  int    `json:"age" csv:"age"`
 }
 
 func main() {
-	r := rect{width: 3, height: 4}
-	c := circle{radius: 5}
+	println(getStructTag(Student{}, "Name", "level"))
 
-	measure(r)
-	measure(c)
+	// getStructTags()
 }
 
+func getStructTag(s any, field string, tag string) string {
+	t, _ := reflect.TypeOf(s).FieldByName(field)
+	return t.Tag.Get(tag)
+}
+
+// 获取struct所有指定的tag名称
+func getStructTags() {
+	var s Student
+	t := reflect.TypeOf(s)
+	for i := 0; i < t.NumField(); i++ {
+		fmt.Printf("%v\n", t.Field(i).Tag.Get("json"))
+	}
+	fmt.Println(s)
+}
+
+func getTagName() {
+	s := Student{}
+	t := reflect.TypeOf(s)
+	if fieldName, ok := t.FieldByName("Name"); ok {
+		fmt.Println(fieldName.Tag.Get("json"))  // "name"
+		fmt.Println(fieldName.Tag.Get("level")) // "12"
+	}
+}
 ```
 
-### 13. 泛型
+#### struct-oop
+
+- 封装(public & private field/method)
+- 继承
+- 多态(接口实现)
+
+### Interface 接口
+
+:::: code-group
+::: code-group-item interface-struct
+
+```go
+type animal interface {
+	sleep()
+	eat()
+}
+
+type cat struct{}
+
+type dog struct{}
+
+func (c *cat) sleep() {
+	fmt.Println("cat is sleeping ...")
+}
+
+func (c *cat) eat() {
+	fmt.Println("cat is eating ...")
+}
+
+func (d *dog) sleep() {
+	fmt.Println("dog is sleeping ...")
+}
+
+func (d *dog) eat() {
+	fmt.Println("dog is eating ...")
+}
+
+func main() {
+	var c animal = &cat{}
+	c.sleep()
+	c.eat()
+
+	var d animal = &dog{}
+	d.sleep()
+	d.eat()
+}
+
+/*
+cat is sleeping ...
+cat is eating ...
+dog is sleeping ...
+dog is eating ...
+*/
+```
+
+:::
+::: code-group-item interface-method
+
+```go
+import (
+	"fmt"
+	"reflect"
+	"sort"
+)
+
+// type any = interface{}
+
+// interface 作为 不定参数
+func change(t ...any) {
+	Type := reflect.TypeOf(t).Kind()
+	switch Type {
+	case reflect.Slice:
+		fmt.Println(t...)
+	case reflect.String:
+		fmt.Println("string")
+	case reflect.Int:
+		fmt.Println("Int")
+	}
+}
+
+// interface 作为 可选参数
+func sortInts(nums []int, reverse ...any) {
+	if len(reverse) == 1 && reverse[0] == true {
+		sort.Sort(sort.Reverse(sort.IntSlice(nums)))
+		return
+	}
+	sort.Ints(nums)
+}
+
+func main() {
+	slice := []int{1, 5, 3}
+	// change(slice)
+	// sortInts(slice)			// [1, 3, 5]
+	sortInts(slice, true) // [5, 3, 1]
+	fmt.Println(slice)
+}
+```
+
+:::
+::::
+
+### Generic 泛型
+
+> 于 go-v1.18 版本推出
 
 ```go
 package main
@@ -1851,12 +2243,76 @@ func Sum[T Type](array []T) []T {
 }
 ```
 
+### Error 异常处理
+
+**errors**
+
+```go
+// 错误被认为是一种可以预期的结果，而异常则是一种非预期的结果
+// 发生异常可能表示程序中存在bug或发生了其它不可控的问题
+
+// 错误处理：errors.New(), log.Fatal()/log.Fatalf(), panic
+// 异常捕获: defer()函数中直接调用recover(), 使用panic/log将异常抛出为明确的错误信息进行处理
+
+// errors.New(): 抛出错误
+// errors.ToJson(err)：将错误编码为json字符串
+
+// err := errors.NewWithCode(404, "not found")
+// err.(errors.Error).Code(): HTTP错误状态码
+
+return errors.New("math: square root of negative number")
+```
+
+**错误判断**
+
+```go
+// f, err := os.Open()
+// if err != nil {}
+
+// if v, ok := m["key"]; ok {}
+```
+
+**log**
+
+```go
+// log输出错误日志
+
+// log.Fatal()
+// log.Fatalf()
+```
+
+**recover & panic**
+
+```go
+// panic: 返回相应的错误信息, 终止程序运行
+
+// recover()：捕获所有可能发生的异常，并将内部异常转换为错误处理, 必须在defer()函数中直接调用recover()
+// recover()函数捕获的是父一级调用函数栈帧的异常
+// panic(): 将异常抛出为相应的错误信息
+
+defer func() {
+	if r := recover(); r != nil {
+		// r.(type): string, runtime.Error, error, ...
+		// err = ...
+		panic(r)
+	}
+}()
+```
+
+## 五. 并发
+
 ### Goroutine 协程
+
+> A Goroutine is much like a thread to accomplish multiple tasks,
+> but it is virtual thread, ans it consumes fewer resources than OS threads.
+>
+> goroutines run independently and they don't know when another one has finished executing.
 
 ```go
 go hello()
 ```
 
+**不标准**
 :::: code-group
 ::: code-group-item goroutine
 
@@ -1884,372 +2340,14 @@ func main() {
 ```
 
 :::
-::: code-group-item goroutine + channel
-
-```go
-func main() {
-	ch := make(chan bool)	// 无缓存通道
-
-	go func() {
-		fmt.Println("Hello World!")
-		// 接收通道
-		<-ch
-	}()
-	// 发送通道
-	ch<-true
-}
-
-```
-
-:::
-::: code-group-item 带缓存通道
-
-```go
-func main() {
-	ch := make(chan bool, 3)	// 带缓存通道, 需要调换发送与接收方的位置
-
-	go func() {
-		fmt.Println("Hello World!")
-		// 发送通道
-		ch<-true
-	}()
-
-	// 等待接收通道
-	<-ch
-}
-```
-
-:::
-::: code-group-item select
-
-```go
-package main
-
-import (
-	"fmt"
-	"time"
-)
-
-func sum(start, end int, ch chan int) {
-	res := 0
-	for i := start; i <= end; i++ {
-		// time.Sleep(50 * time.Millisecond)
-		res += i
-	}
-	ch <- res
-}
-
-func main() {
-	ch1 := make(chan int)
-	ch2 := make(chan int)
-	// go实现并发,
-
-	go sum(0, 5, ch1)
-	go sum(6, 10, ch2)
-
-	select {
-		case x := <-ch1:
-			fmt.Println("receive ch1")
-			fmt.Println(x)
-			return
-		case y := <-ch2:
-			fmt.Println("receive ch2")
-			fmt.Println(y)
-			return
-	}
-}
-
-```
-
-:::
-::: code-group-item for-select
-
-```go
-package main
-
-import (
-	"fmt"
-	"time"
-)
-
-func sum(start, end int, ch chan int) {
-	res := 0
-	for i := start; i <= end; i++ {
-		// time.Sleep(50 * time.Millisecond)
-		res += i
-	}
-	ch <- res
-}
-
-func main() {
-	ch1 := make(chan int)
-	ch2 := make(chan int)
-
-	go sum(0, 5, ch1)
-	go sum(6, 10, ch2)
-
-    // 循环等待
-	for {
-		select {
-		default:
-			fmt.Println("receive default")
-			// 避免死锁
-			time.Sleep(50 * time.Millisecond)
-		case x := <-ch1:
-			fmt.Println("receive ch1")
-			fmt.Println(x)
-			return
-		case y := <-ch2:
-			fmt.Println("receive ch2")
-			fmt.Println(y)
-			return
-
-		}
-	}
-}
-```
-
-:::
 ::::
-
-**示例**
-:::: code-group
-::: code-group-item Channel
-
-```go
-package main
-
-import "fmt"
-
-func count(target int, nums []int, ch chan int) {
-	cnt := 0
-	for _, v := range nums {
-		if target == v {
-			cnt++
-		}
-	}
-	ch <- cnt
-}
-
-func main() {
-	nums := []int{12, 36, 12, 2, 5, 12, 36}
-	//var input int
-	//fmt.Scanln(&input)
-	input := 12
-
-	ch1 := make(chan int)
-	ch2 := make(chan int)
-
-	go count(input, nums[:len(nums)/2], ch1)
-	go count(input, nums[len(nums)/2:], ch2)
-
-	fmt.Println(<-ch1 + <-ch2)
-}
-```
-
-:::
-::: code-group-item Channels3
-
-```go
-package main
-
-import "fmt"
-
-func evenSum(from, to int, ch chan int) {
-	result := 0
-	for i := from; i <= to; i++ {
-		if i%2 == 0 {
-			result += i
-		}
-	}
-	ch <- result
-}
-func squareSum(from, to int, ch chan int) {
-	result := 0
-	for i := from; i <= to; i++ {
-		if i%2 == 0 {
-			result += i * i
-		}
-	}
-	ch <- result
-}
-
-func main() {
-	evenCh := make(chan int)
-	sqCh := make(chan int)
-
-	go evenSum(0, 100, evenCh)
-	go squareSum(0, 100, sqCh)
-
-	fmt.Println(<-evenCh + <-sqCh)
-}
-
-// Output: 173250
-```
-
-:::
-::::
-
-**for-select**
-
-:::: code-group
-::: code-group-item Select1
-
-```go
-package main
-
-import (
-	"fmt"
-)
-
-func evenSum(from, to int, ch chan int) {
-	result := 0
-	for i := from; i <= to; i++ {
-		if i%2 == 0 {
-			result += i
-		}
-	}
-	ch <- result
-}
-func squareSum(from, to int, ch chan int) {
-	result := 0
-	for i := from; i <= to; i++ {
-		if i%2 == 0 {
-			result += i * i
-		}
-	}
-	ch <- result
-}
-
-func main() {
-	evenCh := make(chan int)
-	sqCh := make(chan int)
-
-	go evenSum(0, 100, evenCh)
-	go squareSum(0, 100, sqCh)
-
-	//fmt.Println(<-evenCh + <-sqCh)
-
-	// 只选择执行其中一个
-	select {
-	case x := <-evenCh:
-		fmt.Println(x)
-	case y := <-sqCh:
-		fmt.Println(y)
-	}
-}
-
-// Output: 173250
-// New Output: 171700
-```
-:::
-::: code-group-item Select2
-
-```go
-package main
-
-import "fmt"
-
-func count(target int, nums []int, ch chan int) {
-	cnt := 0
-	for _, v := range nums {
-		if target == v {
-			cnt++
-		}
-	}
-	ch <- cnt
-}
-
-func main() {
-	nums := []int{12, 36, 12, 2, 5, 12, 36}
-	//var input int
-	//fmt.Scanln(&input)
-	input := 12
-
-	ch1 := make(chan int)
-	ch2 := make(chan int)
-
-	go count(input, nums[:len(nums)/2], ch1)
-	go count(input, nums[len(nums)/2:], ch2)
-
-	//fmt.Println(<-ch1 + <-ch2)
-	select {
-	case x := <-ch1:
-		fmt.Println(x)
-	case y := <-ch2:
-		fmt.Println(y)
-	}
-}
-```
-
-:::
-::: code-group-item For
-
-```go
-package main
-
-import (
-	"fmt"
-	"time"
-)
-
-func evenSum(from, to int, ch chan int) {
-	result := 0
-	for i := from; i <= to; i++ {
-		if i%2 == 0 {
-			result += i
-		}
-	}
-	ch <- result
-}
-func squareSum(from, to int, ch chan int) {
-	result := 0
-	for i := from; i <= to; i++ {
-		if i%2 == 0 {
-			result += i * i
-		}
-	}
-	ch <- result
-}
-
-func main() {
-	evenCh := make(chan int)
-	sqCh := make(chan int)
-
-	go evenSum(0, 100, evenCh)
-	go squareSum(0, 100, sqCh)
-
-	//fmt.Println(<-evenCh + <-sqCh)
-
-	// 只选择执行其中一个
-	for {
-		select {
-		case x := <-evenCh:
-			fmt.Println(x)
-			return
-		case y := <-sqCh:
-			fmt.Println(y)
-			return
-		default:
-			fmt.Println("Nothing available")
-			time.Sleep(50 * time.Millisecond) // 阻止死锁
-		}
-	}
-}
-
-/*
-Nothing available
-2550
-*/
-```
-
-:::
-::::
-
 
 ### Channel 管道通信
 
-**1.创建管道**
+> To enable communication between Goroutines, Go provides Channels.
+
+:::: code-group
+::: code-group-item 1.创建管道
 
 ```go
 // 无缓存通道 (默认为0)
@@ -2258,13 +2356,15 @@ ch := make(chan int)
 ch := make(chan int, 2)
 ```
 
-**2.发送数据**
+:::
+::: code-group-item 2.发送数据
 
 ```go
 ch <- 8
 ```
 
-**3.接收数据**
+:::
+::: code-group-item 3.接收数据
 
 ```go
 <-ch
@@ -2274,13 +2374,226 @@ ch <- 8
 msg := <-ch
 ```
 
-**4.关闭通道**
+> 接收操作会阻塞代码知道数据被发送操作发送，如果数据没有被接收，可能会发生死锁，阻塞代码运行.
+
+:::
+::: code-group-item 4.关闭通道
 
 ```go
 defer close(ch)
 ```
 
-**示例**
+> 如果不再需要给 channel 发送数据，可使用 close(ch)关闭 channel
+
+:::
+::::
+
+**goroutine+channel 实现并发**
+
+:::: code-group
+::: code-group-item 无缓存通道
+
+```go
+func main() {
+	ch := make(chan bool)	// 无缓存通道
+
+	go func() {
+		fmt.Println("Hello World!")
+		<-ch   // 接收数据
+	}()
+
+	ch<-true   // 发送数据
+}
+```
+
+:::
+::: code-group-item 带缓存通道
+
+```go
+func main() {
+	ch := make(chan bool, 1)  // 带缓存通道, 需要调换发送与接收方的位置
+
+	go func() {
+		fmt.Println("Hello World!")
+		ch<-true  // 发送数据
+	}()
+
+	<-ch // 接收数据
+}
+```
+
+:::
+::: code-group-item sync 互斥锁
+
+```go
+// 互斥锁
+func main() {
+	var mu sync.Mutex
+
+	mu.Lock()
+	go func() {
+		fmt.Println("hello sync")
+		mu.Unlock()
+	}()
+
+	mu.Lock()
+}
+```
+
+:::
+::::
+
+**多并发, 随机顺序**
+:::: code-group
+::: code-group-item channel 带缓存通道并发
+
+```go
+// 带缓存通道并发, 随机顺序
+func main() {
+	ch := make(chan int, 10) // 带10个缓存
+
+	// 开启N个后台线程
+	for i := 0; i < cap(ch); i++ {
+		go func(i int) {
+			fmt.Printf("hello %d \n", i)
+			// 发送数据
+			ch <- 1
+		}(i)
+	}
+
+	// 等待N个后台线程完成
+	for i := 0; i < cap(ch); i++ {
+		<-ch
+	}
+}
+
+// hello 1
+// hello 3
+// hello 4
+// hello 9
+// hello 5
+// hello 6
+// hello 8
+// hello 7
+// hello 2
+// hello 0
+```
+
+:::
+::: code-group-item sync 互斥锁 并发
+
+```go
+var wg sync.WaitGroup
+var count int
+
+func main() {
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go work(&wg)
+	}
+	wg.Wait()
+}
+
+func work(wg *sync.WaitGroup) {
+	defer wg.Done()
+	count++
+	fmt.Println(count)
+}
+
+// hello 7
+// hello 0
+// hello 6
+// hello 1
+// hello 3
+// hello 2
+// hello 4
+// hello 8
+// hello 9
+// hello 5
+// end
+```
+
+:::
+::::
+
+**多并发，线程同步**
+
+:::: code-group
+::: code-group-item channel 线程同步
+
+```go
+func main() {
+	var mu sync.Mutex
+
+	ch := make(chan int, 10) // 带10个缓存
+	cnt := 0
+	for i := 0; i < cap(ch); i++ {
+		go func(i int) {
+			defer func() { ch <- 1 }()
+			mu.Lock()
+			cnt++
+			fmt.Println("cnt: ", cnt)
+			mu.Unlock()
+		}(i)
+	}
+
+	for i := 0; i < cap(ch); i++ {
+		<-ch
+	}
+}
+
+/*
+cnt:  1
+cnt:  2
+cnt:  3
+cnt:  4
+cnt:  5
+cnt:  6
+cnt:  7
+cnt:  8
+cnt:  9
+cnt:  10
+*/
+```
+
+:::
+::: code-group-item sync 互斥锁线程同步
+
+```go
+func syncGroupLock() {
+	var wg sync.WaitGroup
+	var mu sync.Mutex
+	var count int
+
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			mu.Lock()
+			count++
+			fmt.Println(count)
+			mu.Unlock()
+		}()
+	}
+	wg.Wait()
+}
+
+// 1
+// 2
+// 3
+// 4
+// 5
+// 6
+// 7
+// 8
+// 9
+// 10
+```
+
+:::
+::::
+
+::: details 示例
 
 ```go
 package main
@@ -2305,7 +2618,11 @@ func main() {
 //并发，不连续输出
 ```
 
-### Select 多管道并发等待
+:::
+
+### Select 多路复用
+
+> 用于等待多个 channel 操作, 同时执行多个 channel 并发，select 等待其中一个执行完成，
 
 **select**
 
@@ -2339,9 +2656,7 @@ for {
 			time.sleep(50 * time.Millisecond)
 	}
 }
-```
-
-::: details 点击查看代码
+```tails 点击查看代码
 
 ```go
 package main
@@ -2412,305 +2727,125 @@ select {
 */
 ```
 
-:::
 
-### Error 异常处理
+### Context 取消上下文
 
-**errors**
+[CSDN context 简述](https://blog.csdn.net/qq_37102984/article/details/127910000?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-2-127910000-blog-96796794.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-2-127910000-blog-96796794.pc_relevant_default)
+
+> 线程安全退出或超时的控制
+>
+> gin, database/sql 都已实现 context
+>
+> 后端接收请求时，有时要将获取到的数据交由多个协程处理。
+> 例如登录验证时，将权限验证、密码验证、有效期验证分到三个不同的协程里处理，如果此时有一个协程处理失败了，其他协程也应该立即关闭，避免持续占用系统资源。而在 Go 中就可以用 context 来进行控制操作。
 
 ```go
-// 错误被认为是一种可以预期的结果，而异常则是一种非预期的结果
-// 发生异常可能表示程序中存在bug或发生了其它不可控的问题
+type Context interface
 
-// 错误处理：errors.New(), log.Fatal()/log.Fatalf(), panic
-// 异常捕获: defer()函数中直接调用recover(), 使用panic/log将异常抛出为明确的错误信息进行处理
-
-// errors.New(): 抛出错误
-// errors.ToJson(err)：将错误编码为json字符串
-
-// err := errors.NewWithCode(404, "not found")
-// err.(errors.Error).Code(): HTTP错误状态码
-
-return errors.New("math: square root of negative number")
+func Background() Context
+func WithCancel(parent Context) (ctx Context, cancel CancelFunc)
+func WithDeadline(parent Context, d time.Time) (Context, CancelFunc)
+func WithTimeout(parent Context, timeout time.Duration) (Context, CancelFunc)
 ```
 
-**错误判断**
+:::: code-group
+::: code-group-item WithCancel
 
 ```go
-// f, err := os.Open()
-// if err != nil {}
-
-// if v, ok := m["key"]; ok {}
-```
-
-**log**
-
-```go
-// log输出错误日志
-
-// log.Fatal()
-// log.Fatalf()
-```
-
-**recover & panic**
-
-```go
-// panic: 返回相应的错误信息, 终止程序运行
-
-// recover()：捕获所有可能发生的异常，并将内部异常转换为错误处理, 必须在defer()函数中直接调用recover()
-// recover()函数捕获的是父一级调用函数栈帧的异常
-// panic(): 将异常抛出为相应的错误信息
-
-defer func() {
-	if r := recover(); r != nil {
-		// r.(type): string, runtime.Error, error, ...
-		// err = ...
-		panic(r)
+func ExampleWithCancel() {
+	gen := func(ctx context.Context) <-chan int {
+		dst := make(chan int)
+		n := 1
+		go func() {
+			for {
+				select {
+				case <-ctx.Done():
+					return
+				case dst <- n:
+					n++
+				}
+			}
+		}()
+		return dst
 	}
-}()
-```
 
-### import
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
-```go
-import . "fmt"	// 省略包名: fmt.Println() => Println()
-import f "fmt"	// 别名导入: fmt.Println() => f.Println("hello world")
-import _ "github.com/go-sql-driver/mysql"
-import go-project/config    // 项目绝对路径导入
-```
-
-```go
-// 1. import single package
-import "fmt"
-
-// 2. import multiple package
-import (
-	"fmt"
-	"time"
-	"encoding/json"
-	"reflect"
-	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
-	"[your-project]/config"
-)
-```
-
-::: details 详情
-
-```go
-// 1. import single package
-import "fmt"
-
-// 2.1 import multiple packages
-import "fmt"
-import "time"
-
-// 2.2
-import (
-	"fmt";
-	"time"
-)
-
-// 2.3
-import (
-	"fmt"
-	"time"
-	"[your-project]/config"
-)
-```
-
-:::
-
-### Comments
-
-```go
-// a single comment
-
-/*
-This is a multi-line comment
-*/
-
-/**
- * @author
- * @version
- */
-```
-
-### Modules
-
-[golang 模块](https://pkg.go.dev/cmd)
-
-```bash
-# 查看go版本
-go version
-
-# 环境变量
-go env
-
-# 更改为国内代理(go get失败时)
-go env -w GOPROXY=https://goproxy.cn,direct
-
-# 新项目初始化
-go mod init <project name>
-
-# 依赖包自动管理
-go mod tidy
-
-# 运行main程序
-go run main.go
-
-# 编译
-go build -o hello.go
-
-# 代码格式化(git push前)
-go fmt
-
-# 测试
-go test
-
-# 检查Go源代码并报告可疑情况
-go vet
-```
-
-### Operators
-
-```go
-//Arithmetic Operators: + - * / %
-//Assignment Operators: += -= *= /= %=
-//Logical Operators: && || !
-//Relational Operators: == != < > <= >=
-//位运算: & | ^
-```
-
-```go
-func isEven( num int ) bool {
-	// return num % 2 == 0
-    return num & 1 == 0
-}
-```
-
-::: tip
-
-1. if/switch statement: 局部变量作用域
-2. switch statement: 条件判断
-3. for loop: 推荐 range 写法, 可忽略
-4. while loop: 使用 for 代替
-   :::
-
-### Statement
-
-::: danger
-
-> 注意变量作用域, 在 condition 中声明外部无法访问！
-
-:::
-
-:::: code-group
-::: code-group-item if
-
-```go{1,9}
-if x := 42; x > 18 {
-    //statement(s)
-} else if x == 18 {
-    //statement(s)
-} else {
-    //statement(s)
-}
-
-// fmt.Println(x) // error: undefined: x
-```
-
-:::
-::: code-group-item switch
-
-```go {2}
-x := 8
-switch y := x%2; y {
-    case ...:
-        //statement(s)        //不需要break
-	case ...:
-		//statement(s)
-    default:
-        //statement(s)
+	for n := range gen(ctx) {
+		fmt.Println(n)
+		if n == 5 {
+			break
+		}
+	}
+	// Output:
+	// 1
+	// 2
+	// 3
+	// 4
+	// 5
 }
 ```
 
 :::
-::: code-group-item switch 条件判断
+::: code-group-item withTimeout
 
 ```go
-/* switch版的 if statement */
-switch {
-case score < 60:
-	return "不及格"
-case score >= 60 && score < 80:
-	return "中等"
-case score >= 80 && score < 90:
-	return "良好"
-case score >= 90:
-	return "优秀"
-default:
-	return ""
+// go1.17新增 context简化对于处理单个请求的多个Goroutine协程之间与请求域的数据、超时和退出等操作，实现线程安全退出或超时的控制
+
+func main() {
+	ctx, cancel := context.WithTimeout(context.Background(), 8 * time.Second)
+	defer cancel()
+
+	var wg sync.WaitGroup
+
+	for i := 0; i < 5; i++ {
+		wg.Add(1)
+		go worker(ctx, &wg)
+	}
+
+	time.Sleep(time.Second)
+	// cancel()
+
+	wg.Wait()
 }
-//  fallthrough: 执行多个case；默认只会执行一个，不需要break，支持多条件匹配
+
+func worker(ctx context.Context, wg *sync.WaitGroup) error {
+	defer wg.Done()
+	i := 1
+	for {
+		time.Sleep(time.Second)
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
+			// fmt.Println("working")
+			fmt.Printf("working %d seconds. \n", i)
+		}
+		i++
+	}
+}
 ```
 
 :::
 ::::
 
-### Loops
+## 六. 应用方向
 
-::: warning
+### web 后端服务
 
-```go
-// golang 不支持该写法
-for i := 0, j := len(s); i < j; i++, j-- {...}
-// 支持以下写法
-for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {...}
-```
+- gin / echo / beego 应用框架
+- mysql & redis
+- gorm 数据库框架
+- jwt
+- grpc
+- docker & k8s
 
-:::
+### 区块链
 
-:::: code-group
-::: code-group-item for
+- 比特币
 
-```go{16}
-for i := 0; i < len(nums); i++ {
-    fmt.Println(i, nums[i])
-}
-
-// 读取 key 和 value
-for i, v := range nums {
-    fmt.Println(i, v)
-}
-
-// 仅读取 key
-for i := range nums {
-	fmt.Println(nums[i])
-}
-
-// 仅读取 value
-for _, v := range nums {
-    fmt.Println(v)
-}
-```
-
-:::
-::: code-group-item while
-
-```go{4}
-/* for版的while */
-sum := 1
-res := 0
-for sum <= 1000 {
-    res += sum
-    sum++
-}
-fmt.Println(res)    //500500
-```
-
-:::
-::::
+### 游戏服务
 
 ## Packages
 
@@ -5315,6 +5450,49 @@ func Title(s string) string {}
 // 其实就是告诉编译器，下面的函数不会产生堆栈溢出，不需要插入堆栈溢出检查。
 ```
 
+#### //go-generate
+
+> go generate v-1.4 可在 go 文件中执行 shell 命令
+
+**应用**
+
+```go
+//go:generate go version
+//go:generate go run main.go
+```
+
+**使用**
+
+```sh
+$ go generate
+```
+
+**For Example**
+
+```go
+package main
+
+import "fmt"
+
+//go:generate go run main.go
+//go:generate go version
+//go:generate ls
+func main() {
+	fmt.Println("hello world!")
+}
+
+/*
+$ go generate -x
+
+go run main.go
+hello world!
+go version
+go version go1.19.3 darwin/arm64
+ls
+main.go
+*/
+```
+
 ### uint64 与 int64 的区别 ？
 
 > uint 为无符号整数，取值范围不同
@@ -5384,44 +5562,3 @@ c.Name =  zhangsan
 dog name is : lisi
 d.Name =  lisi
 ```
-
-### //go-generate
-
-> go generate命令是在Go语言 1.4 版本里面新添加的一个命令，当运行该命令时，它将扫描与当前包相关的源代码文件，找出所有包含//go:generate的特殊注释，提取并执行该特殊注释后面的命令
-
-**应用**
-```go
-//go:generate go version
-//go:generate go run main.go
-```
-
-**使用**
-```sh
-$ go generate
-```
-
-**For Example**
-```go
-package main
-
-import "fmt"
-
-//go:generate go run main.go
-//go:generate go version
-//go:generate ls
-func main() {
-	fmt.Println("hello world!")
-}
-```
-
-```sh
-$ go generate -x
-
-go run main.go
-hello world!
-go version
-go version go1.19.3 darwin/arm64
-ls
-main.go
-```
-
