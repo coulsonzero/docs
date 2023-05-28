@@ -51,6 +51,18 @@ sidebar: false
 
 ::::: warning Coding
 :::: code-group
+::: code-group-item C++
+
+```cpp
+#include <iostream>
+
+int main() {
+	std::cout << "Hello World!" << std::endl;
+
+	return 0;
+}
+```
+:::
 ::: code-group-item Golang
 
 ```go
@@ -58,6 +70,7 @@ fmt.Println("Hello World!")
 ```
 
 :::
+
 ::: code-group-item Python
 
 ```python

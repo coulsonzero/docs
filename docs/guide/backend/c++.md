@@ -6,11 +6,9 @@
 
 ```cpp
 #include <iostream>
-using namespace std;
 
-int main ()
-{
-    cout << "Hello world!";
+int main() {
+    std::cout << "Hello world!" << std::endl;
     return 0;
 }
 ```
@@ -24,32 +22,131 @@ int main ()
 // 连接符: <<
 cout << "Hello world!";
 cout << "Hello" << " World!" << endl;
-
 cout << "Hello world!\n";
 ```
 
-**input**
 
+
+::: details 输出格式化
+
+```cpp
+/*****************************************
+ * setprecision(3): 保留小数点后的位数      *
+ * showpos：显示+-                        *
+ * setfill('*')：填充字符                  *
+ * setw(15): 设置值所占字段大小             *
+ *****************************************/
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main()
+{
+    const double PI = 3.14159;
+
+    cout << fixed << setprecision(3) << showpos << setfill('*');
+    cout << setw(15) << left << PI << endl;     // +3.142*********
+    cout << setw(15) << internal<< PI << endl;  // +*********3.142
+    cout << setw(15) << right << PI << endl;    // +*********3.142
+
+    return 0;
+}
+```
+:::
+
+
+**input**
+1. cin
 ```cpp
 int num;
 // cout << "Please enter a number \n";
-cin >> num;
+cin >> num;              // 当读取到空白字符' '停止
+```
+
+```cpp
+int a, b;
+cin >> a >> b;          // 空格分开，多个空格只会视为一个空格
+```
+
+2. getline
+```cpp
+string s;
+getline(cin, s);        // 当读取到'\n'停止
+getline(cin, s, '$');   // 当读取到字符'$'停止
+```
+
+
+
+**输入一行**
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string s;
+
+    cout << "Enter a line: ";
+    getline(cin, s);
+    cout << "s: " << s << endl;
+
+    return 0;
+}
+
+/*
+Enter a line: hello world !
+s: hello world !
+*/
+```
+
+**输入多行**
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string s;
+
+    cout << "Enter a mult-line: " << endl;
+    getline(cin, s, '$');   // 当读取到字符'$'停止
+    cout << "s: " << s << endl;
+
+    return 0;
+}
+
+/*
+1 hello world !
+2 welcome to here.
+3 pratice more ...
+*/
 ```
 
 ### Variable & Constants
 
 **变量**
 
+> 较长变量命名规则：使用`_`连接, 如 `num_short`
+
 ```cpp
-int num = 12;
+int num;
 num = 20;
 
 int a, b;
 a = 10;
 b = 20;
+
+int x, y = 3, 5;
+
+temp = s[i], s[i] = s[j], s[j] = temp;
 ```
 
 **常量**
+
+> 变量可以更改值，常量不可更改
 
 ```cpp
 const double PI = 3.14;
@@ -57,31 +154,120 @@ const double PI = 3.14;
 
 ### Data Types
 
-- 整型：`int` (short int, long int, unsigned 修饰)
-- 浮点型：`float`, `double`
-- 布尔型：`bool`
-- 字符型：`char`
+- 整数类型：`int` (`short`, `long`, `unsigned`, `signed` 修饰)
+- 浮点类型：`float`, `double`, long double
+- 布尔类型：`bool`
+- 字符类型：`char`
+- 字符串类: `string`
 - 自动类型：`auto`
+- void(空)类型：显示函数不返回任何值
 
 > 一些基本类型可以使用一个或多个类型修饰符进行修饰, 默认情况下，int、short、long 都是带符号的，即 signed
 
 `short`, `long`, `unsigned`, `signed`
 
 ```cpp
-int num = 12;        // signed: 正负数均可，unsigned: 负数
-double pi = 3.14;
-bool isEven = true;  // true(1), false(0)
-char c = 'z';
+#include <iostream>
+#include <string>
 
-auto num = 12;
+using namespace std;
+
+int main() {
+    // 整数(默认用int)
+    short num_short = 10;   // -32768 ~ 32767
+    int num = 12;
+    long num_long = 123L;   // 使用L或l结尾
+
+    // unsigned: 负数, signed: 正负数均可
+    unsigned int num_unsigned_2 = 1000u;    // 使用u/U结尾
+    signed int num_signed_1 = -13;
+    signed int num_signed_2 = 13;
+
+    // 浮点数(默认用double)
+    double weight = 130;
+    float height = 181.3f;  // 使用f或F结尾
+
+    // 布尔
+    bool online = true;     // Output: true(1), false(0), 可以使用boolalpha显示字面量为true或false
+
+    // 字符
+    char c = 'z';
+
+    // 字符串类
+    string name = "john";
+
+    // 数组
+    int nums[5] = {1, 2, 3, 4, 5};
+
+    // auto: 必须同时初始化
+    auto x = 10;
+    x = 20.0;
+
+    return 0;
+}
 ```
 
-**sizeof**
+> `全局变量`或者`静态变量`，未初始化的话就是`0`.如果是`局部变量`，那就是以前残留在`堆栈里的随机值`
 
 ```cpp
-int num = 12;
-cout << sizeof(num) << endl;
+#include <iostream>
+
+int main() {
+    int num(0); // 局部变量初始化为0
+    std::cout << num << std::endl;
+
+    return 0;
+}
 ```
+
+```cpp
+bool x = true;
+cout << x << endl;  // 1
+// boolalpha: 将布尔值作为字面量(true/false)输出
+cout << boolalpha << x << endl; // ture
+```
+
+- `sizeof(12)`: 数据类型所占字节大小
+- `typeid(12).name()`: 隐式类型转换
+- `static_cast<int>(12)`: 显式类型转换
+
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    // 隐式类型转换
+    std::cout << typeid(12).name() << std::endl;      // i: int
+    std::cout << typeid(11.2).name() << std::endl;    // d: double
+    // 显式类型转换
+    double x = 23.6;
+    int y = 30;
+    std::cout << "Without casting: " << x + y << std::endl;                       // Without casting: 43.6
+    std::cout << "Without casting: " << static_cast<int>(x + y) << std::endl;     // Without casting: 43
+
+    // sizeof: 数据类型所占字节大小
+    int num = 4;
+    std::cout << sizeof(num) << std::endl; // sizeof(int): 4
+}
+```
+
+- `numeric_limits<int>::max()`: 数据类型取值范围
+
+```cpp
+#include <iostream>
+#include <limits>
+using namespace std;
+
+int main()
+{
+    cout << "max(int): " << numeric_limits<int>::max() << endl;                      // max(int): 2147483647
+    cout << "max(unsigned int): " << numeric_limits<unsigned int>::max() << endl;    // max(unsigned int): 4294967295
+
+    return 0;
+}
+```
+
 
 ### Comments
 
@@ -106,6 +292,7 @@ cout << sizeof(num) << endl;
 // == !=
 // i++ i-- ++i --i
 // && || !
+// ?:
 ```
 
 **example**
@@ -182,7 +369,30 @@ do {
 
 ### Strings
 
+> "Hello" = 'H', 'e', 'l', 'l', 'o', '\0', 最后一个字符是字符串结束符'\0'(终止符)
+>
+> 逐步使用C++字符串类代替C字符串
+
+
 ```cpp
+#include <iostream>
+// #include <string>
+
+// iostream中隐式包含string，如果有#include <iostream></iostream>可以无需引用string
+
+using namespace std;
+
+int main()
+{
+    string name = "hello";          // std::string
+    cout << name.size() << endl;    // 5
+
+    return 0;
+}
+```
+
+```cpp
+#includ <string>
 // 1. 初始化
 string s = "Hello World";
 string s("Hello World");
@@ -208,9 +418,15 @@ int nums[ ] = {1, 2, 3, 4, 5};
 ### Pointer
 
 ```cpp
-int *scorePtr;
 int score = 90;
+int *scorePtr;
 scorePtr = &score;
+```
+
+```cpp
+int score = 90;
+int *pScore = &score;
+count << "score: " << *pScore << endl;
 ```
 
 **example**
@@ -224,13 +440,137 @@ cout << *ptr << endl;
 delete ptr;
 ```
 
-**null pointer**
+:::: code-group
+::: code-group-item null pointer
 
 ```cpp
-int *p = NULL;
+// 空指针
+int *p = NULL;  // int *p = 0;
 p = new int[10];
 delete [] p;    // delete array pointed
 ```
+
+for example
+
+```cpp
+int x = 7;
+int *p = &x;
+if (p) {};  // true(p非null)
+p = 0;
+if (p) {};  // false(p为null)
+```
+
+:::
+::: code-group-item void pointer
+
+```cpp
+// 通用指针
+void *p;
+int x = 10;
+p = &x;
+double y = 12.3;
+p = &y;
+```
+:::
+
+:::code-group-item function pointer
+```cpp
+void swap(int *first, int *second);
+
+int main() {
+    int x = 10;
+    int y = 20;
+    swap(&x, &y);
+    cout << "x: " << x << " " << "y: " << y << endl;
+    return 0;
+}
+
+void swap(int *pX, int pY)
+{
+    int temp = *pX;
+    *pX = *pY;
+    *pY = temp;
+}
+```
+:::
+
+::: code-group-item array pointer
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void printArray(int*, int);
+int getSum(const int*, int);
+void reverseArray(int*, int);
+void printArrays(int (*)[4], int);
+
+int main() {
+    // 一维数组
+    // int nums[5] = {2, 4, 1, 3, 7};
+    // cout << getSum(nums, 5) << endl;
+    // reverseArray(nums, 5);
+    // printArray(nums, 5);
+
+    // 二维数组
+    // int matrix[3][4] = {{10, 11, 12, 13},{ 20, 21, 22, 23 },{31, 32, 33, 34}};
+    // printArrays(matrix, 3);
+
+    // 数组指针
+    int *ptr = new int[5];
+
+    int nums[5] = {2, 4, 1, 3, 7};
+    printArray(nums, 5);
+
+    delete[] ptr;
+
+    return 0;
+}
+
+
+void printArray(int *p, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        cout << *(p++) << " ";
+    }
+    cout << endl;
+}
+
+int getSum(const int *p, int size)
+{
+    int sum = 0;
+    for (int i = 0; i < size; i++)
+    {
+        sum += *(p++);
+    }
+    return sum;
+}
+
+void reverseArray(int *p, int size)
+{
+    for (int i = 0; i < size / 2; i++)
+    {
+        int temp = *(p + size - 1 - i);
+        *(p + size - 1 - i) = *(p + i);
+        *(p + i) = temp;
+    }
+}
+
+void printArrays(int(*arr)[4], int rows)
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            cout << arr[i][j] << " ";
+        }
+    }
+    cout << endl;
+}
+```
+:::
+::::
 
 ### Function
 
@@ -391,4 +731,35 @@ unordered_set<int> s;
 s.find(x)
 s.end()
 s.insert(x)
+```
+
+
+## File
+```cpp
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    int sum(0);
+    int num;
+    ifstream infile;
+    infile.open("numbers.dat");
+    while(infile >> num) {
+        sum += num;
+    }
+    cout << "The sum of the numbers in the file is " << sum << endl;    // 1500
+    infile.close();
+
+    return 0;
+}
+```
+
+
+```dat
+100
+200
+300
+400
+500
 ```

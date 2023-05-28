@@ -1154,18 +1154,19 @@ fmt.Printf("%v, %c, %T", 'a', 'a', 'a') // 97, a, int32
 ::: code-group-item 创建
 
 ```go
-// nil 切片
+// nil切片 (未引用，长度为0)
 var slice []int
-// 空切片
+
+// 空切片  (长度为0)
 slice := make([]int, 0)
 slice := []int{}
 
 
 // create slice
-var slice []int                 // len: 0, cap: 0, slice: []
+slice := []int{}                // len: 0, cap: 0, slice: []
 slice := []int{1, 2, 3}         // len: 3, cap: 3, slice: [1, 2, 3]
-slice := make([]int, len, cap)  // len为必选，cap容量可选
 
+slice := make([]int, len, cap)  // len为必选，cap容量可选
 // example
 slice := make([]int, 0)
 slice := make([]int, 3, 5)		// len: 3, cap: 5, [0, 0, 0]
@@ -1197,7 +1198,25 @@ slice...
 
 ```go
 // 查询
-fmt.Printf("len: %d, cap: %d, slice: %v \n", len(slice), cap(slice), slice)
+func toString(slice ...[]int) {
+	// fmt.Printf("len: %d, cap: %d, slice: %v \n", len(slice), cap(slice), slice)
+	for _, v := range slice {
+		fmt.Printf("len: %d, cap: %d, slice: %v \n", len(v), cap(v), v)
+	}
+}
+
+// 遍历
+for _, v := range nums {
+    // statement(s)
+}
+
+for i, j := 0; i < len(nums1) && j < len(nums2); i += 1, j += 1 {
+	// statement(s)
+}
+
+for i := 0; i < len(arr)/2; i++ {
+	arr[i], arr[len(arr)-1-i] = arr[len(arr)-1-i], arr[i]
+}
 ```
 
 :::
@@ -1343,7 +1362,7 @@ cityMap := map[string]string {
 ```go
 // 遍历
 for k, v := range m {
-	// statement
+	// statement(s)
 }
 
 // 查
@@ -1358,11 +1377,22 @@ delete(m, "Jame")
 
 // 判断包含
 if _, ok := m[k]; ok {
-	// statement
+	// statement(s)
 }
 
-if m[v] == 1 {
-	// statement
+if m[k] {
+	// statement(s)
+}
+
+// 排序keys
+keys := make([]int)
+for k, _ := range m {
+	keys = append(keys, k)
+}
+sort.Ints(keys)
+
+for _, k := range keys {
+	fmt.Println(m[k])
 }
 ```
 
