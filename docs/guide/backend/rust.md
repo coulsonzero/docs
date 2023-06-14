@@ -57,7 +57,16 @@ fn main() {
 ### String
 
 ```rs
-.len()
+// 初始化
+let mut s = String::from("hello");
+s.len()
+s.push(' ')
+s.push_str("world");
+
+// 遍历
+for c in s.chars() {
+    println!("{c}");
+}
 ```
 
 ```rs

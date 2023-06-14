@@ -57,6 +57,7 @@ int main()
 
 
 **input**
+
 1. cin
 ```cpp
 int num;
@@ -77,8 +78,7 @@ getline(cin, s, '$');   // 当读取到字符'$'停止
 ```
 
 
-
-**输入一行**
+::: details 输入一行
 ```cpp
 #include <iostream>
 #include <string>
@@ -100,8 +100,10 @@ Enter a line: hello world !
 s: hello world !
 */
 ```
+:::
 
-**输入多行**
+::: details 输入一行
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -124,6 +126,8 @@ int main() {
 3 pratice more ...
 */
 ```
+:::
+
 
 ### Variable & Constants
 
@@ -139,7 +143,7 @@ int a, b;
 a = 10;
 b = 20;
 
-int x, y = 3, 5;
+int x = 3, y = 5;
 
 temp = s[i], s[i] = s[j], s[j] = temp;
 ```
@@ -151,6 +155,108 @@ temp = s[i], s[i] = s[j], s[j] = temp;
 ```cpp
 const double PI = 3.14;
 ```
+
+- 全局变量：初始化为默认值
+- 静态局部变量：初始化为默认值
+- 自动局部变量：没有被显式初始化时，将保留以前遗留的垃圾值，可能值比较大
+
+```cpp
+#include "iostream"
+
+using namespace std;
+
+
+int global;     // 全局变量：初始化为默认值
+
+int main() {
+    static int static_local;    // 静态局部变量：初始化为默认值
+    auto int auto_local;        // 自动局部变量：没有被显式初始化时，将保留以前遗留的垃圾值，可能值比较大
+
+    cout << global << endl;
+    cout << static_local << endl;
+    cout << auto_local << endl;
+
+    return 0;
+}
+```
+
+全局变量与局部变量的显式输出
+```cpp
+#include <iostream>
+
+int num = 10;
+
+int main() {
+    int num = 12;
+    std::cout << ::num << std::endl;    // 全局变量：10
+    std::cout << num << std::endl;      // 局部变量：12
+
+    return 0;
+}
+```
+
+静态局部变量
+```cpp
+#include "iostream"
+
+void foo();
+
+int main() {
+    foo();
+    foo();
+    foo();
+
+    return 0;
+}
+
+
+void foo() {
+    static int count = 0;   // 静态局部变量
+    count++;
+    std::cout << "count: " << count << std::endl;
+}
+
+/**
+ * count: 1
+ * count: 2
+ * count: 3
+ */
+
+```
+
+自动局部变量
+
+```cpp
+#include "iostream"
+
+void foo();
+
+int main() {
+    foo();
+    foo();
+    foo();
+
+    return 0;
+}
+
+
+void foo() {
+    int num = 3;
+    num++;
+    auto int count = 0; // 显式自动局部变量
+    count++;
+    std::cout << "num: " << num << ", ";
+    std::cout << "count: " << count << std::endl;
+}
+
+/**
+ * num: 4, count: 1
+ * num: 4, count: 1
+ * num: 4, count: 1
+ */
+```
+
+
 
 ### Data Types
 
@@ -196,12 +302,24 @@ int main() {
     // 字符串类
     string name = "john";
 
-    // 数组
-    int nums[5] = {1, 2, 3, 4, 5};
-
     // auto: 必须同时初始化
     auto x = 10;
     x = 20.0;
+
+    auto *ptr = new Solution();
+    auto res = ptr->distinctAverages(nums);
+
+    // 数组
+    int nums[5] = {1, 2, 3, 4, 5};
+    vector<int> nums = {9,5,7,8,7,9,8,2,0,7};
+
+    // map
+    unordered_map<char, int> map;
+
+    // set
+    unordered_set<int> set;
+
+
 
     return 0;
 }
@@ -299,6 +417,10 @@ int main()
 
 ```cpp
 int x = 10 / 3;    // 3
+double t = (2 + 3) / 2;                      // 2
+// `/`除法不会默认保留小数点，除非使用以下两种方式之一
+double t = 1.0 * (2 + 3) / 2;                // 2.5
+double t = static_cast<double>(2 + 3) / 2;   // 2.5
 
 x = 5
 y = ++x
@@ -306,6 +428,9 @@ y = ++x
 x = 5
 y = x++
 // x is 6, y is 5
+
+const char *sign = i == nums.size() - 1 ? "" : ", ";
+auto sign = i == nums.size() - 1 ? "" : ", ";
 ```
 
 ## Control
@@ -399,13 +524,93 @@ string s("Hello World");
 
 // 2. 长度
 s.size()
+s.length()
+s.empty() // s.size() == 0
+// 容量
+s.capacity()
+
 // 增
 s.append(str)
 s.insert(index, str)
 s.replace(start, end, str)  // 替换
 
 // 删
+s.erase(i)      // 删除s[i]后面的所有字符
+s.erase(i, n)   // 删除s[i]后面的n个字符
 s.clear()
+
+// 查询
+s.substr(pos, n)
+s.find(c, pos)      // if (s.find(c, pos) == -1)
+s.rfind(c, pos)
+s.find_first_of(c)
+s.find_last_of(c)
+
+
+
+// string <-> int
+stoi("12")      // "12" -> 12
+to_string(10)   //  10  -> "10"
+
+
+// 输入一行字符串
+string s;
+geiline(cin, s);
+
+// 反转
+reverse(s.begin(), s.end());
+```
+
+字符判断
+```cpp
+#include <cctype>
+
+isalpha(c): 字母(a-zA-Z)
+isdigit(c): 数字(0-9)
+ispunct(c): 特殊字符("$", "*", ...)
+isspace(c): 空白字符(" ", "\n", "\t", ...)
+islower(c): 小写字母
+isupper(c): 大写字母
+isalnum(c): 字母或数字
+
+tolower(c)
+toupper(c)
+```
+
+字符串遍历
+```cpp
+// 1. 可以修改字符串的值
+for (int i = 0; i < s.size(); i++) {
+    s[i] = toupper(s[i]);
+}
+
+// 2.1 强循环(只能查询，无法修改)
+for (char c : s) {
+    cout << c << endl;
+}
+
+// 2.2 修改string的值，需要使用引用，才能对原始数据操作
+for (auto &c : s) {
+    c = toupper(c);
+}
+```
+
+字符串函数参数引用
+```cpp
+bool is_ogram(string s);
+
+int main() {
+    cout << is_ogram("hello") << endl;
+}
+```
+
+```cpp
+bool is_ogram(string& s);
+
+int main() {
+    string s = "hello";
+    cout << is_ogram(s) << endl;
+}
 ```
 
 ### Array
@@ -694,6 +899,9 @@ nums[i]
 nums.back()
 nums.front()
 
+// 统计元素e出现的次数
+count(vec.begin(),vec.begin()+3, e) // [0, 3)范围内
+
 // 排序
 sort(nums.begin(), nums.end());
 ```
@@ -718,19 +926,147 @@ for (it = nums.begin(); it != nums.end(); it++)
 ### map
 
 ```cpp
-unordered_map<int,int> map;
+#include <unordered_map>
 
-map[x]
+// 初始化
+unordered_map<char, int> map;
+unordered_map<char, int> map = {{'a', 3}, {'b', 2}};
+
+// 增
+map.insert({'c', 1});
+
+// 查
+map['a']
+map.at('a')
+
+// 遍历
+for (auto iter = map.begin(); iter != map.end(); iter++) {
+    cout << " [" << iter->first << ", " << iter->second << "]";
+}
+cout << endl;
+
+for (auto& iter : map) {
+    cout << " [" << iter.first << ", " << iter.second << "]";
+}
+cout << endl;
+
+
 
 ```
 
 ### set
+```cpp
+#include <unordered_set>
+std::unordered_set<int> set;
+std::unordered_set<char> set = { 'a', 'c' };
+
+set.size()
+set.begin()、set.end()
+set.insert(e)
+set.contain(e)
+
+```
 
 ```cpp
-unordered_set<int> s;
-s.find(x)
-s.end()
-s.insert(x)
+#include <iostream>
+#include <unordered_set>
+
+using namespace std;
+
+void print_set(const unordered_set<char>& set);
+
+int main() {
+    std::unordered_set<int> theUnorderedSet = { 1, 2 };
+
+    std::cout << std::boolalpha; // so booleans show as 'true' or 'false'
+    std::cout << theUnorderedSet.contains(2) << '\n';   // true
+    std::cout << theUnorderedSet.contains(3) << '\n';   // false
+
+    return 0;
+}
+
+void print_set(const unordered_set<char>& set) {
+    for (auto& iter : set) {
+        cout << "[" << iter << "] ";
+    }
+    cout << endl;
+}
+
+```
+
+### stack
+
+```cpp
+#include <stack>    // 先进后出
+
+size()
+empty()
+push()
+pop()
+top()
+```
+
+```cpp
+#include <iostream>
+#include <stack>
+using namespace std;
+
+void print_stack(stack<int> stack1);
+
+int main() {
+    stack <int> stack1;
+    stack1.push(1);
+    stack1.push(3);
+    stack1.push(5);
+    stack1.push(9);
+
+    cout << "size: " << stack1.size() << endl;      // 4
+    cout << boolalpha;
+    cout << "empty: " << stack1.empty() << endl;     // false
+
+    int& i = stack1.top();
+    cout << "top: " << i << endl;
+
+    stack1.pop();
+    cout << "top(after pop): " << stack1.top() << endl;
+
+
+    print_stack(stack1);
+
+    return 0;
+}
+
+void print_stack(stack<int> stack) {
+    cout << "stack: [ ";
+    while(!stack.empty()) {
+        auto sign = stack.size() > 1 ? ", " : " ";
+        cout << stack.top() << sign;
+        stack.pop();
+    }
+    cout << "]" << endl;
+}
+
+```
+
+### stringstream
+
+for example
+```cpp
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+
+int main() {
+    stringstream ans;
+    ans << "hello";
+    ans << ' ';
+    ans << "world";
+    ans << '!';
+
+    cout << ans.str() << endl;
+    // output: "hello world"
+}
 ```
 
 
@@ -762,4 +1098,24 @@ int main() {
 300
 400
 500
+```
+
+
+## FAQ
+
+### cpp version
+cpp version
+```cpp
+cout << __cplusplus << endl;    // 2020-02
+```
+
+change cpp version
+```txt
+# CMakeLists.txt
+set(CMAKE_CXX_STANDARD 20)
+```
+
+clang version
+```shell
+$ clang --version
 ```
