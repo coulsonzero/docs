@@ -1628,52 +1628,79 @@ int main() {
 ```
 
 ```cpp
-// 初始化
-vector<int> nums;
+// init
+vector<int> vec;              // size: 0     cap: 0     value: [ ]
+vector<int> vec = {1, 2, 3};  // size: 3     cap: 3     value: [ 1, 2, 3 ]
+
+// vector<int>    vec(n, v)
+// vector<int>    vec{v...}
+// vector<string> vec{n, v}
+vector<int> v1(3);            // size: 3     cap: 3     value: [ 0, 0, 0 ]
+vector<int> v2(3, 42);        // size: 3     cap: 3     value: [ 42, 42, 42 ]
+
+vector<int> v4{3, 42};        // size: 2     cap: 2     value: [ 3, 42 ]
+vector<string> v6{3};         // size: 3     cap: 3     value: [ "", "", "" ]
+vector<string> v7{3, "hi"};   // size: 3     cap: 3     value: [ hi, hi, hi ]
+
+
 
 // 长度
-.size()
+size()
+resize(n)
+empty()         // size() == 0
+
 // 容量
-.capacity()
-// 扩容
-.reserve(n)
+capacity()
+reserve(n)
+
+// 查
+front()                 // vec[0]
+nums[i], nums.at(i)     // vec[i]
+back()                  // vec[size-1]
 
 // 增
-.push_back(x)
-
-// 插入
-.insert(x)
+push_back(e)           // vec.push_back(v)
+insert(p, e)           // vec[p] = e
 
 // 删
-.pop_back()
-.clear()
+pop_back()
+erase(first, last)
+clear()
 
 
-// 查询
-nums[i]
-nums.back()
-nums.front()
+// 改
+v1.swap(v2)                         // 两者所有元素值交换
+v2.assign(v1.begin(), v1.end())     // 复制v1的元素值到v2中
 
-// 统计元素e出现的次数
-count(vec.begin(),vec.begin()+3, e) // [0, 3)范围内
+// sort 排序
+std::sort(nums.begin(), nums.end())                     // 升序
+std::sort(nums.begin(), nums.end(), greater<int>())     // 降序
+auto cmp = [&](T x, T y) -> bool {return x > y;};
+std::sort(vec.begin(), vec.end(), cmp);
 
-// 排序
-sort(nums.begin(), nums.end());
+// count 统计元素次数：
+*count(nums.begin(), nums.end(), e);
+
+// contains 判断包含
+if(find(nums.begin(), nums.end(), e) != nums.end())
+
+// upper_bound 二分查找:
+auto it = upper_bound(nums.begin(), nums.end(), e)     // 二分查找第一个小于等于e的值的地址
+it - nums.begin()  // index
+*it;               // value
+
 ```
 
 **遍历**
 
 ```cpp
-for (int i = 0; i < nums.size(); i++)
-{
+for (int i = 0; i < nums.size(); i++) {
     cout << nums[i] << endl;
 }
 ```
 
 ```cpp
-vector<int>::iterator it;
-for (it = nums.begin(); it != nums.end(); it++)
-{
+for (auto it = nums.begin(); it != nums.end(); ++it) {
     cout << *it << endl;
 }
 ```
@@ -1689,6 +1716,7 @@ unordered_map<char, int> map = {{'a', 3}, {'b', 2}};
 
 // 增
 map.insert({'c', 1});
+map[nums[i]] = i;
 
 // 查
 map['a']
