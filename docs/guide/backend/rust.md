@@ -36,7 +36,6 @@ Hello, world!
 ### Hello World
 
 ```rs
-// hello.rs
 fn main() {
     println!("hello world!");
 }
@@ -323,6 +322,42 @@ if condition {
 let res = if a > b {a} else {b};
 
 return if a > b {a} else {b};
+```
+
+### Match statement
+
+```rust
+let day: i32 = 3;
+let res = match day {
+    1 | 2 | 3 | 4 | 5 => "Workday",
+    6 => "Saturday",
+    7 => "Sunday",
+    _ => "default",
+};
+println!("{:?}", res);    // Workday
+```
+
+```rust
+let day: i32 = 3;
+println!("{:?}", match day {
+    1..=5 => "Workday",
+    6 => "Saturday",
+    7 => "Sunday",
+    _ => "default",
+});
+
+
+#[test]
+fn test_char() {
+    let c = '2';
+    let res: &str = match c {
+        '1'..='9' => "integer",
+        'a'..='z' => "lower letter",
+        'A'..='Z' => "upper letter",
+        _ => "default",
+    };
+    println!("{:?}", res);
+}
 ```
 
 ### for loop
@@ -829,7 +864,7 @@ fn test_struct_temp() {
     let integer = Point { x: 5, y: 10 };
     let float = Point { x: 1.0, y: 4.0 };
     let int_float = Point { x: 5, y: 4.0 as i32 };
-    
+
 
     let p = Point { x: 5, y: 10 };
     println!("point: ({}, {})", p.x, p.y);    // point: (5, 10)
