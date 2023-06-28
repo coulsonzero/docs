@@ -162,3 +162,9 @@ pre[class="language-code"] code {
         box-shadow: none;
     }
 }
+
+
+
+.theme-default-content pre code, .theme-default-content pre[class*=language-] code {
+    font-family: Menlo;
+}
