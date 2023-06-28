@@ -1,10 +1,9 @@
 
+# make push
 push:
-	@git add .
-	@git commit -m "update $(msg)"
-	@git pull origin master
-	@git push origin master
+	@bash push.sh
 
+# make deploy
 deploy:
 	@bash deploy.sh
 

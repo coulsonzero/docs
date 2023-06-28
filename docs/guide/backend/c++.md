@@ -1715,12 +1715,22 @@ unordered_map<char, int> map;
 unordered_map<char, int> map = {{'a', 3}, {'b', 2}};
 
 // 增
-map.insert({'c', 1});
-map[nums[i]] = i;
+map[k] = v;
+map.insert({k, v});
+
+// 删
+m.erase(k)
+m.clear()
 
 // 查
-map['a']
-map.at('a')
+map[k]
+// map.at(k)
+
+// contains
+m.contains(k)
+// if (map.find(k) != map.end())
+// if (m.count(k))
+
 
 // 遍历
 for (auto iter = map.begin(); iter != map.end(); iter++) {
