@@ -302,9 +302,40 @@ int main() {
 - void(空)类型：显示函数不返回任何值
 
 :::: code-group
+::: code-group-item type
+```cpp
+/* ==== basic type ==== */
+int num = 12;       // long (L)
+double pi = 3.14;   // float(F)
+bool flag = true;   // 1 or 0, boolalpha
+char c = 'z';
+// string
+std::string name;
+std::string name = "John Smith";
+std::string name("John Smith");
+ // array
+int nums[5] = {1, 2, 3, 4, 5};
+int nums[ ] = {1, 2, 3, 4, 5};
+
+//===== STL =====//
+// vector
+std::vector<int> vec;
+std::vector<int> vec = {1, 2, 3};
+// map
+std::unordered_map<char, int> map;
+std::unordered_map<char, int> map = {{'a', 3}, {'b', 2}};
+// set
+std::unordered_set<int> set;
+std::unordered_set<int> set = { 1, 2 };
+
+// auto
+auto *ptr = new Solution();
+```
+:::
 ::: code-group-item boolalpha
 ```cpp
 // true(任何非零值) false(0)
+// ----output -------- boolalpha ----
 bool x = true;      // 1 (true)
 bool y = 12;        // 1 (true)
 bool z = false;     // 0 (false)
@@ -312,76 +343,19 @@ bool e = 0;         // 0 (false)
 
 // true输出未1， false输出为0
 std::cout << x << std::endl;  // 1
+std::cout << y << std::endl;  // 1
+std::cout << z << std::endl;  // 0
 std::cout << e << std::endl;  // 0
 
 // boolalpha: 将布尔值作为字面量(true/false)输出
 std::cout << boolalpha;
 std::cout << x << std::endl;  // ture
+std::cout << y << std::endl;  // ture
+std::cout << z << std::endl;  // false
 std::cout << e << std::endl;  // false
 ```
 :::
-::: code-group-item example
-
-```cpp
-/**
- * Long : L
- * float: F
- * unsigned: U
- */
-
-#include <iostream>
-
-using namespace std;
-
-int main() {
-    // 整数(默认用int)
-    short num_short = 10;   // -32768 ~ 32767
-    int num = 12;
-    long num_long = 123L;   // 使用L或l结尾
-
-    // unsigned: 负数, signed: 正负数均可(默认)
-    unsigned int num_unsigned_2 = 1000u;    // 使用u/U结尾
-    signed int num_signed_1 = -13;
-    signed int num_signed_2 = 13;
-
-    // 浮点数(默认用double)
-    double weight = 130;
-    float height = 181.3f;  // 使用f或F结尾
-
-    // 布尔
-    bool online = true;     // Output: true(1), false(0), 可以使用boolalpha显示字面量为true或false
-
-    // 字符
-    char c = 'z';
-
-    // 字符串类
-    string name = "john";
-
-    // auto: 必须同时初始化
-    auto x = 10;
-    x = 20.0;
-
-    auto *ptr = new Solution();
-    auto res = ptr->distinctAverages(nums);
-
-    // 数组
-    int nums[5] = {1, 2, 3, 4, 5};
-    vector<int> nums = {9,5,7,8,7,9,8,2,0,7};
-
-    // map
-    unordered_map<char, int> map;
-
-    // set
-    unordered_set<int> set;
-
-
-
-    return 0;
-}
-```
-:::
-
-::: code-group-item sizeof...
+::: code-group-item static_cast...
 ```cpp
 /**
  * `sizeof(12)`: 字节大小
@@ -389,30 +363,28 @@ int main() {
  * `typeid(3.14+1.2).name()`: 隐式类型转换
  * `static_cast<int>(12)`: 显式类型转换
  */
-#include <iostream>
 
-int main()
-{
-    // 类型
-    std::cout << typeid(12).name() << std::endl;        // i: int
-    std::cout << typeid(11.2).name() << std::endl;      // d: double
-    float pi = 3.14F;
-    std::cout << typeid(pi).name() << std::endl;        // f: float
-    // 隐式类型转换
-    std::cout << typeid(pi + 1.2).name() << std::endl;  // d: double
-    // 显式类型转换
-    double x = 23.6;
-    int y = 30;
-    std::cout << "Without casting: " << x + y << std::endl;                       // Without casting: 43.6
-    std::cout << "Without casting: " << static_cast<int>(x + y) << std::endl;     // Without casting: 43
+// sizeof
+int num = 4
+sizeof(num) // sizeof(int): 4
 
-    // sizeof: 数据类型所占字节大小
-    int num = 4;
-    std::cout << sizeof(num) << std::endl; // sizeof(int): 4
-}
+// typeid(expr).name
+typeid(12).name()     // i
+typeid(1.6).name()    // d
+typeid(3.14f).name()  // f
+
+// 隐式类型转换
+float pi = 3.14
+typeid(pi + 1.2).name()  // d: double
+
+// 显式类型转换
+double x = 23.6
+int y = 30
+x + y                     // 43.6
+static_cast<int>(x + y)   // 43
 ```
 :::
-::: code-group-item range
+::: code-group-item numeric_limits
 ```cpp
 // `numeric_limits<int>::max()`: 数据类型最大值
 // `numeric_limits<int>::min()`: 数据类型最小值
@@ -458,6 +430,7 @@ int main()
  * comparison operators : == != < > <= >=
  * && || !
  * a ? b : c
+ */
 ```
 
 **example**
@@ -567,36 +540,33 @@ do {
 >
 > 逐步使用C++字符串类代替C字符串
 
-
+:::: code-group
+::: code-group-item string
 ```cpp
 #include <iostream>
-// #include <string>
+#include <string>
+
 
 int main() {
     std::string name = "hello";
-
     std::cout << name << std::endl;
 
     return 0;
 }
 ```
-
-> `iostream中隐式包含string，如果有#include <iostream>可以无需引用string`
-
+:::
+::: code-group-item method
 ```cpp
 #include <string>
 
-// 1. init 初始化
+// init
 string s;
 string s = "Hello World";
 string s("Hello World");
 
-// 2. 长度
-s.size()
-s.length()
-s.empty() // s.size() == 0
-// 容量
-s.capacity()
+// size, cap
+长度：s.size()、 s.length()、 s.empty()
+容量：s.capacity()
 
 // 增
 s.append(str)
@@ -608,17 +578,22 @@ s.erase(i)      // 删除s[i]后面的所有字符
 s.erase(i, n)   // 删除s[i]后面的n个字符
 s.clear()
 
-// 查询
+// 元素值：
+s[i]、s.at(i)
+// 子字符串
 s.substr(pos, n)
-s.find(c, pos)      // if (s.find(c, pos) == -1)
-s.rfind(c, pos)
+// 元素索引
+s.find(c, pos)
+s.rfind(c, pos)     // pos could be -1
 s.find_first_of(c)
 s.find_last_of(c)
+// contain
+if (s.find(c, pos) == -1)
 
 
-
-// string <-> int
+// string -> int
 stoi("12")      // "12" -> 12
+// int -> string
 to_string(10)   //  10  -> "10"
 
 
@@ -626,54 +601,55 @@ to_string(10)   //  10  -> "10"
 string s;
 geiline(cin, s);
 
-// 反转
+// 排序
+sort(s.begin(), s.end());
 reverse(s.begin(), s.end());
 ```
+:::
+::: code-group-item iter
+```cpp
+// set
+for (int i = 0; i < s.size(); ++i) {
+    s[i] = toupper(s[i]);
+}
 
-字符判断
+// set
+for (auto &c : s) {
+    c = toupper(c);
+}
+
+// only get
+for (char c : s) {
+    cout << c << endl;
+}
+```
+:::
+::: code-group-item char
 ```cpp
 #include <cctype>
 
+isalnum(c): 字母或数字
 isalpha(c): 字母(a-zA-Z)
 isdigit(c): 数字(0-9)
 ispunct(c): 特殊字符("$", "*", ...)
 isspace(c): 空白字符(" ", "\n", "\t", ...)
-islower(c): 小写字母
-isupper(c): 大写字母
-isalnum(c): 字母或数字
 
+islower(c)
+isupper(c)
 tolower(c)
 toupper(c)
 ```
-
-字符串遍历
+:::
+::: code-group-item string&
 ```cpp
-// 1. 可以修改字符串的值
-for (int i = 0; i < s.size(); i++) {
-    s[i] = toupper(s[i]);
-}
-
-// 2.1 强循环(只能查询，无法修改)
-for (char c : s) {
-    cout << c << endl;
-}
-
-// 2.2 修改string的值，需要使用引用，才能对原始数据操作
-for (auto &c : s) {
-    c = toupper(c);
-}
-```
-
-字符串函数参数引用
-```cpp
+// example-1
 bool is_ogram(string s);
 
 int main() {
     cout << is_ogram("hello") << endl;
 }
-```
 
-```cpp
+// example-2
 bool is_ogram(string& s);
 
 int main() {
@@ -681,6 +657,8 @@ int main() {
     cout << is_ogram(s) << endl;
 }
 ```
+:::
+::::
 
 ### Array
 
