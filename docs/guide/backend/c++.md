@@ -532,13 +532,11 @@ do {
 } while (condition);
 ```
 
-## Collections
+## Core
 
 ### Strings
 
-> "Hello" = 'H', 'e', 'l', 'l', 'o', '\0', 最后一个字符是字符串结束符'\0'(终止符)
->
-> 逐步使用C++字符串类代替C字符串
+> `"Hello" = 'H', 'e', 'l', 'l', 'o', '\0'`, C语言中最后一个字符是字符串结束符'\0'(终止符)
 
 :::: code-group
 ::: code-group-item string
@@ -550,6 +548,7 @@ do {
 int main() {
     std::string name = "hello";
     std::cout << name << std::endl;
+    std::cout << name.size() << std::endl;
 
     return 0;
 }
@@ -663,8 +662,14 @@ int main() {
 ### Array
 
 ```cpp
+// init
 int nums[5] = {1, 2, 3, 4, 5};
 int nums[ ] = {1, 2, 3, 4, 5};
+
+// iter
+for (auto &item : nums) {
+    std::cout << item << " ";
+}
 ```
 
 ### Pointer
@@ -924,6 +929,394 @@ int& larger(int& x, int& y) {
 ```
 :::
 ::::
+
+## STL
+### vector
+
+**include vector library**
+
+```cpp
+#include <vector>
+```
+
+```cpp
+// init
+vector<int> vec;              // size: 0     cap: 0     value: [ ]
+vector<int> vec = {1, 2, 3};  // size: 3     cap: 3     value: [ 1, 2, 3 ]
+
+// vector<int>    vec(n, v)
+// vector<int>    vec{v...}
+// vector<string> vec{n, v}
+vector<int> v1(3);            // size: 3     cap: 3     value: [ 0, 0, 0 ]
+vector<int> v2(3, 42);        // size: 3     cap: 3     value: [ 42, 42, 42 ]
+
+vector<int> v4{3, 42};        // size: 2     cap: 2     value: [ 3, 42 ]
+vector<string> v6{3};         // size: 3     cap: 3     value: [ "", "", "" ]
+vector<string> v7{3, "hi"};   // size: 3     cap: 3     value: [ hi, hi, hi ]
+
+
+
+// 长度
+size()
+resize(n)
+empty()         // size() == 0
+
+// 容量
+capacity()
+reserve(n)
+
+// 查
+front()                 // vec[0]
+nums[i], nums.at(i)     // vec[i]
+back()                  // vec[vec.size()-1]
+
+// 增
+push_back(e)                 // vec.push_back(v)
+insert(nums.bengin()+2, e)   // vec[2] = e
+
+// 删
+pop_back()
+erase(first, last)
+clear()
+
+
+// 改
+v1.swap(v2)                         // 两者所有元素值交换
+v2.assign(v1.begin(), v1.end())     // 复制v1的元素值到v2中
+
+// sort 排序
+sort(nums.begin(), nums.end())                     // 升序
+sort(nums.begin(), nums.end(), greater<int>())     // 降序
+auto cmp = [&](int x, int y) -> bool {
+    return x > y;
+};
+sort(vec.begin(), vec.end(), cmp);
+
+
+count(nums.begin(), nums.end(), e)      // 统计元素出现的次数
+max_element(nums.begin(), nums.end())   // 最大元素值
+
+// contain 判断包含
+if(find(nums.begin(), nums.end(), e) != nums.end())
+
+// upper_bound 二分查找:
+auto it = upper_bound(nums.begin(), nums.end(), e)     // 二分查找第一个小于等于e的值的地址
+it - nums.begin()  // index
+*it;               // value
+```
+
+**遍历**
+
+```cpp
+for (int i = 0; i < nums.size(); i++) {
+    cout << nums[i] << endl;
+}
+```
+
+```cpp
+for (auto &e : v) {
+    cout << e << " ";
+}
+```
+
+```cpp
+for (auto it = nums.begin(); it != nums.end(); ++it) {
+    cout << *it << endl;
+}
+```
+
+**for example**
+```cpp
+cout << "[ ";
+for (auto it = vec.begin(); it != vec.end(); ++it) {
+        cout << *it << (it == vec.end() - 1 ? " " : ", ");
+}
+cout << "]" << endl;
+```
+
+### map
+
+```cpp
+#include <unordered_map>
+
+// 初始化
+unordered_map<char, int> map;
+unordered_map<char, int> map = {{'a', 3}, {'b', 2}};
+
+// 增
+map[k] = v;
+map.insert({k, v});
+
+// 删
+map.erase(k)
+map.clear()
+
+// 查
+map[k]
+// map.at(k)
+
+// contains
+map.contains(k)
+// if (map.find(k) != map.end())
+// if (map.count(k))
+
+
+// 遍历
+for (auto iter = map.begin(); iter != map.end(); iter++) {
+    cout << " [" << iter->first << ", " << iter->second << "]";
+}
+cout << endl;
+
+for (auto& iter : map) {
+    cout << " [" << iter.first << ", " << iter.second << "]";
+}
+cout << endl;
+```
+
+### set
+```cpp
+#include <unordered_set>
+std::unordered_set<int> set;
+std::unordered_set<char> set = { 'a', 'c' };
+
+set.size()
+set.begin()、set.end()
+set.insert(e)
+set.contain(e)
+
+```
+
+```cpp
+#include <iostream>
+#include <unordered_set>
+
+using namespace std;
+
+void print_set(const unordered_set<char>& set);
+
+int main() {
+    std::unordered_set<int> theUnorderedSet = { 1, 2 };
+
+    std::cout << std::boolalpha; // so booleans show as 'true' or 'false'
+    std::cout << theUnorderedSet.contains(2) << '\n';   // true
+    std::cout << theUnorderedSet.contains(3) << '\n';   // false
+
+    return 0;
+}
+
+void print_set(const unordered_set<char>& set) {
+    for (auto& iter : set) {
+        cout << "[" << iter << "] ";
+    }
+    cout << endl;
+}
+
+```
+
+### stack
+
+```cpp
+#include <stack>    // 先进后出
+
+size()
+empty()
+push()
+pop()
+top()
+```
+
+```cpp
+#include <iostream>
+#include <stack>
+using namespace std;
+
+void print_stack(stack<int> stack1);
+
+int main() {
+    stack <int> stack1;
+    stack1.push(1);
+    stack1.push(3);
+    stack1.push(5);
+    stack1.push(9);
+
+    cout << "size: " << stack1.size() << endl;      // 4
+    cout << boolalpha;
+    cout << "empty: " << stack1.empty() << endl;     // false
+
+    int& i = stack1.top();
+    cout << "top: " << i << endl;
+
+    stack1.pop();
+    cout << "top(after pop): " << stack1.top() << endl;
+
+
+    print_stack(stack1);
+
+    return 0;
+}
+
+void print_stack(stack<int> stack) {
+    cout << "stack: [ ";
+    while(!stack.empty()) {
+        auto sign = stack.size() > 1 ? ", " : " ";
+        cout << stack.top() << sign;
+        stack.pop();
+    }
+    cout << "]" << endl;
+}
+
+```
+
+
+### deque
+
+```cpp
+#include <deque>
+
+std::deque<int> d;
+std::deque<int> d = {1, 3, 5, 7};
+
+// 长度
+size()
+empty()
+
+// 查
+front()
+d[i], d.at(i)
+back()
+
+// 增
+push_front(e)
+insert(pos, e)
+push_back(e)
+
+// 删
+erase(pos1, pos2)
+clear()
+
+// iterator
+cout << "[ "
+for (int i = 0; i < d.size(); ++i) {
+    cout << d[i] << " ";
+}
+cout << "]" << endl;
+
+
+// pointer_iter
+begin()
+rbegin()
+
+cout << *(d.begin()+1);  // d[1], 超出索引取默认值
+```
+
+:::details example
+```cpp
+#include <iostream>
+#include <deque>
+
+int main() {
+    using namespace std;
+    deque<int> d = {1, 3, 5, 7};
+
+    // size
+    cout << d.size() << endl;       // 4
+    cout << d.max_size() << endl;   // 4611686018427387903
+    cout << d.empty() << endl;      // 0 (false)
+
+    // element access
+    cout << d.at(0) << endl;    // d[0]: 1
+    cout << d[0] << endl;           // d[0]: 1
+    cout << d.front() << endl;      // first element:  1
+    cout << d.back() << endl;       // last element: 7
+
+    // 超过索引范围则输出为默认值
+    cout << "begin: " << *(d.begin()) << endl;                // d[0]: 1
+    cout << "begin: " << *(d.begin()+1) << endl;              // d[1]: 3
+    cout << "rbegin: " << *(d.rbegin()) << endl;              // d[-1]: 7
+    cout << "rbegin: " << *(d.rbegin()+1) << endl;            // d[-2]: 5
+
+
+    // add element
+    d.push_front(0);
+    d.insert(d.begin()+2, 2);
+    d.push_back(9);
+    // 0 1 2 3 5 7 9
+
+    // remove element
+    d.erase(d.begin()+2, d.begin()+4);  // del d[2:4)
+    // 0 1 5 7 9
+    // d.clear();
+
+
+    // iterator
+    cout << "[ ";
+    for (int i = 0; i < d.size(); ++i) {
+        cout << d[i] << " ";
+    }
+    cout << "]" << endl;
+
+    return 0;
+}
+```
+:::
+
+
+### list
+
+```cpp
+#include <iostream>
+#include <list>
+
+int main() {
+    using namespace std;
+    std::list<int> l = { 7, 5, 16, 8 };
+
+    l.size();
+    l.empty();
+
+    l.push_front(25);
+    l.push_back(13);
+    // { 25, 7, 5, 16, 8, 13 }
+
+    l.sort();                           // { 5 7 8 13 16 25 }
+    l.splice(l.begin(), {12,3});    // { 12 3 5 7 8 13 16 25 }
+    l.merge({12,2});                // { 12 3 5 7 8 12 2 13 16 25 }
+
+
+    // iterator
+    cout << "{ ";
+    for (int &it : l) {
+        cout << it << " ";
+    }
+    cout << "}" << endl;
+
+
+
+    return 0;
+}
+```
+
+### stringstream
+
+for example
+```cpp
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+
+int main() {
+    stringstream ans;
+    ans << "hello";
+    ans << ' ';
+    ans << "world";
+    ans << '!';
+
+    cout << ans.str() << endl;
+    // output: "hello world"
+}
+```
+
 
 ## OOP
 
@@ -1593,250 +1986,6 @@ int main() {
     delete ptr;
 
     return 0;
-}
-```
-
-## STL
-### vector
-
-**include vector library**
-
-```cpp
-#include <vector>
-```
-
-```cpp
-// init
-vector<int> vec;              // size: 0     cap: 0     value: [ ]
-vector<int> vec = {1, 2, 3};  // size: 3     cap: 3     value: [ 1, 2, 3 ]
-
-// vector<int>    vec(n, v)
-// vector<int>    vec{v...}
-// vector<string> vec{n, v}
-vector<int> v1(3);            // size: 3     cap: 3     value: [ 0, 0, 0 ]
-vector<int> v2(3, 42);        // size: 3     cap: 3     value: [ 42, 42, 42 ]
-
-vector<int> v4{3, 42};        // size: 2     cap: 2     value: [ 3, 42 ]
-vector<string> v6{3};         // size: 3     cap: 3     value: [ "", "", "" ]
-vector<string> v7{3, "hi"};   // size: 3     cap: 3     value: [ hi, hi, hi ]
-
-
-
-// 长度
-size()
-resize(n)
-empty()         // size() == 0
-
-// 容量
-capacity()
-reserve(n)
-
-// 查
-front()                 // vec[0]
-nums[i], nums.at(i)     // vec[i]
-back()                  // vec[size-1]
-
-// 增
-push_back(e)           // vec.push_back(v)
-insert(p, e)           // vec[p] = e
-
-// 删
-pop_back()
-erase(first, last)
-clear()
-
-
-// 改
-v1.swap(v2)                         // 两者所有元素值交换
-v2.assign(v1.begin(), v1.end())     // 复制v1的元素值到v2中
-
-// sort 排序
-std::sort(nums.begin(), nums.end())                     // 升序
-std::sort(nums.begin(), nums.end(), greater<int>())     // 降序
-auto cmp = [&](T x, T y) -> bool {return x > y;};
-std::sort(vec.begin(), vec.end(), cmp);
-
-// count 统计元素次数：
-*count(nums.begin(), nums.end(), e);
-
-// contains 判断包含
-if(find(nums.begin(), nums.end(), e) != nums.end())
-
-// upper_bound 二分查找:
-auto it = upper_bound(nums.begin(), nums.end(), e)     // 二分查找第一个小于等于e的值的地址
-it - nums.begin()  // index
-*it;               // value
-
-```
-
-**遍历**
-
-```cpp
-for (int i = 0; i < nums.size(); i++) {
-    cout << nums[i] << endl;
-}
-```
-
-```cpp
-for (auto it = nums.begin(); it != nums.end(); ++it) {
-    cout << *it << endl;
-}
-```
-
-### map
-
-```cpp
-#include <unordered_map>
-
-// 初始化
-unordered_map<char, int> map;
-unordered_map<char, int> map = {{'a', 3}, {'b', 2}};
-
-// 增
-map[k] = v;
-map.insert({k, v});
-
-// 删
-m.erase(k)
-m.clear()
-
-// 查
-map[k]
-// map.at(k)
-
-// contains
-m.contains(k)
-// if (map.find(k) != map.end())
-// if (m.count(k))
-
-
-// 遍历
-for (auto iter = map.begin(); iter != map.end(); iter++) {
-    cout << " [" << iter->first << ", " << iter->second << "]";
-}
-cout << endl;
-
-for (auto& iter : map) {
-    cout << " [" << iter.first << ", " << iter.second << "]";
-}
-cout << endl;
-
-
-
-```
-
-### set
-```cpp
-#include <unordered_set>
-std::unordered_set<int> set;
-std::unordered_set<char> set = { 'a', 'c' };
-
-set.size()
-set.begin()、set.end()
-set.insert(e)
-set.contain(e)
-
-```
-
-```cpp
-#include <iostream>
-#include <unordered_set>
-
-using namespace std;
-
-void print_set(const unordered_set<char>& set);
-
-int main() {
-    std::unordered_set<int> theUnorderedSet = { 1, 2 };
-
-    std::cout << std::boolalpha; // so booleans show as 'true' or 'false'
-    std::cout << theUnorderedSet.contains(2) << '\n';   // true
-    std::cout << theUnorderedSet.contains(3) << '\n';   // false
-
-    return 0;
-}
-
-void print_set(const unordered_set<char>& set) {
-    for (auto& iter : set) {
-        cout << "[" << iter << "] ";
-    }
-    cout << endl;
-}
-
-```
-
-### stack
-
-```cpp
-#include <stack>    // 先进后出
-
-size()
-empty()
-push()
-pop()
-top()
-```
-
-```cpp
-#include <iostream>
-#include <stack>
-using namespace std;
-
-void print_stack(stack<int> stack1);
-
-int main() {
-    stack <int> stack1;
-    stack1.push(1);
-    stack1.push(3);
-    stack1.push(5);
-    stack1.push(9);
-
-    cout << "size: " << stack1.size() << endl;      // 4
-    cout << boolalpha;
-    cout << "empty: " << stack1.empty() << endl;     // false
-
-    int& i = stack1.top();
-    cout << "top: " << i << endl;
-
-    stack1.pop();
-    cout << "top(after pop): " << stack1.top() << endl;
-
-
-    print_stack(stack1);
-
-    return 0;
-}
-
-void print_stack(stack<int> stack) {
-    cout << "stack: [ ";
-    while(!stack.empty()) {
-        auto sign = stack.size() > 1 ? ", " : " ";
-        cout << stack.top() << sign;
-        stack.pop();
-    }
-    cout << "]" << endl;
-}
-
-```
-
-### stringstream
-
-for example
-```cpp
-#include <iostream>
-#include <sstream>
-
-using namespace std;
-
-int main() {
-    stringstream ans;
-    ans << "hello";
-    ans << ' ';
-    ans << "world";
-    ans << '!';
-
-    cout << ans.str() << endl;
-    // output: "hello world"
 }
 ```
 
