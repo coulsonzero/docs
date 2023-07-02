@@ -145,15 +145,16 @@ fput(s, stdout);
 
 ```c
 // init
-char s1[6];
-char s2[6] = "hello";    // size: 6
-char s3[6] = {'h', 'e', 'l', 'l', 'o', '\0'};
-char s4[ ] = {'h', 'e', 'l', 'l', 'o', '\0'};
+char s[6];
+char s[6] = "hello";    // size: 6
+char s[6] = {'h', 'e', 'l', 'l', 'o', '\0'};
+char s[ ] = {'h', 'e', 'l', 'l', 'o', '\0'};
 
-char *ss1;
-char *ss2[6];
+char *s;
+char *s[6];
 char *s = "hello";
 ```
+
 
 ```c
 strlen(s)
@@ -201,6 +202,7 @@ tolower()   // c-'A'+'a'
 // array init
 int nums[5];
 int nums[5] = {1, 3, 5, 7, 9};
+int nums[ ] = {1, 3, 5, 7, 9};
 
 
 // change element
@@ -270,3 +272,249 @@ void*  square(const void* num) {
 ```c
 
 ```
+
+
+## preprocessor
+
+```c
+/**
+ * preprocessor
+ * #include
+ * #define, #undef
+ * #ifdef, #ifndef, #if, #elif, #else, #endif
+ * #pragma
+ * #error, #warning
+ */
+```
+
+### #define
+```c
+// define a var
+#define PI 3.14
+// define a function
+#define AREA(r) PI*r*r
+// define a template
+#define __Tmp__ template <class T>
+```
+
+```c
+/* == grammar == */
+
+// a) line break `\`
+#define VERY_LONG_CONSTANT \
+23.678901
+
+// b) ignore space
+#   define SQUARE(x) \
+    x*x
+
+// c) bracket `()`
+#define MAX(A, B) ((A) > (B) ? (A) : (B))
+```
+
+::: details example
+
+```c
+#include <stdio.h>
+
+#define PI 3.14
+#define AREA(r) PI*r*r
+#define MAX(A, B) ((A) > (B) ? (A) : (B))
+
+
+#define VERY_LONG_CONSTANT \
+23.678901
+#    define SQUARE(x) \
+     x*x
+
+int main() {
+    float r = 2;
+    printf("PI: %3.2f\n", PI);          // 3.14
+    printf("Area: %5.2f\n", AREA(r));   // 12.56
+    printf("%d\n", MAX(3, 5));   // 5
+
+    return 0;
+}
+```
+:::
+
+
+### #define pre
+```c
+printf("%s %s\n", __TIME__, __DATE__);
+printf("This is a line %d\n", __LINE__);
+printf("File Name: %s\n", __FILE_NAME__);
+
+// int std_c;
+// std_c = __STDC__;
+// printf("STDC is %d\n", std_c);
+printf("STDC is %d\n", __STDC__);
+```
+
+### #ifndef
+
+```c
+#ifdef / #ifndef
+#else
+#endif
+
+#define / #undef
+```
+
+
+
+```c
+// 1. #ifndef
+#ifndef TERM
+    #define TERM 24
+#endif
+
+// 2. #ifdef
+// #ifdef RATE
+//     #undef RATE
+//     #define RATE 0.068
+// #else
+//     #define RATE 0.068
+// #endif
+
+// 2. #ifdef-#undef-#endif
+#ifdef RATE
+    #undef RATE
+#endif
+#define RATE 0.068
+
+
+#ifdef TRIPLE
+    #define SQR(X) (x)*(x)
+#else
+    #define TRIPLE(x) (x)*3
+#endif
+```
+
+### #if-statement
+
+```c
+// 1. #if-statement: only print once result.
+// 2. #if defined(LEVEL)  =  #ifdef LEVEL
+//    #if !defined(LEVEL) =  #ifndef LEVEL
+```
+
+```c
+#if
+#elif
+#else
+#endif
+```
+
+:::details example
+```c
+#include <stdio.h>
+
+#define LEVEL 7
+
+// 1. #if-statement: only print once result.
+// 2. #if defined(LEVEL)  =  #ifdef LEVEL
+//    #if !defined(LEVEL) =  #ifndef LEVEL
+
+int main() {
+    int num = 0;
+
+    // only exec once
+    #if LEVEL > 6
+        // statement
+        num = 1;
+    #elif LEVEL > 5
+        // statement
+        num = 2;
+    #elif LEVEL > 4
+        // statement
+        num = 3;
+    #else
+        // statement
+        num = 4;
+    #endif
+    printf("num: %d\n", num);
+    // output: 1
+
+
+    // defined()
+    #if defined(_CLASS) || defined(LEVEL)
+        printf("%s\n", "defined lever");
+    #else
+        printf("%s\n", "not defined");
+    #endif
+    // output: defined lever
+
+
+
+    #ifndef LEVEL
+        printf("%s\n", "not defined lever");
+    #else
+        printf("%s\n", "defined lever");
+    #endif
+    // output: defined lever
+
+    return 0;
+}
+```
+:::
+
+### macro-operator
+
+```c
+// #x -> "x"
+#define TO_STR(x)       #x
+// x##y -> xy   is a variable
+#define VAR(name, num)  name##num   // VAR(x, 3)    -> x3
+#define CONCAT(x, y)    x##y        // CONCAT(x, y) -> xy
+```
+
+:::details example
+```c
+#include <stdio.h>
+#include <string.h>
+
+// #x: stringification operator(convert a parameter to a string constant).
+// #x -> "x"
+#define TO_STR(x)       #x
+#define STRLEN(x)       strlen(x)
+// x##y -> xy   is a variable
+#define VAR(name, num)  name##num   // VAR(x, 3)    -> x3
+#define CONCAT(x, y)    x##y        // CONCAT(x, y) -> xy
+
+int main() {
+    printf("%s\n", TO_STR(123\12));         // 123
+    printf("%s\n", TO_STR(123\\12));        // 123\12
+    printf("%s\n", TO_STR(123\\\12));       // `123\`
+    printf("%s\n", TO_STR(123\\\\12));      // 123\\12
+
+
+    printf("%d\n", STRLEN(TO_STR(12345)));  // strlen("12345"): 5
+
+    int x1 = 125, x2 = 250, x3 = 500;
+    printf("%d\n", VAR(x, 1));            // x1: 125
+    printf("%d\n", VAR(x, 2));            // x2: 250
+    printf("%d\n", VAR(x, 3));            // x3: 500
+
+    int x = 4, y = 5;
+    int CONCAT(x, y) = x + y;       // CONCAT(x, y) -> xy = x + y
+    printf("%d\n", xy);             // 9
+
+
+    return 0;
+}
+```
+:::
+
+### #error
+
+```c
+#if defined(LEVEL)
+    #error "_DARWIN_UNLIMITED_STREAMS specified, but -miphoneos-version-min version does not support it."
+#elif
+    #error "_DARWIN_UNLIMITED_STREAMS specified, but -mmacosx-version-min version does not support it."
+#endif
+```
+
+
+

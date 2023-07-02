@@ -559,13 +559,16 @@ int main() {
 #include <string>
 
 // init
-string s;
-string s = "Hello World";
-string s("Hello World");
+std::string s;
+std::string s = "Hello World";
+std::string s("Hello World");
 
-// size, cap
-长度：s.size()、 s.length()、 s.empty()
-容量：s.capacity()
+// size
+s.size()        // STL
+s.length()      // C
+s.empty()
+// cap
+s.capacity()
 
 // 增
 s.append(str)
@@ -577,17 +580,22 @@ s.erase(i)      // 删除s[i]后面的所有字符
 s.erase(i, n)   // 删除s[i]后面的n个字符
 s.clear()
 
-// 元素值：
-s[i]、s.at(i)
-// 子字符串
-s.substr(pos, n)
-// 元素索引
+// 查
+// element value
+s[i], s.at(i), s.substr(i, n)
+
+// element index
 s.find(c, pos)
 s.rfind(c, pos)     // pos could be -1
 s.find_first_of(c)
 s.find_last_of(c)
+
 // contain
 if (s.find(c, pos) == -1)
+
+
+// input string
+geiline(cin, s);
 
 
 // string -> int
@@ -595,12 +603,7 @@ stoi("12")      // "12" -> 12
 // int -> string
 to_string(10)   //  10  -> "10"
 
-
-// 输入一行字符串
-string s;
-geiline(cin, s);
-
-// 排序
+// sort
 sort(s.begin(), s.end());
 reverse(s.begin(), s.end());
 ```
@@ -1278,7 +1281,7 @@ int main() {
     l.push_back(13);
     // { 25, 7, 5, 16, 8, 13 }
 
-    l.sort();                           // { 5 7 8 13 16 25 }
+    l.sort();                       // { 5 7 8 13 16 25 }
     l.splice(l.begin(), {12,3});    // { 12 3 5 7 8 13 16 25 }
     l.merge({12,2});                // { 12 3 5 7 8 12 2 13 16 25 }
 
