@@ -125,54 +125,382 @@ mysql -V;
 
 ## Database
 
-### 查询数据库
+### SQL 查询数据库
 
 ```sql
 -- 查询所有数据库
-show databases;
+mysql> show databases;
 
 -- 查询当前所在数据库名
-select database();
+mysql> select database();
 ```
 
-### 使用数据库
+### SQL 新建数据库
 
 ```sql
-use database 数据库名;
+-- create dabatase 数据库名;
+create database sql_hello;
+
+-- no error safe!
+create database if not exists sql_hello;
 ```
 
-### 新建数据库
+### SQL 使用数据库
 
 ```sql
-create dabatase 数据库名;
+-- use 数据库名;
+use sql_hello;
 ```
 
-### 删除数据库
+
+
+### SQL 删除数据库
 
 ```sql
-drop database 数据库名;
+-- drop database 数据库名;
+drop database sql_hello;
+
+-- no error safe!
+drop database if exists sql_hello;
 ```
 
 ## Table
 
-### 查
+### SQL 查询表
 
-#### 所有表
+1. 查所有表名
 
 ```sql
 show tables;
 ```
 
-#### 表结构
+2. 查表的创建结构(字段)
 
 ```sql
-desc ...;
+-- desc 表名;
+desc users;
 ```
 
-#### 表内容
+3. 查表的数据内容
 
 ```sql
-select * from ...;
+-- select 字段 from 表名;
+select * from users;
+```
+
+::: details example
+```sql
+mysql> show tables;
+-- +---------------------+
+-- | Tables_in_sql_hello |
+-- +---------------------+
+-- | users               |
+-- +---------------------+
+-- 1 row in set (0.00 sec)
+
+mysql> desc users;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| user_id    | int          | YES  |     | NULL    |       |
+| first_name | varchar(100) | YES  |     | NULL    |       |
+| last_name  | varchar(100) | YES  |     | NULL    |       |
+| city       | varchar(100) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+-- 4 rows in set (0.00 sec)
+
+mysql> select * from users;
+-- Empty set (0.00 sec)
+```
+:::
+
+
+### SQL 新建表
+
+```sql
+drop table if exists table_name;
+create table if not exists table_name (
+    column1 datatype(size) AUTO_INCREMENT,
+    column2 datatype(size),
+    ...
+    column3 datatype(size),
+    PRIMARY KEY(ID)
+) ENGINE=InnoDB CHARAULT=utf8;
+
+
+
+-- 约束
+PRIMARY KEY：指定列，更快创建唯一索引来访问表
+AUTO_INCREMENT: 自动递增，允许当新记录插入到表中时，生成一个唯一的编号
+NOT NULL: 不能包含NULL值
+DEFAULT：如果没有提供值的列。则该列获取设置的默认值，NULL
+UNIQUE：不允许插入一列中重复的值，允许多个UNIQUE列
+CHECK：检查该值是否有效
+```
+
+**for example**
+```sql
+CREATE TABLE `users` (
+    `user_id` int,
+    `first_name` varchar(100),
+    `last_name` varchar(100),
+    `city` varchar(100)
+);
+```
+
+```sql
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+    `user_id` int,
+    `first_name` varchar(100),
+    `last_name` varchar(100),
+    `city` varchar(100),
+    PRIMARY KEY(`user_id`)
+);
+```
+
+```sql
+CREATE TABLE leaderboard (
+    place int,
+    nickname varchar(128),
+    rating int,
+    PRIMARY KEY(place)
+);
+```
+
+```sql
+drop table if exists employees;
+create table employees (
+    id int not null auto_increment,
+    username varchar(100) not null,
+    password varchar(100) not null,
+    salary double,
+    primary key(id),
+);
+```
+
+::: details Example
+```sql
+-- int|varchar(size)|date
+-- PRIMARY KEY|NOT NULL|AUTO_INCREMENT|UNIQUE|CHECK|DEFAULT
+
+DROP TABLE IF EXISTS 'employees';
+create table 'Users'(
+    'id' int(10) NOT NULL AUTO_INCREMENT,
+    'username' varchar(30) NOT NULL DEFAULT '' COMMENT '用户名',
+    'password' varchar(20) NOT NULL DEFAULT '' COMMENT '用户密码',
+    'class' char(1) NOT NULL COMMENT '级别',
+    'hire_date' date NOT NULL COMMENT '上岗时间',
+    PRIMARY KEY('id')
+) ENGINE=InnoDB CHARAULT=utf8 COMMENT='员工信息';
+```
+:::
+
+
+### SQL 删除表
+
+1. 完全删除表(可回滚)
+
+```sql
+-- drop table [if exists] 表名;
+drop table users;
+drop table if exists users;
+```
+
+2. 清空表数据，仅保留字段结构
+
+```sql
+-- truncate table 表名;
+truncate table users;
+```
+
+3. 删除表数据
+```sql
+-- delete from 表名 where ...
+delete from users;
+delete from users where user_id = 1;
+```
+
+**异同**
+- truncate和delete 只删除数据不删除表结构
+    * truncate 删除后将`重建索引`(新插入数据后id从0开始记起)，
+    * delete`不会删除索引` (新插入的数据将在删除数据的索引后继续增加)，
+    * drop语句将删除表的结构包括依赖的约束，触发器，索引等；
+- 安全性：drop和truncate删除时不记录MySQL日志，不能回滚，delete删除会记录MySQL日志，可以回滚；
+- 返回值：delete 操作后返回删除的记录数，而 truncate 返回的是0或者-1(成功则返回0，失败返回-1)；
+
+**用法**
+- 希望删除表结构时，用 drop;
+- 希望保留表结构，但要删除所有记录时， 用 truncate;
+- 希望保留表结构，但要删除部分记录时， 用 delete。
+
+
+### SQL 修改表
+
+```sql
+-- alter table ... rename as ...;
+alter table users rename as employees;
+
+-- rename table 旧的表名 to 新的表名;
+rename table users to employees;
+```
+
+### 复制表
+
+#### 同时复制表内容和结构
+
+```sql
+CREATE TABLE new_table SELECT * FROM new_table;
+```
+
+#### 复制表内容
+
+```sql
+INSERT INTO new_table SELECT * FROM new_table;
+```
+
+#### 复制表结构
+
+```sql
+CREATE TABLE new_table LIKE new_table;
+```
+
+
+
+
+### 表连接
+
+```sql
+select t1.*, t2.* from table1 [as] t1, table2 [as] t2 where t1.id = t2.id;
+
+SELECT column_name(s) FROM t1 [INNER|LEFT|RIGHT] JOIN t2 ON t1.column_name=table2.column_name;
+
+select Name,City from customers union select Name,Customer_ID from orders;
+```
+
+## Data
+### SQL 新增表格数据
+
+```sql
+-- 插入单条数据
+insert [ignore] into 表名 values(value1, value2);              -- 值数量与行数量需一致    ignore:如果数据已经存在，请忽略
+insert [ignore] into 表名(字段1,字段2) values(value1, value2);  -- 可特定数量，sql插入会自动排序
+
+-- 批量插入数据
+insert [ignore] into 表名(字段1,字段2) values
+(value1, value2),
+(value1, value2),
+...;
+
+
+insert into table_name values(...);
+
+insert into 表名 values
+(...),
+(...),
+(...);
+```
+
+
+**for example**
+```sql
+CREATE TABLE leaderboard (
+    place int,
+    nickname varchar(128),
+    rating int,
+    PRIMARY KEY(place)
+);
+
+INSERT INTO leaderboard VALUES
+(1, 'Predator', 9500),
+(2, 'JohnWar', 9300),
+(3, 'NightWarrior', 8900);
+```
+
+
+
+```sql
+-- 批量插入数据
+insert into actor values
+(1, 'PENELOPE','GUINESS', '2006-02-15 12:34:33'),
+(2, 'NICK', 'WAHLBERG', '2006-02-15 12:34:33');
+```
+
+
+### SQL 删除表格数据
+
+```sql
+-- delete from 表名 where ...;
+delete from leaderboard where place = 1;
+delete from leaderboard;
+-- truncate table 表名;
+```
+
+
+```sql{27,43}
+drop table if exists employees;
+create table employees (
+    id int not null auto_increment,
+    username varchar(100) not null,
+    password varchar(100) not null,
+    salary double,
+    primary key(id),
+);
+
+insert into employees(username, password, salary) values
+('john', 'admin123', 76289),
+('tom', '123456', 19900),
+('koul', 'tuiok145', 39870);
+
+---------------------------------------------------------
+
+
+-- mysql> select * from employees;
+-- +----+----------+----------+--------+
+-- | id | username | password | salary |
+-- +----+----------+----------+--------+
+-- |  1 | john     | admin123 |  76289 |
+-- |  2 | tom      | 123456   |  19900 |
+-- |  3 | koul     | tuiok145 |  39870 |
+-- +----+----------+----------+--------+
+
+mysql> delete from employees;
+
+mysql> insert into employees(username, password, salary) values
+    -> ('john', 'admin123', 76289),
+    -> ('tom', '123456', 19900),
+    -> ('koul', 'tuiok145', 39870);
+
+-- mysql> select * from employees;
+-- +----+----------+----------+--------+
+-- | id | username | password | salary |
+-- +----+----------+----------+--------+
+-- |  4 | john     | admin123 |  76289 |
+-- |  5 | tom      | 123456   |  19900 |
+-- |  6 | koul     | tuiok145 |  39870 |
+-- +----+----------+----------+--------+
+
+mysql> truncate table employees;
+
+mysql> insert into employees(username, password, salary) values
+    -> ('john', 'admin123', 76289),
+    -> ('tom', '123456', 19900),
+    -> ('koul', 'tuiok145', 39870);
+
+mysql> select * from employees;
+-- +----+----------+----------+--------+
+-- | id | username | password | salary |
+-- +----+----------+----------+--------+
+-- |  1 | john     | admin123 |  76289 |
+-- |  2 | tom      | 123456   |  19900 |
+-- |  3 | koul     | tuiok145 |  39870 |
+-- +----+----------+----------+--------+
+```
+
+### SQL 查询表格数据
+
+```sql
+select 字段名 from 表名 where ...;
 ```
 
 ```sql
@@ -214,204 +542,201 @@ order by length(last_name) desc; //按名称长度降序
 order by salary desc, employee_id asc; //多个字段排序：先按工资降序，再按employ_id升序
 ```
 
-### 增
+
+### SQL 修改表格数据
 
 ```sql
-create table [if not exists] table_name
-(
-    column_name1 data_type(size),
-    column_name2 data_type(size),
-    ...
-    column_name3 data_type(size),
-    PRIMARY KEY(ID)
-) ENGINE=InnoDB CHARAULT=utf8;
-```
+-- update ... set ... where ...;
+update `employees` set password = 'koul123', salary = 10000 where username = 'koul';
 
-::: details Example
-```sql
--- int|varchar(size)|date
--- PRIMARY KEY|NOT NULL|AUTO_INCREMENT|UNIQUE|CHECK|DEFAULT
-
-DROP TABLE IF EXISTS 'employees';
-create table 'Users'(
-    'id' int(10) NOT NULL AUTO_INCREMENT,
-    'username' varchar(30) NOT NULL DEFAULT '' COMMENT '用户名',
-    'password' varchar(20) NOT NULL DEFAULT '' COMMENT '用户密码',
-    'class' char(1) NOT NULL COMMENT '级别',
-    'hire_date' date NOT NULL COMMENT '上岗时间',
-    PRIMARY KEY('id')
-) ENGINE=InnoDB CHARAULT=utf8 COMMENT='员工信息';
-```
-:::
-### 复制表
-
-#### 同时复制表内容和结构
-
-```sql
-CREATE TABLE new_table SELECT * FROM new_table;
-```
-
-#### 复制表内容
-
-```sql
-INSERT INTO new_table SELECT * FROM new_table;
-```
-
-#### 复制表结构
-
-```sql
-CREATE TABLE new_table LIKE new_table;
-```
-
-### 删
-
-#### 删除表数据，保留结构(不可回滚)
-
-```sql
-truncate table 表名;
-```
-
-#### 不保留表结构，完全删除表(可回滚)
-
-```sql
-drop table [if exists] ...;
-```
-
-### 改
-
-```sql
-alter table ... rename as ...;
-rename table 旧的表名 to 新的表名;
-```
-
-### 表连接
-
-```sql
-select t1.*, t2.* from table1 [as] t1, table2 [as] t2 where t1.id = t2.id;
-
-SELECT column_name(s) FROM t1 [INNER|LEFT|RIGHT] JOIN t2 ON t1.column_name=table2.column_name;
-
-select Name,City from customers union select Name,Customer_ID from orders;
+-- 将id=5以及emp_no=10001的行数据替换成id=5以及emp_no=10005,其他数据保持不变，使用replace实现，直接使用update会报错
+update titles_test set emp_no = replace(emp_no, 10001, 10005) where id = 5;
 ```
 
 ## Column
 
-### 增
+### SQL 新增表格字段
 
 ```sql
-alter table 表名 add 字段名 字段类型;
+-- single column
+alter table employees add city varchar(100);
+
+-- mutiple columns
+alter table employees add (
+    country varchar(100),
+    sex varchar(30)
+);
+
+alter table employees
+add country varchar(100),
+add sex varchar(30)
+;
+
 
 -- 增加外键约束
 alter table audit add constraint foreign key(emp_no) references employees_test(ID);
+
+-- mysql> desc employees;
+-- +----------+--------------+------+-----+---------+----------------+
+-- | Field    | Type         | Null | Key | Default | Extra          |
+-- +----------+--------------+------+-----+---------+----------------+
+-- | id       | int          | NO   | PRI | NULL    | auto_increment |
+-- | username | varchar(100) | NO   |     | NULL    |                |
+-- | password | varchar(100) | NO   |     | NULL    |                |
+-- | salary   | double       | YES  |     | NULL    |                |
+-- | city     | varchar(100) | YES  |     | NULL    |                |
+-- | country  | varchar(100) | YES  |     | NULL    |                |
+-- | sex      | varchar(30)  | YES  |     | NULL    |                |
+-- +----------+--------------+------+-----+---------+----------------+
+-- 7 rows in set (0.00 sec)
+
+-- mysql> select * from employees;
+-- +----+----------+----------+--------+------+---------+------+
+-- | id | username | password | salary | city | country | sex  |
+-- +----+----------+----------+--------+------+---------+------+
+-- |  1 | john     | admin123 |  76289 | NULL | NULL    | NULL |
+-- |  2 | tom      | 123456   |  19900 | NULL | NULL    | NULL |
+-- |  3 | koul     | koul456  |  20000 | NULL | NULL    | NULL |
+-- +----+----------+----------+--------+------+---------+------+
 ```
 
-### 删
+### SQL 删除表格字段
 
 ```sql
-alter table 表名 drop 字段名;
-ALTER TABLE table_name DROP COLUMN column_name;
+-- drop single field
+alter table employees drop city;
+
+-- drop mutiple fields
+alter table employees drop country, drop sex;
 ```
 
-### 查
+### SQL 查询表格字段
 
 ```sql
-desc 表名;
+-- desc 表名;
+desc employees;
+-- select * from employees;
+
+-- mysql> desc employees;
+-- +----------+--------------+------+-----+---------+----------------+
+-- | Field    | Type         | Null | Key | Default | Extra          |
+-- +----------+--------------+------+-----+---------+----------------+
+-- | id       | int          | NO   | PRI | NULL    | auto_increment |
+-- | username | varchar(100) | NO   |     | NULL    |                |
+-- | password | varchar(100) | NO   |     | NULL    |                |
+-- | salary   | double       | YES  |     | NULL    |                |
+-- | city     | varchar(100) | YES  |     | NULL    |                |
+-- | country  | varchar(100) | YES  |     | NULL    |                |
+-- | sex      | varchar(30)  | YES  |     | NULL    |                |
+-- +----------+--------------+------+-----+---------+----------------+
+
+-- mysql> select * from employees;
+-- +----+----------+----------+--------+------+---------+------+
+-- | id | username | password | salary | city | country | sex  |
+-- +----+----------+----------+--------+------+---------+------+
+-- |  1 | john     | admin123 |  76289 | NULL | NULL    | NULL |
+-- |  2 | tom      | 123456   |  19900 | NULL | NULL    | NULL |
+-- |  3 | koul     | koul456  |  20000 | NULL | NULL    | NULL |
+-- +----+----------+----------+--------+------+---------+------+
 ```
 
-### 改
+### SQL 修改表格字段
 
-#### 修改字段名
+1. 修改字段名: change
 
 ```sql
-alter table 表名 change 旧的字段名 新的字段名 字段类型;
+-- alter table 表名 change 旧的字段名 新的字段名 字段类型;
+alter table employees change sex gender varchar(100);
+alter table employees change sex gender char(1) comment '1: male, 0: famale';
+
+-- muitple change
+alter table employees
+change sex gender char(1) comment '性别 , 1: 男, 2: 女',
+change country countries varchar(100);
 ```
 
-#### 修改字段类型
+2. 修改字段类型: modify
 
 ```sql
-alter table 表名 modify 字段名 新的字段类型;
+-- alter table 表名 modify 字段名 新的字段类型;
+alter table employees modify gender varchar(60);
 ```
 
-## Data
-
-### 增(末尾插入)
-
-```sql
--- 插入单条数据
-insert [ignore] into 表名 values(value1, value2);              -- 值数量与行数量需一致    ignore:如果数据已经存在，请忽略
-insert [ignore] into 表名(字段1,字段2) values(value1, value2);  -- 可特定数量，sql插入会自动排序
-
--- 批量插入数据
-insert [ignore] into 表名(字段1,字段2) values
-(value1, value2),
-(value1, value2),
-...;
-```
-
-::: details Example
-```sql
-#批量插入数据
-insert into actor values
-(1, 'PENELOPE','GUINESS', '2006-02-15 12:34:33'),
-(2, 'NICK', 'WAHLBERG', '2006-02-15 12:34:33');
-```
-:::
-
-### 删
-
-```sql
-Delete from 表名 where ...;
-truncate table 表名;
-```
-
-### 查
-
-```sql
-select 字段名 from 表名 where ...;
-```
-
-### 改
-
-```sql
-update 表名 set 字段 = 修改后的内容 where ...;
-update 表名 set 字段1 = 新内容1, 字段2 = 新内容2 where ...;
-
--- 将id=5以及emp_no=10001的行数据替换成id=5以及emp_no=10005,其他数据保持不变，使用replace实现，直接使用update会报错
-update titles_test set emp_no = replace(emp_no,10001,10005) where id=5;
-```
 
 ## Index
 
+
 ### 新建索引
 ```sql
-create [unique] index ... on table_name(column_name);
-Alter table ... add [unique] index ...(column_name);
-creata table table_name (..., primary key(id), index index_name(title(5)));
+-- index
+create index idx on employees(id);
+-- unique index
+create unique index idx_username on employees(username);
+-- union index
+create index idx_password_salary on employees(password, salary);
+
+
+-- create [unique|fulltext|spatial] index ... on table_name(column_name);
+-- Alter table ... add [unique] index ...(column_name);
+-- creata table table_name (..., primary key(id), index index_name(title(5)));
 ```
 
 
 - 创建表时新建索引
 ```sql
-create table 'table_name' (
+create table table_name (
     ...,
     ...,
-    primary key ('id'),
-    key 'idx_user_id' ('user_id')
-) engine=InnoDB auto_increment=... default charset=utf8mb4;
+    primary key (id),
+    key idx_user_id (user_id)
+);
+
+create table table_name (
+    ...,
+    index (column_name(size)),
+    unique index idx_username(username),
+    index idx_password_salary(password, salary),
+    fulltext index idx_gender(gender),
+    spatial index idx_salary(salary)
+);
 ```
-- 现有表中新建索引
+
+### 查询索引
+
 ```sql
-create index title_index on test(title);
-show index from test;
+-- show indexes from 表名称;
+mysql> show index from employees;
+-- +-----------+------------+---------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+-- | Table     | Non_unique | Key_name            | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
+-- +-----------+------------+---------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+-- | employees |          0 | PRIMARY             |            1 | id          | A         |           3 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+-- | employees |          0 | idx_username        |            1 | username    | A         |           3 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+-- | employees |          1 | idx                 |            1 | id          | A         |           3 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+-- | employees |          1 | idx_password_salary |            1 | password    | A         |           3 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+-- | employees |          1 | idx_password_salary |            2 | salary      | A         |           3 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+-- +-----------+------------+---------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+-- 5 rows in set (0.00 sec)
+
+-- explain
+mysql> explain select * from employees use index(idx) where username = 'tom';
+-- +----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+-- | id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
+-- +----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+-- |  1 | SIMPLE      | employees | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    3 |    33.33 | Using where |
+-- +----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+-- 1 row in set, 1 warning (0.00 sec)
 ```
 
 
 ### 删除索引
 
 ```sql
-drop index index_name on table_name;    (同表时索引不可同名)
-alter table table_name drop index index_name;
-alter table table_name drop primary key;
+-- drop index index_name on table_name;    (同表时索引不可同名)
+-- alter table table_name drop index index_name;
+-- alter table table_name drop primary key;
+
+drop index idx_password_salary on employees;
+alter table employees drop index idx_username;
 ```
 
 

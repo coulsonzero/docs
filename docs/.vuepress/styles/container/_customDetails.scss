@@ -8,6 +8,9 @@
     padding-left: 30px;
     user-select: none;
     -webkit-user-select: none;
+    // change (2023-07-12)
+    font-weight: 600;
+    color: aquamarine;
 }
 
 .custom-container.details summary::-webkit-details-marker,
@@ -58,6 +61,8 @@
     border-radius: 30px;
     transition: all .3s ease-in-out .01s;
     -webkit-transition: all .3s ease-in-out .01s;
+    // change! (2023-07-12)
+    padding: 18px;
 }
 
 .custom-container.details[open] summary::before{

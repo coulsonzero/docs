@@ -1086,7 +1086,6 @@ set.size()
 set.begin()、set.end()
 set.insert(e)
 set.contain(e)
-
 ```
 
 ```cpp
@@ -1113,8 +1112,8 @@ void print_set(const unordered_set<char>& set) {
     }
     cout << endl;
 }
-
 ```
+
 
 ### stack
 
@@ -2174,5 +2173,53 @@ int main() {
     return 0;
 }
 ```
+
+### NULL, nullptr, 0 ?
+
+```cpp
+本来C可以允许int *a = (void *)0;
+但是到了C++就不允许了，因为C不允许void * 给别的指针类型作右值，所以C++只能把NULL定义成0。即NULL是0，
+所以NULL既是整型又是空指针常量，这就会导致出现二义性，这是个坑，
+所以C++又新出了一个关键字nullptr，以后只用nullptr，从此NULL就可以慢慢被C++抛弃了
+```
+
+```cpp
+// c
+#define NULL ((void*)0)
+
+// cpp
+#define NULL 0
+
+/* source code */
+#ifndef NULL
+    #ifdef __cplusplus
+        #define NULL 0
+    #else
+        #define NULL ((void *)0)
+    #endif
+#endif
+```
+
+**usage**
+```cpp
+int *p = 0;
+int *p = NULL;
+int *ptr = nullptr; //推荐使用
+
+if (ptr == nullptr) {}
+if (ptr == NULL) {}
+if (ptr == 0) {}
+
+// nullptr 还可以抛出异常
+```
+
+
+## Tips
+
+1. output: 格式化使用C的`printf()`方法
+2. datatype: 长数据类型使用auto省略
+3. switch: 多个case, condition必须是boolean(int, char, bool...)不能是字符串(string, char*)
+4. for loop: auto `&`v修改
+5. pointer: 推荐使用`nullptr` (C++11)
 
 

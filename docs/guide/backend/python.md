@@ -7,63 +7,87 @@
 ### First Program
 
 ```python
-print("Hello World!")
+print("hello world!")
 ```
 
-### Variables & Data Types
+### Variables
+```py
+# 1. var
+num = 12
+num: int = 20
+
+# init
+x: int
+x = 12
+
+# 2. multi-var
+x, y = 3, 7.2
+```
+
+
+**memory address**
+```py
+num = 12
+print(id(num))      # 4335862352
+num = 10
+print(id(num))      # 4335862288
+```
+### Data Types
+```py
+# number
+num : int   = 7
+pi  : float = 3.14
+c   : complex = 1 + 2j
+
+# boolean
+flag: bool  = True
+
+# string
+name: str   = "John Smith"
+
+# core type
+nums: list  = [1, 2, 3]
+tup : tuple = ('a', "bc", 123)
+d   : dict  = {"name": "John Smith", "age": 27, "sex": 1}
+s   : set   = {1, 3, "ab"}
+```
+
+
+
+
+
+### Input & Output
+
+**input**
 
 ```python
-num = 7               # 数字
-user_name = "James"   # 字符串
-isActive = True       # 布尔
-nums = [1, 2, 3]      # 列表
-
-```
-
-### Operators
-
-```pyhton
-+ - * / % // **
-== != >= <= > <
-+= -= *= /= %=
-and or not
-```
-
-::: warning
-
-```python
-print( 10 / 2 )      # 5.0
-print( 3 ** 2 )      # 9
-print( "Hello" * 2 ) # HelloHello, 同样适用于数组
-```
-
-:::
-
-
-### Input
-
-```python
-a = input()
-a = input("请输入: ")
+a = input()             # string
+a = int(input())        # int
 a,b = input().split()                  # 输入两个字符串
 a,b = map(int, input().split())        # 输入两个整数（用空格隔开）
 a,b = map(int, input().split(','))     # 输入两个整数（用逗号隔开）
+
+# tips
+a = input("please enter a string: ")    # str
 ```
 
-### print
 
+**output**
 ```python
 print()
-print(Str%...)
-print(Str.format(...))
-print(f-String)
+print(string%...)
+print(string.format(var...))
+print(f-string)
 ```
 
-```python
+**for example**
+```py
+num: float = 12.963
+
 # 保留两位小数
-print('%.2f'%var)
-print('{0:.2f}'.format{var})
-print(f'{var}')
+print('%.2f'%num)
+print('{0:.2f}'.format(num))
+print(f'{num}')
 ```
 
 ### Comments
@@ -74,9 +98,35 @@ print(f'{var}')
 '''
 this is a multi-line comment
 '''
+
+"""
+multiple comment
+"""
 ```
 
-### import导包
+### Operators
+
+```md
++ - * / % `//` `**`
+== != >= <= > <
++= -= *= /= %=
+`and or not`
+`i += 1   i -= 1`
+`s = "pass" if score > 60 else "fail"`
+```
+
+**for example**
+
+```python
+print( 10 / 2 )      # 5.0
+print( 10 // 2 )     # 5
+print( 3 ** 2 )      # 9
+print( "Hello" * 2 ) # HelloHello
+print( "hello" +  " world" ) # "hello world"
+```
+
+
+### import
 
 ```python
 import ... [as ...]
@@ -87,7 +137,7 @@ from ... import ...
 
 ```python
 if __name__ = "__main__":
-    print("此py文件没有被导入")
+    print("this py file is not be import!")
 ```
 
 ### Package exe
@@ -106,21 +156,34 @@ cmd> pyinstaller -F -w *.pyw
 - float
 - complex
 
+```py
+a: int = 12
+b: float = 12.5
+c: complex = 1 + 2j
+```
 
 ### Boolean
 
 ```python
-True
-False
+flag: bool = True
+flag: bool = False
 ```
 
 ### String
 
-```python
+```py
 
-String:
+s = 'hello world'
+s = "hello world"
+s: str = "hello world"
 
-s = '...'/"..."
+# `/`
+s = 'I\'m John Smith'
+s = "I'm John Smith"
+s = """this
+is a multiline
+text"""
+s = "A\nB\nC"
 
 find()      # 索引字符
 index()     # 索引字符
