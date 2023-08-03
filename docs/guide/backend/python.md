@@ -50,6 +50,10 @@ nums: list  = [1, 2, 3]
 tup : tuple = ('a', "bc", 123)
 d   : dict  = {"name": "John Smith", "age": 27, "sex": 1}
 s   : set   = {1, 3, "ab"}
+
+# null
+None
+is not None
 ```
 
 
@@ -88,6 +92,8 @@ num: float = 12.963
 print('%.2f'%num)
 print('{0:.2f}'.format(num))
 print(f'{num}')
+
+print("{x}, {y}".format(x = 2, y = 12))
 ```
 
 ### Comments
@@ -99,9 +105,11 @@ print(f'{num}')
 this is a multi-line comment
 '''
 
-"""
-multiple comment
-"""
+def func():
+    """
+    multiple comment
+    """
+    # code
 ```
 
 ### Operators
@@ -130,7 +138,11 @@ print( "hello" +  " world" ) # "hello world"
 
 ```python
 import ... [as ...]
-from ... import ...
+from ... import ... [as ...]
+```
+
+```shell
+$ pip install library_name
 ```
 
 ### Main
@@ -227,30 +239,50 @@ s[::-1]
 
 ### List 列表
 
+> 不限制元素类型是否相同
+
 **初始化**
 ```py
-nums = [1, 2, 3, 4]
+nums =  k
+nums: list = [3, 1, 7, 12, 6]
+nums = [
+    [1, 2, 3],
+    [4, 5, 6]
+]
+
+things = ["string", 0, [1, 2, 3], 3.14, num]
 ```
 
 **列表方法**
 ```python
 # 增
-append(e)       # 末尾新增元素
-extend([1, 2])  # 末尾合并新的列表元素
-insert(i, e)    # 中间插入元素
+.append(e)       # 末尾新增元素
+.insert(i, e)    # 中间插入元素
+.extend([1, 2])  # 末尾合并新的列表元素(原地址)
+list + [1, 2]   # 末尾合并新的列表元素(新地址)
+
 
 # 删
-remove(e)       # 删除首次出现的元素
-pop() | pop(i)  # 末尾删除｜删除指定索引元素
-del nums[i]     # 删除指定索引元素
-clear()         # 清空元素
+.remove(e)       # 删除首次出现的元素
+.pop() | .pop(i) # 末尾删除｜删除指定索引元素 (返回删除的元素值)
+.clear()         # 清空元素
+del list[i]      # 删除指定索引元素 (不返回删除的元素值)
+del list[l:r]
+del list[:]
 
 # 查
-index(e, [start=0, [stop=len(List)]])    # 元素索引
-count(e)    # 计数
-copy()      # 浅复制
-id(nums)    # 内存地址
-x in nums   # 判断包含
+.len(list)          # 长度
+if x in list:       # 判断包含
+if x not in list:   # 判断不包含(可读性强)
+# if not x in nums: # 判断不包含
+.index(e, start = 0, stop = len(list))    # 元素索引
+.count(e)        # 计数
+.copy()          # 浅复制
+id(list)         # 内存地址
+max(list)
+min(list)
+sum(list)
+
 
 # 排序
 sort(key=None, reverse=False)
@@ -381,12 +413,64 @@ while condition:
 
 ## Function
 
+### void
 ```python
-def func()
+def hello():
+    # code
+```
+
+### params
+```py
+def hello(name):
+    # code
+
+def max(a, b):
+    # if a > b:
+    #     return a
+    # else
+        # return b
+    return a if a > b else b
+```
+
+### params default-value
+```py
+def hello(name = "John Smith"):
+    # code
+```
+
+### return
+
+```py
+def hello(name):
+    return "hello " + name
+```
+
+### funcs
+```py
+def square(x):
+    return x * x
+
+def test(func, x):
+    print(func(x))
+```
+
+### lambda
+
+```py
+def polynomial(x):
+    return x ** 2 + 5
+
+
+print(polynomial(2))    # 9
+
+print((lambda x: x ** 2 + 5)(2))    # 9
+
+mult = lambda x: x * x
+print(mult(3))  # 9
 ```
 
 
-
+### 内置函数
 ```python
 str(12)     # '12'
 id()        # 返回变量值的内存地址
@@ -552,4 +636,20 @@ f.close()
 #对于小脚本来说不是什么事，但对于一个需要长时间在服务器里运行的程序，系统资源可能很快就被吃光，然后程序崩溃
 with open('somefile.txt','r') as f:
     s=f.read()    #with之后的语句执行完毕后文件会自动关闭，不用手动调用close（）了
+```
+
+## File
+
+```py
+filename = "test.txt"
+file = open(filename, "w")
+file.write("""hello \
+this is a text
+you could change it
+in here""")
+file.close()
+
+with open(filename) as f:
+    text = f.read()
+print(text)
 ```

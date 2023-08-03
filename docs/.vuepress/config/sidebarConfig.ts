@@ -135,7 +135,20 @@ const sidebarConfig = {
 			title: "Frontend",
 			collapsable: false,
 			sidebarDepth: 1,
-			children: ["canvas.md", "css.md", "eslint.md", "html.md", "jquery.md", "javascript/", "scss.md", "vscode.md", "react/", "vue.md"],
+			children: [
+				"html.md",
+				"css.md",
+				"scss.md",
+				"javascript/",
+				"typescript.md",
+				"react/",
+				"vue.md",
+				"echarts/",
+				"canvas.md",
+				"eslint.md",
+				"jquery.md",
+				"vscode.md",
+			]
 		},
 	],
 	"/guide/frontend/javascript/": [

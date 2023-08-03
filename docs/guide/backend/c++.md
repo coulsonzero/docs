@@ -20,15 +20,14 @@ int main() {
 
 ```cpp
 // variable
-int num = 12;   // int num(12)
+int num = 12;       // also: `int num(12)`
 // constant
 const double PI = 3.14;
 ```
 
-```cpp
+```cpp{2}
 // multi-var
 int x = 3, y = 5;
-temp = s[i], s[i] = s[j], s[j] = temp;
 ```
 ::: danger Notice
 
@@ -149,16 +148,16 @@ void foo() {
 **output**
 
 ```cpp
-// 换行: endl, 连接符: <<
-std::cout << "Hello world!";
-std::cout << "Hello" << " world!" << std::endl;
-std::cout << "Hello world!\n";
-std::printf("%s\n", "hello world!")
-```
+using namespace std;
 
-::: warning
-尽量不要使用`using namespace std`, 特别是在header file
-:::
+// c++
+cout << "Hello World!" << endl;
+
+// c
+printf("Hello World!\n");
+
+// not to use `using namespace std` in `header file`
+```
 
 
 
@@ -193,101 +192,30 @@ int main()
 
 **input**
 
+
 1. cin
 
-**输入一个**
 ```cpp
-int num;
-// cout << "Please enter a number \n";
-cin >> num;              // 当读取到空白字符' '停止
-```
+using namespace std;
 
-**输入多个**
-```cpp
+// single var
+int x;
+cin >> x;           // end: space
+
+// multi vars
 int a, b;
-cin >> a >> b;          // 空格分开，多个空格只会视为一个空格
+cin >> a >> b;      // connect: use space or line to to separate
 ```
 
-**输入字符串**
-```cpp
-char ch;
-while (cin >> noskipws >> ch) {
-    cout << ch;
-}
-
-// input  >> hello world
-// output >> hello world
-// ...
-```
-
-**输入一行数字**
-```cpp
-int n;
-while(cin >> n) {
-    cout << n * 2 << " ";
-}
-// 2 5  3
-// 4 25 9
-// ...
-```
 
 2. getline
 ```cpp
+using namespace std;
+
 string s;
-getline(cin, s);        // 当读取到'\n'停止
-getline(cin, s, '$');   // 当读取到字符'$'停止
+getline(cin, s);        // end: line
+getline(cin, s, '$');   // end: '$'
 ```
-
-
-::: details getline(cin, s)
-```cpp
-#include <iostream>
-#include <string>
-
-using namespace std;
-
-int main() {
-    string s;
-
-    cout << "Enter a line: ";
-    getline(cin, s);
-    cout << "s: " << s << endl;
-
-    return 0;
-}
-
-/*
-Enter a line: hello world !
-s: hello world !
-*/
-```
-:::
-
-::: details getline(cin, s, '$')
-
-```cpp
-#include <iostream>
-#include <string>
-
-using namespace std;
-
-int main() {
-    string s;
-
-    cout << "Enter a mult-line: " << endl;
-    getline(cin, s, '$');   // 当读取到字符'$'停止
-    cout << "s: " << s << endl;
-
-    return 0;
-}
-
-/*
-1 hello world !
-2 welcome to here.
-3 pratice more ...
-*/
-```
-:::
 
 
 
@@ -433,6 +361,16 @@ int main()
  */
 ```
 
+```cpp
+// 判断奇偶
+i % 2 == 0
+i & 1 == 0
+
+// 中间数
+int mid = (l + r) / 2;
+int mid = l + (r - l) / 2;      // 防溢出
+```
+
 **example**
 
 ```cpp
@@ -471,7 +409,7 @@ if (condition) {
 }
 ```
 
-### Switch Statement
+### *Switch Statement
 
 ```cpp
 switch (expression) {
@@ -507,12 +445,26 @@ switch (day) {
 ### For Loop
 
 ```cpp
+// default-for
 for (init; condition; increment) {
     // statement(s)
 }
 
+// strong-for
 for (auto &v : nums) {
     // statement(s)
+}
+
+
+// Notice: pointer loop
+// vector
+for (auto it = nums.begin(); it != nums.end(); ++it) {
+    cout << *it << endl;
+}
+
+// map
+for (auto iter = map.begin(); iter != map.end(); iter++) {
+    cout << " [" << iter->first << ", " << iter->second << "]";
 }
 ```
 
@@ -546,7 +498,7 @@ do {
 
 
 int main() {
-    std::string name = "hello";
+    std::string name = "John Smith";
     std::cout << name << std::endl;
     std::cout << name.size() << std::endl;
 
@@ -670,35 +622,95 @@ int nums[5] = {1, 2, 3, 4, 5};
 int nums[ ] = {1, 2, 3, 4, 5};
 
 // iter
-for (auto &item : nums) {
-    std::cout << item << " ";
+for (auto &v : nums) {
+    std::cout << v << " ";
 }
 ```
 
 ### Pointer
-
 ```cpp
-int score = 90;
-int *scorePtr;
-scorePtr = &score;
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    // declare an int pointer
+    int *ptr = nullptr;     // 0x0
+
+    // new: dynamically allocate memory
+    ptr = new int(12);      // 0x132e06880, 12
+
+    cout << "object  address: " << ptr  << endl;    // 0x142f04080
+    cout << "pointer address: " << &ptr << endl;    // 0x16ae23680
+    cout << "pointer value  : " << *ptr << endl;    // 12
+
+    // deallocate the memory
+    delete ptr;
+    cout << "object  address: " << ptr  << endl;    // 0x142f04080
+    cout << "pointer address: " << &ptr << endl;    // 0x16ae23680
+    cout << "pointer value  : " << *ptr << endl;    // 12
+
+    ptr = nullptr;
+    cout << "object  address: " << ptr  << endl;    // 0x0
+    cout << "pointer address: " << &ptr << endl;    // 0x16ae23680
+    cout << "pointer value  : " << *ptr << endl;    // No output!
+
+    return 0;
+}
 ```
 
 ```cpp
-int score = 90;
-int *pScore = &score;
-count << "score: " << *pScore << endl;
+// C++ Program to store GPA of n number of students and display it
+// where n is the number of students entered by the user
+
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    int n;
+    cout << "Enter total number of students: ";
+    cin >> n;
+    float* ptr;
+
+    // memory allocation
+    ptr = new float[n];
+
+    cout << "Enter GPA of students." << endl;
+    for (int i = 0; i < n; ++i) {
+        cout << "Student" << i + 1 << ": ";
+        cin >> *(ptr + i);
+    }
+
+    cout << "\nDisplaying GPA of students." << endl;
+    for (int i = 0; i < n; ++i) {
+        cout << "Student" << i + 1 << ": " << *(ptr + i) << endl;
+    }
+
+    // ptr memory is released
+    delete[] ptr;
+    ptr = nullptr;
+
+    return 0;
+}
+
+/*
+Enter total number of students: 4
+Enter GPA of students.
+Student1: 3.6
+Student2: 3.1
+Student3: 3.9
+Student4: 2.9
+
+Displaying GPA of students.
+Student1: 3.6
+Student2: 3.1
+Student3: 3.9
+Student4: 2.9
+ */
 ```
 
-**example**
 
-```cpp
-int *ptr = new int;
-*ptr = 5;
-
-cout << *ptr << endl;
-
-delete ptr;
-```
 
 :::: code-group
 ::: code-group-item null pointer
@@ -936,29 +948,40 @@ int& larger(int& x, int& y) {
 ## STL
 ### vector
 
-**include vector library**
-
 ```cpp
 #include <vector>
+using namespace std;
+
+// method-1
+vector<int> vec;              // size: 0  value: [ ]
+
+// method-2
+vector<int> vec = {1, 2, 3};  // size: 3  value: [ 1, 2, 3 ]
+vector<string> vec = {"hello", "world"};
+
+// method-3
+// template<class T>
+vector<T> vec(n)        // size: n  value: [ ]
+vector<T> vec(n, v)     // size: n  value: [ v, v, ... ]
+// template<>
+vector<string> vec{n}       // size: n  value: ["", "", ... ]
+vector<string> vec{n, v}    // size: n  value: [ v,  v, ... ]
 ```
 
 ```cpp
-// init
-vector<int> vec;              // size: 0     cap: 0     value: [ ]
-vector<int> vec = {1, 2, 3};  // size: 3     cap: 3     value: [ 1, 2, 3 ]
+// for example
+vector<int> v1(3);            // size: 3  value: [ 0, 0, 0 ]
+vector<int> v2(3, 42);        // size: 3  value: [ 42, 42, 42 ]
+//vector<int> v3{3, 42};      // size: 2  value: [ 3, 42 ]
 
-// vector<int>    vec(n, v)
-// vector<int>    vec{v...}
-// vector<string> vec{n, v}
-vector<int> v1(3);            // size: 3     cap: 3     value: [ 0, 0, 0 ]
-vector<int> v2(3, 42);        // size: 3     cap: 3     value: [ 42, 42, 42 ]
-
-vector<int> v4{3, 42};        // size: 2     cap: 2     value: [ 3, 42 ]
-vector<string> v6{3};         // size: 3     cap: 3     value: [ "", "", "" ]
-vector<string> v7{3, "hi"};   // size: 3     cap: 3     value: [ hi, hi, hi ]
+// Notice! `template<>`
+vector<string> vec{3};        // size: 3  value: [ "", "", "" ]
+vector<string> vec{3, "hi"};  // size: 3  value: [ hi, hi, hi ]
+```
 
 
-
+**methods**
+```cpp
 // 长度
 size()
 resize(n)
@@ -982,30 +1005,46 @@ pop_back()
 erase(first, last)
 clear()
 
-
 // 改
 v1.swap(v2)                         // 两者所有元素值交换
 v2.assign(v1.begin(), v1.end())     // 复制v1的元素值到v2中
 
-// sort 排序
-sort(nums.begin(), nums.end())                     // 升序
-sort(nums.begin(), nums.end(), greater<int>())     // 降序
-auto cmp = [&](int x, int y) -> bool {
-    return x > y;
-};
-sort(vec.begin(), vec.end(), cmp);
+```
+```cpp
+// sort
+sort(nums.begin(), nums.end())
+
+// reverse
+template <class T>
+void reverse(vector<T> &nums) {
+    sort(nums.begin(), nums.end(), greater<T>())
+    sort(nums.begin(), nums.end(), [&](T x, T y) -> bool {return x > y;});
+}
+
+// template <class T>
+// auto cmp = [&](T x, T y) -> bool {
+//     return x > y;
+// };
+// sort(vec.begin(), vec.end(), cmp)
 
 
-count(nums.begin(), nums.end(), e)      // 统计元素出现的次数
-max_element(nums.begin(), nums.end())   // 最大元素值
+// count: [0, ...]
+count(nums.begin(), nums.end(), e)
 
-// contain 判断包含
-if(find(nums.begin(), nums.end(), e) != nums.end())
 
-// upper_bound 二分查找:
-auto it = upper_bound(nums.begin(), nums.end(), e)     // 二分查找第一个小于等于e的值的地址
-it - nums.begin()  // index
-*it;               // value
+
+// max
+max_element(nums.begin(), nums.end())
+// min
+min_element(nums.begin(), nums.end())
+
+// contains
+find(nums.begin(), nums.end(), e) != nums.end()
+
+// upper_bound 二分查找第一个小于等于e的值的地址
+// auto it = upper_bound(nums.begin(), nums.end(), e)
+int index =  upper_bound(nums.begin(), nums.end(), e) - nums.begin()
+int value = *upper_bound(nums.begin(), nums.end(), e)
 ```
 
 **遍历**
@@ -1014,28 +1053,16 @@ it - nums.begin()  // index
 for (int i = 0; i < nums.size(); i++) {
     cout << nums[i] << endl;
 }
-```
 
-```cpp
 for (auto &e : v) {
     cout << e << " ";
 }
-```
 
-```cpp
 for (auto it = nums.begin(); it != nums.end(); ++it) {
     cout << *it << endl;
 }
 ```
 
-**for example**
-```cpp
-cout << "[ ";
-for (auto it = vec.begin(); it != vec.end(); ++it) {
-        cout << *it << (it == vec.end() - 1 ? " " : ", ");
-}
-cout << "]" << endl;
-```
 
 ### map
 

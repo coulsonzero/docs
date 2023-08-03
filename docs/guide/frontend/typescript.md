@@ -1,15 +1,15 @@
 # [TypeScript](https://www.tslang.cn)
 
-## 开始使用
-### 全局安装typescript
+## Getting Start
+### install
 
 ```sh
 $ yarn global add typescript
 ```
 
-### 检查是否已安装TypeScript
+### version
 ```sh
-tsc -v
+$ tsc -v
 ```
 
 ## OverView
@@ -21,41 +21,48 @@ const hello: string = "Hello World!"
 
 console.log(hello)
 ```
-### 数据类型
-
-基本数据类型
-- number
-- string
-- boolean
-- any
-
+### Data type
 ```ts
-const name: string = "Smith"
-const num: number = 12
+// Basic type
+const num : number  = 12
 const flag: boolean = true
-let x: any = 20     //x = "Hello"
-let y: number | null | undefined
+const name: string  = 'John Smith'
 ```
 
-特殊符号
-- ? (可选)
-- | (或)
+```ts
+// Array
+let nums: number[] = [1, 3, 6, 2]
+let nums: Array<number> = [1, 3, 6, 2]
 
-数组类型
-- number[]
-- string[]
-- boolean[]
-- any[]
+// Tuple
+let tup: [number, string] = [1, 'John Smith']
+
+// Enum
+enum Color { Red, Green, Blue }
+let c: Color = Color.Green
+```
 
 
 ```ts
-let arr1: number[] = [1, 3, 6, 2]
-let arr3: string[] = ["John", "Smith", "porl"]
-let arr3: any[] = [1,false,'nice']
-let arr2: Array<number> = [1, 3, 6, 2]
+// any
+let x: any = 12
+x = 'hello'	// ok
+x = false   // ok
+
+// any[]
+let y: any[] = [1, true, 'free']
+
+// `|` (or)
+let z = number | string | boolean
+z = 12
+z = 'John Smith'
+z = false
+
+// ?   (option)
 ```
 
-函数
+
+## Function
 
 ```ts
 function hello(): void {
@@ -94,7 +101,7 @@ class Car {
 ```
 
 
-接口
+## Interface
 
 ```ts
 interface IPerson {
