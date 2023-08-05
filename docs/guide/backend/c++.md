@@ -1047,63 +1047,52 @@ vector<string> vec{3, "hi"};  // size: 3  value: [ hi, hi, hi ]
 **methods**
 ```cpp
 // 长度
-size()
-resize(n)
-empty()         // size() == 0
+.size()
+.empty()    // size() == 0
+.resize(n)
 
 // 容量
-capacity()
-reserve(n)
+.capacity()
+.reserve(n)
 
 // 查
-front()                 // vec[0]
+.front()                 // vec[0]
 nums[i], nums.at(i)     // vec[i]
-back()                  // vec[vec.size()-1]
+.back()                  // vec[vec.size()-1]
 
 // 增
-push_back(e)                 // vec.push_back(v)
-insert(nums.bengin()+2, e)   // vec[2] = e
+.push_back(e)                 // vec.push_back(v)
+.insert(nums.bengin()+2, e)   // vec[2] = e
 
 // 删
-pop_back()
-erase(first, last)
-clear()
+.pop_back()
+nums.erase(nums.begin(), nums.begin()+2);
+.clear()
 
 // 改
 v1.swap(v2)                         // 两者所有元素值交换
 v2.assign(v1.begin(), v1.end())     // 复制v1的元素值到v2中
 
-```
-```cpp
 // sort
-sort(nums.begin(), nums.end())
+std::sort(nums.begin(), nums.end())
+std::sort(nums.begin(), nums.end(), std::greater<T>())
+std::sort(nums.begin(), nums.end(), [&](T x, T y) -> bool {return x > y;})
+std::reverse(nums.begin(), nums.end())
+```
 
-// reverse
-template <class T>
-void reverse(vector<T> &nums) {
-    sort(nums.begin(), nums.end(), greater<T>())
-    sort(nums.begin(), nums.end(), [&](T x, T y) -> bool {return x > y;});
-}
-
-// template <class T>
-// auto cmp = [&](T x, T y) -> bool {
-//     return x > y;
-// };
-// sort(vec.begin(), vec.end(), cmp)
-
-
-// count: [0, ...]
-count(nums.begin(), nums.end(), e)
-
-
+```cpp
+count(nums.begin(), nums.end(), e)      // count: [0, ...]
 
 // max
-max_element(nums.begin(), nums.end())
+std::max_element(nums.begin(), nums.end())
 // min
-min_element(nums.begin(), nums.end())
+std::min_element(nums.begin(), nums.end())
 
 // contains
-find(nums.begin(), nums.end(), e) != nums.end()
+template<typename T>
+bool contains(vector<T> nums, T target) {
+    return std::find(nums.begin(), nums.end(), target) != nums.end();
+}
 
 // upper_bound 二分查找第一个小于等于e的值的地址
 // auto it = upper_bound(nums.begin(), nums.end(), e)
@@ -1118,8 +1107,8 @@ for (int i = 0; i < nums.size(); i++) {
     cout << nums[i] << endl;
 }
 
-for (auto &e : v) {
-    cout << e << " ";
+for (auto& v: nums) {
+    cout << v << " ";
 }
 
 for (auto it = nums.begin(); it != nums.end(); ++it) {
@@ -1128,82 +1117,240 @@ for (auto it = nums.begin(); it != nums.end(); ++it) {
 ```
 
 
-### map
+### [map](https://learn.microsoft.com/zh-cn/cpp/standard-library/unordered-map-class?view=msvc-170)
 
 ```cpp
 #include <unordered_map>
 
-// 初始化
-unordered_map<char, int> map;
-unordered_map<char, int> map = {{'a', 3}, {'b', 2}};
+// init
+std::unordered_map<char, int> map
+std::unordered_map<char, int> map = {{'a', 3}, {'b', 2}}
+
+// size, cap
+.size()
+.empty()
+
 
 // 增
-map[k] = v;
-map.insert({k, v});
+map[k] = v    // better!!
+// map.insert({k, v})
 
 // 删
-map.erase(k)
-map.clear()
+.erase(k)
+.clear()
 
 // 查
-map[k]
-// map.at(k)
+map[k]       // notice: 查询map[k] 会新增key! at(k)则不会
+map.at(k)
 
-// contains
-map.contains(k)
-// if (map.find(k) != map.end())
-// if (map.count(k))
+
+// .count(k)   // [0, 1]
+// .find(k)
+.contains(k)   // c++20
+// `if (map.find(k) != map.end())`
+// `if (map.count(k))`
+// `if (map[k])`  也会新增key, value为初始值
+
 
 
 // 遍历
-for (auto iter = map.begin(); iter != map.end(); iter++) {
-    cout << " [" << iter->first << ", " << iter->second << "]";
+for (auto& it : map) {
+    std::cout << " [" << it.first << ", " << it.second << "]";
 }
-cout << endl;
+std::cout << std::endl;
 
-for (auto& iter : map) {
-    cout << " [" << iter.first << ", " << iter.second << "]";
+for (auto it = map.begin(); it != map.end(); it++) {
+    std::cout << "[" << it->first << ", " << it->second << "] ";
 }
-cout << endl;
+std::cout << std::endl;
 ```
 
-### set
-```cpp
-#include <unordered_set>
-std::unordered_set<int> set;
-std::unordered_set<char> set = { 'a', 'c' };
-
-set.size()
-set.begin()、set.end()
-set.insert(e)
-set.contain(e)
-```
-
+:::details example
 ```cpp
 #include <iostream>
-#include <unordered_set>
+#include <unordered_map>
 
-using namespace std;
 
-void print_set(const unordered_set<char>& set);
+
+template<typename T, typename U>
+void display_map(const std::unordered_map<T, U>& map);
 
 int main() {
-    std::unordered_set<int> theUnorderedSet = { 1, 2 };
+    using namespace std;
 
-    std::cout << std::boolalpha; // so booleans show as 'true' or 'false'
-    std::cout << theUnorderedSet.contains(2) << '\n';   // true
-    std::cout << theUnorderedSet.contains(3) << '\n';   // false
+    // init
+    unordered_map<char, int> map;
+    // unordered_map<char, int> map = {{'a', 3}, {'b', 2}};
+
+
+    // 增
+    map.insert({'a', 1});
+    map['b'] = 2;
+
+    display_map(map);   // [b, 2] [a, 1]
+    cout << map.size() << endl;    // 2
+
+    // 查: map[k] 会新增key，at(k)则不会
+    cout << map['a'] << endl;      // 1
+    cout << map['b'] << endl;      // 2
+    cout << map['c'] << endl;      // 0
+    cout << map.at('a') << endl;   // 1
+    cout << map.at('c') << endl;   // 0
+    display_map(map);              // [c, 0] [b, 2] [a, 1]
+
+    // size
+    cout << map.size() << endl;    // 3
+    cout << boolalpha;
+    cout << map.empty() << endl;   // false
+
+    // count
+    map = {{'a', 1}, {'b', 2}, {'c', 3}};
+    display_map(map);
+    cout << map.count('a') << endl;     // 1
+    cout << map.count('b') << endl;     // 1
+    cout << map.count('c') << endl;     // 1
+    cout << map.count('d') << endl;     // 0
+    display_map(map);
+
+    // find
+    cout << (map.find('a') != map.end()) << '\n';       // true
+    cout << (map.find('k') != map.end()) << '\n';       // false
+
+    // contains (c++20)
+    cout << map.contains('a') << '\n';  // true
+    cout << map.contains('k') << '\n';  // false
+
 
     return 0;
 }
 
-void print_set(const unordered_set<char>& set) {
-    for (auto& iter : set) {
-        cout << "[" << iter << "] ";
+template<typename T, typename U>
+void display_map(const std::unordered_map<T, U> &map) {
+//    for (auto& it : map) {
+//        cout << " [" << it.first << ", " << it.second << "]";
+//    }
+//    cout << endl;
+
+
+    for (auto it = map.begin(); it != map.end(); it++) {
+        std::cout << "[" << it->first << ", " << it->second << "] ";
     }
-    cout << endl;
+    std::cout << std::endl;
 }
 ```
+:::
+
+### set
+```cpp
+#include <unordered_set>
+
+std::unordered_set<int> set;
+std::unordered_set<char> set = { 'a', 'c' };
+
+// size
+.size()
+.empty()
+
+// 增
+.insert(e)
+
+// 删
+.erase(e)
+.clear()
+
+// 查
+*(set.find(e))  // value
+.count(e)       // [0. 1]
+.contain(e)     // c++20    equal to `if(set.find(e) != set.end())` or `if (count(e))`
+
+
+// 改
+.swap(set2)
+
+// iter
+template<typename T>
+void display_set(const std::unordered_set<T>& set) {
+    for (auto& it : set) {
+        if (isalpha(it)) std::cout << "[" << char(it) << "] ";
+        else std::cout << "[" << it << "] ";
+    }
+    std::cout << std::endl;
+}
+```
+
+:::details example
+```cpp
+#include <iostream>
+#include <unordered_set>
+#include <cctype>
+
+template<typename T>
+void display_set(const std::unordered_set<T>& set);
+
+int main() {
+    std::unordered_set<int> set;
+
+    // add
+    set.insert('a');
+    set.insert('b');
+    set.insert('c');
+
+    // size
+    std::cout << set.size() << '\n';    // 3
+    std::cout << set.empty() << '\n';   // 0
+    display_set(set);                   // [c] [b] [a]
+
+    // remove
+    set.erase('d');     // no error if element not exists
+    set.erase('c');     // [b] [a]
+    set.clear();
+
+    // contains
+    set = {'a', 'b', 'c', 'd'};
+    std::cout << std::boolalpha;
+    std::cout << set.contains('k') << '\n';   // false
+    std::cout << set.contains('c') << '\n';   // true
+    std::cout << (set.find('c') != set.end()) << '\n';   // true
+    std::cout << (set.find('k') != set.end()) << '\n';   // false
+    std::cout << (set.count('c') != 0) << '\n';          // true
+
+    display_set(set);     // [d] [c] [b] [a]
+
+    // count
+    std::cout << set.count('c') << '\n';    // 1
+    std::cout << set.count('k') << '\n';    // 0
+
+
+    // find
+    auto it = set.find('b');
+    std::cout << char(*it) << std::endl;    // 'b'
+
+
+    // swap
+    std::unordered_set<int> set1 = {1, 3, 6};
+    std::unordered_set<int> set2 = {2, 4, 7};
+
+    set1.swap(set2);
+
+    display_set(set1);     // set1: [4] [7] [2]
+    display_set(set2);     // set2: [3] [6] [1]
+
+    std::cout << __cplusplus << std::endl;    // 202002
+    return 0;
+}
+
+template<typename T>
+void display_set(const std::unordered_set<T>& set) {
+    for (auto& it : set) {
+        if(isalpha(it)) std::cout << "[" << char(it) << "] ";
+        else std::cout << "[" << it << "] ";
+    }
+    std::cout << std::endl;
+}
+```
+:::
+
+
 
 
 ### stack
@@ -1213,11 +1360,12 @@ void print_set(const unordered_set<char>& set) {
 
 size()
 empty()
-push()
-pop()
-top()
+增：push()
+查：top()
+删：pop()
 ```
 
+:::details example
 ```cpp
 #include <iostream>
 #include <stack>
@@ -1259,6 +1407,8 @@ void print_stack(stack<int> stack) {
 }
 
 ```
+:::
+
 
 
 ### deque
@@ -1284,8 +1434,13 @@ insert(pos, e)
 push_back(e)
 
 // 删
+pop_front()
+pop_back()
 erase(pos1, pos2)
 clear()
+
+// 改
+d[i] = e
 
 // iterator
 cout << "[ "
