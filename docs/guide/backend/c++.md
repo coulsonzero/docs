@@ -508,56 +508,97 @@ int main() {
 :::
 ::: code-group-item method
 ```cpp
-#include <string>
+// if you has included `<iostream>` header file
+// #include <string>
 
 // init
 std::string s;
-std::string s = "Hello World";
-std::string s("Hello World");
+std::string s = "Hello World";      // std::string s("Hello World");
 
 // size
-s.size()        // STL
-s.length()      // C
-s.empty()
+.size()        // STL
+.length()      // C
+.empty()
 // cap
-s.capacity()
+.capacity()
 
 // 增
-s.append(str)
-s.insert(index, str)
-s.replace(start, end, str)  // 替换
+.push_back(c)      // char
+.append(s)       // substr
+.insert(i, s)
+
 
 // 删
-s.erase(i)      // 删除s[i]后面的所有字符
-s.erase(i, n)   // 删除s[i]后面的n个字符
-s.clear()
-
-// 查
-// element value
-s[i], s.at(i), s.substr(i, n)
-
-// element index
-s.find(c, pos)
-s.rfind(c, pos)     // pos could be -1
-s.find_first_of(c)
-s.find_last_of(c)
-
-// contain
-if (s.find(c, pos) == -1)
+.pop_back()
+.clear()
+.erase(i)      // 删除s[i]后面的所有字符
+.erase(i, n)   // 删除s[i]后面的n个字符
 
 
-// input string
-geiline(cin, s);
+/* == 查 == */
+// index：
+.front()
+.back()
+.at(i) | s[i] | .substr(i, n)
 
+// value
+.find(c, pos=0)
+.rfind(c, pos=-1)
 
-// string -> int
-stoi("12")      // "12" -> 12
-// int -> string
-to_string(10)   //  10  -> "10"
+// 判断
+if(s.find(c) != -1)     // contains
+.ends_with(c | s)       // c++20
+.starts_with(c | s)     // c++20
+/* == end == */
+
+// 改
+s[i] = c
+.replace(start, end, str)   // 替换
+s1.swap (s2)
+
+.assign(s2)
+.assign(s2, n)
+.assign(s2.begin(), s2.end())
+.assign(n, c)   // 前n个字符fill都赋值为c字符
+
+// #include <format>
+std::format("The answer is {}.", 42);   // c++20
+```
+
+```cpp
+// input
+std::getline(std::cin, s);
 
 // sort
-sort(s.begin(), s.end());
-reverse(s.begin(), s.end());
+std::sort(s.begin(), s.end());       // "hello world!" -> " !dehllloorw"
+std::sort(s.begin(), s.end(), std::greater<char>());
+// reverse!!
+std::reverse(s.begin(), s.end());    // "hello world!" -> "!dlrow olleh"
+
+
+
+// string -> int:
+stoi(s), stol(s), stoll(s)      // 10bit: |x| <= 2147483647, 19bit
+// int -> string:
+to_string(num)
+
+// string -> byte[]:
+.data()
+.c_str()
+
+
+
+/*
+// 比较
+s.compare(str)
+// 迭代器
+s.begin()
+s.end()
+
+// 连接
+s1 + s2
+s1 += s2
+*/
 ```
 :::
 ::: code-group-item iter
@@ -613,6 +654,29 @@ int main() {
 ```
 :::
 ::::
+
+### stringstream
+
+for example
+```cpp
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+
+int main() {
+    stringstream ans;
+    ans << "hello";
+    ans << ' ';
+    ans << "world";
+    ans << '!';
+
+    cout << ans.str() << endl;
+    // output: "hello world"
+}
+```
+
+
 
 ### Array
 
@@ -1322,27 +1386,6 @@ int main() {
 
 
     return 0;
-}
-```
-
-### stringstream
-
-for example
-```cpp
-#include <iostream>
-#include <sstream>
-
-using namespace std;
-
-int main() {
-    stringstream ans;
-    ans << "hello";
-    ans << ' ';
-    ans << "world";
-    ans << '!';
-
-    cout << ans.str() << endl;
-    // output: "hello world"
 }
 ```
 
