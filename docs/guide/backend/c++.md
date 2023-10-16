@@ -1263,6 +1263,9 @@ std::unordered_set<char> set = { 'a', 'c' };
 .count(e)       // [0. 1]
 .contain(e)     // c++20    equal to `if(set.find(e) != set.end())` or `if (count(e))`
 
+if(set.insert(e).second) {
+    cout << "success to insert!";
+}
 
 // 改
 .swap(set2)
