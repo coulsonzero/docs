@@ -303,20 +303,6 @@ case "$1" in
     *       ) echo   "not input argument"             ;;
 esac
 
-
-# 写法二
-case $1 in
-    "dev"   ) bash dev-push.sh
-    ;;
-    "master") bash master-push.sh
-    ;;
-    "both"  ) bash dev-push.sh && bash master-push.sh
-    ;;
-    "tag"   ) main
-    ;;
-    *       ) echo   "not input argument"
-    ;;
-esac
 ```
 
 **示例**

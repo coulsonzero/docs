@@ -71,6 +71,10 @@ int num = 12;
 // final 常量
 final double PI = 3.14;
 
+// 多个变量
+int i, j;
+int a = 1, b = 2;
+
 // 枚举
 enum Color { red, blue, green };
 ```
@@ -81,13 +85,14 @@ enum Color { red, blue, green };
 /**
  * 基础数据类型
  * 1.数字：
- *        整数：  byte  short  `int`  long
- *        浮点数：float `double`
+ *   a) 整数：  byte  short  `int`  long
+ *   b) 浮点数：float `double`
  * 2.字符：char
  * 3.布尔：boolean (false  true)
  */
 ```
 
+for example
 ```java
 int num = 12;
 double pi = 3.14;
@@ -95,20 +100,26 @@ char c = 'p';
 boolean flag = true;
 ```
 
+所占字节大小
 ```java
 byte  short int long (1,2,4,8)
 float double         (4,8)
 char                 (2)
 boolean(true/false)  (1)    (0/1不可替代true/false)
+```
 
-//Ⅱ强制类型转换(Type Casting)--> 会损失精度
+强制数据转换
+```java
+// 强制类型转换(Type Casting)--> 会损失精度
 int a = (int) 3.14;    //3
+
 double b = 42.571;
 System.out.println((int)b); //42
 
-//自动类型转换：不会丢失精度。根据内存大小。
+// 自动类型转换：不会丢失精度
 ```
 
+整数取值范围
 ```java
 byte    // -128 ~ 127
 short   // -32768 ~ 32767
