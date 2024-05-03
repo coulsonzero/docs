@@ -807,3 +807,59 @@ const router = createRouter({
 ```
 
 
+## vue3.2
+
+
+::: vue-demo vue-ref
+```vue
+<template>
+	<div>Counter: {{ count }}</div>
+</template>
+
+<script setup>
+import {ref} from 'vue'
+const count = ref(0)
+</script>
+
+```
+:::
+
+
+
+```vue
+<script setup>
+// import
+import {ref} from 'vue'
+
+// 定义变量
+const count = ref(0)
+// 修改变量
+count.value = 1
+
+// 定义新变量
+// const doubleCount = computed(() => count.value * 2);
+
+// 定义函数
+function incrementCount() {
+	count.value++
+}
+
+// v-model
+const text = ref('')
+</script>
+
+
+<template>
+	<!-- 使用变量 -->
+	<div>Counter: {{ count }}</div>
+	<!--
+	<div>{{doubleCount}}</div>
+	-->
+	<button @click="incrementCount">Click me +1</button>
+	<p>{{ text }}</p>
+	<input v-model="text" placeholder="Type here">
+</template>
+
+```
+
+

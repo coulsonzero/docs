@@ -57,7 +57,8 @@
 }
 
 .custom-container.details {
-    background: var(--detail-bg);
+    // background: var(--detail-bg);
+    background: #484c4e;
     border-radius: 30px;
     transition: all .3s ease-in-out .01s;
     -webkit-transition: all .3s ease-in-out .01s;

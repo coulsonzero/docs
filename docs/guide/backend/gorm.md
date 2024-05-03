@@ -652,6 +652,7 @@ func CloseDB(db *gorm.DB) {
 
 ```
 
+
 ```go
 package entity
 
@@ -676,6 +677,67 @@ type Book struct {
 }
 ```
 
+### 8.全局配置
+```go
+package config
+
+import (
+	"os"
+
+	"gopkg.in/yaml.v2"
+)
+
+type config struct {
+	System system `yaml:"system"`
+	Logger logger `yaml:"logger"`
+	Mysql  mysql  `yaml:"mysql"`
+	Redis  redis  `yaml:"redis"`
+}
+
+type system struct {
+	Host string `yaml:"host"`
+	Port int    `yaml:"port"`
+	Env  string `yaml:"env"`
+}
+
+type logger struct {
+	Lever        string `yaml:"lever"`
+	Prefix       string `yaml:"prefix"`
+	Director     string `yaml:"director"`
+	ShowLine     bool   `yaml:"show_line"`
+	LogInConsole bool   `yaml:"log_in_console"`
+}
+
+type mysql struct {
+	Host     string `yaml:"host"`
+	Port     int    `yaml:"port"`
+	Username string `yaml:"username"`
+	Password string `yaml:"password"`
+	DbName   string `yaml:"dbname"`
+	LogLever string `yaml:"log_lever"`
+	Charset  string `yaml:"charset"`
+	MaxIdle  int    `yaml:"max_idle"`
+	MaxOpen  int    `yaml:"max_open"`
+}
+
+type redis struct {
+	Address  string `yaml:"address"`
+	Password string `yaml:"password"`
+	Db       int    `yaml:"db"`
+}
+
+var Config *config
+
+func init() {
+	file, err := os.ReadFile("./config.yaml")
+	if err != nil {
+		return
+	}
+	// fmt.Println(string(file))
+	yaml.Unmarshal(file, &Config)
+}
+
+```
 ## CRUD接口
 
 
