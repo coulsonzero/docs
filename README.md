@@ -11,7 +11,13 @@
 - 启动项目
 
 ```sh
-$ yarn start
+$ yarn start # npm run start
+```
+
+- 打包项目
+
+```sh
+$ yarn build # npm run build
 ```
 
 ## 项目部署
