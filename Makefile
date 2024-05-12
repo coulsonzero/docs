@@ -7,3 +7,5 @@ push:
 deploy:
 	@bash deploy.sh
 
+start:
+	npm run start
