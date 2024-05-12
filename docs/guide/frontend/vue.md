@@ -772,3 +772,39 @@ import {RouterLink, RouterView} from "vue-router"
 // vite.config.js
 base: "./"
 ```
+
+## path
+
+```js
+// main.js
+import router from './router'
+app.use(router)
+```
+
+```js
+import path from 'path'
+
+
+resolve: {
+	alias: {
+		"@": path.resolve(__dirname, "./src"),
+	},
+},
+```
+
+
+## Router
+```js
+// router/index.js
+import {createRouter, createWebHashHistory} from "vue-router";
+import routes from "./routes";
+
+
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes,
+});
+```
+
+

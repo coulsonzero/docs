@@ -600,9 +600,9 @@ System.out.println(arr);     //arr数组对象的内存地址：[I@7a81197d
 System.out.println(arr[0]);  //数据的默认值：0
 
 // 排序（从低到高）
-Arrays.sort(array)
+Arrays.sort(arr)
 // Array -> List
-Arrays.asList()
+Arrays.asList(arr)
 
 // 打印二维数组元素
 Arrays.deepToString(arr)
@@ -631,16 +631,33 @@ LikedList<String>：链表 （操作数据更快：插入/删除/修改）
 
 ```java
 import java.until.ArrayList;
-import java.until.LikedList;
-
 ArrayList<Integer> list = new ArrayList<>();
-LikedList<String>  list = new LikedList<>();
+ArrayList<Integer> list = new ArrayList<>(Arrays.asList(nums));
+ArrayList<Integer> list = new ArrayList<>(List.of(new Integer[]{ 1, 2, 3 }));
 
+增：add(T e), Collections.addAll(list, ...nums)
+删：remove(int index), clear()
+改：set(i, e)
+
+查：
+System.out.println(list.get(i));
+System.out.println(list.size());
+System.out.println(list.contains(e));
+System.out.println(list);
+
+
+
+
+import java.until.LikedList;
+LikedList<String>  list = new LikedList<>();
+add(i, e)
+```
+
+::: details example
+```java
 // 初始化方式
-Integer[] nums = {2, 5, 3, 1, 7};
 List<Integer> list = new ArrayList<>(Arrays.asList(nums));
 List<Integer> ints = new ArrayList<>(List.of(new Integer[]{ 1, 2, 3 }));
-List<String>  strs = new ArrayList<>(List.of(new String[]{ "a", "b", "c" }));
 
 增：
     a）add(e)：末尾新增
@@ -663,8 +680,9 @@ List<String>  strs = new ArrayList<>(List.of(new String[]{ "a", "b", "c" }));
     最大值：Collections.max(list)
     最小值：Collections.min(list)
 ```
+:::
 
-:::details
+::: details example2
 
 ```java
 public class ArrayListDemo {
@@ -681,9 +699,9 @@ public class ArrayListDemo {
         list.set(1, 8);
         // 查
         System.out.println(list.size());    // 长度
-        System.out.println(list.get(1));    // 索引值
         System.out.println(list);           // 所有值
         System.out.println(list.contains(4));
+        System.out.println(list.get(1));    // 索引值
 
         // 排序
         Collections.sort(list);
@@ -724,6 +742,36 @@ for (int k = 0; k < map.size(); k++) {
 }
 ```
 
+::: details example
+```java
+import java.util.HashMap;
+
+public class hashmap {
+    public static void main(String[] args) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        map.put(1, 3);
+        map.put(2, 5);
+        map.put(3, 7);
+
+        map.remove(3);
+
+        map.put(2, 7);
+
+        System.out.println(map);
+        System.out.println(map.get(3));
+        System.out.println(map.size());
+        System.out.println(map.containsKey(2));
+        System.out.println(map.containsValue(5));
+
+        for (int k = 0; k < map.size(); k++) {
+            System.out.printf("key: %d, value: %d \n", k, map.get(k));
+        }
+    }
+}
+```
+:::
+
 ### HashSet
 
 ```java
@@ -732,10 +780,11 @@ import java.util.HashSet;
 HashSet<Integer> set = new HashSet<>();
 
 
-查：size(), System.out.println(set)
+
 增：add(e)
 删：remove(e), clear()
 判断：set.contains(e)
+查：size(), System.out.println(set)
 ```
 
 

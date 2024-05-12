@@ -54,18 +54,19 @@
     * MEDIUMBLOB
     * LONGBLOB
 ### 数据库的基本操作
+* 查询：show databases;
 * 新建：creat database 数据库名;
 * 删除：drop database 数据库名;
 * 切换：use 数据库名;
-* 查询所有：show databases;
 * 新建并查看：show creat database 数据库名;
 * 查看当前使用的数据库：select database();
+
 数据表的基本操作：
-* 创建：creat table 表名(字段1  字段类型,  字段2  字段类型, ...);
-* 删除：drop table 表名;
-* 查看：show tables;
+* 查看：`show` tables;
+* 创建：`creat` table 表名(字段1  字段类型,  字段2  字段类型, ...);
+* 删除：`drop` table 表名;
 * 新建并查看：show creat table 表名;
-* 修改表名：alter table  表名 rename to  新表名;
+* 修改表名：alter table  表名 `rename to`  新表名;
 * 合并表列from ... join ... on ...
     * inner join
     * left outer join
@@ -73,10 +74,10 @@
 
 
 字段的基本操作：
-* 增加字段名：alter table 表名  add  新增字段名  字段类型;
-* 删除字段：alter table 表名 drop 字段名;
-* 查看表的字段信息：desc 表名;
-* 修改字段名：alter table  表名  change  字段名  新字段名  字段类型;
+* 查看字段：desc 表名;
+* 增加字段：alter table 表名 `add`    新增字段名  字段类型;
+* 删除字段：alter table 表名 `drop`   字段名;
+* 修改字段：alter table 表名 `change` 字段名  新字段名  字段类型;
 
 数据表的约束：
 * 主键约束：字段名  数据类型  promary key;        primary key(字段名)
@@ -238,7 +239,18 @@ UNIQUE：不允许插入一列中重复的值，允许多个UNIQUE列
 CHECK：检查该值是否有效
 ```
 
+
 **for example**
+```sql
+create table users (
+    id int not null auto_increment,
+    username varchar(40) not null,
+    password varchar(40) not null,
+    primary key(id)
+);
+```
+
+::: details Example
 ```sql
 CREATE TABLE `users` (
     `user_id` int,
@@ -278,6 +290,7 @@ create table employees (
     primary key(id),
 );
 ```
+:::
 
 ::: details Example
 ```sql
@@ -548,10 +561,14 @@ order by salary desc, employee_id asc; //多个字段排序：先按工资降序
 ```sql
 -- update ... set ... where ...;
 update `employees` set password = 'koul123', salary = 10000 where username = 'koul';
+```
 
+::: details example
+```sql
 -- 将id=5以及emp_no=10001的行数据替换成id=5以及emp_no=10005,其他数据保持不变，使用replace实现，直接使用update会报错
 update titles_test set emp_no = replace(emp_no, 10001, 10005) where id = 5;
 ```
+:::
 
 ## Column
 
@@ -560,7 +577,9 @@ update titles_test set emp_no = replace(emp_no, 10001, 10005) where id = 5;
 ```sql
 -- single column
 alter table employees add city varchar(100);
-
+```
+::: details example
+```sql
 -- mutiple columns
 alter table employees add (
     country varchar(100),
@@ -599,6 +618,7 @@ alter table audit add constraint foreign key(emp_no) references employees_test(I
 -- |  3 | koul     | koul456  |  20000 | NULL | NULL    | NULL |
 -- +----+----------+----------+--------+------+---------+------+
 ```
+:::
 
 ### SQL 删除表格字段
 
@@ -615,6 +635,9 @@ alter table employees drop country, drop sex;
 ```sql
 -- desc 表名;
 desc employees;
+```
+::: details example
+```sql
 -- select * from employees;
 
 -- mysql> desc employees;
@@ -639,14 +662,18 @@ desc employees;
 -- |  3 | koul     | koul456  |  20000 | NULL | NULL    | NULL |
 -- +----+----------+----------+--------+------+---------+------+
 ```
+:::
 
 ### SQL 修改表格字段
 
-1. 修改字段名: change
+1. 修改字段名和字段类型: change
 
 ```sql
 -- alter table 表名 change 旧的字段名 新的字段名 字段类型;
 alter table employees change sex gender varchar(100);
+```
+::: details example
+```sql
 alter table employees change sex gender char(1) comment '1: male, 0: famale';
 
 -- muitple change
@@ -655,12 +682,14 @@ change sex gender char(1) comment '性别 , 1: 男, 2: 女',
 change country countries varchar(100);
 ```
 
-2. 修改字段类型: modify
+
+修改字段类型: modify
 
 ```sql
 -- alter table 表名 modify 字段名 新的字段类型;
 alter table employees modify gender varchar(60);
 ```
+:::
 
 
 ## Index
@@ -809,6 +838,7 @@ concat(...): 拼接字符串
 concat(name, ',' city)
 group_concat(): 拼接一列为一行字符串
 length(...):
+char_length(): 字符长度
 replace(column_name, old, new)
 round(str,2): 结果保留小数点后2位
 upper(...):  大写

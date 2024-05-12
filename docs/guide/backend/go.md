@@ -1360,29 +1360,28 @@ cityMap := map[string]string {
 ::: code-group-item api
 
 ```go
+查: fmt.Println(m)
+增改: m["Jame"] = 97
+删: delete(m, "Jame")
+
 // 遍历
-for k, v := range m {
-	// statement(s)
-}
-
-// 查
-fmt.Println(m)
-
-// 增改
-m["Jame"] = 97
-
-// 删
-delete(m, "Jame")
-
-
+for k, v := range m {}
 // 判断包含
-if _, ok := m[k]; ok {
-	// statement(s)
-}
+if _, ok := m[k]; ok {}
+if m[k] {}
 
-if m[k] {
-	// statement(s)
+
+// map->json
+jsonStr, _ := json.Marshal(m)
+fmt.Println(string(jsonStr))
+
+// json->map
+var m map[string]any
+err := json.Unmarshal([]byte(jsonStr), &m)
+if err != nil {
+	fmt.Println(err)
 }
+fmt.Println(m)
 
 // 排序keys
 keys := make([]int)
@@ -1398,6 +1397,47 @@ for _, k := range keys {
 
 :::
 ::::
+
+
+::: details examle
+```go
+func main() {
+	json_to_map()
+	// map_to_json()
+}
+
+func map_to_json() {
+	m := map[string]any {
+		"name": "coulsonzero",
+		"age": 21,
+		"country": "China",
+	}
+
+
+	jsonStr, _ := json.Marshal(m)
+	fmt.Println(string(jsonStr))
+	// {"age":21,"country":"China","name":"coulsonzero"}
+
+}
+
+func json_to_map() {
+	jsonStr := `
+		{
+			"name": "coulsonzero",
+			"age": 21,
+			"country": "China"
+		}
+	`
+	var m map[string]any
+	err := json.Unmarshal([]byte(jsonStr), &m)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(m)
+	// map[age:21 country:China name:coulsonzero]
+}
+```
+:::
 
 ### Function 函数
 
@@ -3681,7 +3721,7 @@ DbName = todolist_db
 # mysql 名字
 ```
 
-### yml
+### yaml
 
 ```sh
 $ go get -u "github.com/spf13/viper"
@@ -3697,15 +3737,19 @@ import (
 
 func main() {
 	// 初始化yml配置
-	InitConfigYml("config.yml")
+	InitConfigYml("config.yaml")
 
 	// 获取yml配置项
 	host := viper.GetString("mysql.host")
-	fmt.Println(host)
+	port := viper.GetString("mysql.port")
+	username := viper.GetString("mysql.username")
+	password := viper.GetString("mysql.password")
+	dbname := viper.GetString("mysql.dbname")
+	fmt.Println(host, port, username, password, dbname)
 }
 
 func InitConfigYml(fileName string) {
-	viper.SetConfigType("yml")
+	viper.SetConfigType("yaml")
 	viper.SetConfigFile(fileName)
 	if err := viper.ReadInConfig(); err != nil {
 		panic(err)
@@ -3713,28 +3757,14 @@ func InitConfigYml(fileName string) {
 }
 ```
 
-```yml
-server:
-  domain: task
-  version: 1.0
-  jwtSecret: 38324
-  grpcAddress: "127.0.0.1:10002"
-
+```yaml
 mysql:
-  driverName: mysql
   host: 127.0.0.1
   port: 3306
-  database: grpc_todo_list
+  dbname:
   username: root
   password: root
   charset: utf8mb4
-
-etcd:
-  address: 127.0.0.1:2379
-
-redis:
-  address: 127.0.0.1:6379
-  password:
 ```
 
 ### sql

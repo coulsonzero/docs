@@ -267,8 +267,9 @@ type DateInfo struct {
 r.GET()
 // 新增
 r.POST()
-// 修改
+// 修改(覆盖)
 r.PUT()
+r.PATCH()	// 修改(局部)
 // 删除
 r.DELETE()
 ```
@@ -276,18 +277,21 @@ r.DELETE()
 ### Body Response
 
 ```go
+/* ===== String ==== */
+c.String(200, "hello world!")
+
 /* ===== JSON ===== */
 c.JSON(200, gin.H{
 	"success": true,
 	"code":    200,
 	"message": "请求成功",
 })
-c.PureJSON(200, gin.H{
-	"html": "<b>Hello, world!</b>",
-})
-c.JSONP()
-c.AsciiJSON()
-c.SecureJSON()
+// c.PureJSON(200, gin.H{
+// 	"html": "<b>Hello, world!</b>",
+// })
+// c.JSONP()
+// c.AsciiJSON()
+// c.SecureJSON()
 
 /* ===== XML ===== */
 c.XML()
@@ -295,8 +299,7 @@ c.XML()
 /* ===== YML ===== */
 c.YAML()
 
-/* ===== String ==== */
-c.String(200, "hello world!")
+
 
 /* ===== HTML ==== */
 c.HTML(200, gin.H {
