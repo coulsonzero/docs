@@ -24,7 +24,7 @@ export PATH=$PATH:/usr/local/go/bin
 $ source ~/.bash_profile
 ```
 
-### 1.3 配置 env 环境变量
+### 1.2 配置 env 环境变量
 
 > 方便从 github 下载依赖包
 
@@ -517,8 +517,8 @@ func toString[T Number](s T) []T {}
 // 类型转换
 rune('k')			// byte -> rune
 string('k')			// byte | rune -> string
-strconv.Atoi("12")  // number -> string
-strconv.Itoa(12)    // string -> number
+strconv.Atoi("12")	// string -> number
+strconv.Itoa(12)    // number -> string
 
 
 // 查询 字节占用大小
@@ -648,7 +648,7 @@ func isEven( num int ) bool {
 import . "fmt"	// 省略包名: fmt.Println() => Println()
 import f "fmt"	// 别名导入: fmt.Println() => f.Println("hello world")
 import _ "github.com/go-sql-driver/mysql"
-import go-project/config    // 项目绝对路径导入
+import "gin-admin/api"    // 项目绝对路径导入: api.Hello()
 ```
 
 ```go
@@ -687,7 +687,7 @@ import (
 import (
 	"fmt"
 	"time"
-	"[your-project]/config"
+	"gin-admin/config"
 )
 ```
 
@@ -736,6 +736,8 @@ go vet
 ::: danger
 
 > 注意变量作用域, 在 condition 中声明外部无法访问！
+>
+> if与switch语句局部变量可写入内部，switch无需再用break
 
 :::
 
@@ -848,6 +850,13 @@ fmt.Println(res)    //500500
 
 ## 四. 核心数据类型
 
+### Number 数字
+- [math](#math)
+```go
+strconv.Itoa(n int)	            // number -> string
+strconv.Atoi(s string)	        // string -> number(int)
+```
+
 ### String 字符串
 
 **常用标准库**
@@ -879,47 +888,49 @@ strings.Index(s, substr)  // 子串索引, 不存在返回-1
  * 3. strings.Build | bytes.Buffer
  */
 
+// 替换
+strings.ReplaceAll(str, old, new)			// 替换
+// strings.Replace(str, old, new , -1)	    // -1为全部, 等价于ReplaceAll()
+
+
+/* =========== 删 =========== */
+// 删除空白字符
+strings.TrimSpace(s string)		// 移除\n\t等
+strings.Trim(s string, " ")		// 移除空格(首尾)
+
+
+/* ====== 判断 ====== */
+strings.Contains()		// 包含
+strings.HasSuffix()		// endswith
+strings.HasPrefix()		// startswith
 
 // 大小写转换
 strings.ToUpper()							// 大写
 strings.ToLower()							// 小写
 strings.Title()								// 首字母大写
 cases.Title(language.Und).String(s string)  // 每个单词首字母大写
-// 替换
-strings.ReplaceAll(str, old, new)			// 替换
-strings.Replace(str, old, new , -1)			// -1为全部, 等价于ReplaceAll()
-
-
-/* =========== 删 =========== */
-// 删除空白字符
-strings.Trim(s string, " ")		// 移除空格(首尾)
-strings.TrimSpace(s string)		// 移除\n\t等
 ```
 
 :::
 ::: code-group-item Builder | Buffer
 
 ```go
-// Build | Buffer
-var buf strings.Builder
-var buf bytes.Buffer
+// Builder | Buffer
+var buf strings.Builder 	// buf := new(strings.Builder)
+var buf bytes.Buffer		// buf := new(bytes.Buffer)
 
 buf.WriteString(s string)	// "hello"
 buf.WriteByte(c byte)		// ','
+buf.WriteRune(c rune)		// '官'
 buf.Write(p []byte)			// []byte("world")
-buf.String()
 
+buf.String()
 ```
 
 :::
 ::: code-group-item 遍历
 
 ```go
-package main
-
-import "fmt"
-
-/*
 for i := 0; i < len(s); i++ {
 	// s[v] : byte
 }
@@ -927,74 +938,7 @@ for i := 0; i < len(s); i++ {
 for _, v := range s {
 	// v: rune
 }
-*/
 
-func main() {
-	s1 := "hello world"
-	s2 := "Github官网"
-
-	traversalString1(s1) // hello world
-	traversalString2(s1) // hello world
-	traversalString3(s1) // hello world
-	traversalString4(s1) // hello world
-
-	traversalString1(s2) // Githubå®®ç½
-	traversalString2(s2) // Githubå®
-	traversalString3(s2) // Github官网
-	traversalString4(s2) // Github官网
-}
-
-func traversalString1(s string) {
-	for i := 0; i < len(s); i++ {
-		fmt.Print(string(s[i]))
-	}
-	fmt.Println()
-}
-
-func traversalString2(s string) {
-	for i := 0; i < len([]rune(s)); i++ {
-		fmt.Print(string(s[i]))
-	}
-	fmt.Println()
-}
-
-func traversalString3(s string) {
-	for _, v := range s {
-		fmt.Printf(string(v))
-	}
-	fmt.Println()
-
-}
-
-func traversalString4(s string) {
-	for _, v := range []rune(s) {
-		fmt.Printf(string(v))
-	}
-	fmt.Println()
-}
-```
-
-:::
-::: code-group-item 判断
-
-```go{2,7,12,13}
-/*============== 判断 ================*/
-strings.Contains()		// 包含
-strings.HasSuffix()		// endswith
-strings.HasPrefix()		// startswith
-
-// 判断字符类型
-unicode.IsLetter(v rune)     // 是否为 字母
-unicode.IsUpper(v rune)		 // 是否为 大写字母
-unicode.IsLower(v rune)		 // 是否为 小写字母
-
-// 数字判断的严格性：c >= '0' && c <= '9' ⇒ IsDigit ⇒ IsNumber
-fmt.Println(c >= '0' && c <= '9')	// 严格性更好
-unicode.IsDigit(v rune)      // 是否为 数字 ['1-9']
-unicode.IsNumber(v rune)     // 是否为 数字 ['1-9', 'Ⅷ', '½'], 范围更大
-
-unicode.IsSpace(v rune)      // 是否为 空白符号, [' ', '\n', '\t']
-unicode.IsPunct(v rune)      // 是否为 标点字符, [',', ...]
 ```
 
 :::
@@ -1021,6 +965,27 @@ string(c byte | r rune)
 ```
 
 :::
+::: code-group-item 字符
+
+```go
+/*============== 判断 ================*/
+
+// 判断字符类型
+unicode.IsLetter(v rune)     // 是否为 字母
+unicode.IsUpper(v rune)		 // 是否为 大写字母	 'A' << s[i] && s[i] << 'Z'
+unicode.IsLower(v rune)		 // 是否为 小写字母  'a' << s[i] && s[i] << 'z'
+
+
+// 数字判断的严格性：'0' <= c && c <= '9' ⇒ IsDigit ⇒ IsNumber
+unicode.IsDigit(v rune)      // 是否为 数字 ['1-9']
+unicode.IsNumber(v rune)     // 是否为 数字 ['1-9', 'Ⅷ', '½'], 范围更大
+
+unicode.IsSpace(v rune)      // 是否为 空白符号, [' ', '\n', '\t']
+unicode.IsPunct(v rune)      // 是否为 标点字符, [',', ...]
+```
+
+:::
+
 
 ::: code-group-item byte
 
@@ -3671,54 +3636,37 @@ PORT = 8090
 ### ini
 
 ```go
-package main
-
 import (
 	"fmt"
+	"log"
 	"gopkg.in/ini.v1"
 )
 
 func main() {
 	file, err := ini.Load("config.ini")
 	if err != nil {
-		panic("Failed to load ini file")
+		log.Fatal("Failed to load ini file")
 	}
 
-	Db := file.Section("mysql").Key("Db").String()
 	DbHost := file.Section("mysql").Key("DbHost").String()
+	DbPort := file.Section("mysql").Key("DbPort").String()
+	DbUser := file.Section("mysql").Key("DbUser").String()
+	DbPass := file.Section("mysql").Key("DbPass").String()
+	DbName := file.Section("mysql").Key("DbName").String()
 
-	fmt.Printf("database: %s, host: %s \n", Db, DbHost)
+	fmt.Printf("host: %s, Port: %s \n", DbHost, DbPort)
+	fmt.Printf("username: %s, password: %s \n", DbUser, DbPass)
+	fmt.Printf("database: %s \n", DbName)
 }
 ```
 
 ```ini
-# debug开发模式,release生产模式
-[service]
-AppMode = debug
-HttpPort = :3000
-# 运行端口号 3000端口
-
-[redis]
-RedisDb = redis
-RedisAddr = 127.0.0.1:6379
-# redis ip地址和端口号
-RedisPw =
-# redis 密码
-RedisDbName = 2
-# redis 名字
-
 [mysql]
-Db = mysql
 DbHost = 127.0.0.1
-# mysql ip地址
 DbPort = 3306
-# mysql 端口号
 DbUser = root
-# mysql 用户名
-DbPassWord = root
-# mysql 密码
+DbPass = root
 DbName = todolist_db
-# mysql 名字
 ```
 
 ### yaml
@@ -3728,18 +3676,22 @@ $ go get -u "github.com/spf13/viper"
 ```
 
 ```go
-package main
-
 import (
 	"fmt"
+	"log"
+
 	"github.com/spf13/viper"
 )
 
 func main() {
-	// 初始化yml配置
-	InitConfigYml("config.yaml")
+	// 初始化yaml配置
+	viper.SetConfigType("yaml")
+	viper.SetConfigFile("config.yaml")
+	if err := viper.ReadInConfig(); err != nil {
+		log.Fatal(err)
+	}
 
-	// 获取yml配置项
+	// 获取yaml配置项
 	host := viper.GetString("mysql.host")
 	port := viper.GetString("mysql.port")
 	username := viper.GetString("mysql.username")
@@ -3747,24 +3699,15 @@ func main() {
 	dbname := viper.GetString("mysql.dbname")
 	fmt.Println(host, port, username, password, dbname)
 }
-
-func InitConfigYml(fileName string) {
-	viper.SetConfigType("yaml")
-	viper.SetConfigFile(fileName)
-	if err := viper.ReadInConfig(); err != nil {
-		panic(err)
-	}
-}
 ```
 
 ```yaml
 mysql:
   host: 127.0.0.1
   port: 3306
-  dbname:
   username: root
   password: root
-  charset: utf8mb4
+  dbname: gin_admin
 ```
 
 ### sql
