@@ -135,7 +135,12 @@ mysql> show databases;
 -- 查询当前所在数据库名
 mysql> select database();
 ```
+### SQL 使用数据库
 
+```sql
+-- use 数据库名;
+use sql_hello;
+```
 ### SQL 新建数据库
 
 ```sql
@@ -146,12 +151,7 @@ create database sql_hello;
 create database if not exists sql_hello;
 ```
 
-### SQL 使用数据库
 
-```sql
--- use 数据库名;
-use sql_hello;
-```
 
 
 
@@ -251,34 +251,6 @@ create table users (
 ```
 
 ::: details Example
-```sql
-CREATE TABLE `users` (
-    `user_id` int,
-    `first_name` varchar(100),
-    `last_name` varchar(100),
-    `city` varchar(100)
-);
-```
-
-```sql
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-    `user_id` int,
-    `first_name` varchar(100),
-    `last_name` varchar(100),
-    `city` varchar(100),
-    PRIMARY KEY(`user_id`)
-);
-```
-
-```sql
-CREATE TABLE leaderboard (
-    place int,
-    nickname varchar(128),
-    rating int,
-    PRIMARY KEY(place)
-);
-```
 
 ```sql
 drop table if exists employees;

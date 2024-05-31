@@ -12,7 +12,8 @@ const navbarConfig: NavbarConfig = [
 				text: "web框架",
 				children: [
 					{text: "React", link: "/guide/frontend/react/"},
-					{text: "Vue", link: "/guide/frontend/vue"},
+					{ text: "Vue",link: "/guide/frontend/vue" },
+					{text: "Vue3", link: "/guide/frontend/vue-pro"},
 					{text: "jQuery", link: "/guide/frontend/jquery"},
 				],
 			},

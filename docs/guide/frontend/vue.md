@@ -222,15 +222,14 @@ button:hover {
 
 ### vue-bind
 
-````vue
+::::
 ```vue
 <div :class="['progress-color', color]"></div>
 <div :style="{width: item.amount, background: item.color}"></div>
 <!-- 连接 -->
 <img :src="['/src/assets/icons/' + icon]" alt="" />
-````
 
-````
+```
 
 ::: vue-demo vue-bind.vue
 
