@@ -8,13 +8,17 @@ $ go get -u gorm.io/gorm
 $ go get -u gorm.io/driver/mysql
 ```
 
-### 2. Sqlite: Example
+### 2. MySQL: Example
 ```go
 package main
 
 import (
-	"gorm.io/driver/sqlite"
+	"log"
+
+	"gin-api/config"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 )
 
 type Product struct {
@@ -24,88 +28,51 @@ type Product struct {
 }
 
 func main() {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	dsn := config.GetYamlDsn()
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			SingularTable: true, // 设置全局表名禁用复数
+		},
+	})
 	if err != nil {
-		panic("failed to connect database")
+		log.Fatal("failed to connect database")
 	}
 
 	// 迁移 schema
 	db.AutoMigrate(&Product{})
 
 	// Create
-	db.Create(&Product{Code: "D42", Price: 100})
+	// db.Create(&Product{Code: "B12", Price: 200})
+	// db.Create(&Product{Code: "A71", Price: 100})
+	// db.Create(&Product{Code: "R17", Price: 300})
 
 	// Read
-	var product Product
-	db.First(&product, 1)                 // 根据整型主键查找
-	db.First(&product, "code = ?", "D42") // 查找 code 字段值为 D42 的记录
+	// var product Product
+	// db.First(&product, 1)                 // 根据整型主键查找
+	// db.First(&product, "code = ?", "D42") // 查找 code 字段值为 D42 的记录
 
 	// Update - 将 product 的 price 更新为 200
-	db.Model(&product).Update("Price", 200)
+	// db.Model(&product).Update("price", 200)
 	// Update - 更新多个字段
-	db.Model(&product).Updates(Product{Price: 200, Code: "F42"}) // 仅更新非零值字段
-	db.Model(&product).Updates(map[string]interface{}{"Price": 200, "Code": "F42"})
-
+	// db.Model(&product).Updates(Product{Price: 200, Code: "F42"}) // 仅更新非零值字段
+	// db.Model(&product).Updates(map[string]interface{}{"Price": 200, "Code": "F42"})
+	//
 	// Delete - 删除 product
-	db.Delete(&product, 1)
+	// db.Delete(&product, 1)
+
+	// sql := "SELECT * FROM product where price = 100"
+	// sql := "update `product` set code = 'AAA' where price = '100'"
+	// sql := "delete from product where price = 400;"
+	// res := db.Raw(sql).Scan(&product)
+	// fmt.Println(res)
+	// fmt.Println(&product)
+
+	// db.Exec("update `product` set code = 'AAA' where price = '100'")
+	// db.Exec("delete from product where price = 200")
 }
+
 ```
-
-### 3. MySQL: Example
-
-```go
-package main
-
-import (
-	"fmt"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
-)
-
-type Product struct {
-	gorm.Model
-	Code  string
-	Price uint
-}
-
-func main() {
-	dbUser := "root"
-	dbPass := "coulsonzero"
-	dbHost := "localhost"
-	dbName := "golang_api"
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		dbUser,
-		dbPass,
-		dbHost,
-		dbName,
-	)
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	if err != nil {
-		panic("failed to connect database")
-	}
-
-	db.AutoMigrate(&Product{})
-
-	// Create
-	db.Create(&Product{Code: "D42", Price: 100})
-
-	// Read
-	var product Product
-	db.First(&product, 1)                 // 根据整型主键查找
-	db.First(&product, "code = ?", "D42") // 查找 code 字段值为 D42 的记录
-
-	// Update - 将 product 的 price 更新为 200
-	db.Model(&product).Update("Price", 200)
-	// Update - 更新多个字段
-	db.Model(&product).Updates(Product{Price: 200, Code: "F42"}) // 仅更新非零值字段
-	db.Model(&product).Updates(map[string]interface{}{"Price": 200, "Code": "F42"})
-
-	// Delete - 删除 product
-	db.Delete(&product, 1)
-}
-```
-
-### 4. Gorm-Mysql 模块化
+### 3. Gorm-Mysql 模块化
 
 :::: code-group
 ::: code-group-item main.go
@@ -591,6 +558,123 @@ DbName = todolist_db
 :::
 ::::
 
+### 6. 加载 `yaml` 配置文件
+
+```go
+package config
+
+import (
+	"fmt"
+	"log"
+
+	"github.com/spf13/viper"
+)
+
+func GetYamlDsn() string {
+	viper.SetConfigType("yaml")
+	viper.SetConfigFile("setting.yaml")
+	if err := viper.ReadInConfig(); err != nil {
+		log.Fatal(err)
+	}
+
+	host := viper.GetString("mysql.host")
+	port := viper.GetString("mysql.port")
+	user := viper.GetString("mysql.username")
+	pass := viper.GetString("mysql.password")
+	dbname := viper.GetString("mysql.dbname")
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		user,
+		pass,
+		host,
+		port,
+		dbname,
+	)
+	return dsn
+}
+
+```
+
+```yaml
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: root
+  dbname: gin_api
+#  max_idle_conn: 50
+#  max_open_conn: 150
+
+```
+
+### 7.连接数据库并生成表
+```go
+package model
+
+import (
+	"fmt"
+	"log"
+	"time"
+
+	"gin-api/config"
+	"gin-api/entity"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+)
+
+var DB *gorm.DB
+
+func SetupDB() *gorm.DB {
+	dsn := config.GetYamlDsn()
+
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Fatal("Failed to create a connection to database")
+	}
+
+	fmt.Println("连接mysql数据库成功")
+	DB = db
+
+	DB.AutoMigrate(&entity.User{}, &entity.Book{})
+	return db
+}
+
+func CloseDB(db *gorm.DB) {
+	dbSQL, err := db.DB()
+	if err != nil {
+		log.Fatal("Failed to close connection from database")
+	}
+	dbSQL.SetMaxIdleConns(10)               // 最大空闲连接数
+	dbSQL.SetMaxOpenConns(100)              // 最多可容纳
+	dbSQL.SetConnMaxLifetime(time.Hour * 4) // 连接最大复用时间
+	dbSQL.Close()
+}
+
+```
+
+```go
+package entity
+
+import "gorm.io/gorm"
+
+type User struct {
+	gorm.Model
+	ID       uint64 `json:"id"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+	Token    string `json:"token"`
+}
+
+
+type Book struct {
+	User        User   `json:"user"`
+	ID          uint64 `json:"id"`
+	UserID      uint64 `json:"userID"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+}
+```
 
 ## CRUD接口
 

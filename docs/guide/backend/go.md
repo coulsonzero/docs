@@ -879,30 +879,6 @@ s := fmt.Sprintf("%d", num)	// 字符串格式化
 /* =========== 查 =========== */
 len(s string)    		  // 字符串长度
 s[i]		     		  // 索引字符
-strings.Index(s, substr)  // 子串索引, 不存在返回-1
-
-
-// 替换
-strings.ReplaceAll(str, old, new)			// 替换
-// strings.Replace(str, old, new , -1)	    // -1为全部, 等价于ReplaceAll()
-
-
-/* =========== 删 =========== */
-// 删除空白字符
-strings.TrimSpace(s string)		// 移除\n\t等
-strings.Trim(s string, " ")		// 移除空格(首尾)
-
-
-/* ====== 判断 ====== */
-strings.Contains()		// 包含
-strings.HasSuffix()		// endswith
-strings.HasPrefix()		// startswith
-
-// 大小写转换
-strings.ToUpper()							// 大写
-strings.ToLower()							// 小写
-strings.Title()								// 首字母大写
-cases.Title(language.Und).String(s string)  // 每个单词首字母大写
 ```
 
 :::
@@ -939,18 +915,6 @@ for _, v := range s {
 ::: code-group-item 类型转换
 
 ```go{3,5}
-/*============== 类型转换 ================*/
-// string <-> number
-strconv.Atoi(s string)	        // string -> number(int)
-strconv.ParseInt(str, 10, 64)   // string -> number(int64)
-strconv.Itoa(n int)	            // number -> string
-fmt.Sprintf("%d", n int)        // number -> string
-
-
-// string <-> array
-strings.Split(s string, sep string)		// string -> array
-strings.Join(arr []string, sep, string)	// array  -> string
-
 // byte | rune -> string
 string(c byte | r rune)
 // string -> []byte | []rune
@@ -959,54 +923,10 @@ string(c byte | r rune)
 ```
 
 :::
-::: code-group-item 字符
-
-```go
-/*============== 判断 ================*/
-
-// 判断字符类型
-unicode.IsLetter(v rune)     // 是否为 字母
-unicode.IsUpper(v rune)		 // 是否为 大写字母	 'A' << s[i] && s[i] << 'Z'
-unicode.IsLower(v rune)		 // 是否为 小写字母  'a' << s[i] && s[i] << 'z'
-
-
-// 数字判断的严格性：'0' <= c && c <= '9' ⇒ IsDigit ⇒ IsNumber
-unicode.IsDigit(v rune)      // 是否为 数字 ['1-9']
-unicode.IsNumber(v rune)     // 是否为 数字 ['1-9', 'Ⅷ', '½'], 范围更大
-
-unicode.IsSpace(v rune)      // 是否为 空白符号, [' ', '\n', '\t']
-unicode.IsPunct(v rune)      // 是否为 标点字符, [',', ...]
-```
-
-:::
-
-
 ::: code-group-item byte
 
 ```go
-// 判断字符类型
-unicode.IsLetter(v): 字母
-unicode.IsDigit(v) : 十进制数字
-unicode.IsNumber(v): 数字
-unicode.IsSpace(v) : 空白符号
-unicode.IsPunct(v) : Unicode标点字符
 
-c := 'a'
-fmt.Printf("char: %c, value: %v, typeof: %T \n", c, c, c)
-// char: a, value: 97, typeof: int32
-
-arr := [...]int{'a': 1}
-// len: 98, cap: 98, array: [..., 1]
-
-
-// 字符大小写转换  'a' -> 'A'
-func swapCase(c byte) byte {
-	c ^= 32
-	return c
-}
-
-'a'->'A': 'a'-32
-'A'->'a': 'a'+32
 ```
 
 :::
@@ -3037,18 +2957,17 @@ rand.Shuffle(len(nums), func(i, j int) {
 ### unicode
 
 ```go
-// 判断是否为字母(a-z|A-Z)
-unicode.IsLetter(v)
+unicode.IsLetter(v)			 // 是否为 字母(a-z|A-Z)
+unicode.IsDigit(v rune)      // 是否为 十进制数字 ['1-9']
+unicode.IsNumber(v rune)     // 是否为 数字 ['1-9', 'Ⅷ', '½'], 范围更大
+unicode.IsSpace(v rune)      // 是否为 空白符号, [' ', '\n', '\t']
+unicode.IsPunct(v rune)      // 是否为 标点字符, [',', ...]
 
-// 判断是否为十进制数字(0-9)
-unicode.IsDigit(v)
-// 判断是否为数字(0-9)
-unicode.IsNumber(v)
-
-// 判断是否为空白符号(' ')
-unicode.IsSpace(v)
-// 判断是否为Unicode标点字符(';', ',', ...)
-unicode.IsPunct(v)
+'A' << s[i] && s[i] << 'Z'		// 是否为 大写字母
+'a' << s[i] && s[i] << 'z'		// 是否为 小写字母
+'0' <= c && c <= '9' ⇒ IsDigit ⇒ IsNumber	// 数字判断的严格性
+'a'->'A': 'a'-32
+'A'->'a': 'a'+32
 ```
 
 ### strconv
@@ -3695,28 +3614,38 @@ WORLD
 
 ```go
 package main
-
 import (
 	"fmt"
-	"github.com/joho/godotenv"
+	"log"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
-func main() {
-	if err := godotenv.Load(); err != nil {
-		panic("Failed to load env file")
+
+func SetupDatabaseConnection() string {
+	errEnv := godotenv.Load()
+	if errEnv != nil {
+		log.Fatal("Failed to load env file")
 	}
-	host := os.Getenv("HOST")
-	port := os.Getenv("PORT")
 
-	fmt.Printf("host: %s, post: %s \n", host, port)
+	dbUser := os.Getenv("DB_USER")
+	dbPass := os.Getenv("DB_PASS")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbName := os.Getenv("DB_NAME")
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8&parseTime=True&loc=Local", dbUser, dbPass, dbHost, dbName)
+	return dsn
 }
-
 ```
 
 ```.env
-HOST = 127.0.0.1
-PORT = 8090
+DB_USER=root
+DB_PASS=root
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_NAME=gin_api
 ```
 
 ### ini
@@ -3725,11 +3654,12 @@ PORT = 8090
 import (
 	"fmt"
 	"log"
+
 	"gopkg.in/ini.v1"
 )
 
-func main() {
-	file, err := ini.Load("config.ini")
+func GetIniDsn() string {
+	file, err := ini.Load("setting.ini")
 	if err != nil {
 		log.Fatal("Failed to load ini file")
 	}
@@ -3740,9 +3670,15 @@ func main() {
 	DbPass := file.Section("mysql").Key("DbPass").String()
 	DbName := file.Section("mysql").Key("DbName").String()
 
-	fmt.Printf("host: %s, Port: %s \n", DbHost, DbPort)
-	fmt.Printf("username: %s, password: %s \n", DbUser, DbPass)
-	fmt.Printf("database: %s \n", DbName)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		DbUser,
+		DbPass,
+		DbHost,
+		DbPort,
+		DbName,
+	)
+
+	return dsn
 }
 ```
 
@@ -3752,7 +3688,7 @@ DbHost = 127.0.0.1
 DbPort = 3306
 DbUser = root
 DbPass = root
-DbName = todolist_db
+DbName = gin_api
 ```
 
 ### yaml
@@ -3769,21 +3705,27 @@ import (
 	"github.com/spf13/viper"
 )
 
-func main() {
-	// 初始化yaml配置
+func GetYamlDsn() string {
 	viper.SetConfigType("yaml")
-	viper.SetConfigFile("config.yaml")
+	viper.SetConfigFile("setting.yaml")
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatal(err)
 	}
 
-	// 获取yaml配置项
 	host := viper.GetString("mysql.host")
 	port := viper.GetString("mysql.port")
-	username := viper.GetString("mysql.username")
-	password := viper.GetString("mysql.password")
+	user := viper.GetString("mysql.username")
+	pass := viper.GetString("mysql.password")
 	dbname := viper.GetString("mysql.dbname")
-	fmt.Println(host, port, username, password, dbname)
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		user,
+		pass,
+		host,
+		port,
+		dbname,
+	)
+	return dsn
 }
 ```
 
@@ -3793,7 +3735,9 @@ mysql:
   port: 3306
   username: root
   password: root
-  dbname: gin_admin
+  dbname: gin_api
+#  max_idle_conn: 50
+#  max_open_conn: 150
 ```
 
 ### sql

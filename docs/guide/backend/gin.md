@@ -7,6 +7,7 @@
 1. 初始化 golang 项目
 
 ```sh
+$ cd <project-name>
 $ go mod init <project-name>
 $ go mod tidy
 ```
