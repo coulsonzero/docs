@@ -4,9 +4,7 @@ import {commentPlugin} from "vuepress-plugin-comment2"
 import {copyCodePlugin} from "vuepress-plugin-copy-code2"
 import {DefaultThemePluginsOptions} from "@vuepress/theme-default"
 import {registerComponentsPlugin} from "@vuepress/plugin-register-components"
-// import {getDirname, path} from "@vuepress/utils"
-// import {path} from "@vuepress/utils"
-// const __dir = getDirname(import.meta.url)
+
 
 const pluginConfig: DefaultThemePluginsOptions = [
 	[
@@ -74,14 +72,6 @@ const pluginConfig: DefaultThemePluginsOptions = [
 			],
 		},
 	],
-	// [
-	// 	registerComponentsPlugin({
-	// 		components: {
-	// 			// FooBar: path.resolve(__dirname, "./components/FooBar.vue"),
-	// 			componentsDir: path.resolve(__dir, "./components"),
-	// 		},
-	// 	})
-	// ]
 ]
 
 export default pluginConfig

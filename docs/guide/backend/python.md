@@ -2,15 +2,15 @@
 
 # python
 
-## Overview
+## 一、Overview
 
-### First Program
+### 1.1 First Program
 
 ```python
 print("hello world!")
 ```
 
-### Variables
+### 1.2 Variables
 ```py
 # 1. var
 num = 12
@@ -32,11 +32,11 @@ print(id(num))      # 4335862352
 num = 10
 print(id(num))      # 4335862288
 ```
-### Data Types
+### 1.3 Data Types
 ```py
 # number
-num : int   = 7
-pi  : float = 3.14
+num : int     = 7
+pi  : float   = 3.14
 c   : complex = 1 + 2j
 
 # boolean
@@ -60,7 +60,7 @@ is not None
 
 
 
-### Input & Output
+### 1.4 Input & Output
 
 **input**
 
@@ -96,7 +96,7 @@ print(f'{num}')
 print("{x}, {y}".format(x = 2, y = 12))
 ```
 
-### Comments
+### 1.5 Comments
 
 ```python
 # this is a single line comment
@@ -112,7 +112,7 @@ def func():
     # code
 ```
 
-### Operators
+### 1.6 Operators
 
 ```md
 + - * / % `//` `**`
@@ -134,7 +134,7 @@ print( "hello" +  " world" ) # "hello world"
 ```
 
 
-### import
+### 1.7 import
 
 ```python
 import ... [as ...]
@@ -145,24 +145,24 @@ from ... import ... [as ...]
 $ pip install library_name
 ```
 
-### Main
+### 1.8 Main
 
 ```python
 if __name__ = "__main__":
     print("this py file is not be import!")
 ```
 
-### Package exe
+### 1.9 Package exe
 
 ```cmd
 cmd> pyinstaller -F -w *.pyw
 ```
 
-## 常用数据类型
+## 二、常用数据类型
 
 ![DataTypes]
 
-### Number
+### 1. Number
 
 - int
 - float
@@ -174,205 +174,295 @@ b: float = 12.5
 c: complex = 1 + 2j
 ```
 
-### Boolean
+### 2. Boolean
 
 ```python
 flag: bool = True
 flag: bool = False
 ```
 
-### String
+### 3. String
 
+:::: code-group
+::: code-group-item init
 ```py
-
-s = 'hello world'
 s = "hello world"
 s: str = "hello world"
+```
 
-# `/`
-s = 'I\'m John Smith'
-s = "I'm John Smith"
-s = """this
-is a multiline
-text"""
-s = "A\nB\nC"
+:::
+::: code-group-item methods
 
-find()      # 索引字符
-index()     # 索引字符
-s[i]        # 字符索引
-count()     # 计数
-eval(s)     # 表达式求值
-replace()
-translate(''.maketrans())   # 加密
-strip()     # 删除字符
+```py
+# 查
+.find(str) ｜ .rfind(str)  # (不存在返回-1)
+.index(str)                # (不存在则抛出异常)
+.count(str)                # (不存在返回0)
+s[i]
 
-split()          # 字符串 -> 列表
-''.join(List)    # 列表 -> 字符串
+# string-list 转换
+.split()        # 默认为任意空白字符(\n,\t...)
+''.join(nums)
 
+# 改
+.replace(old, new)
+.strip()        # 删除两端空白字符
+```
+:::
+::: code-group-item other
+```python
 # 大小写：
-upper()
-lower()
-capitalize()    #字符串首字母大写
-title()         #字符串每个单词首字母大写
-swapcase()      #大小写转换
+.upper()
+.lower()
+.capitalize()    # 字符串首字母大写
+.title()         # 字符串每个单词首字母大写
+.swapcase()      # 大小写转换
 
 # 判断：
-startswith()
-endswith()
-isalpha()
-isdigit()
-isalnum()
-isupper()
-islower()
-isspace()
+.startswith()
+.endswith()
+.isalpha()
+.isdigit()
+.isalnum()      # 字符或数字
+.isupper()
+.islower()
+.isspace()
 
 # 填充：
-center()
-ljust()
-rjust()
+.center()
+.ljust()
+.rjust()
+
+
+eval(s)      # 表达式求值
+translate(''.maketrans())   # 加密
 ```
+:::
+
+::: code-group-item iter
+```python
+for i in s:
+    # code
+```
+:::
+::::
 
 ```py
 # 反转字符串
 s[::-1]
 ```
 
-### List 列表
+### 4. 列表 List
 
-> 不限制元素类型是否相同
+> 1. 不限制元素类型是否相同
+>
+> 2. 元素值可重复！
 
-**初始化**
-```py
-nums =  k
+:::: code-group
+::: code-group-item init
+```python
+nums = [3, 1, 7, 12, 6]
 nums: list = [3, 1, 7, 12, 6]
-nums = [
-    [1, 2, 3],
-    [4, 5, 6]
-]
 
+# notice !
 things = ["string", 0, [1, 2, 3], 3.14, num]
 ```
 
-**列表方法**
+:::
+::: code-group-item methods
 ```python
 # 增
 .append(e)       # 末尾新增元素
 .insert(i, e)    # 中间插入元素
 .extend([1, 2])  # 末尾合并新的列表元素(原地址)
-list + [1, 2]   # 末尾合并新的列表元素(新地址)
++= [1, 2]        # 末尾合并新的列表元素
 
 
 # 删
-.remove(e)       # 删除首次出现的元素
-.pop() | .pop(i) # 末尾删除｜删除指定索引元素 (返回删除的元素值)
+.pop()           # 末尾删除元素
+.pop(i)          # 删除指定index的value（index越界会报错）
+.remove(e)       # 删除指定value       （value不存在则报错）
 .clear()         # 清空元素
-del list[i]      # 删除指定索引元素 (不返回删除的元素值)
-del list[l:r]
-del list[:]
+del nums[i]      # 删除指定index的value（index越界会报错）
+del nums[l:r]    # 删除指定范围内[l, r)的元素
+del nums[:]      # 清空元素
+
+
 
 # 查
-.len(list)          # 长度
-if x in list:       # 判断包含
-if x not in list:   # 判断不包含(可读性强)
-# if not x in nums: # 判断不包含
-.index(e, start = 0, stop = len(list))    # 元素索引
-.count(e)        # 计数
-.copy()          # 浅复制
-id(list)         # 内存地址
-max(list)
-min(list)
-sum(list)
+len(nums)           # 长度
+.index(e)           # 元素值的索引 (不存在该元素值则ValueError: 2 is not in list)
+.count(e)           # 元素值出现的次数
+.copy()             # 浅复制
 
+if x in nums:       # 包含
+if x not in nums:   # 判断不包含(可读性强)
 
+# 改
+nums[i] = x        # 修改指定index的value
+
+:::
+::: code-group-item sort
+```python
 # 排序
-sort(key=None, reverse=False)
-sort()                          # 升序
-sort(reverse=True)              # 降序
-reverse()                       # 降序
-random.shuffle(List)            # 随机顺序
+.sort()                         # 升序
+.sort(reverse=True)             # 降序
+.sort(key=None, reverse=False)  # 默认升序
+
+.reverse()                      # 反转
+random.shuffle(nums)            # 随机顺序, 需引入 import random
+
 
 # 排序并返回新列表，原列表不变
-sorted()
+sorted(nums)                # 升序
 sorted(nums, reverse=True)  # 降序
-reversed()
+reversed(nums)
+```
+:::
 
+::: code-group-item 常用函数
+```python
+len(nums)           # 长度
+id(nums)            # 内存地址
+sum(nums)
+max(nums)
+min(nums)
 
+```
+:::
+::: code-group-item iter
+```python
+for i in range(len(nums)):
+    # code
+
+for i in nums:
+    # print(i)
+
+for i, v in enumerate(nums):
+    # print(i, v)
+```
+:::
+::: code-group-item 切片
+```python
 # 切片[start:stop:step]
-List[::]--------------顺序返回所有列表元素
-List[::-1]------------倒序返回所有列表元素
-List[::-2]------------每隔1个元素提取到列表
-List[:3]--------------前三个元素
+List[::]              # 顺序返回所有列表元素
+List[::-1]            # 倒序返回所有列表元素
+List[::-2]            # 每隔1个元素提取到列表
+List[:3]              # 前三个元素
 List[3:]
 
-# 访问元素
-List[i]
 
-
-# 删除重复项(末尾删除)
-for i in List[::-1]:
-    if List[i] == x:
-        List.remove(List[i])    # or `del List[i]`
-
+List[i]       # 访问元素
+del List[i]   # 删除元素
+List[i] = x   # 修改元素
+```
+:::
+::: code-group-item example
+```python
+# 删除有序数组的重复项(末尾删除)
 for i in range(len(nums)-1, -1, -1):
     if nums[i] == target:
+        nums.remove(nums[i])
+
+for i in List[::-1]:
+    if List[i] == x:
         del nums[i]
-
-
-# 列表推导式
-效果：[0,1,...,99]:
-代码：[x for x in range(100)] 或 list(range(100))
-
-效果：100以内的所有素数
-代码：[p for p in range(2,100) if 0 not in [p%d for d in range(2,int(sqrt(p))+1)]]
-
-效果：['Test1.py', 'Test2.py', 'Test3.pyw']
-代码：[filename for filename in os.listdir() if filename.endswith('.py','.pyw')]
-
-效果：去列表元素两端空白
-print([v.strip() for v in alist])
-
-for i, v in enumerate(alist):
-    alist[i] = v.strip()
-print(alist)
-
-print(list(map(str.strip, alist)))
 ```
+:::
+::::
 
-### 元组Tuple
+### 5. 元组 Tuple
 
-### 字典dict
+> 元组与列表类似，不同之处在于元组的元素不能修改。
 
 ```python
-get(key, new_v)
-items()
-keys()
-values()
+tup1 = ('Google', 'Runoob', 1997, 2000)
+tup2 = (1, 2, 3, 4, 5 )
+tup3 = (50,)    # 只包含一个元素时, 需添加逗号（不加逗号，类型为整型）
+```
 
-Dict[key]
+### 6. 字典 dict
 
-先按名称排序，同名则按年龄降序：
-sorted(Dict, key = lambda x:(x['name'], -x[age]))
+:::: code-group
+::: code-group-item init
+```python
+d = {}
+d = dict()
 
-效果：{'a': 87, 'b': 78, 'c': 98, 'd': 67}
-代码：
+d = {
+    'name': 'john',
+    'age': 23,
+    'email': 'john@163.com'
+}
+```
+:::
+::: code-group-item methods
+
+```python{3}
+# 查
+d[k]
+.get(k, default=None)
+.keys()
+.values()
+.items()
+
+# 增
+d[k] = value
+.update({'sex': 'male'})
+
+# 删
+.pop(k)
+.clear()
+
+# 判断
+if k in d:
+:::
+::: code-group-item sort
+```python
+# 按key排序
+sorted(d)
+# 按value排序
+sorted(d, key = lambda x: x[1])
+
+# 先按名称排序，同名则按年龄降序：
+sorted(d, key = lambda x:(x['name'], -x['age']))
+```
+:::
+::: code-group-item zip
+```python
+# 效果：{'a': 87, 'b': 78, 'c': 98, 'd': 67}
+# 代码：
 x = ['a','b','c','d']
 y = [87, 78, 98, 67]
 print({i:j for i,j in zip(x,y)})
 ```
 
-### 集合Set
+:::
+::: code-group-item for
+```py
+# 字典统计
+d = {}
+for num in nums:
+    d[num] = d.get(num, 0) + 1
+```
+:::
+::::
+### 7. 集合 Set
 
 ```python
-add(x)
-pop()
-remove(x)
+se = set({3, 1, 6, 2})
 
-A∪B、A∩B、差集、对称差集：| & - ^
-子集：< >
+# print(se)     # {1, 2, 3, 6}
+.add(x)
+.pop()
+.remove(x)
+.clear()
 
+# A∪B、A∩B、差集、对称差集：| & - ^
+# 子集：< >
 ```
 
-## Control Structures
+## 三、Control Structures
 
 ### If statement
 
@@ -411,41 +501,38 @@ while condition:
 
 ### break & continue
 
-## Function
+## 四、Function
 
-### void
+:::: code-group
+::: code-group-item void
 ```python
 def hello():
     # code
 ```
+:::
+::: code-group-item params
 
-### params
 ```py
-def hello(name):
+def hello(name, age):
     # code
-
-def max(a, b):
-    # if a > b:
-    #     return a
-    # else
-        # return b
-    return a if a > b else b
 ```
-
-### params default-value
+:::
+::: code-group-item params default-value
 ```py
 def hello(name = "John Smith"):
     # code
 ```
+:::
+::: code-group-item return
 
-### return
 
 ```py
 def hello(name):
     return "hello " + name
 ```
+:::
+::: code-group-item example
 
-### funcs
 ```py
 def square(x):
     return x * x
@@ -453,8 +540,9 @@ def square(x):
 def test(func, x):
     print(func(x))
 ```
+:::
+::: code-group-item lamba
 
-### lambda
 
 ```py
 def polynomial(x):
@@ -468,24 +556,26 @@ print((lambda x: x ** 2 + 5)(2))    # 9
 mult = lambda x: x * x
 print(mult(3))  # 9
 ```
-
-
-### 内置函数
+:::
+::: code-group-item 内置函数
 ```python
 str(12)     # '12'
 id()        # 返回变量值的内存地址
 ```
+:::
+::: code-group-item range
 
-### Range
 
 ```python
 range(5)        # [0, 1, 2, 3, 4]
 range(1, 5)     # [1, 2, 3, 4]
 range(1, 5, 2)  # [1, 3]
 ```
+:::
+::::
 
 
-## pythonic编程技巧
+## 五、pythonic编程技巧
 
 > 创建时间：2021年4月22日，更新时间：2021年8月27日
 
@@ -493,7 +583,7 @@ range(1, 5, 2)  # [1, 3]
 import this    # python之禅
 ```
 
-### 1. 变量的交换(Swapping Variables)
+### 1. 变量的交换
 
 ```py
 # other
@@ -505,8 +595,7 @@ b = tmp
 a, b = b, a
 ```
 
-### 2. 字符串格式化(String Formatting)
-
+### 2. 字符串格式化
 ```py
 #组合/拼接字符串
 name = "Ross"
@@ -525,7 +614,7 @@ print(f"Hi, I'm {name}. I'm from {country}. And I'm {age}.")
 print(f"该商品价格为：{price+1:.2f}")
 ```
 
-### 3. Yield 语法(Yield Statement)
+### 3. Yield 语法
 
 ```py
 # 列举斐波那契数列前n的和
@@ -542,7 +631,7 @@ for i in fibonacci(10):
     print(i)
 ```
 
-### 4. 列表解析式(List Comprehension)
+### 4. 列表解析式
 
 ```py
 # 常规
@@ -558,7 +647,7 @@ files = ['a.py', 'b.docx', 'c.txt', 'm.py', 'uio.py', 'date.txt']
 new_files = [x for x in files if x.endswith('py')]
 ```
 
-### 5. Enumerate 函数(Enumerate Function)
+### 5. Enumerate 函数
 
 ```py
 files = ['a.py', 'b.docx', 'c.txt', 'm.py', 'uio.py', 'date.txt']
@@ -588,8 +677,7 @@ for i, x in enumerate(sorted(files)):
     print(i, x)
 ```
 
-### 6. 字典的合并操作(Dictionary Merging)
-
+### 6. 字典的合并操作
 ```py
 a = {"coulson": "123456", "shville": "abc123"}
 b = {"tom": "123", "john": "12345"}
@@ -603,7 +691,7 @@ for k in b:
 c = {**a, **b}    # 解包
 ```
 
-### 7. 三元运算符(Ternary Operator)
+### 7. 三元运算符
 
 ```py
 if score > 60:
@@ -614,7 +702,7 @@ else:
 s = "pass" if score > 60 else "fail"
 ```
 
-### 8. 序列解包(Sequence Unpacking)
+### 8. 序列解包
 
 ```py
 name = 'San Zhang'
@@ -626,7 +714,7 @@ last_name = str_list[1]
 first_name, last_name = name.split()
 ```
 
-### 9. With 语句(With Statement)
+### 9. With 语句
 
 ```py
 f = open("somefile.txt", "r")
@@ -640,16 +728,123 @@ with open('somefile.txt','r') as f:
 
 ## File
 
-```py
-filename = "test.txt"
-file = open(filename, "w")
-file.write("""hello \
-this is a text
-you could change it
-in here""")
-file.close()
+:::: code-group
+::: code-group-item 读取文件
+```python
+with open("test.txt", mode="r", encoding="utf8") as fp:
+    print(fp.read(5))       # 读取5个字符
+    print(fp.read())        # 读取全部字符
+    print(fp.readline())    # 读取一行
+    print(fp.readlines())   # 读取所有行，返回列表
+    # ['hello this is a text\n', 'you could change it\n', 'in here']
+```
+:::
+::: code-group-item 写入文件
+```python
+with open("test.txt", mode="w", encoding="utf8") as fp:
+    fp.write("hello this is a text\nyou could change it\nin here")
+```
+:::
+::: code-group-item 追加写入文件
+```python
+with open("test.txt", mode="a", encoding="utf8") as fp:
+    fp.write("hello this is a text\nyou could change it\nin here")
+```
+:::
+::: 文件遍历
+```python
+import os
 
-with open(filename) as f:
-    text = f.read()
-print(text)
+
+# os.walk(): 更推荐
+def walkDir(path) -> list:
+    # if not os.path.isdir(path):
+    #     print('FileNotFoundError:', path, 'is not a directory or does not exist.')
+    #     return
+
+    ans = []
+    for root, dirs, files in os.walk(path):
+        # for d in dirs:
+        #     # print(os.path.join(root, d))
+        #     # ans.append(os.path.join(root, d))
+        #     pass
+        for f in files:
+            # print(os.path.join(root, f))
+            ans.append(os.path.join(root, f))
+
+    return ans
+
+
+# os.listdir() 递归
+def listDir(path):
+    for f in os.listdir(path):
+        fp = os.path.join(path, f)
+        print(fp)     # dirs
+        if os.path.isdir(fp):
+            listDir(fp)
+```
+:::
+::: code-group-item 文件筛选
+```python
+import os
+
+def demo():
+    ans = []
+    for f in os.listdir(os.getcwd()):
+        if os.path.isfile(f) and f.endswith('.py'):
+            ans.append(f)
+    print(ans)
+    # ['get-filename.py', 'file.py', 'example-file.py', 'read-file.py']
+```
+:::
+::::
+
+## packages
+
+### time
+```py
+import time
+
+# 当地时间
+now = time.strftime('%Y-%m-%d %H:%M:%S')
+print(now)
+```
+```py
+# 休眠3秒
+time.sleep(3)
+```
+
+```py
+# 统计用时
+start = time.time()
+end = time.time()
+print(f'cpu执行用时: {(end - start) :.3f} s')
+```
+```py
+import calendar
+
+cal = calendar.month(2021, 4)
+print(cal)
+
+'''
+     April 2021
+Mo Tu We Th Fr Sa Su
+          1  2  3  4
+5  6  7  8  9 10 11
+12 13 14 15 16 17 18
+19 20 21 22 23 24 25
+26 27 28 29 30
+'''
+```
+
+### re
+```py
+import re
+
+
+s = "$1800, 卫衣, 90"
+p = re.compile('\d+')
+res = p.findall(s)
+print(res)
+# ['1800', '90']
 ```

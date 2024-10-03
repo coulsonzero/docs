@@ -508,10 +508,11 @@ fn greet(name: &str) {
 
 ```rust
 // init
-let s: &str = "Hello, world!";
-let s: String = String::from("hello world");
-let s: String = "Hello".to_string();
-let s: String = "also this".into();
+let s:  &str   = "Hello, world!";
+let s: String = String::from("Hello, world!");
+let s: String = "Hello, world!".to_string();
+let s: String = "Hello, world!".into();
+let s = String::new();
 
 
 // methods
@@ -620,10 +621,18 @@ let mut nums: Vec<i32> = (1..10).collect();
 
 ```rust
 // init
-let mut map: HashMap<String, i32> = HashMap::new();
+let mut map: HashMap<&str, i32> = HashMap::new();
+let map = HashMap::from([("a", 1),("b", 2),("c", 3)]);
 
 // methods
 map.insert(k, v);
+
+println!("{:?}", map);
+
+// for-loop
+for (k, v) in map {
+    println!("{}: {}", k, v);
+}
 ```
 
 ### Tuple

@@ -191,7 +191,7 @@ function handleSubmit(e) {
 
 ```jsx
 import "./Com.css"
-;<div className="container"></div>
+<div className="container"></div>
 ```
 
 ```css
@@ -207,7 +207,7 @@ import "./Com.css"
 
 ```jsx
 import "@/styles/home.scss"
-;<div className="container"></div>
+<div className="container"></div>
 ```
 
 ```scss
@@ -1065,7 +1065,7 @@ export default SetStateDemo
 :::: code-group
 ::: code-group-item class 方式
 
-```jsx
+```jsx{8,4}
 import React from "react"
 
 class MyButton extends React.Component {
@@ -1081,7 +1081,7 @@ class MyButton extends React.Component {
 :::
 ::: code-group-item class 方式 2
 
-```jsx
+```jsx{7,9,13}
 import React from "react"
 
 class MyButton extends React.Component {
@@ -1101,7 +1101,7 @@ class MyButton extends React.Component {
 
 :::
 ::: code-group-item class 方式 3
-```jsx
+```jsx{8}
 import React from "react"
 
 class MyButton extends React.Component {

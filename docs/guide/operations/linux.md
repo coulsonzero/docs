@@ -90,6 +90,39 @@
 
 ## 文件及目录管理
 
+```sh
+$ ls
+$ pwd
+$ mdkir test
+$ cd test
+# 改名
+$ mv old.txt new.txt
+# 复制
+$ cp test.go test2.go
+# 查看权限
+$ ll
+# 修改权限: u 用户，g 同组成员, o 其他成员，r可读 w可写 x可执行
+$ chmod u=rwx, g=r, o=r test.txt
+# 删除目录
+$ rm -rf test
+```
+
+```sh
+$ clear
+$ history
+$ ifconfig
+$ top
+$ free
+# 内存占用
+$ du
+# 磁盘
+$ df
+# 进程
+$ ps
+# 杀死进程pid
+$ kill 2799
+```
+
 ### ls
 
 > 列出目录和文件
@@ -328,6 +361,13 @@ $ du -sh ./*
 608K    ./src
 420K    ./yarn.lock
 ```
+
+## 命令
+
+### 内存大小: free
+### 磁盘空间: df
+### 进程: ps
+### 网络连接情况-netstat
 
 ## Linux常用命令
 

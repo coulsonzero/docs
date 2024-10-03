@@ -13,7 +13,7 @@ const navbarConfig: NavbarConfig = [
 				children: [
 					{text: "React", link: "/guide/frontend/react/"},
 					{ text: "Vue",link: "/guide/frontend/vue" },
-					{text: "Vue3", link: "/guide/frontend/vue-pro"},
+					// {text: "Vue3", link: "/guide/frontend/vue-pro"},
 					{text: "jQuery", link: "/guide/frontend/jquery"},
 				],
 			},
@@ -64,11 +64,12 @@ const navbarConfig: NavbarConfig = [
 	{
 		text: "后端",
 		children: [
-			// {text: "C", link: "/guide/backend/c"},
-			{text: "C++", link: "/guide/backend/c++"},
+
 			{ text: "Python",link: "/guide/backend/python" },
 			{ text: "Java",link: "/guide/backend/java" },
-			{text: "Go", link: "/guide/backend/go"},
+			{ text: "Go",link: "/guide/backend/go" },
+			{ text: "C++",link: "/guide/backend/c++" },
+			// {text: "C", link: "/guide/backend/c"},
 			// {text: "Kotlin", link: "/guide/backend/kotlin"},
 			// {text: "Swift", link: "/guide/backend/swift"},
 			{ text: "Rust",link: "/guide/backend/rust" },

@@ -70,9 +70,9 @@ console.log("Hello World!")
 ### Variables
 
 ```javascript
-var num = 2 // 全局变量
-let x = "Pol" // 局部变量
-const PI = 3.14 // 常量
+var num = 2 	  // 全局变量
+let x = "Pol"     // 局部变量
+const PI = 3.14   // 常量
 ```
 
 ### Comments
@@ -102,10 +102,11 @@ false(0 / null / undefined / "")
 :::
 
 ```js
-var num = 12 // number
-var price = 42.3 // number
-var name = "Coulson" // string
-var isActive = false // boolean
+var num = 12 			// number
+var price = 42.3 		// number
+var name = "Coulson" 	// string
+var isActive = false 	// boolean
+
 // 数组
 var nums = [1, 2, 3, 4, 5]
 // 实例对象(字典)
@@ -236,20 +237,16 @@ switch (day) {
 
 ### For Loops
 
-```javascript
-let arr = [2, 3, 7, 8]
-
+```javascript{1}
 for (let i = 0; i < arr.length; i++) {}
-for (let v of str) {
-}
-for (let v of list) {
-}
-for (let v in dict) {
-}
+for (let v of str) {}
+for (let v of list) {}
+for (let v in dict) {}
+
 arr.forEach(function (v) {})
 arr.forEach((v) => {})
 arr.forEach((v, i) => {})
-//索引越界 -> "undefined"
+// 索引越界 -> "undefined"
 ```
 
 ### While Loop
@@ -568,45 +565,8 @@ console.log(p.name)     // name: Tom
 
 ### 1. String
 
-```javascript
-let str = "coulsonzero"
-
-console.log(`hello ${str}`) // hello coulsonzero
-console.log(typeof str) // string
-console.log(typeof str === "string") // true
-
-length
-charAt()
-indexOf()
-slice()
-substring()
-substr()
-concat()
-split()
-
-search()
-match()
-replace() // 仅替换第一个
-replaceAll()
-
-toFixed() // 保留小数点位数
-trim()
-
-includes()
-startsWith()
-endsWith()
-toUpperCase()
-toLowerCase()
-
-padStart()
-padEnd() // 自动补全位数
-
-Number(str) // str -> number
-!isNaN(Number(str)) // 是否为数字
-```
-
 :::: code-group
-::: code-group-item 新建
+::: code-group-item init
 
 ```js
 let str1 = "Hello, React !"
@@ -626,9 +586,9 @@ let str = "Hello, React !"
 let str1 = new String("Hello, React !")
 let str2 = new String("Hello, React !")
 
-console.log(str1 == str) // true:  值相等
-console.log(str1 === str) // false: 类型不同，对象与字符串
-console.log(str1 == str2) // false: 对象无法比较值
+console.log(str1 == str)   // true:  值相等
+console.log(str1 === str)  // false: 类型不同，对象与字符串
+console.log(str1 == str2)  // false: 对象无法比较值
 console.log(str1 === str2) // false: 对象无法比较值
 ```
 
@@ -646,19 +606,16 @@ console.log(str1 === str2) // false: 对象无法比较值
  */
 
 let str = "Hello, React !"
-
-console.log(str.indexOf("e")) // Output: 1
-console.log(str.lastIndexOf("e")) // Output: 8
-console.log(str.indexOf("e", 2)) // Output: 8
-console.log(str.search("e")) // Output: 1
+console.log(str.indexOf("e")) 		// Output: 1
+console.log(str.lastIndexOf("e"))   // Output: 8
+console.log(str.indexOf("e", 2))    // Output: 8
 
 let newStr = "Hello, 3306 world! "
-console.log(newStr.search(/\d+/g)) // Output: 7
+console.log(newStr.search(/\d+/g))  	 // Output: 7
+console.log(newStr.replace(/\d/g, ""))	 // Hello, world!
 
 var str = "hello3306world8080pop"
-console.log(str.match(/\d+/g)) // [ '3306', '8080' ]
-
-console.log(newStr.replace(/\d/g, "")) // Hello, world!
+console.log(str.match(/\d+/g))     				  // ['3306', '8080']
 console.log(str.replace(/(\w+)\s(\w+)/, "$2, $1")) // Hello, React
 ```
 
@@ -674,293 +631,91 @@ console.log(str.replace(/(\w+)\s(\w+)/, "$2, $1")) // Hello, React
 
 let str = "Hello, React !"
 
-console.log(str.slice(-5, -1)) // act
-console.log(str.slice(3)) // lo, React !
-console.log(str.slice(3, 5)) // lo
+console.log(str.slice(-5, -1))   // act
+console.log(str.slice(3)) 		 // lo, React !
+console.log(str.slice(3, 5)) 	 // lo
 console.log(str.substring(3, 5)) // lo
-console.log(str.substr(3, 5)) // lo, R
-```
-
-:::
-::: code-group-item 拼接
-
-```js
-console.log("Hello" + ", " + "World!") // "Hello, World!"
-let word1 = "Hello",
-	word2 = "World!"
-console.log(`${word1}, ${word2}`) // "Hello, World!"
-console.log("Hello".concat("World")) // "HelloWorld"
-console.log("Hello".concat(", ", "World")) // "Hello, World"
-```
-
-:::
-::: code-group-item 分割
-
-```js
-var str = "127.0.0.1"
-console.log(str.split(".")) // [ '127', '0', '0', '1' ]
-console.log(str.split()) // [ '127.0.0.1' ]
-
-var str = "Hello World"
-console.log(str.split()) // [ 'Hello World' ]
-console.log(str.split("")) // ['H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd']
-console.log(str.split(" ")) // [ 'Hello', 'World' ]
+console.log(str.substr(3, 5))    // lo, R
 ```
 
 :::
 
-::: code-group-item 判断
-
-```js
-let str = "script.js"
-console.log(str.includes("hello")) // false
-console.log(str.startsWith("main")) // false
-console.log(str.endsWith("js")) // true
-
-// 判断字符串中的字符是否为非数字
-!isNaN(Number("3")) // true
-```
-
-:::
 
 ::::
 
-::: details 示例
 
+::: details example
 ```js
-var str = "Hello, React !"
+let str = "hello world"
 
-/**
- * ==: 比较值相等
- * ===: 比较值和类型同时相等
- */
-
-var str1 = new String("Hello, React !")
-var str2 = new String("Hello, React !")
-console.log(str1 == str) // true:  值相等
-console.log(str1 === str) // false: 类型不同，字符串与对象
-console.log(str1 == str2) // false: 对象无法比较值
-console.log(str1 === str2) // false: 不同对象
-
-console.log(str.length)
-// Output: 14
-
-/**
- * 索引
- * indexOf(): 可以使用第二个参数指定开始索引
- * lastIndexOf()
- * search(): 可以使用正则
- *
- * replace(): 可以使用正则, 替换字符
- */
-
-console.log(str.indexOf("e"))
-// Output: 1
-
-console.log(str.lastIndexOf("e"))
-// Output: 8
-
-console.log(str.indexOf("e", 2))
-// Output: 8
-
-console.log(str.search("e"))
-// Output: 1
-
-var newStr = "Hello, 3306 world! "
-console.log(newStr.search(/\d+/g))
-// Output: 7
-
-console.log(newStr.replace(/\d/g, ""))
-// Hello,  world!
-
-/**
- * slice(start, end): 可以使用负数
- * substring(start, end)
- * substr(start, length)
- */
-
-console.log(str.slice(-5, -1))
-// "act"
-
-console.log(str.slice(3))
-// lo, React !
-
-console.log(str.slice(3, 5))
-// lo
-
-console.log(str.substring(3, 5))
-// lo
-
-console.log(str.substr(3, 5))
-// lo, R
-
-console.log(str.toUpperCase()) // "HELLO, REACT !"
-console.log(str.toLowerCase()) // "hello, react !"
-console.log(str.toLocaleLowerCase()) // "hello, react !"
-
-console.log("Hello" + ", " + "World!") // "Hello, World!"
-let word1 = "Hello",
-	word2 = "World!"
-console.log(`${word1}, ${word2}`) // "Hello, World!"
-console.log("Hello".concat("World")) // "HelloWorld"
-console.log("Hello".concat(", ", "World")) // "Hello, World"
-
-console.log(" Hello,  World".trim())
-// Hello,  World
-
-console.log(str.charAt(3))
-// Output: 'l'
-
-var str = "127.0.0.1"
-console.log(str.split("."))
-// [ '127', '0', '0', '1' ]
-
-console.log(str.split())
-// [ '127.0.0.1' ]
-
-var str = "Hello World"
-console.log(str.split())
-// [ 'Hello World' ]
-console.log(str.split(""))
-/*
-[
-  'H', 'e', 'l', 'l',
-  'o', ' ', 'W', 'o',
-  'r', 'l', 'd'
-]
-*/
-console.log(str.split(" "))
-// [ 'Hello', 'World' ]
-
-var str = "script.js"
-console.log(str.startsWith("main")) // false
-console.log(str.endsWith("js")) // true
-
-var str = "hello3306world8080pop"
-console.log(str.match(/\d+/g))
-// [ '3306', '8080' ]
-
-console.log(str.includes("hello")) // true
-console.log(str.indexOf("hello")) // 0
-console.log(str.indexOf("hello", 3)) // -1
-
-console.log(str.includes("react")) // false
-console.log(str.indexOf("react")) // -1
-
-var str = "Hello world"
-console.log(typeof str) // string
+// 查询
+console.log(str)
+console.log(typeof str)              // string
 console.log(typeof str === "string") // true
+console.log(str.length)              // 11
+console.log(str.charAt(0))           // h
+console.log(str.indexOf("w"))        // 6 (不存在返回-1)
+console.log(str.substring(3, 5))     // lo
+console.log(str.slice(3, 5))         // lo
+// 修改
+console.log(str.concat("!"))         // hello world!
+console.log(str.split(" "))          // ["hello", "world"]
+console.log(str.replace("world", "earth"))   // "hello earth"
+console.log(" hello world ".trim())   // "hello world"
+console.log("7".padStart(2, "0"))     // "07"
+console.log("3.14".padEnd(5, "0"))    // "3.140"
+str2 = "hello3306world8080pop"
+console.log(str2.match(/\d+/g))       // [ '3306', '8080' ]
+// 判断
+console.log(str.includes("world"))    // true
+console.log(str.startsWith("hello"))  // true
+console.log(str.endsWith("world"))    // true
+console.log(str.toUpperCase())        // HELLO WORLD
+console.log(str.toLowerCase())        // hello world
 
-var arr = str.split(" ")
-console.log(typeof arr) // object
-console.log(Array.isArray(arr)) // true
-console.log(arr instanceof Array) // true
+
 ```
 
 :::
+
+
 
 ### 2. Array
 
-**定义数组**
 :::: code-group
-::: code-group-item 简化
-
+::: code-group-item init
 ```js
-let arr = ["HTML", "CSS", "JS", "C++"]
+var arr = new Array("HTML", "CSS", "JS", "C++")		// old
+let arr = ["HTML", "CSS", "JS", "C++"]				// new
 ```
-
 :::
 
-::: code-group-item 原始
-
-```js
-var arr = new Array("HTML", "CSS", "JS", "C++")
-```
-
-:::
-
-::: code-group-item 原始 2
-
-```js
-// var arr = new Array(4)
-// 数组长度可以不声明
-var arr = new Array()
-
-arr[0] = "HTML"
-arr[1] = "CSS"
-arr[2] = "JS"
-arr[3] = "C++"
-```
-
-:::
-
-::: code-group-item 多次声明变量
-
-```js
-var str1 = "HTML"
-var str2 = "CSS"
-var str3 = "JS"
-var str4 = "C++"
-```
-
-:::
-::::
-
-**访问数组**
-
-```js
-const nums = [1, 3, 6, 9, 15]
-
-nums[0] // 1
-nums[1] // 3
-nums[5] // undefined
-```
-
-**数组属性与方法**
-
-```js
-const nums = [1, 3, 6, 9, 15]
-
-nums.length // 长度: 5
-nums.concat([2, 7]) // 数组合并
-```
-
-```javascript
-//数组合并
-let newArr = ["Three", "Four"]
-let arr = ["One", "Two", ...newArr, "Five"]
-```
-
-**数组对象**
-
-```js
-var person = []
-person["name"] = "John"
-person["age"] = 20
-
-console.log(person["age"]) // 20
-```
-
+::: code-group-item methods
 ```js
 // 查
-arr.length
-arr.slice(-1)                 // 返回索引元素，切片
-arr.indexOf(e, [startIndex])  // 返回元素索引, 不存在则返回-1
-arr.includes(e)               // true/fasle
+.length
+.slice(-1)                 // 返回元素，切片
+.indexOf(e, [startIndex])  // 返回索引, 不存在则返回-1
+.includes(e)               // true or fasle
 
 // 增删
-arr.push(e)      // 末尾添加
-arr.pop()        // 末尾删除
-arr.unshift(e)   // 首部添加
-arr.shift()      // 首部删除
-
-// 排序
-arr.sort()              // 按字符名称排序
-arr.sort((a,b) => a-b)  // 从小到大
-arr.sort((a,b) => b-a)  // 从大到小
+.push(e)      // 末尾添加
+.pop()        // 末尾删除
+.unshift(e)   // 首部添加
+.shift()      // 首部删除
+```
+:::
+::: code-group-item sort
+```js{1,2}
+arr.sort((a,b) => a-b)  	// 从小到大
+arr.sort((a,b) => b-a)  	// 从大到小
+arr.sort()              	// 按字符名称排序
 arr.sort((a, b) => b.date.localeCompare(a.date))	// 日期就近排序
+```
+:::
+::: code-group-item other
+```js
 arr.reverse()
-
 // 数组---字符串
 arr.join('')     // 数组->字符串，默认','
 str.split('')    // 字符串->数组
@@ -991,35 +746,29 @@ function uniqueArr() {
 	}
 	return res
 }
-
-
+```
+:::
+::: code-group-item isArray
+```js{3,4}
 // 数组判断
 let arr = [1, 2, 3]
 console.log(Array.isArray(arr))		// true, 推荐此方法
+console.log(arr instanceof Array)	// true
 
 console.log(typeof arr)  // object
 console.log(typeof {})	 // object
 console.log(typeof null) // object
-
-console.log(arr instanceof Array)	// true
-
 ```
+:::
+::::
 
 ::: details 数组原地排序的区别
 
 ```js
 let arr = [1, 5, 3, 9, 2, 10, 12]
-arr.sort((a, b) => a - b)
-console.log(arr) // [1, 2, 3, 5, 9, 10, 12]
-
-arr.sort((a, b) => b - a)
-console.log(arr) // [12, 10, 9, 5, 3, 2, 1]
-
-arr.sort()
-console.log(arr) // [1, 10, 12, 2, 3, 5, 9]
-
-arr.reverse()
-console.log(arr) // [9, 5, 3, 2, 12, 10, 1]
+arr.sort((a, b) => a - b)	// [1, 2, 3, 5, 9, 10, 12]
+arr.sort((a, b) => b - a)	// [12, 10, 9, 5, 3, 2, 1]
+arr.sort()					// [1, 10, 12, 2, 3, 5, 9]
 ```
 
 :::
@@ -1073,8 +822,105 @@ console.log(["f", "o", "o"].join("")) // "foo"
 ```
 
 :::
+### 3. Map
 
-### 3. 字典
+:::: code-group
+::: code-group-item init
+
+```javascript
+let map = {}
+let map = new Map()
+let map = new Map([
+	["k1", "v1"],
+	["k2", "v2"],
+])
+```
+:::
+::: code-group-item methods
+
+```js
+// 查
+.size
+.get(key)
+.has(key)
+.set(key, value)	// 增
+.delete(key)		// 删
+.clear()
+
+.keys()
+.values()
+.entries()
+```
+:::
+::: code-group-item for loop
+```js
+for (let key in map) {
+	// code
+}
+
+
+map.forEach((k, v) => console.log(k, v))
+/*
+v1 k1
+v2 k2
+*/
+for (let item of map.entries()) {
+	console.log(item)
+}
+/*
+[ 'k1', 'v1' ]
+[ 'k2', 'v2' ]
+*/
+
+for (let item of map.entries()) {
+	console.log(item[0], item[1])
+}
+/*
+k1 v1
+k2 v2
+*/
+```
+
+:::
+::::
+
+::: details 查看 Map 示例
+
+```js
+let map = new Map([
+	["k1", "v1"],
+	["k2", "v2"],
+])
+
+console.log(map) // Map(2) { 'k1' => 'v1', 'k2' => 'v2' }
+map.forEach((k, v) => console.log(k, v))
+for (let item of map.entries()) {
+	console.log(item)
+}
+/*
+[ 'k1', 'v1' ]
+[ 'k2', 'v2' ]
+*/
+
+for (let item of map.entries()) {
+	console.log(item[0], item[1])
+}
+/*
+k1 v1
+k2 v2
+*/
+
+map.set("k3", "v3").set("k4", "v4")
+map.delete("k3")
+map.clear()
+console.log(map.get("k2")) // undefined
+console.log(map.has("k3")) // false
+```
+
+:::
+
+
+### 4. 字典
 
 ```javascript
 let a = {x: 1, x: 2, x: 3, x: 4}
@@ -1126,7 +972,7 @@ function filterData(query) {
 }
 ```
 
-### 3. Set
+### 5. Set
 
 **创建集合**
 
@@ -1174,7 +1020,7 @@ for (let v of set.values()) {
 
 :::
 
-### Object
+### 6. Object
 
 ```js
 Object.keys(obj)
@@ -1212,95 +1058,6 @@ let res = data.map((item) => (item = {id: item.id, name: item.name}))
 console.log(res)
 ```
 
-### 4. Map
-
-**创建 Map**
-
-```javascript
-let map = new Map([
-	["k1", "v1"],
-	["k2", "v2"],
-])
-
-let map = new Map()
-```
-
-::: tip
-
-```js
-//API
-长度: size
-
-增: set(key, value)
-
-删: delete key
-删: clear()
-
-查: get(key)
-查: has(key)
-keys()
-values()
-entries()
-
-遍历: console.log(map) // Map(2) { 'k1' => 'v1', 'k2' => 'v2' }
-map.forEach((k, v) => console.log(k, v))
-/*
-v1 k1
-v2 k2
-*/
-for (let item of map.entries()) {
-	console.log(item)
-}
-/*
-[ 'k1', 'v1' ]
-[ 'k2', 'v2' ]
-*/
-
-for (let item of map.entries()) {
-	console.log(item[0], item[1])
-}
-/*
-k1 v1
-k2 v2
-*/
-```
-
-:::
-
-::: details 查看 Map 示例
-
-```js
-let map = new Map([
-	["k1", "v1"],
-	["k2", "v2"],
-])
-
-console.log(map) // Map(2) { 'k1' => 'v1', 'k2' => 'v2' }
-map.forEach((k, v) => console.log(k, v))
-for (let item of map.entries()) {
-	console.log(item)
-}
-/*
-[ 'k1', 'v1' ]
-[ 'k2', 'v2' ]
-*/
-
-for (let item of map.entries()) {
-	console.log(item[0], item[1])
-}
-/*
-k1 v1
-k2 v2
-*/
-
-map.set("k3", "v3").set("k4", "v4")
-map.delete("k3")
-map.clear()
-console.log(map.get("k2")) // undefined
-console.log(map.has("k3")) // false
-```
-
-:::
 
 ## 库函数
 

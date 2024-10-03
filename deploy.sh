@@ -27,4 +27,4 @@ git push -f git@github.com:coulsonzero/docs.git master:gh-pages
 
 cd -
 
-rm -rf docs/.vuepress/dist
+# rm -rf docs/.vuepress/dist
