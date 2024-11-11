@@ -88,7 +88,161 @@
 ```
 
 
+## 目录
+### 新建目录
+```sh
+$ mkdir test
+```
+
+### 更改目录
+切换当前目录
+```sh
+$ cd test
+$ cd ..
+$ cd ~
+```
+更改目录或文件权限
+`修改权限: u 用户，g 同组成员, o 其他成员，r 可读 w 可写 x 可执行`
+```sh
+$ chmod u=rwx, g=r, o=r test.txt
+```
+
+**复制**目录
+```sh
+$ cp -r test test2
+```
+**移动**目录
+```sh
+$ mv config test
+```
+
+### 查询目录
+
+查询当前目录
+```sh
+$ pwd
+```
+列举目录下的所有文件及子目录
+```sh
+$ ls
+```
+树列
+```sh
+$ tree
+```
+
+
+### 删除目录
+```sh
+$ rm -rf test
+```
+
+仅支持删除空目录！
+```sh
+$ rmdir test
+```
+
+### 压缩及解压
+```sh
+# 压缩
+$ tar -cvf test.tar test/
+# 解压
+$ tar -xvf test.tar
+```
+
+## 文件
+
+### 新建文件
+#### touch
+```sh
+$ touch test.txt
+```
+
+### 修改文件
+```sh
+$ vi test.txt
+$ vim test.txt
+```
+echo写入文件
+```sh
+$ echo "hello world" > test.txt
+```
+
+### 查询文件
+`cat、more、less`
+
+`head tail`
+```sh
+$ cat test.txt
+$ head -n 5 test.txt
+```
+
+`find`
+```sh
+$ find ./test -name "*.txt"
+```
+### 删除文件
+```sh
+$ rm test.txt
+```
+## 系统管理
+
+```sh
+$ clear
+$ history
+```
+
+### 网关
+```sh
+$ ifconfig
+```
+
+测试网络畅通
+```sh
+$ ping www.baidu.com
+```
+下载文件
+```sh
+$ curl -O https://www.baidu.com/img/bd_logo1.png
+```
+### 进程
+```sh
+$ ps
+$ kill 2309
+```
+实时显示进程状态
+```sh
+$ top
+```
+
+### 内存
+```sh
+$ free -h
+```
+```sh
+$ du
+$ du -sh test     # 查看目录大小
+```
+
+### 磁盘
+```sh
+$ df -h
+```
+
+### cpu核数
+```sh
+$ lscpu
+$ cat /proc/cpuinfo
+```
+
+
+
+## 目录及文件
+
+```sh
+$ ps -ef
 ## 文件及目录管理
+
 
 ```sh
 $ ls
