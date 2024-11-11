@@ -1,0 +1,1 @@
+const e={key:"v-67a94d0d",path:"/guide/backend/flask.html",title:"Flask",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[{level:2,title:"\u5FEB\u901F\u542F\u52A8",slug:"\u5FEB\u901F\u542F\u52A8",children:[]}],git:{updatedTime:1650468259e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:2}]},filePathRelative:"guide/backend/flask.md"};export{e as data};
