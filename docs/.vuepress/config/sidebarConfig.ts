@@ -126,16 +126,16 @@ const sidebarConfig = {
 			title: "Backend",
 			collapsable: false,
 			sidebarDepth: 1,
-			children: ["go.md",
+			children: [
 				"c.md",
 				"c++.md",
 				"python.md",
 				"django.md",
 				"flask.md",
-				"pyside6.md"
+				"pyside6.md",
 				"go.md",
 				"gin.md",
-				"gorm.md"
+				"gorm.md",
 				"java.md",
 				"rust.md",
 				"kotlin.md",
