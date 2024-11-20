@@ -188,6 +188,9 @@ flag: bool = False
 ```py
 s = "hello world"
 s: str = "hello world"
+s = """this
+is a multi-line
+text"""
 ```
 
 :::
@@ -201,12 +204,14 @@ s: str = "hello world"
 s[i]
 
 # string-list 转换
-.split()        # 默认为任意空白字符(\n,\t...)
+.split()        # 默认为任意空白字符(space, \n,\t...)
 ''.join(nums)
 
 # 改
 .replace(old, new)
 .strip()        # 删除两端空白字符
+# 反转字符串
+s[::-1]
 ```
 :::
 ::: code-group-item other
@@ -247,10 +252,6 @@ for i in s:
 :::
 ::::
 
-```py
-# 反转字符串
-s[::-1]
-```
 
 ### 4. 列表 List
 
@@ -281,7 +282,7 @@ things = ["string", 0, [1, 2, 3], 3.14, num]
 # 删
 .pop()           # 末尾删除元素
 .pop(i)          # 删除指定index的value（index越界会报错）
-.remove(e)       # 删除指定value       （value不存在则报错）
+.remove(e)       # 删除指定单个value   （value不存在则报错）
 .clear()         # 清空元素
 del nums[i]      # 删除指定index的value（index越界会报错）
 del nums[l:r]    # 删除指定范围内[l, r)的元素
@@ -376,9 +377,9 @@ for i in List[::-1]:
 > 元组与列表类似，不同之处在于元组的元素不能修改。
 
 ```python
-tup1 = ('Google', 'Runoob', 1997, 2000)
-tup2 = (1, 2, 3, 4, 5 )
-tup3 = (50,)    # 只包含一个元素时, 需添加逗号（不加逗号，类型为整型）
+tup = ('Google', 'Runoob', 1997, 2000)
+tup = (1, 2, 3, 4, 5)
+tup = (50,)    # 只包含一个元素时, 需添加逗号（不加逗号，类型为整型）
 ```
 
 ### 6. 字典 dict
@@ -847,4 +848,102 @@ p = re.compile('\d+')
 res = p.findall(s)
 print(res)
 # ['1800', '90']
+```
+
+### random
+```py
+# 1-100随机整数
+random.randint(1, 100)
+# 列表随机排序
+random.shuffle(nums)
+```
+
+### json
+```py
+json.dumps(d)
+json.loads(s)
+```
+
+### mysql
+
+```py
+import pymysql
+
+conn = pymysql.connect(
+    host="127.0.0.1",
+    user="root",
+    password="root",
+    database="dbname",
+    charset="UTF8MB4"
+)
+cursor = conn.cursor()
+sql = "SELECT * FROM user;"
+cursor.execute(sql)
+conn.commit()
+```
+
+```py
+import mysql.connector      # pip install mysql-connector-python
+
+
+db = mysql.connector.connect(
+    host="localhost",
+    port="3306",
+    user="root",
+    password="root",
+    database="sql_test"
+)
+
+cursor = db.cursor()
+cursor.execute('''
+    CREATE TABLE if not exists customers (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255),
+        address VARCHAR(255)
+    );
+    ''')
+
+# 插入记录
+sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
+values = [("John Smith", "123 Main St"), ("Alice Johnson", "456 Elm St")]
+cursor.executemany(sql, values)
+db.commit()
+
+# 查询记录
+cursor.execute("SELECT * FROM customers")
+results = cursor.fetchall()
+for row in results:
+    print(row)
+"""
+# 更新记录
+sql = "UPDATE customers SET address = %s WHERE name = %s"
+values = ("789 Oak St", "Alice Johnson")
+cursor.execute(sql, values)
+db.commit()
+
+# 删除记录
+sql = "DELETE FROM customers WHERE name = %s"
+values = ("John Smith",)
+cursor.execute(sql, values)
+db.commit()
+
+# 关闭游标和数据库连接
+cursor.close()
+db.close()
+
+"""
+
+```
+
+### redis
+```py
+import redis
+r = redis.Redis(
+    host='127.0.0.1',
+    port=6379,
+    password=""
+)
+
+r.set('foo', 'Bar')
+print(r.get('foo'))
 ```

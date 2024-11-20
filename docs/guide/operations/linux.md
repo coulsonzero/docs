@@ -92,6 +92,7 @@
 ### 新建目录
 ```sh
 $ mkdir test
+$ mkdir -p test/demo     # -p: 创建多级目录
 ```
 
 ### 更改目录
