@@ -947,3 +947,38 @@ r = redis.Redis(
 r.set('foo', 'Bar')
 print(r.get('foo'))
 ```
+
+### csv
+
+读取csv文件内容
+```py
+import csv
+
+with open('example.csv', 'r') as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+```
+写入csv文件内容
+```py
+import csv
+
+data = [
+    ['Alice', 30, 'New York'],
+    ['Bob', 25, 'Los Angeles']
+]
+with open('example.csv', 'w') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Age', 'City'])
+    writer.writerow(['John', '21', 'Shang Hai'])
+    writer.writerows(data)
+```
+
+pandas 读取csv文件
+```py
+import pandas
+
+data = pandas.read_csv("example.csv")
+print(data)
+```
+
