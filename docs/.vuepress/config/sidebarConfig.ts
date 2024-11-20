@@ -126,7 +126,21 @@ const sidebarConfig = {
 			title: "Backend",
 			collapsable: false,
 			sidebarDepth: 1,
-			children: ["c.md", "c++.md", "django.md", "flask.md", "go.md", "java.md", "rust.md", "kotlin.md", "pyside6.md", "python.md", "swift.md", "gin.md", "gorm.md", "pyside6.md"],
+			children: ["go.md",
+				"c.md",
+				"c++.md",
+				"python.md",
+				"django.md",
+				"flask.md",
+				"pyside6.md"
+				"go.md",
+				"gin.md",
+				"gorm.md"
+				"java.md",
+				"rust.md",
+				"kotlin.md",
+				"swift.md",
+				],
 		},
 	],
 	"/guide/frontend/": [
