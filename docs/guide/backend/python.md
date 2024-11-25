@@ -1030,3 +1030,41 @@ print(df["month"].value_counts())
 print(df["cases"].sum())
 print(df.groupby("month")["cases"].sum())
 ```
+
+
+### selenium
+
+```py
+from selenium import webdriver
+
+url = "https://movie.douban.com/chart"
+# 初始化
+browser = webdriver.Chrome()
+# 打开网页
+browser.get(url)
+```
+
+```py
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+
+# 查找元素
+web.find_element(By.ID, 'key')
+
+# 定位元素并按键操作
+elem = web.find_element(By.ID, 'key')  # 定位到搜索框
+elem.send_keys("口罩")                  # 模拟键盘输入关键字
+elem.send_keys(Keys.ENTER)             # 模拟键盘按Enter键
+
+elem.text       # 获取文本内容
+elem.click()    # 模拟鼠标点击
+elem.send_keys(Keys.ENTER)
+
+
+web.back()     # 返回上一页
+web.forward()  # 前往下一页
+web.refresh()  # 刷新页面
+web.quit()     # 关闭浏览器
+web.close()    # 关闭当前窗口
+
+```
