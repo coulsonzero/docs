@@ -451,11 +451,13 @@ for num in nums:
 ### 7. 集合 Set
 
 ```python
+se = {}
+se = {3, 1, 6, 2}
 se = set({3, 1, 6, 2})
 
-# print(se)     # {1, 2, 3, 6}
-.add(x)
-.pop()
+print(se)     # {1, 2, 3, 6}    自动排序
+.add(x)       # 末尾添加
+.pop()        # 头部删除
 .remove(x)
 .clear()
 
@@ -980,3 +982,51 @@ data = pandas.read_csv("example.csv")
 print(data)
 ```
 
+
+### numpy
+```py
+# init
+x = np.array([1, 2, 3, 4])
+x = np.arange(1, 7)         # [1 2 3 4 5 6]
+x = np.array([[1, 2], [3, 4], [5, 6]])
+z = x.reshape(6)            # [1 2 3 4 5 6]
+
+# add
+x = np.append(x, 0)
+x = np.append(x, [6, 7, 5])
+
+# sort
+x = np.sort(x)
+print(x.sum())
+print(np.mean(x))
+print(np.median(x))
+print(np.var(x))
+print(np.std(x))
+```
+
+### pandas
+
+```py
+df = pd.DataFrame(data)
+df = pd.DataFrame(data, index = ["James", "Bob", "Amy", "Dave"])
+print(df)
+print(df["ages"])
+print(df[["ages", "heights"]])
+print(df.loc["Bob"])
+print(df.iloc[2])
+print(df.iloc[:3])
+print(df[(df["ages"] > 18) & (df["heights"] > 180)])
+
+# csv
+df = pd.read_csv("ca-covid.csv")
+df.set_index("date", inplace=True)
+df.drop("state", axis=1, inplace=True)
+df["month"] = pd.to_datetime(df["date"], format="%d.%m.%y").dt.month_name()
+print(df)
+print(df.head())
+print(df.info())
+print(df.describe())
+print(df["month"].value_counts())
+print(df["cases"].sum())
+print(df.groupby("month")["cases"].sum())
+```
