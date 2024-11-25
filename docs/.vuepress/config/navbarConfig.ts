@@ -108,7 +108,6 @@ const navbarConfig: NavbarConfig = [
 			{
 				text: "数据库",
 				children: [
-					{text: "SQL", link: "/guide/operations/sql"},
 					{text: "MySQL", link: "/guide/operations/mysql"},
 					{text: "Redis", link: "/guide/operations/redis"},
 					{text: "MongoDB", link: "/guide/operations/mongodb"},

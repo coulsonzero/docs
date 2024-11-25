@@ -348,7 +348,7 @@ for i, v in enumerate(nums):
 # 切片[start:stop:step]
 List[::]              # 顺序返回所有列表元素
 List[::-1]            # 倒序返回所有列表元素
-List[::-2]            # 每隔1个元素提取到列表
+List[::2]             # 每隔1个元素提取到列表
 List[:3]              # 前三个元素
 List[3:]
 
@@ -727,7 +727,7 @@ with open('somefile.txt','r') as f:
     s=f.read()    #with之后的语句执行完毕后文件会自动关闭，不用手动调用close（）了
 ```
 
-## File
+## 六、File
 
 :::: code-group
 ::: code-group-item 读取文件
@@ -752,11 +752,9 @@ with open("test.txt", mode="a", encoding="utf8") as fp:
     fp.write("hello this is a text\nyou could change it\nin here")
 ```
 :::
-::: 文件遍历
+::: code-group-item 文件遍历
 ```python
 import os
-
-
 # os.walk(): 更推荐
 def walkDir(path) -> list:
     # if not os.path.isdir(path):
