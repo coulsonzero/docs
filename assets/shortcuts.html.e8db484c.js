@@ -1,0 +1,1 @@
+const t={key:"v-2f650317",path:"/guide/other/mac/shortcuts.html",title:"Mac\u5FEB\u6377\u952E",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1646573335e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:2}]},filePathRelative:"guide/other/mac/shortcuts.md"};export{t as data};
