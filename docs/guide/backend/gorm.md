@@ -303,7 +303,7 @@ func ShowUsers(c *gin.Context) {
 :::
 ::::
 
-### 数据库模型
+### 4. 数据库模型
 ```go
 import "gorm.io/gorm"
 
@@ -327,7 +327,15 @@ type User struct {
   UpdatedAt    time.Time
 }
 ```
-
+```go
+type Book struct {
+	User        User   `json:"user"`
+	ID          uint64 `json:"id" gorm:"primary_key:auto_increment"`
+	UserID      uint64 `json:"userID"`
+	Title       string `json:"title" gorm:"type:varchar(255)"`
+	Description string `json:"description" gorm:"type:text"`
+}
+```
 ```go
 // gorm.Model 的定义
 type Model struct {
