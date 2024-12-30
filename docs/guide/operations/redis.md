@@ -94,13 +94,6 @@ $ ps axu | grep redis
 ## String 字符串
 
 ### 增
-#### APPEND
-
-```sql
-# 如果变量存在，则末尾追加， 如果变量不存在，则相当于SET
-append name " Zero"
-```
-
 #### SET
 
 ```sql
@@ -108,7 +101,20 @@ append name " Zero"
 SET name "Coulson"
 ```
 
----
+#### APPEND
+
+```sql
+# 如果变量存在，则末尾追加， 如果变量不存在，则相当于SET
+append name " Zero"
+```
+
+
+### 删
+```sql
+del name
+```
+
+
 
 ### 查
 #### GET
@@ -117,11 +123,12 @@ SET name "Coulson"
 # 获取字符串的内容
 GET name
 ```
+
 #### GETRANGE
 
 ```sql
-# 返回字符串索引子串
-getrange name 1 3
+# 返回字符串索引子串(开始索引，字符长度可越界)
+getrange name 1 4
 ```
 #### STRLEN
 ```sql
@@ -159,10 +166,11 @@ redis>>> exists name
 
 #### LPUSH & RPUSH
 ```sql
-# 头部添加
-lpush mylist "redis"
 # 尾部添加
 rpush mylist "mysql"
+
+# 头部添加
+lpush mylist "redis"
 ```
 
 ---
@@ -214,6 +222,14 @@ hmset myhash name "Coulson" age 25 country "China"
 ```
 
 ### 删
+
+#### DEL
+
+```sql
+del myhash
+```
+
+
 #### HDEL
 ```sql
 # 删除字段并返回索引
@@ -313,6 +329,13 @@ sadd myset "mysql"
 sadd myset "redis" "mongodb"
 ```
 ### 删
+
+#### DEL
+
+```sql
+del myset
+```
+
 #### SPOP
 ```sql
 # 删除指定索引元素，索引越界则返回整个集合的所有元素！
