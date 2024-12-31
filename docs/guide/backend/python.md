@@ -422,11 +422,11 @@ if k in d:
 ```python
 # 按key排序
 sorted(d)
-# 按value排序
-sorted(d, key = lambda x: x[1])
+# 按value降序
+sorted(d.items(), key = lambda x: -x[1])
 
 # 先按名称排序，同名则按年龄降序：
-sorted(d, key = lambda x:(x['name'], -x['age']))
+sorted(d.items(), key = lambda x:(x['name'], -x['age']))
 ```
 :::
 ::: code-group-item zip
