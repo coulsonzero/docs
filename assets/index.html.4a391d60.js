@@ -1,0 +1,1 @@
+const t={key:"v-6ec08912",path:"/guide/algorithm/String/",title:"String",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1646475107e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:1}]},filePathRelative:"guide/algorithm/String/README.md"};export{t as data};
