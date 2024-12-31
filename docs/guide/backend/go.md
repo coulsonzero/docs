@@ -680,7 +680,7 @@ import "time"
 
 // 2.2
 import (
-	"fmt";
+	"fmt"
 	"time"
 )
 

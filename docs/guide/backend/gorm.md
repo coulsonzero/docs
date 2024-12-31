@@ -3,12 +3,14 @@
 
 ## Overview
 ### 1. 安装依赖包
-```sh
+```shell
 $ go get -u gorm.io/gorm
 $ go get -u gorm.io/driver/mysql
 ```
 
 ### 2. MySQL: Example
+
+::: details example
 ```go
 package main
 
@@ -72,6 +74,9 @@ func main() {
 }
 
 ```
+:::
+
+
 ### 3. Gorm-Mysql 模块化
 
 :::: code-group
@@ -346,61 +351,7 @@ type Model struct {
 }
 ```
 
-## 连接MySQL数据库
-
-:::: code-group
-::: code-group-item db.go
-```go
-import (
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
-)
-
-var DB *gorm.DB
-
-func SetupDB() *gorm.DB {
-	// 连接数据库
-	// dsn := conf.LoadIntConfig()
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	if err != nil {
-		panic("Failed to create a connection to database")
-	}
-
-	// 加载数据库模型
-	DB = db
-	DB.AutoMigrate(&User{})
-	return db
-}
-
-// 关闭数据库连接
-func CloseDB(db *gorm.DB) {
-	dbSQL, err := db.DB()
-	if err != nil {
-		panic("Failed to close connection from database")
-	}
-	dbSQL.Close()
-}
-```
-:::
-::: code-group-item main.go
-```go
-package main
-
-import (
-	"go-gin-todolist/model"
-	"go-gin-todolist/router"
-)
-
-func main() {
-	db := model.SetupDB()
-	defer model.CloseDB(db)
-
-	r := router.SetupRouter()
-	r.Run(":7080")
-}
-```
-:::
-::::
+## dsn书写方式
 
 ### 1. 固定方式
 ```go
@@ -421,152 +372,21 @@ func main() {
 dsn := strings.Join([]string{DbUser, ":", DbPassWord, "@tcp(", DbHost, ":", DbPort, ")/", DbName, "?charset=utf8mb4&parseTime=true&loc=Local"}, "")
 ```
 
-### 3. 格式化字符串
+### 3. 格式化字符串(推荐)
 
 ```go
-dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-	dbUser,
-	dbPass,
-	dbHost,
-	dbName,
+dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+	user,
+	pass,
+	host,
+	port,
+	dbname,
 )
 ```
 
-### 4. 加载 `env` 配置文件
-:::: code-group
-::: code-group-item config.go
-```go{2-3,8,13}
-import (
-	"github.com/joho/godotenv"
-	"os"
-)
+## 加载配置文件
 
-func SetupDB() *gorm.DB {
-	// 1.加载.env文件配置
-	errEnv := godotenv.Load()
-	if errEnv != nil {
-		panic("Failed to load env file")
-	}
-
-	dbUser := os.Getenv("DB_USER")
-	dbPass := os.Getenv("DB_PASSWORD")
-	dbHost := os.Getenv("DB_HOST")
-	dbName := os.Getenv("DB_NAME")
-
-	// dsn := fmt.Sprintf("user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local")
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		dbUser,
-		dbPass,
-		dbHost,
-		dbName,
-	)
-
-	// 2.连接mysql数据库
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	if err != nil {
-		panic("Failed to create a connection to database")
-	}
-	// 3.绑定Struct数据库模型
-	DB = db
-	DB.AutoMigrate(&User{})
-	return db
-}
-
-func CloseDB(db *gorm.DB) {
-	dbSQL, err := db.DB()
-	if err != nil {
-		panic("Failed to close connection from database")
-	}
-	dbSQL.Close()
-}
-```
-:::
-::: code-group-item .env
-```env
-DB_USER=root
-DB_PASSWORD=root
-DB_HOST=localhost
-DB_NAME=golang_api
-```
-:::
-::::
-### 5. 加载 `ini` 配置文件
-
-:::: code-group
-::: code-group-item config.go
-```go
-import (
-	"gopkg.in/ini.v1"
-	"strings"
-)
-
-var (
-	AppMode    string
-	HttpPort   string
-	Db         string
-	DbHost     string
-	DbPort     string
-	DbUser     string
-	DbPassWord string
-	DbName     string
-)
-
-
-func LoadIntConfig() string {
-	/* ====== Step-1: 加载mysql数据库配置 ====== */
-	file, err := ini.Load("conf/config.ini")
-	if err != nil {
-		panic("Failed to load ini file")
-	}
-
-	LoadServer(file)
-	LoadMysqlData(file)
-
-	// dsn := "root:root@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		DbUser,
-		DbPass,
-		DbHost,
-		DbName,
-	)
-
-	return dsn
-}
-
-func LoadServer(file *ini.File) {
-	AppMode = file.Section("service").Key("AppMode").String()
-	HttpPort = file.Section("service").Key("HttpPort").String()
-}
-
-func LoadMysqlData(file *ini.File) {
-	Db = file.Section("mysql").Key("Db").String()
-	DbHost = file.Section("mysql").Key("DbHost").String()
-	DbPort = file.Section("mysql").Key("DbPort").String()
-	DbUser = file.Section("mysql").Key("DbUser").String()
-	DbPassWord = file.Section("mysql").Key("DbPassWord").String()
-	DbName = file.Section("mysql").Key("DbName").String()
-}
-
-```
-:::
-::: code-group-item config.ini
-```ini
-[service]
-AppMode = debug
-HttpPort = 7000
-
-[mysql]
-Db = mysql
-DbHost = 127.0.0.1
-DbPort = 3306
-DbUser = root
-DbPassWord = root
-DbName = todolist_db
-```
-:::
-::::
-
-### 6. 加载 `yaml` 配置文件
+### 1. 加载 `yaml` 配置文件
 
 ```go
 package config
@@ -614,10 +434,112 @@ mysql:
 #  max_open_conn: 150
 
 ```
+### 2. 加载 `ini` 配置文件
 
-### 7.连接数据库并生成表
+:::: code-group
+::: code-group-item config.go
 ```go
-package model
+package config
+
+import (
+	"fmt"
+	"log"
+
+	"gopkg.in/ini.v1"
+)
+
+func GetIniDsn() string {
+	file, err := ini.Load("setting.ini")
+	if err != nil {
+		log.Fatal("Failed to load ini file")
+	}
+
+	DbHost := file.Section("mysql").Key("DbHost").String()
+	DbPort := file.Section("mysql").Key("DbPort").String()
+	DbUser := file.Section("mysql").Key("DbUser").String()
+	DbPass := file.Section("mysql").Key("DbPass").String()
+	DbName := file.Section("mysql").Key("DbName").String()
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		DbUser,
+		DbPass,
+		DbHost,
+		DbPort,
+		DbName,
+	)
+
+	return dsn
+}
+```
+:::
+::: code-group-item config.ini
+```ini
+[service]
+AppMode = debug
+HttpPort = 7000
+
+[mysql]
+Db = mysql
+DbHost = 127.0.0.1
+DbPort = 3306
+DbUser = root
+DbPassWord = root
+DbName = todolist_db
+```
+:::
+::::
+
+
+### 3. 加载 `env` 配置文件
+:::: code-group
+::: code-group-item config.go
+```go
+package config
+
+import (
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/joho/godotenv"
+)
+
+func GetEnvDsn() string {
+	errEnv := godotenv.Load()
+	if errEnv != nil {
+		log.Fatal("Failed to load env file")
+	}
+
+	dbUser := os.Getenv("DB_USER")
+	dbPass := os.Getenv("DB_PASS")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbName := os.Getenv("DB_NAME")
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+		dbUser,
+		dbPass,
+		dbHost,
+		dbPort,
+		dbName)
+
+	return dsn
+}
+```
+:::
+::: code-group-item .env
+```env
+DB_USER=root
+DB_PASSWORD=root
+DB_HOST=localhost
+DB_NAME=golang_api
+```
+:::
+::::
+
+### 4.连接数据库并生成表
+```go
+ppackage model
 
 import (
 	"fmt"
@@ -625,9 +547,9 @@ import (
 	"time"
 
 	"gin-api/config"
-	"gin-api/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 )
 
 var DB *gorm.DB
@@ -635,7 +557,11 @@ var DB *gorm.DB
 func SetupDB() *gorm.DB {
 	dsn := config.GetYamlDsn()
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			SingularTable: true, // 设置全局表名禁用复数
+		},
+	})
 	if err != nil {
 		log.Fatal("Failed to create a connection to database")
 	}
@@ -643,21 +569,20 @@ func SetupDB() *gorm.DB {
 	fmt.Println("连接mysql数据库成功")
 	DB = db
 
-	DB.AutoMigrate(&entity.User{}, &entity.Book{})
+	DB.AutoMigrate(&User{}, &Book{})
 	return db
 }
 
 func CloseDB(db *gorm.DB) {
-	dbSQL, err := db.DB()
+	sqlDB, err := db.DB()
 	if err != nil {
 		log.Fatal("Failed to close connection from database")
 	}
-	dbSQL.SetMaxIdleConns(10)               // 最大空闲连接数
-	dbSQL.SetMaxOpenConns(100)              // 最多可容纳
-	dbSQL.SetConnMaxLifetime(time.Hour * 4) // 连接最大复用时间
-	dbSQL.Close()
+	sqlDB.SetMaxIdleConns(10)               // 最大空闲连接数
+	sqlDB.SetMaxOpenConns(100)              // 最多可容纳
+	sqlDB.SetConnMaxLifetime(time.Hour * 4) // 连接最大复用时间
+	sqlDB.Close()
 }
-
 ```
 
 
@@ -685,7 +610,7 @@ type Book struct {
 }
 ```
 
-### 8.全局配置
+### 5.全局配置
 ```go
 package config
 
