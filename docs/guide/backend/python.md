@@ -157,8 +157,46 @@ if __name__ = "__main__":
 ```cmd
 cmd> pyinstaller -F -w *.pyw
 ```
+## 二、Control Structures
 
-## 二、常用数据类型
+### If statement
+
+```python
+if condition:
+    # statement(s)
+elif condition:
+    # statement(s)
+elif condition:
+    # statement(s)
+else:
+    # statement(s)
+```
+
+### For Loop
+
+```python
+nums = [1, 3, 6, 2, 4]
+
+for i in range(len(nums)):
+    # statement(s)
+
+for v in nums:
+    # statement(s)
+
+for i, v in enumerate(nums):
+    # statement(s)
+```
+
+### While Loop
+
+```python
+while condition:
+    # statement(s)
+```
+
+### break & continue
+
+## 三、常用数据类型
 
 ![DataTypes]
 
@@ -426,7 +464,7 @@ sorted(d)
 sorted(d.items(), key = lambda x: -x[1])
 
 # 先按名称排序，同名则按年龄降序：
-sorted(d.items(), key = lambda x:(x['name'], -x['age']))
+sorted(d.items, key = lambda x:(x['name'], -x['age']))
 ```
 :::
 ::: code-group-item zip
@@ -465,44 +503,6 @@ print(se)     # {1, 2, 3, 6}    自动排序
 # 子集：< >
 ```
 
-## 三、Control Structures
-
-### If statement
-
-```python
-if condition:
-    # statement(s)
-elif condition:
-    # statement(s)
-elif condition:
-    # statement(s)
-else:
-    # statement(s)
-```
-
-### For Loop
-
-```python
-nums = [1, 3, 6, 2, 4]
-
-for i in range(len(nums)):
-    # statement(s)
-
-for v in nums:
-    # statement(s)
-
-for i, v in enumerate(nums):
-    # statement(s)
-```
-
-### While Loop
-
-```python
-while condition:
-    # statement(s)
-```
-
-### break & continue
 
 ## 四、Function
 
