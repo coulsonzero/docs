@@ -777,47 +777,53 @@ export default {
 ## package
 ### Vue-Router
 
-- lnzy-loaded
 
 ```js
-// method 1
-const HomeView = () => import('@/views/HomeView.vue')
-component: HomeView,
-
-// method 2
-component: () => import("@/views/AboutView.vue"),
-```
-
-- build history
-
-> build 之后出现页面空白
-
-```js
-// router/index.js
-import {createRouter, createWebHistory, createWebHashHistory} from "vue-router"
-// import HomeView from '@/views/HomeView.vue'
-const HomeView = () => import("@/views/HomeView.vue")
+import { createRouter, createWebHashHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
-	// history: createWebHistory(import.meta.env.BASE_URL),
-	// build 环境
-	history: createWebHashHistory("./"),
-	routes: [
-		{
-			path: "/",
-			name: "home",
-			component: HomeView,
-		},
-		{
-			path: "/about",
-			name: "about",
-			// which is lazy-loaded when the route is visited.
-			component: () => import("@/views/AboutView.vue"),
-		},
-	],
+  history: createWebHashHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      redirect: '/main'
+    },
+    {
+      // 匹配/* => 重定向
+      path: "/:pathMatch(.*)*",
+      redirect: "/main",
+    },
+    {
+      path: '/about',
+      name: 'about',
+      // lazy-loaded
+      component: () => import('../views/AboutView.vue')
+    },
+    {
+      path: '/main',
+      name: 'main',
+      // lazy-loaded
+      component: () => import('../components/Dashboard.vue'),
+      children: [
+        {
+          path: 'task',
+          name: 'task',
+          component: () => import('../components/Main/Task.vue')
+        },
+        {
+          path: 'message',
+          name: 'message',
+          component: () => import('../components/Main/Message.vue')
+        }
+      ]
+    }
+  ]
 })
 
 export default router
+
+
 ```
 
 ```vue
@@ -840,13 +846,6 @@ base: "./"
 ```
 
 ### path
-
-```js
-// main.js
-import router from './router'
-app.use(router)
-```
-
 ```js
 import path from 'path'
 
@@ -859,74 +858,113 @@ resolve: {
 ```
 
 
-### Router
-```js
-// router/index.js
-import {createRouter, createWebHashHistory} from "vue-router";
-import routes from "./routes";
+### router跳转方式
 
-
-
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes,
-});
-```
-
-
-### vue3.2
-
-
-::: vue-demo vue-ref
+方式一
 ```vue
 <template>
-	<div>Counter: {{ count }}</div>
+	<RouterLink to="/about">go to about</RouterLink>
+</template>
+```
+
+
+方式二
+```vue
+<template>
+<button @click="goToAbout">go to about</button>
 </template>
 
-<script setup>
-import {ref} from 'vue'
-const count = ref(0)
-</script>
-
-```
-:::
-
-
-
-```vue
-<script setup>
-// import
-import {ref} from 'vue'
-
-// 定义变量
-const count = ref(0)
-// 修改变量
-count.value = 1
-
-// 定义新变量
-// const doubleCount = computed(() => count.value * 2);
-
-// 定义函数
-function incrementCount() {
-	count.value++
+<script>
+export default {
+	methods: {
+		goToAbout() {
+			this.$router.push('/about')
+		}
+	}
 }
-
-// v-model
-const text = ref('')
 </script>
-
-
-<template>
-	<!-- 使用变量 -->
-	<div>Counter: {{ count }}</div>
-	<!--
-	<div>{{doubleCount}}</div>
-	-->
-	<button @click="incrementCount">Click me +1</button>
-	<p>{{ text }}</p>
-	<input v-model="text" placeholder="Type here">
-</template>
-
 ```
 
+方式三
+```vue
+<template>
+<button @click="goToAbout">go to about</button>
+</template>
+
+<script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const goToAbout = () => {
+	router.push('/about')
+}
+</script>
+```
+
+### props
+
+```vue
+<template>
+	<ChildComponent :title="title" />
+</template>
+```
+方式一
+```vue
+<script>
+export default {
+	// props: [title], // 简写
+	props: {
+		title: {
+			type: String,
+			default: 'hello'
+		}
+	}
+}
+</script>
+```
+方式二
+```vue
+<script setup>
+import { defineProps } from 'vue'
+const props = defineProps({
+	title: {
+		type: String,
+		default: 'hello'
+	}
+})
+</script>
+```
+
+
+
+### axios
+```sh
+npm install axios
+```
+
+```js
+const instance = axios.create({
+  baseURL: 'https://some-domain.com/api/',
+  timeout: 1000,
+})
+```
+
+```js
+// main.js
+import axios from './api/request.js'
+app.config.globalProperties.$axios = axios
+```
+
+```js
+<script>
+export default {
+	methods: {
+		getUser() {
+			this.$axios.get('/api/user').then(res => {
+				console.log(res)
+			})
+		}
+	}
+}
+</script>
+```
 

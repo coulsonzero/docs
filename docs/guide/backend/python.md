@@ -464,7 +464,7 @@ sorted(d)
 sorted(d.items(), key = lambda x: -x[1])
 
 # 先按名称排序，同名则按年龄降序：
-sorted(d.items, key = lambda x:(x['name'], -x['age']))
+sorted(d.items(), key = lambda x:(x['name'], -x['age']))
 ```
 :::
 ::: code-group-item zip

@@ -15,7 +15,7 @@ $ pip install Django
 ```sh
 $ django-admin startproject mysite
 $ cd mysite
-$ python manage.py runserver
+$ python3 manage.py runserver
 ```
 
 [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
@@ -36,6 +36,20 @@ $ python manage.py runserver
 ```
 
 [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin)
+
+### 连接mysql数据库
+```sh
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_test',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+```
 
 ## 其他
 
