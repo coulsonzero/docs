@@ -1068,3 +1068,47 @@ web.quit()     # 关闭浏览器
 web.close()    # 关闭当前窗口
 
 ```
+
+
+### pyautogui
+
+```py
+import pyautogui as pg
+
+pg.size()            # 获取屏幕分辨率
+pg.position()        # 获取当前鼠标位置
+pg.moveTo(100, 100)  # 移动到指定位置
+pg.move(x, y)        # 移动相对位置
+pg.dragTo(x, y)      # 拖动
+pg.scroll()          # 滚动
+
+pg.click()                     # 鼠标点击当前位置，默认左键点击
+pg.click(x, y, duration=2)     # 鼠标点击指定坐标，duration为点击间隔时间
+pg.click(button='right')       # 鼠标右键点击当前位置
+pg.doubleClick()  # 双击鼠标左键
+pg.tripleClick()  # 三连击
+pg.rightClick()   # 单击右键
+pg.middleClick()  # 单击中键
+pg.click(clicks=6, interval=0.4) # 多次连击
+pg.click(pg.locateCenterOnScreen('cat.png'))  # 图片定位再点击
+
+pg.typewrite("Hello, world!")  # 模拟键盘输入
+pg.write('hello python !', interval=0.3)   # 控制键盘输入，interval间隔输入字符时间
+pg.hotkey("ctrl", "c")         # 模拟组合键操作
+pg.press()       # 按下并松开
+pg.keyDown()     # 按住
+pg.keyUp()       # 松开
+
+# 弹窗
+pg.alert(text='是否确认运行程序’, title='请求框', button='OK')       # 消息提醒框
+pg.confirm(text='welcome to my world !', title='WeChat', buttons=['OK', 'Cancel'])  # 选择框
+pg.prompt(text='请输入您的开机密码', title='输入框', default='0627***')                 # 内容输入框（可看到输入的内容）
+pg.password(text='开机密码', title='消息框',default='密码', mask='*')                  # 密码输入框（隐藏输入的内容）
+
+# 截图
+pg.screenshot(path)                             # 全图截屏
+pg.screenshot('01.png'，region=(0,0,300,400)）   # 区域截屏（左上角坐标，宽，高）
+pg.locateOnScreen('a.png')                      # 返回图片坐标位置（x,y,宽.高)
+pg.locateCenterOnScreen()                       # 返c回中心坐标
+pg.locateCenterOnScreen('cat.png', grayscale=False, confidence=0.7)
+```

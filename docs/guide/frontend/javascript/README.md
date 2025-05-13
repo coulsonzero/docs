@@ -735,9 +735,11 @@ arr.filter(n => n%2==0).map(el => sum += el); //统计偶数和
 arr.filter(item => item != e)
 
 // 去重
+[...new Set(arr)]
 Array.from(new Set(arr))
 
 arr.filter((v, i, self) => self.indexOf(v) === i)
+arr.filter((item, index) => arr.indexOf(item) === index)
 
 function uniqueArr() {
 	let res = []
