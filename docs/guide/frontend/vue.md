@@ -221,50 +221,6 @@ export default {
 
 :::
 
-### vue-methods
-
-::: vue-demo vue-methods.vue
-
-```vue
-<template>
-	<div id="event-handling">
-		<p>{{ message }}</p>
-		<button @click="reverseMessage">反转 Message</button>
-	</div>
-</template>
-
-<script>
-export default {
-	data() {
-		return {
-			message: "Hello Vue.js!",
-		}
-	},
-	methods: {
-		reverseMessage() {
-			this.message = this.message.split("").reverse().join("")
-		},
-	},
-}
-</script>
-
-<style>
-button {
-	padding: 10px;
-	font-size: 1rem;
-	border: 1px solid #323232;
-	background: transparent;
-	cursor: pointer;
-	transition: all 0.3s ease;
-}
-button:hover {
-	background: #323232;
-	color: #f8f8f8;
-}
-</style>
-```
-
-:::
 
 ### vue-bind
 
@@ -579,7 +535,54 @@ li {
 
 :::
 
-### @click
+
+
+### v-on
+
+::: vue-demo vue-methods.vue
+
+```vue
+<template>
+	<div id="event-handling">
+		<p>{{ message }}</p>
+		<button @click="reverseMessage">反转 Message</button>
+	</div>
+</template>
+
+<script>
+export default {
+	data() {
+		return {
+			message: "Hello Vue.js!",
+		}
+	},
+	methods: {
+		reverseMessage() {
+			this.message = this.message.split("").reverse().join("")
+		},
+	},
+}
+</script>
+
+<style>
+button {
+	padding: 10px;
+	font-size: 1rem;
+	border: 1px solid #323232;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+button:hover {
+	background: #323232;
+	color: #f8f8f8;
+}
+</style>
+```
+
+:::
+
+
 
 ::: vue-demo
 ```vue
@@ -599,6 +602,40 @@ export default {
 </template>
 ```
 :::
+
+```vue
+<template>
+	<div
+		v-for="(item, index) in items"
+		:key="index"
+		@click="handleClick(item, $event)">
+	{{ item }}
+	</div>
+</template>
+<script>
+export default {
+	data() {
+		return {
+			items: ["Item 1", "Item 2", "Item 3"],
+		}
+	},
+	methods: {
+		handleClick(item, e) {
+			console.log(item, e)
+		}
+	}
+}
+</script>
+```
+
+```vue
+// 阻止跳转
+@click.prevent
+// 阻止冒泡
+@click.stop
+```
+
+
 ## 组建通信
 
 ### 传参
@@ -665,6 +702,8 @@ export default {
 }
 </script>
 ```
+
+
 
 ### 组件别名导入
 
