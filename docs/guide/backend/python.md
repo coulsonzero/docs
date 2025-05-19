@@ -1034,6 +1034,75 @@ print(df.groupby("month")["cases"].sum())
 
 ### selenium
 
+`网页自动化库`
+
+安装
+```py
+$ pip install selenium
+```
+
+Usage
+```py
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
+
+
+# step 1: 声明浏览器
+driver = webdriver.Chrome()
+driver = webdriver.Safari()
+driver = webdriver.Edge()
+driver = webdriver.Firefox()
+driver = webdriver.PhantomaJS()  # 无界面浏览器, 获取的截图是长图，一般浏览器为可见截图
+
+# step 2: 打开网页
+driver.get("https://www.baidu.com")
+
+# step 3: 定位元素
+driver.find_element(by=By.ID, value="message")          # id = #message
+driver.find_element(by=By.CLASS_NAME, value="box")      # class = .box
+driver.find_element(by=By.CSS_SELECTOR, value="button") # <button></button>
+
+# step 4: 操作元素
+.click()
+.send_keys(Keys.ENTER)
+.text
+.get_attribute('href')
+driver.find_element(by=By.ID, value="message").send_keys("hello world")
+driver.find_element(by=By.ID, value="message").click()
+driver.find_element(by=By.ID, value="message").clear()
+driver.find_element(by=By.ID, value="message").submit()
+
+# step 5: 等待响应
+driver.implicitly_wait(5)    # 隐式等待，最长5s
+time.sleep(random.randint(1, 2))
+time.sleep(3)                # 强制等待
+
+# step 6: 常用方法
+web.save_screenshot('*.png')    # 截图
+web.back()      # 返回上一页
+web.forward()   # 返回下一页
+web.refresh()   # 刷新页面
+web.close()     # 关闭当前页面窗口
+web.quit()      # 关闭浏览器
+
+
+# 关闭浏览器
+driver.quit()
+```
+other
+```py
+#不显示浏览器操作，只显示结果,后台运行
+from selenium.webdriver.chrome.option import Options
+opt = Options()
+opt.add_argument("--headless")
+opt.add_argument("--disable-gpu")
+driver = webdriver.Chrome(options=opt)
+```
+
+
+::: details example
 ```py
 from selenium import webdriver
 
@@ -1068,6 +1137,8 @@ web.quit()     # 关闭浏览器
 web.close()    # 关闭当前窗口
 
 ```
+:::
+
 
 
 ### pyautogui

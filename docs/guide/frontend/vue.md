@@ -636,12 +636,62 @@ export default {
 ```
 
 
+
+### vue-ref
+```vue
+<template>
+	<div>
+		<input ref="inputRef" type="text" />
+		<button @click="handleClick">Click me</button>
+	</div>
+</template>
+<script>
+export default {
+	methods: {
+		handleClick() {
+			this.$refs.inputRef.focus()
+		}
+	}
+}
+</script>
+```
+
+
 ## 组建通信
 
 ### 传参
 
 > 父组件向子组件传递参数
 
+```vue
+// 父组件
+<template>
+	<div :title="title"></div>
+</template>
+<script>
+export default {
+	data() {
+		return {
+			title: 'hello world'
+		}
+	}
+}
+</script>
+```
+
+```vue
+// 子组件
+<template>
+	<div>{{ title }}</div>
+</template>
+<script>
+export default {
+	props: ['title']
+}
+</script>
+```
+
+example:
 ```vue
 <template>
 	<!-- 传参 -->
