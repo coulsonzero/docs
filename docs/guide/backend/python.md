@@ -1153,6 +1153,14 @@ pg.position()        # 获取当前鼠标位置
 pg.screenshot()      # 截屏
 pg.locateOnScreen()  # 查找图片位置,图片识别
 pg.locateCenterOnScreen('*.png')  # 查找图片中心位置
+pg.locateCenterOnScreen('*.png', grayscale=False, confidence=0.7)
+# pip install opencv-python
+
+# 截图
+pg.screenshot(path)                             # 全图截屏
+pg.screenshot('01.png'，region=(0,0,300,400)）   # 区域截屏（左上角坐标，宽，高）
+
+
 
 # 鼠标移动
 pg.moveTo(100, 100)  # 移动到指定位置
@@ -1191,13 +1199,7 @@ pg.alert(text='是否确认运行程序’, title='请求框', button='OK')     
 pg.confirm(text='welcome to my world !', title='WeChat', buttons=['OK', 'Cancel'])  # 选择框
 pg.prompt(text='请输入您的开机密码', title='输入框', default='0627***')                 # 内容输入框（可看到输入的内容）
 pg.password(text='开机密码', title='消息框',default='密码', mask='*')                  # 密码输入框（隐藏输入的内容）
-
-# 截图
-pg.screenshot(path)                             # 全图截屏
-pg.screenshot('01.png'，region=(0,0,300,400)）   # 区域截屏（左上角坐标，宽，高）
-pg.locateOnScreen('a.png')                      # 返回图片坐标位置（x,y,宽.高)
-pg.locateCenterOnScreen()                       # 返c回中心坐标
-pg.locateCenterOnScreen('cat.png', grayscale=False, confidence=0.7)
 ```
+
 
 

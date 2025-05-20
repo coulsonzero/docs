@@ -923,13 +923,6 @@ string(c byte | r rune)
 ```
 
 :::
-::: code-group-item byte
-
-```go
-
-```
-
-:::
 ::::
 
 ::: details eample
@@ -1168,14 +1161,6 @@ slice...
 ::: code-group-item 查
 
 ```go
-// 查询
-func toString(slice ...[]int) {
-	// fmt.Printf("len: %d, cap: %d, slice: %v \n", len(slice), cap(slice), slice)
-	for _, v := range slice {
-		fmt.Printf("len: %d, cap: %d, slice: %v \n", len(v), cap(v), v)
-	}
-}
-
 // 遍历
 for _, v := range nums {
     // statement(s)
@@ -1331,9 +1316,12 @@ cityMap := map[string]string {
 ::: code-group-item api
 
 ```go
-查: fmt.Println(m)
-增改: m["Jame"] = 97
-删: delete(m, "Jame")
+// 查
+fmt.Println(m)
+// 增改
+m["Jame"] = 97
+// 删
+delete(m, "Jame")
 
 // 遍历
 for k, v := range m {}
