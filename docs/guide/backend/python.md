@@ -1066,7 +1066,7 @@ driver.find_element(by=By.CSS_SELECTOR, value="button") # <button></button>
 
 # step 4: 操作元素
 .click()
-.send_keys(Keys.ENTER)
+.send_keys("hello world", Keys.ENTER)
 .text
 .get_attribute('href')
 driver.find_element(by=By.ID, value="message").send_keys("hello world")
@@ -1080,12 +1080,15 @@ time.sleep(random.randint(1, 2))
 time.sleep(3)                # 强制等待
 
 # step 6: 常用方法
-web.save_screenshot('*.png')    # 截图
-web.back()      # 返回上一页
-web.forward()   # 返回下一页
-web.refresh()   # 刷新页面
-web.close()     # 关闭当前页面窗口
-web.quit()      # 关闭浏览器
+driver.save_screenshot('*.png')    # 截图
+driver.back()      # 返回上一页
+driver.forward()   # 返回下一页
+driver.refresh()   # 刷新页面
+driver.close()     # 关闭当前页面窗口
+driver.quit()      # 关闭浏览器
+
+driver.maximize_window()            # 最大化窗口
+driver.set_window_size(900, 500)    # 设置窗口大小
 
 
 # 关闭浏览器
@@ -1099,6 +1102,21 @@ opt = Options()
 opt.add_argument("--headless")
 opt.add_argument("--disable-gpu")
 driver = webdriver.Chrome(options=opt)
+```
+
+```py
+from selenium.webdriver.common.keys import Keys
+
+.send_keys(Keys.ENTER)           # enter
+.send_keys(Keys.TAB)             # tab
+.send_keys(Keys.SPACE)           # space
+.send_keys(Keys.ESCAPE)          # esc
+.send_keys(Keys.BACKSPACE)       # 删除x
+.send_keys(Keys.CONTROL, 'a')    # 全选
+.send_keys(Keys.CONTROL, 'c')    # 复制
+.send_keys(Keys.CONTROL, 'v')    # 粘贴
+.send_keys(Keys.CONTROL, 'x')    # 剪切
+.send_keys(Keys.CONTROL, 'z')    # 撤销
 ```
 
 
