@@ -1146,29 +1146,45 @@ web.close()    # 关闭当前窗口
 ```py
 import pyautogui as pg
 
+
+# 屏幕操作
 pg.size()            # 获取屏幕分辨率
 pg.position()        # 获取当前鼠标位置
+pg.screenshot()      # 截屏
+pg.locateOnScreen()  # 查找图片位置,图片识别
+pg.locateCenterOnScreen('*.png')  # 查找图片中心位置
+
+# 鼠标移动
 pg.moveTo(100, 100)  # 移动到指定位置
 pg.move(x, y)        # 移动相对位置
-pg.dragTo(x, y)      # 拖动
-pg.scroll()          # 滚动
-
-pg.click()                     # 鼠标点击当前位置，默认左键点击
+# 鼠标点击
+pg.click()           # 鼠标点击当前位置，默认左键点击
+pg.rightClick()      # 单击右键
+pg.middleClick()     # 单击中键
+pg.doubleClick()     # 双击鼠标左键
+pg.tripleClick()     # 三连击
 pg.click(x, y, duration=2)     # 鼠标点击指定坐标，duration为点击间隔时间
 pg.click(button='right')       # 鼠标右键点击当前位置
-pg.doubleClick()  # 双击鼠标左键
-pg.tripleClick()  # 三连击
-pg.rightClick()   # 单击右键
-pg.middleClick()  # 单击中键
 pg.click(clicks=6, interval=0.4) # 多次连击
-pg.click(pg.locateCenterOnScreen('cat.png'))  # 图片定位再点击
+pg.click(pg.locateCenterOnScreen('*.png'))  # 图片定位再点击
+# 鼠标拖动
+pg.dragTo(x, y)      # 拖动
+pg.dragRel()  # 拖动相对位置
+# 鼠标滚动
+pg.scroll()          # 滚动
 
-pg.typewrite("Hello, world!")  # 模拟键盘输入
-pg.write('hello python !', interval=0.3)   # 控制键盘输入，interval间隔输入字符时间
-pg.hotkey("ctrl", "c")         # 模拟组合键操作
+
+# 键盘按下和释放
 pg.press()       # 按下并松开
 pg.keyDown()     # 按住
 pg.keyUp()       # 松开
+# 键盘输入文本
+pg.typewrite("Hello, world!")  # 模拟键盘输
+pg.write('hello python !', interval=0.3)   # 控制键盘输入，interval间隔输入字符时间
+# 键盘组合键
+pg.hotkey("ctrl", "c")         # 模拟组合键操作
+
+
 
 # 弹窗
 pg.alert(text='是否确认运行程序’, title='请求框', button='OK')       # 消息提醒框
@@ -1183,3 +1199,5 @@ pg.locateOnScreen('a.png')                      # 返回图片坐标位置（x,y
 pg.locateCenterOnScreen()                       # 返c回中心坐标
 pg.locateCenterOnScreen('cat.png', grayscale=False, confidence=0.7)
 ```
+
+
