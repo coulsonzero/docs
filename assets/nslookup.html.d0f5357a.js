@@ -1,0 +1,1 @@
+const e={key:"v-24bdcf62",path:"/guide/other/mac/nslookup.html",title:"nslookup \u67E5\u770B\u7F51\u5740ip",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1646573109e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:1}]},filePathRelative:"guide/other/mac/nslookup.md"};export{e as data};

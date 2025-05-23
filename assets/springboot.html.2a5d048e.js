@@ -1,0 +1,1 @@
+const e={key:"v-32e0a1d3",path:"/guide/backend/springboot.html",title:"SpringBoot",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[{level:2,title:"FAQ",slug:"faq",children:[]}],git:{updatedTime:1664527114e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:1}]},filePathRelative:"guide/backend/springboot.md"};export{e as data};

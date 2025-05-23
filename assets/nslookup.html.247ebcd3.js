@@ -1,0 +1,2 @@
+import{_ as o,o as t,c as a,F as s,b as e,d as n}from"./app.afb47d0b.js";const c={},l=e("h1",{id:"nslookup-\u67E5\u770B\u7F51\u5740ip",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#nslookup-\u67E5\u770B\u7F51\u5740ip","aria-hidden":"true"},"#"),n(" nslookup \u67E5\u770B\u7F51\u5740ip")],-1),r=e("div",{class:"language-text ext-text"},[e("pre",{class:"language-text"},[e("code",null,`nslookup github.com
+`)])],-1);function u(_,d){return t(),a(s,null,[l,r],64)}var p=o(c,[["render",u],["__file","nslookup.html.vue"]]);export{p as default};

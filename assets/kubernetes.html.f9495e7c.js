@@ -1,0 +1,14 @@
+import{_ as s,r as t,o as i,c as r,b as e,d as c,a as o,F as l,e as a}from"./app.afb47d0b.js";const d={},h=a(`<h1 id="kubernetes" tabindex="-1"><a class="header-anchor" href="#kubernetes" aria-hidden="true">#</a> Kubernetes</h1><h2 id="_1-kubectl" tabindex="-1"><a class="header-anchor" href="#_1-kubectl" aria-hidden="true">#</a> 1. kubectl</h2><h3 id="_1-1-\u5B89\u88C5kubectl-macos\u7CFB\u7EDF" tabindex="-1"><a class="header-anchor" href="#_1-1-\u5B89\u88C5kubectl-macos\u7CFB\u7EDF" aria-hidden="true">#</a> 1.1 \u5B89\u88C5kubectl (MacOS\u7CFB\u7EDF)</h3><div class="language-bash ext-sh"><pre class="language-bash"><code><span class="token comment"># \u65B9\u5F0F\u4E00\uFF1A\u4F7F\u7528curl\u5B89\u88C5</span>
+$ <span class="token function">curl</span> -LO <span class="token string">&quot;https://dl.k8s.io/release/<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> -L -s https://dl.k8s.io/release/stable.txt<span class="token variable">)</span></span>/bin/darwin/arm64/kubectl&quot;</span>
+
+<span class="token comment"># \u65B9\u5F0F\u4E8C\uFF1A\u4F7F\u7528Homebrew\u5B89\u88C5</span>
+$ brew <span class="token function">install</span> kubectl
+</code></pre></div><h3 id="_1-2-\u67E5\u770B\u5B89\u88C5\u7248\u672C" tabindex="-1"><a class="header-anchor" href="#_1-2-\u67E5\u770B\u5B89\u88C5\u7248\u672C" aria-hidden="true">#</a> 1.2 \u67E5\u770B\u5B89\u88C5\u7248\u672C</h3><div class="language-bash ext-sh"><pre class="language-bash"><code>$ kubectl version --client
+</code></pre></div><h2 id="minikube" tabindex="-1"><a class="header-anchor" href="#minikube" aria-hidden="true">#</a> minikube</h2><h3 id="_1-\u5B89\u88C5minikube-macos\u7CFB\u7EDF" tabindex="-1"><a class="header-anchor" href="#_1-\u5B89\u88C5minikube-macos\u7CFB\u7EDF" aria-hidden="true">#</a> 1. \u5B89\u88C5minikube (MacOS\u7CFB\u7EDF)</h3>`,8),u={href:"https://minikube.sigs.k8s.io/docs/start/",target:"_blank",rel:"noopener noreferrer"},b=a(`<div class="language-bash ext-sh"><pre class="language-bash"><code><span class="token function">curl</span> -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-arm64
+<span class="token function">sudo</span> <span class="token function">install</span> minikube-darwin-arm64 /usr/local/bin/minikube
+
+<span class="token comment"># brew install minikube</span>
+</code></pre></div><h3 id="api" tabindex="-1"><a class="header-anchor" href="#api" aria-hidden="true">#</a> Api</h3><div class="language-bash ext-sh"><pre class="language-bash"><code>$ minikube start
+$ minikube stop
+$ minikube dashboard
+</code></pre></div>`,3);function p(k,m){const n=t("ExternalLinkIcon");return i(),r(l,null,[h,e("p",null,[e("a",u,[c("\u5B89\u88C5minikube"),o(n)])]),b],64)}var g=s(d,[["render",p],["__file","kubernetes.html.vue"]]);export{g as default};

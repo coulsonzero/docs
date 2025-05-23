@@ -1,0 +1,1 @@
+const e={key:"v-2622196e",path:"/guide/frontend/javascript/async.html",title:"Asynchronous JavaScript",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[{level:2,title:"Fetch",slug:"fetch",children:[]}],git:{updatedTime:165297041e4,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:1}]},filePathRelative:"guide/frontend/javascript/async.md"};export{e as data};
