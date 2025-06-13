@@ -196,3 +196,129 @@ FROM nginx:alpine
 
 ADD ./dist /usr/share/nginx/html/
 ```
+
+### docker部署docker应用
+```
+FROM golang:alpine AS builder
+
+ENV GO111MODULE=on \
+    GOPROXY=https://goproxy.cn,direct
+
+WORKDIR /app
+
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
+
+COPY . .
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /gin-docker
+# RUN go build -o /gin-docker
+
+EXPOSE 8080
+
+ENTRYPOINT [ "/gin-docker" ]
+
+```
+
+### docker comppose部署
+docker-compose.yaml
+```yaml
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+    container_name: gin-docker
+    image: gin-docker-app:v1
+    ports:
+      - "9000:8080"
+    environment:
+      # 自动创建数据库
+      MYSQL_DSN: "root:root@tcp/gin-docker?charset=utf8&parseTime=True&loc=Local"
+    depends_on:
+      - mysql
+      - redis
+  mysql:
+    # 其它版本会报错！
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - "9306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: "gin-docker"
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    restart: always
+  redis:
+    image: "redis:6.2.6"
+    container_name: redis
+    ports:
+      - 6379:6379
+    privileged: true
+    volumes:
+      - /usr/local/redis:/var/lib/redis
+    restart: always
+```
+Makefile
+```sh
+project-name := gin-docker
+version := v1.1
+PORT := 7000
+
+
+Today := $(shell date +"%Y-%m-%d")
+filename := build.txt
+
+# make help [ shell ]
+help:
+	@echo "@Notice:"
+	@echo "	please modify your 'project-name', 'version' and 'PORT' in Dockerfile!"
+	@echo "@Commands:"
+	@echo "start by docker-compose"
+	@echo "	step 1. 'make docker': to run    your docker-compose image"
+	@echo "	     a. 'make start' : to restart the container"
+	@echo "	     b. 'make stop'  : to stop    the container"
+	@echo "	step 2. 'make remove': to remove your docker-compose image"
+	@echo "dockerfile"
+	@echo "	1. 'make run'   : to run    your project by dockerfile"
+
+# make docker  [ `docker-compose` ]
+docker:
+	# 后台运行
+	@docker compose up -d
+
+# make remove  [ `docker-compose` ]
+remove:
+	# 删除当前所有容器
+	@docker compose down
+	@docker image rm gin-docker-app
+
+
+
+# make start  [ run by `docker-compose` ]
+start:
+	# 重启当前容器
+	@docker restart gin-docker mysql redis
+
+# make stop [ stop by `docker-compose` ]
+stop:
+	@docker stop gin-docker mysql redis
+
+
+# make run  [ `dockerfile` ]
+run:
+	@echo $(Today) > $(filename)
+	@go build .	>> $(filename)
+	@docker build -t $(project-name):$(version) . >> $(filename)
+	@docker image ls $(project-name)* >> $(filename)
+	#@docker run --rm -d -p $(PORT):8080 --name $(project-name)-$(PORT) $(project-name):$(version) >> $(filename)
+	@docker run -d -p $(PORT):8080 --name $(project-name)-$(PORT) $(project-name):$(version) >> $(filename)
+	@docker ps -a | grep $(project-name) >> $(filename)
+	@echo "your can open 'http://localhost:$(PORT)/ping' to view it."
+
+
+```
