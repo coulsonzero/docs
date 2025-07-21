@@ -47,17 +47,10 @@ $ python app.py
 [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 
-### router
+## 参数
 
-```py
-# http://localhost:5000/hello
-@app.route("/hello")
-def hello():
-    return "hello flask!"
-```
-
-query查询参数
-```py
+### 查询参数
+```py{4}
 # http://localhost:5000/hello?name=john
 @app.route("/hello")
 def hello():
@@ -66,18 +59,35 @@ def hello():
     return "hello flask!"
 ```
 
-form表单参数
-```py
+### form表单参数
+```py{3}
 @app.route("/hello", methods=["POST"])
 def hello():
-    # form-data
     age = request.form.get("age")
     print(age)
     return "hello flask!"
 ```
 
+### json参数
+```py
+@app.route("/hello", methods=["POST"])
+def hello():
+    data = request.json.get("name")
+    print(data)
+    return "hello flask!"
+```
 
-### blueprint
+### 返回json
+```py
+from flask import jsonify
+
+@app.route("/hello")
+def hello():
+    return jsonify({"name": "john", "age": 18})
+```
+
+
+## blueprint
 
 ```py
 # app.py

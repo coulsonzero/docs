@@ -132,6 +132,7 @@ const sidebarConfig = {
 				"python.md",
 				"django.md",
 				"flask.md",
+				"fastapi.md",
 				"pyside6.md",
 				"go.md",
 				"gin.md",

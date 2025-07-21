@@ -82,15 +82,16 @@ const navbarConfig: NavbarConfig = [
 				],
 			},
 			{
-				text: "Java框架",
-				children: [{text: "SpringBoot", link: "/guide/backend/springboot.md"}],
-			},
-			{
 				text: "Python框架",
 				children: [
+					{ text: "Flask",link: "/guide/backend/flask.md" },
+					{ text: "FastApi",link: "/guide/backend/fastapi.md" },
 					{text: "Django", link: "/guide/backend/django.md"},
-					{text: "Flask", link: "/guide/backend/flask.md"},
 				],
+			},
+			{
+				text: "Java框架",
+				children: [{text: "SpringBoot", link: "/guide/backend/springboot.md"}],
 			},
 			{
 				text: "GUI库",
