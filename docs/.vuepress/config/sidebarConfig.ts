@@ -202,6 +202,15 @@ const sidebarConfig = {
 			children: ["error.md", "markdown.md"],
 		},
 	],
+	"/guide/piano/": [
+		{
+			text: "Piano",
+			title: "Piano",
+			collapsable: false,
+			sidebarDepth: 2,
+			children: ["README.md"],
+		}
+	],
 }
 
 export default sidebarConfig

@@ -150,10 +150,8 @@ const navbarConfig: NavbarConfig = [
 			// {text: "Error报错日志", link: "/guide/other/error.md"},
 		],
 	},
-	{
-		text: "🔗友链",
-		link: "/guide/links/",
-	},
+	{ text: "🔗友链", link: "/guide/links/" },
+	{ text: "Piano", link: "/guide/piano/README.md" },
 ]
 
 export default navbarConfig
