@@ -6,6 +6,19 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    // 处理 CORS 预检请求
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
+          "Access-Control-Max-Age": "86400",
+        },
+      });
+    }
+
     // 只允许 POST
     if (request.method !== "POST") {
       return new Response("Method not allowed", { status: 405 });
