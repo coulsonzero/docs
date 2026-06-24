@@ -30,7 +30,7 @@ export default {
     return {
       totalPv: "-",
       totalUv: "-",
-      pv: "-",
+      // pv: "-",
     };
   },
   mounted() {
@@ -50,7 +50,7 @@ export default {
         const data = await res.json();
         if (data.totalPv !== undefined) this.totalPv = data.totalPv;
         if (data.totalUv !== undefined) this.totalUv = data.totalUv;
-        if (data.pv !== undefined) this.pv = data.pv;
+        // if (data.pv !== undefined) this.pv = data.pv;
       } catch (e) {
         console.warn("计数器请求失败:", e);
       }
