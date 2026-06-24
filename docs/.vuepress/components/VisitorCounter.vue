@@ -14,6 +14,10 @@
       📄 本页阅读：
       <span class="counter-value">{{ pv }}</span> 次
     </span>
+    <span>
+      开始统计时间：
+      <span>2026-06-24</span>
+    </span>
   </div>
 </template>
 
