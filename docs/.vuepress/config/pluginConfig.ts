@@ -2,11 +2,15 @@ import {searchPlugin} from "@vuepress/plugin-search"
 import {mdEnhancePlugin} from "vuepress-plugin-md-enhance"
 import {commentPlugin} from "vuepress-plugin-comment2"
 import {copyCodePlugin} from "vuepress-plugin-copy-code2"
-import {DefaultThemePluginsOptions} from "@vuepress/theme-default"
 import {registerComponentsPlugin} from "@vuepress/plugin-register-components"
+import path from "path"
 
 
-const pluginConfig: DefaultThemePluginsOptions = [
+const pluginConfig = [
+	// 自动注册 components 目录下的 Vue 组件
+	registerComponentsPlugin({
+		componentsDir: path.resolve(__dirname, "../components"),
+	}),
 	[
 		// 复制代码
 		copyCodePlugin({

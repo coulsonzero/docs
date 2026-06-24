@@ -28,7 +28,7 @@ sidebar: false
 <!-- <MyTemplate></MyTemplate> -->
 
 
-<FooBar></FooBar>
+<VisitorCounter />
 
 
 ::: normal-demo Demo 演示
@@ -189,6 +189,7 @@ console.log("Hello World!")
 
 
 <div style="text-align:center; color: rgba(0,0,0,.3); padding: 50px 0 30px 0; html.dark {color: rgb(201 201 170 / 32%)}">MIT Licensed | Copyright © 2022 CoulsonZero</div>
+
 
 <!-- Links -->
 
