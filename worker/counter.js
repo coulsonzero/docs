@@ -4,7 +4,6 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const path = url.pathname;
 
     // 处理 CORS 预检请求
     if (request.method === "OPTIONS") {
@@ -36,50 +35,52 @@ export default {
       const pvKey = `pv:${site}:${pagePath}`;
       const uvKey = `uv:${site}:${pagePath}`;
       const ipKey = `ips:${site}:${pagePath}`;
-      // 全站 key（汇总所有页面）
       const totalPvKey = `total_pv:${site}`;
       const totalUvKey = `total_uv:${site}`;
       const totalIpKey = `total_ips:${site}`;
 
-      // --- 单页 PV ---
-      const pvStr = await env.COUNTER.get(pvKey);
-      const pv = (parseInt(pvStr) || 0) + 1;
+      // ★ 关键优化：所有 6 个 KV 读取并行执行，只需 1 次网络往返
+      const [pvStr, totalPvStr, ipDataStr, totalIpDataStr, uvStr, totalUvStr] =
+        await Promise.all([
+          env.COUNTER.get(pvKey),
+          env.COUNTER.get(totalPvKey),
+          env.COUNTER.get(ipKey),
+          env.COUNTER.get(totalIpKey),
+          env.COUNTER.get(uvKey),
+          env.COUNTER.get(totalUvKey),
+        ]);
 
-      // --- 全站 PV ---
-      const totalPvStr = await env.COUNTER.get(totalPvKey);
+      // --- 计算 PV ---
+      const pv = (parseInt(pvStr) || 0) + 1;
       const totalPv = (parseInt(totalPvStr) || 0) + 1;
 
-      // --- 单页 UV: 按 IP 去重 ---
-      const ipDataStr = await env.COUNTER.get(ipKey);
+      // --- 单页 UV 去重 ---
       let ipData = {};
       if (ipDataStr) {
-        try { ipData = JSON.parse(ipDataStr); } catch(e) {}
+        try { ipData = JSON.parse(ipDataStr); } catch (e) {}
       }
 
       const now = Date.now();
       const DAY_MS = 24 * 60 * 60 * 1000;
 
+      // 清理过期 IP（超过 24 小时）
       for (const [storedIp, timestamp] of Object.entries(ipData)) {
         if (now - timestamp > DAY_MS) delete ipData[storedIp];
       }
 
       const isNewUV = !ipData[ip];
       let uv;
-
       if (isNewUV) {
         ipData[ip] = now;
-        const uvStr = await env.COUNTER.get(uvKey);
         uv = (parseInt(uvStr) || 0) + 1;
       } else {
-        const uvStr = await env.COUNTER.get(uvKey);
         uv = parseInt(uvStr) || 0;
       }
 
-      // --- 全站 UV: 独立 IP 去重 ---
-      const totalIpDataStr = await env.COUNTER.get(totalIpKey);
+      // --- 全站 UV 去重 ---
       let totalIpData = {};
       if (totalIpDataStr) {
-        try { totalIpData = JSON.parse(totalIpDataStr); } catch(e) {}
+        try { totalIpData = JSON.parse(totalIpDataStr); } catch (e) {}
       }
 
       for (const [storedIp, timestamp] of Object.entries(totalIpData)) {
@@ -88,17 +89,14 @@ export default {
 
       const isNewTotalUV = !totalIpData[ip];
       let totalUv;
-
       if (isNewTotalUV) {
         totalIpData[ip] = now;
-        const totalUvStr = await env.COUNTER.get(totalUvKey);
         totalUv = (parseInt(totalUvStr) || 0) + 1;
       } else {
-        const totalUvStr = await env.COUNTER.get(totalUvKey);
         totalUv = parseInt(totalUvStr) || 0;
       }
 
-      // --- 写入 KV ---
+      // --- 并行写入 KV ---
       const writes = [
         env.COUNTER.put(pvKey, String(pv)),
         env.COUNTER.put(totalPvKey, String(totalPv)),
@@ -111,22 +109,32 @@ export default {
         writes.push(env.COUNTER.put(totalUvKey, String(totalUv)));
         writes.push(env.COUNTER.put(totalIpKey, JSON.stringify(totalIpData)));
       }
-
       await Promise.all(writes);
 
-      return new Response(JSON.stringify({
-        pv,            // 当前页面 PV
-        uv,            // 当前页面 UV
-        totalPv,       // 全站 PV
-        totalUv,       // 全站 UV
-        isNewUV,
-      }), {
-        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-      });
+      return new Response(
+        JSON.stringify({
+          pv,
+          uv,
+          totalPv,
+          totalUv,
+          isNewUV,
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            // 添加缓存头，减少重复请求
+            "Cache-Control": "public, max-age=10",
+          },
+        }
+      );
     } catch (e) {
       return new Response(JSON.stringify({ error: e.message }), {
         status: 500,
-        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
       });
     }
   },
