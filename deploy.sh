@@ -1,4 +1,4 @@
-username="coulsonzero"
+cname="shop"
 
 # 确保脚本抛出遇到的错误
 set -e
@@ -10,7 +10,7 @@ npm run build
 cd docs/.vuepress/dist
 
 # 如果是发布到自定义域名
-echo 'docs.coulsonzero.shop' > CNAME
+echo 'docs.coulsonzero.'${cname} > CNAME
 
 git init
 git add -A

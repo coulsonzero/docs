@@ -24,9 +24,9 @@ export default {
   name: "VisitorCounter",
   data() {
     return {
-      totalPv: "--",
-      totalUv: "--",
-      pv: "--",
+      totalPv: "-",
+      totalUv: "-",
+      pv: "-",
     };
   },
   mounted() {
