@@ -16,7 +16,7 @@ git init
 git add -A
 git commit -m 'deploy docs'
 
-git push -f git@github.com:coulsonzero/docs.git master:gh-pages
+git push -f git@github.com:coulsonzero/docs.git HEAD:gh-pages
 
 cd -
 
