@@ -46,11 +46,4 @@ export default defineUserConfig({
 			lineNumbers: 10, // 代码超过n行显示行号, 默认值为true
 		},
 	},
-	// 不蒜子 访客统计
-	head: [
-		[
-			"script",
-			{ async: true, src: "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" },
-		],
-	],
 })

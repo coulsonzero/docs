@@ -1,0 +1,7 @@
+name = "counter"
+main = "counter.js"
+compatibility_date = "2025-01-01"
+
+[[kv_namespaces]]
+binding = "COUNTER"
+id = "2692c259602a4c208b4e519330eeea84"
