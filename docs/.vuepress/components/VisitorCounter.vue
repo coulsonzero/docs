@@ -17,8 +17,8 @@
 </template>
 
 <script>
-// const COUNTER_API = "https://counter.docs-coulsonzero.workers.dev";
-const COUNTER_API = "https://counter.coulsonzero.shop";
+const COUNTER_API = "https://counter.docs-coulsonzero.workers.dev";
+// const COUNTER_API = "https://counter.coulsonzero.shop";
 const CACHE_KEY = "visitor_counter_cache";
 const CACHE_TTL = 5 * 60 * 1000; // 本地缓存 5 分钟
 
