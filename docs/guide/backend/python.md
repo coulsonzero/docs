@@ -4,6 +4,37 @@
 
 ## 一、Overview
 
+### uv package
+速度快10-100倍
+
+**macos**
+```shell
+# install uv
+$ brew install uv
+$ uv --version
+
+# install new version for python3
+$ uv python install 3.14.6
+# setting version
+$ uv python default 3.14.6
+```
+
+**uv shell**
+```shell
+$ uv init
+$ uv init --python 3.14.6 my-project
+$ uv add requests
+$ uv add "requests>=2.31.0"
+$ uv remove requests
+$ uv run main.py
+```
+
+
+**windows(powershell)**
+```shell
+irm https://astral.sh/uv/install.ps1 | iex
+```
+
 ### 1.1 First Program
 
 ```python
