@@ -9,7 +9,7 @@
       👤 访客数(IP)：
       <span class="counter-value">{{ totalUv }}</span> 人
     </span>
-    <span class="counter-divider">|</span>
+    <!-- <span class="counter-divider">|</span> -->
     <!-- <span class="counter-item">
       📄 本页阅读：
       <span class="counter-value">{{ pv }}</span> 次
