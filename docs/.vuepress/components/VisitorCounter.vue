@@ -10,10 +10,10 @@
       <span class="counter-value">{{ totalUv }}</span> 人
     </span>
     <span class="counter-divider">|</span>
-    <span class="counter-item">
+    <!-- <span class="counter-item">
       📄 本页阅读：
       <span class="counter-value">{{ pv }}</span> 次
-    </span>
+    </span> -->
     <span>
       开始统计时间：
       <span>2026-06-24</span>
