@@ -64,15 +64,14 @@ const navbarConfig: NavbarConfig = [
 	{
 		text: "后端",
 		children: [
-
-			{ text: "Python",link: "/guide/backend/python" },
-			{ text: "Go",link: "/guide/backend/go" },
+			{text: "C", link: "/guide/backend/c"},
 			{ text: "C++",link: "/guide/backend/c++" },
-			// {text: "C", link: "/guide/backend/c"},
-			// {text: "Kotlin", link: "/guide/backend/kotlin"},
-			// {text: "Swift", link: "/guide/backend/swift"},
+			{ text: "Python",link: "/guide/backend/python" },
 			{ text: "Java",link: "/guide/backend/java" },
+			{ text: "Go",link: "/guide/backend/go" },
 			{ text: "Rust",link: "/guide/backend/rust" },
+			{text: "Kotlin", link: "/guide/backend/kotlin"},
+			{text: "Swift", link: "/guide/backend/swift"},
 			{
 				text: "Golang框架",
 				children: [
