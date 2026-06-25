@@ -1,29 +1,68 @@
 # Rust
 
 ## Getting Start
-### Install
+### install
 
 ```shell
-# install rustup
+# install rust
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 $ source "$HOME/.cargo/env"
 
 $ rustc --version   # -V
-# rustc 1.63.0
-$ cargo --version   # -V
-# cargo 1.63.0
+# rustc 1.96.0 (2026-05-25)
+
+$ rustup update
 ```
 
-### cargo new 创建rust项目
+### rustc
+```shell
+$ rustc hello.rs
+$ ./hello
+# Hello, world!
+```
+
+### cargo
+`tip`: cargo是rust的包管理工具，类似于node的npm，python的pip
+```shell {2,5}
+$ cargo --version
+$ cargo init                   # 初始化为rust项目
+$ cargo new <rust-project>     # 创建新的rust项目
+$ cargo new <rust-lib> --lib   # 创建一个库项目
+$ cargo run                    # 编译并运行
+$ cargo build                  # 编译，开发时使用
+$ cargo build --release        # 编译并优化,可以让Rust代码运行的更快, 构建最终程序时使用
+$ cargo check                  # 检查代码而无需生成二进制文件，确保可编译，当准备好使用可执行文件时才运行cargo build
+$ cargo test                   # 运行测试代码
+$ cargo doc --open             # 生成文档并打开
+$ cargo login <api-key>        # 登录crates.io使用github账号
+$ cargo publish                # 发布到crates.io，name不能重复，且需要在toml文件下配置package信息如description, license等
+$ cargo yank --vers 1.0.1      # 撤回已发布的指定版本
+$ cargo yank --vers 1.0.1 --undo # 取消撤回，撤回并没有删除任何代码！
+```
+
+**for example**
+:::: code-group
+::: code-group-item 当前项目
+```shell
+$ cargo init
+$ cargo run
+```
+:::
+::: code-group-item 新项目
 ```shell
 $ cargo new rust-hello
 $ cd rust-hello
 $ cargo run
-#    Compiling rust-hello v0.1.0 (/Users/coulsonzero/Downloads/rust-hello)
-#     Finished dev [unoptimized + debuginfo] target(s) in 0.42s
-#      Running `target/debug/rust-hello`
 Hello, world!
 ```
+:::
+::::
+
+
+
+
+
+
 
 
 ### 编译器 Clion
@@ -43,54 +82,42 @@ fn main() {
 
 ### Variables & Constant
 
-- let
-- const
-- static
+- let: 声明变量；可重复申明同名变量，但类型必须一致
+- mut: 声明变量可变
+- const: 声明常量
+- static: 声明静态变量
+
 
 ```rs
-// let 绑定变量
-let x: i32 = 12;            // 不可变变量
-let mut y: i32 = 20;        // 可变变量 mut
+let x = 5;
+let x: i32 = 5;         // 声明变量类型
+let mut x: i32 = 5;     // 声明变量可变
+```
 
-// let shadowing 特性
+let & mut
+```rs
+// let shadowing 特性(可重复申明同名变量，但类型必须一致)
 let x: i32 = 12;
 let x: f64 = 3.14;
-let x: char = 'k';
-let x: &str = "John Smith";
 
 // assign multiple vars
 let (name, age) = ("John Smith", 21);
 ```
-
+const & static
 ```rust
-// const 常量
-const PI: f64 = 3.14159;
-// static 静态全局变量，操作修改需使用unsafe
-static mut z: i32 = 0;
-
+const PI: f64 = 3.14;   // const 常量
+static mut z: i32 = 0;  // static 静态全局变量，操作修改需使用unsafe
 unsafe {
     z += 1;
     println!("{}", z);
 }
 ```
 
-
-> let: 绑定变量, 可以给同一个变量绑定不同值, 但使用的内存地址不同 (eg: 相同的人管理不同的事务)
->
-> let可以省略大于2个字符的类型，但不推荐
->
-> mut：使变量值可以改变
->
-> const：常量
->
-> static：静态变量，指向同一个堆内存地址， 操作修改需使用unsafe使内存安全
-
 ### Output
 
 ```rs
 println!("hello, world!");
-// format
-println!("hello {}", "John Smith");
+println!("hello {}", "John Smith"); // format
 
 println!("{1} is located in {2}, and my name is {0}, ", "John Smith", "Shanghai", "China");
 println!("{city} is located in {country}", city = "Shanghai", country = "China");
@@ -118,6 +145,7 @@ println!("{}", num)
 ```
 
 ### Data Type
+`Rust 是一种静态类型（statically typed）的语言，这意味着它必须在编译期知道所有变量的类型`
 
 - Number:
     - Int(`默认：i32`)  :
@@ -130,16 +158,25 @@ println!("{}", num)
 
 
 ```rust
+// number
 let x: i32 = 12;
 let x: f64 = 10.6;
 let x: bool = true;
 let x: char = 'k';
+
+// string
 let x: &str = "John Smith";
 let x: String = String::from("hello world");
-// array
+
+let x: (i32, f64, u8) = (500, 6.4, 1);  // tuple
+let x: [i32; 5] = [1, 2, 3, 4, 5];      // array
+let x: Vec<i32> = vec![1, 2, 3, 4];     // vector
+let mut map = HashMap::new();           // hashmap
+```
+
+```rust
+// variable address
 let x: [i32; 5] = [1, 2, 3, 4, 5];
-// tuple
-let x: (i32, f64, u8) = (500, 6.4, 1);
 // vector
 let mut nums: Vec<i32> = vec![1, 2, 3, 4];
 // hashmap
@@ -171,7 +208,11 @@ fn type_of<T>(_: &T) {
 /*
  * multi-line comment
  */
-
+```
+* 文档注释：会生成HTML文档，展示公有API文档注释的内容
+* 使用///以支持 Markdown 标记来格式化文本
+`cargo doc --open` 打开HTML文档
+```rust
 /// document comment (method header)
 ///
 ///  Use [`eprint!`] instead to print error and progress messages.
@@ -302,6 +343,253 @@ fn main() {
 
 ```
 
+### package 使用外部包
+
+1. std标准库
+```rust
+use std::collections::HashMap;
+```
+2. 第三方库
+Cargo.toml
+```
+[dependencies]
+rand = "0.8.3"
+```
+
+```rust
+use rand::Rng;
+
+fn main() {
+    let secret_number = rand::thread_rng().gen_range(1..101);
+}
+```
+
+* 同名包
+```rust
+// old
+use std::cmp::Ordering;
+use std::io;
+
+// new
+use std::{cmp::Ordering, io};
+```
+
+* 包别名
+```rust
+// old
+use std::io;
+use std::io::Write;
+
+// new
+use std::io::{self, Write};
+```
+* 所有包glob
+```rust
+use std::collections::*; // HashMap, HashSet, BTreeMap, BTreeSet, LinkedList, VecDeque
+```
+
+### 错误处理
+失败时 panic 的简写：unwrap 和 expect
+:::: code-group
+::: code-group-item unwrap()
+```rust
+// unwrap(): 自动处理错误
+use std::fs::File;
+
+fn main() {
+    let f = File::open("hello.txt").unwrap();
+}
+```
+:::
+::: code-group-item expect()
+```rust
+// expect(): 自定义错误信息
+use std::fs::File;
+
+fn main() {
+    let f = File::open("hello.txt").expect("Failed to open hello.txt");
+}
+```
+:::
+::: code-group-item match
+```rust
+// match: 手动处理错误(old method)
+use std::fs::File;
+
+fn main() {
+    let f = File::open("hello.txt");
+
+    let f = match f {
+        Ok(file) => file,
+        Err(error) => {
+            panic!("Problem opening the file: {:?}", error)
+        },
+    };
+}
+```
+:::
+::::
+
+**？**：错误传递
+```rust
+use std::io;
+use std::io::Read;
+use std::fs::File;
+
+fn read_username_from_file() -> Result<String, io::Error> {
+    let mut s = String::new();
+    File::open("hello.txt")?.read_to_string(&mut s)?;
+    // 都成功没有失败时返回包含用户名s的Ok值
+    Ok(s)
+}
+```
+
+
+更简短的写法：函数包装
+```rust
+use std::io;
+use std::fs;
+
+fn read_username_from_file() -> Result<String, io::Error> {
+    fs::read_to_string("hello.txt")
+}
+```
+main函数调用？
+```rust
+use std::error::Error;
+use std::fs::File;
+
+fn main() -> Result<(), Box<dyn Error>> {
+    let f = File::open("hello.txt")?;
+
+    Ok(())
+}
+```
+
+### IO
+* 读取命令行参数
+```rust
+use std::env;
+
+fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    let query = &args[1];
+    let filename = &args[2];
+
+    println!("1: {}", query);
+    println!("2: {}", filename);
+}
+```
+
+```shell
+$ cargo run test sample.txt
+```
+* 读取文件
+```rust
+use std::env;
+use std::fs;
+
+fn main() {
+    let args: Vec<String> = env::args().collect();
+    let filename = &args[1];
+    // --snip--
+    let contents = fs::read_to_string(filename).expect("No such file or directory");
+    println!("With text:\n{}", contents);
+}
+```
+
+poem.txt
+```txt
+I'm nobody! Who are you?
+Are you nobody, too?
+Then there's a pair of us - don't tell!
+They'd banish us, you know.
+
+How dreary to be somebody!
+How public, like a frog
+To tell your name the livelong day
+To an admiring bog!
+
+```
+
+```shell
+$ cargo run the poem.txt
+```
+
+
+### 闭包
+```rust
+use std::thread;
+use std::time::Duration;
+
+fn simulated_expensive_calculation(intensity: u32) -> u32 {
+    println!("calculating slowly...");
+    thread::sleep(Duration::from_secs(2));
+    intensity
+}
+
+
+fn generate_workout(intensity: u32, random_number: u32) {
+    let expensive_result = simulated_expensive_calculation(intensity);
+
+    if intensity < 25 {
+        println!(
+            "Today, do {} pushups!",
+            expensive_result
+        );
+        println!(
+            "Next, do {} situps!",
+            expensive_result
+        );
+    } else {
+        if random_number == 3 {
+            println!("Take a break today! Remember to stay hydrated!");
+        } else {
+            println!(
+                "Today, run for {} minutes!",
+                expensive_result
+            );
+        }
+    }
+}
+```
+
+```rust
+use std::thread;
+use std::time::Duration;
+
+fn generate_workout(intensity: u32, random_number: u32) {
+    // 匿名函数定义
+    let expensive_closure = |num| {
+        println!("calculating slowly...");
+        thread::sleep(Duration::from_secs(2));
+        num
+    };
+
+    if intensity < 25 {
+        println!(
+            "Today, do {} pushups!",
+            expensive_closure(intensity)
+        );
+        println!(
+            "Next, do {} situps!",
+            expensive_closure(intensity)
+        );
+    } else {
+        if random_number == 3 {
+            println!("Take a break today! Remember to stay hydrated!");
+        } else {
+            println!(
+                "Today, run for {} minutes!",
+                expensive_closure(intensity)
+            );
+        }
+    }
+}
+}
+```
+
 ## Control & Loop
 
 ### If statement
@@ -325,7 +613,12 @@ return if a > b {a} else {b};
 ```
 
 ### Match statement
+* 使用`=>`返回值
+* 使用`|`表示多个条件，使用`_`表示默认条件其它值
+* 使用大括号{}表示代码块，代码块中的最后一个表达式会被作为返回值
 
+:::: code-group
+::: code-group-item variable
 ```rust
 let day: i32 = 3;
 let res = match day {
@@ -359,6 +652,43 @@ fn test_char() {
     println!("{:?}", res);
 }
 ```
+:::
+::: code-group-item enum
+```rust
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter,
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => Coin::Penny => {
+            println!("Lucky penny!");
+            1
+        },
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter => 25,
+    }
+}
+```
+:::
+::: code-group-item return function
+```rust
+let dice_roll = 9;
+match dice_roll {
+    3 => add_fancy_hat(),
+    7 => remove_fancy_hat(),
+    _ => (),
+}
+
+fn add_fancy_hat() {}
+fn remove_fancy_hat() {}
+```
+:::
+::::
 
 ### for loop
 ```rust
@@ -456,12 +786,13 @@ fn for_range_example() {
 
 ## Core
 
-### str
+### str（字符串切片）
 
 > 字符串切片, 由长度和指针构成
 
 ```rust
 // &str 是String 的切片类型。
+let s = "hello";
 let s: &str = "hello";
 
 println!("{}", s.len());              // len  : 5
@@ -473,6 +804,7 @@ println!("{}", s.clone());            // hello
 println!("{}", s.repeat(2));          // hellohello
 println!("{}", s.to_lowercase());     // hellohello
 println!("{:?}", s.to_uppercase());   // "HELLO"
+s.split_whitespace()                   // 将字符串切片按空格分割成单词
 ```
 
 **for example**
@@ -508,12 +840,15 @@ fn greet(name: &str) {
 
 ```rust
 // init
-let s:  &str   = "Hello, world!";
-let s: String = String::from("Hello, world!");
-let s: String = "Hello, world!".to_string();
-let s: String = "Hello, world!".into();
-let s = String::new();
+let s = String::from("hello");
+let mut s = String::from("Hello");
+let mut s = String::new();
 
+// &str -> String
+let s = "Hello, world!".to_string();
+let s = "Hello, world!".into();
+// String -> &str
+s.as_str()
 
 // methods
 s.len() -> usize
@@ -526,20 +861,18 @@ s.insert(i: i32, e: char)
 s.pop()
 s.clear()
 
+s1 + &s2
+let s = s1 + "-" + &s2 + "-" + &s3;
+let s = format!("{}-{}-{}", s1, s2, s3);
 
 // iter
 for c in s.chars() {
     print!("{}", c);
 }
-println!();
-
-
-// iter-enum
-for (_, v) in s.chars().enumerate() {
-    print!("{}", v);
-}
-println!();
 ```
+
+notic:
+* Rust 的字符串不支持索引，如s[0]会报错！
 
 ### Array
 
@@ -597,56 +930,102 @@ fn main() {
 ```
 
 ### Vector
+vector 只能储存`相同类型的值`
 
-```rust
+```rust{2,5}
 // --init--
-let mut nums = Vec::new();
 let mut nums: Vec<i32> = Vec::new();
+
 let nums = vec![1, 2, 3, 4];
+let mut nums = vec![1, 2, 3, 4];
 let mut nums: Vec<i32> = vec![1,2,3,4];
 let mut nums: Vec<i32> = (1..10).collect();
 
 // --methods--
 增：push(e)
 删：pop()
-查：nums[i], &nums[i], &nums[0..2]
+查：get(i) | nums[i], &nums[i], &nums[0..2]
 改：nums[i] = v
-
 长度：len()
-打印：println!("nums: {:?}", nums);
+求和：nums.iter().sum()
+打印：println!("nums: {:?}", nums)
+```
+`tip`:
+* 使用`[]`返回一个引用, 当引用一个不存在的元素时Rust会造成panic
+* 当`get`方法被传递了一个数组外的索引时，它不会 panic 而是返回 `None`
+* 遍历：迭代器iter方法要比for循环更快一些
+```rust
+// let nums = vec![1, 2, 3, 4];
+for v in nums {}
+for v in &nums {}
+for v in nums.iter() {}
+
+
+// let mut nums = vec![1, 2, 3, 4];
+for v in &mut nums {
+    *v += 50;   // 引用运算符*
+}
+for num in nums.iter_mut() {
+    *num *= 2;
+}
 ```
 
 
 ### Hashmap
-
+`哈希 map 储存键值对`
 ```rust
+use std::collections::HashMap;
 // init
+let mut map = HashMap::new();
 let mut map: HashMap<&str, i32> = HashMap::new();
+
 let map = HashMap::from([("a", 1),("b", 2),("c", 3)]);
 
 // methods
-map.insert(k, v);
-
-println!("{:?}", map);
+map.insert(k, v)    // 插入or更新（可覆盖）
+map.get(k)
+map.entry(String::from("Yellow")).or_insert(50) // 在键没有对应值时插入值
+println!("{:?}", map)
 
 // for-loop
-for (k, v) in map {
+for (k, v) in &map {
     println!("{}: {}", k, v);
 }
+```
+
+for example
+`统计文本中单词出现的次数`
+```rust
+use std::collections::HashMap;
+
+
+fn main() {
+    let text = "hello world wonderful world";
+    let mut map = HashMap::new();
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+    println!("{:?}", map);
+}
+// {"hello": 1, "world": 2, "wonderful": 1}
 ```
 
 ### Tuple
 
 ```rust
-pub fn run () {
-    let x: (i32, f64, u8) = (500, 6.4, 1);
+let tup = (500, 6.4, 1);
+let (x, y, z) = tup;    // 解构
+```
 
-    let a: i32 = x.0;
-    let b: f64 = x.1;
-    let c: u8  = x.2;
-
-    println!("{:?}", (a, b, c));
+### Emum
+```rust
+enum IpAddr {
+    V4(String),
+    V6(String),
 }
+
+let home = IpAddr::V4(String::from("127.0.0.1"));
 ```
 
 ## OOP
@@ -725,6 +1104,7 @@ struct Cat {
 ::: code-group-item method
 ```rust
 // 3 impl： methods
+#[derive(Debug)]
 struct Rectangle {
     width: u32,
     height: u32,
@@ -752,13 +1132,18 @@ impl Rectangle {
 #[test]
 fn test_impl() {
     let rect1 = Rectangle {
-        // code
+        width: 30,
+        height: 50,
     }
 
     /// impl methods
     println!("area: {} ", rect1.area());
+
     let rect2 = Rectangle::new(20, 12);
     println!("{} {}", rect.height, rect.width);
+
+    // 增加属性来派生 Debug trait `#[derive(Debug)]`，并使用调试格式打印 Rectangle 实例
+    println!("rect1 is {:?}", rect1);
 }
 ```
 :::
@@ -812,46 +1197,82 @@ fn test_trait_summary() {
 :::
 ::::
 
-### Template
-
-
-:::: code-group
-::: code-group-item temp-function
+for example
 ```rust
-fn max<T: PartialOrd>(a: T, b: T) -> T {
-    return if a > b {a} else {b};
+struct User {
+    active: bool,
+    username: &str,
+    email: &str,
+    sign_in_count: u64,
 }
 
+fn main() {
+    let user1 = User {
+        email: "someone@example.com",
+        username: "someusername123",
+        active: true,
+        sign_in_count: 1,
+    };
+}
+```
+```rust
+struct User {
+    active: bool,
+    username: String,
+    email: String,
+    sign_in_count: u64,
+}
+
+fn main() {
+    let user1 = User {
+        email: String::from("someone@example.com"),
+        username: String::from("someusername123"),
+        active: true,
+        sign_in_count: 1,
+    };
+}
+```
+
+### Template(泛型)
+:::: code-group
+::: code-group-item fn
+```rust
+use std::cmp;
 
 fn largest<T: PartialOrd>(list: &[T]) -> &T {
     let mut largest = &list[0];
-
     for item in list {
         if item > largest {
-            largest = item;
+            largestT = item;
         }
     }
-
-    return largest
+    largest
 }
 
+fn main() {
+    let number_list = vec![34, 50, 25, 100, 65];
+    println!("The largest number is {}", largest(&number_list));
 
-#[test]
-fn test_max() {
-    println!("{:?}", max(3, 7));    // 7
-}
-
-#[test]
-fn test_largest() {
-    let vec_nums = vec![34, 50, 25, 100, 65];
-    let vec_char = vec!['y', 'm', 'a', 'q'];
-    println!("output: {:?}", largest(&vec_nums));     // 100
-    println!("output: {:?}", largest(&vec_char));     // 'y'
+    let char_list = vec!['y', 'm', 'a', 'q'];
+    println!("The largest char is {}", largest(&char_list));
 }
 ```
 :::
-::: code-group-item temp-struct
+::: code-group-item struct
+```rust
+struct Point<T, U> {
+    x: T,
+    y: U,
+}
 
+fn main() {
+    let both_integer = Point { x: 5, y: 10 };
+    let both_float = Point { x: 1.0, y: 4.0 };
+    let integer_and_float = Point { x: 5, y: 4.0 };
+}
+```
+:::
+::: code-group-item impl
 ```rust
 struct Point<X1, Y1> {
     x: X1,
@@ -868,30 +1289,79 @@ impl<X1, Y1> Point<X1, Y1> {
     }
 }
 
-#[test]
-fn test_struct_temp() {
-    let integer = Point { x: 5, y: 10 };
-    let float = Point { x: 1.0, y: 4.0 };
-    let int_float = Point { x: 5, y: 4.0 as i32 };
 
+fn main() {
+    let p1 = Point { x: 5, y: 10.4 };
+    let p2 = Point { x: "Hello", y: 'c'};
 
-    let p = Point { x: 5, y: 10 };
-    println!("point: ({}, {})", p.x, p.y);    // point: (5, 10)
-
-    let p = Point::new(3, 6);
-    println!("point: ({}, {})", p.x, p.y);    // point: (3, 6)
-
-
-    let p1 = Point::new(5, 10.4);
-    let p2 = Point::new("hello", 'c');
     let p3 = p1.mix(p2);
-    println!("point: ({:?}, {:?})", p3.x, p3.y);    // point: (5, 'c')
+
+    println!("p3.x = {}, p3.y = {}", p3.x, p3.y);
+}
+```
+:::
+::: code-group-item emum
+```rust
+enum Option<T> {
+    Some(T),
+    None,
+}
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
 }
 ```
 :::
 ::::
 
-### Macros
+### Trait（接口）
+拥有可能与其他类型共享的功能
+```rust
+// src/lib.rs
+pub trait Summary {
+    fn summarize(&self) -> String;
+}
+
+pub struct NewsArticle {
+    pub headline: String,
+    pub location: String,
+    pub author: String,
+    pub content: String,
+}
+
+impl Summary for NewsArticle {
+    fn summarize(&self) -> String {
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
+    }
+}
+
+pub struct Tweet {
+    pub username: String,
+    pub content: String,
+    pub reply: bool,
+    pub retweet: bool,
+}
+
+impl Summary for Tweet {
+    fn summarize(&self) -> String {
+        format!("{}: {}", self.username, self.content)
+    }
+}
+
+
+fn main() {
+    let tweet = Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from("of course, as you probably already know, people"),
+        reply: false,
+        retweet: false,
+    };
+
+    println!("1 new tweet: {}", tweet.summarize());
+}
+```
+
+### Macros（宏）
 
 ```rust
 #[macro_export]
@@ -1165,23 +1635,6 @@ step-3: 取消勾选-apply即可
 ![](@/assets/rust/code-fold.png)
 
 
-### rustup
-```shell
-$ rustup --version      # rustup -V
-$ rustup update
-$ rustup self uninstall
-```
-
-### cargo
-```shell
-$ cargo --version
-$ cargo new rust-hello
-$ cargo build
-$ cargo run
-$ cargo test
-$ cargo check
-```
-
 ### color
 
 ```rust
@@ -1196,4 +1649,270 @@ pub fn example() {
     println!("\x1b[97m{}\x1b[0m", "[Error]: not found the function.");  // 97: white
     println!("\x1b[98m{}\x1b[0m", "[Error]: not found the function.");  // 98: light white (normal)
 }
+```
+
+### 所有权(owership)
+所有运行的程序都必须管理其使用计算机内存的方式。
+* 一些语言中具有垃圾回收机制，在程序运行时不断地寻找不再使用的内存；
+* 在另一些语言中，开发者必须亲自分配和释放内存。
+* Rust 则选择了第三种方式：通过所有权系统管理内存，编译器在编译时会根据一系列的规则进行检查。在运行时，所有权系统的任何功能都不会减慢程序
+
+**所有权规则**
+* Rust 中的每一个值都有一个被称为其 所有者（owner）的变量。
+* 值在任一时刻有且只有一个所有者。
+* 当所有者（变量）离开作用域，这个值将被丢弃
+
+### 借用（borrowing）
+这些 & 符号就是 引用，它们允许你使用值但不获取其所有权
+我们将创建一个引用的行为称为 借用（borrowing）
+
+### mod & pub & use & crate & as
+* use：引入模块
+* pub：公开模块
+* mod：模块
+* as: 重命名
+
+`cargo new --lib restaurant`，来创建一个新的名为 restaurant 的库
+
+```rust
+// src/lib.rs
+mod front_of_house {
+   pub mod hosting {
+        pub fn add_to_waitlist() {}
+
+        fn seat_at_table() {}
+    }
+
+    mod serving {
+        fn take_order() {}
+
+        fn serve_order() {}
+
+        fn take_payment() {}
+    }
+}
+
+pub fn eat_at_restaurant() {
+    // 绝对路径
+    crate::front_of_house::hosting::add_to_waitlist();
+
+    // 相对路径
+    front_of_house::hosting::add_to_waitlist();
+}
+```
+* 如果我们想要调用一个函数，我们需要知道它的路径,路径用于引用模块树中的项
+* `crate`: src/main.rs 和 src/lib.rs 被称为 crate 根
+* 绝对路径（absolute path）从 crate 根部开始，以 crate 名或者字面量 crate 开头。
+* 相对路径（relative path）从当前模块开始，以 `self、super` 或当前模块的标识符开头
+* `::`: 绝对路径和相对路径都后跟一个或多个由双冒号（::）分割的标识符
+* `pub`: eat_at_restaurant 函数是我们 crate 库的一个公共 API，所以我们使用 pub 关键字来标记它
+
+
+`super`
+```rust
+fn serve_order() {}
+
+mod back_of_house {
+    fn fix_incorrect_order() {
+        cook_order();
+        super::serve_order();
+    }
+
+    fn cook_order() {}
+}
+```
+
+`pub`
+:::: code-group
+::: code-group-item struct
+```rust
+mod back_of_house {
+    pub struct Breakfast {
+        pub toast: String,
+        seasonal_fruit: String,
+    }
+
+    impl Breakfast {
+        pub fn summer(toast: &str) -> Breakfast {
+            Breakfast {
+                toast: String::from(toast),
+                seasonal_fruit: String::from("peaches"),
+            }
+        }
+    }
+}
+
+pub fn eat_at_restaurant() {
+    // 在夏天点一份黑麦面包作为早餐
+    let mut meal = back_of_house::Breakfast::summer("Rye");
+    // 更改我们想要的面包
+    meal.toast = String::from("Wheat");
+    println!("I'd like {} toast please", meal.toast);
+
+    // 如果取消下一行的注释，将会导致编译失败；我们不被允许
+    // 看到或更改随餐搭配的季节水果
+    // meal.seasonal_fruit = String::from("blueberries");
+}
+```
+:::
+::: code-group-item enum
+```rust
+mod back_of_house {
+    pub enum Appetizer {
+        Soup,
+        Salad,
+    }
+}
+
+pub fn eat_at_restaurant() {
+    let order1 = back_of_house::Appetizer::Soup;
+    let order2 = back_of_house::Appetizer::Salad;
+}
+```
+:::
+::::
+
+`use`
+```rust
+mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+use crate::front_of_house::hosting::add_to_waitlist;
+
+pub fn eat_at_restaurant() {
+    add_to_waitlist();
+}
+fn main() {}
+```
+
+`as`
+```rust
+use std::io::Result as IoResult;
+```
+`pub + use`重导出
+```rust
+mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+pub use crate::front_of_house::hosting;
+
+pub fn eat_at_restaurant() {
+    hosting::add_to_waitlist();
+}
+fn main() {}
+```
+
+### 生命周期
+
+longest 函数定义指定了签名中所有的引用必须有相同的生命周期 'a
+```rust
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+
+fn main() {
+    let string1 = String::from("long string is long");
+
+    {
+        let string2 = String::from("xyz");
+        let result = longest(string1.as_str(), string2.as_str());
+        println!("The longest string is {}", result);
+    }
+}
+```
+
+```rust
+impl<'a> ImportantExcerpt<'a> {
+    fn level(&self) -> i32 {
+        3
+    }
+}
+```
+'static，其生命周期能够存活于整个程序期间
+```rust
+let s: &'static str = "I have a static lifetime.";
+```
+### 工作空间workspace
+```
+├── Cargo.lock
+├── Cargo.toml
+├── add-lib
+│   ├── Cargo.toml
+│   └── src
+│       └── lib.rs
+├── adder
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+└── target
+```
+step1. 创建工作空间
+```shell
+$ mkdir work
+$ cd work
+```
+step2. 更改Cargo.toml
+```toml
+[workspace]
+members = [
+    "adder",
+]
+```
+step3. 创建cargo项目
+```rust
+$ cargo new adder
+```
+step4. 更新Cargo.toml
+```toml
+[workspace]
+members = [
+    "adder",
+    "add-lib",
+]
+```
+step5. 创建add-lib库
+```shell
+$ cargo new add-one --lib
+```
+```rust
+// add-lib/src/lib.rs
+pub fn add_one(x: i32) -> i32 {
+    x + 1
+}
+```
+step6. 更新adder/Cargo.toml
+```toml
+[dependencies]
+add-one = { path = "../add-one" }
+```
+```rust
+// adder/src/main.rs
+use add_one;
+
+fn main() {
+    let num = 10;
+    println!("Hello, world! {} plus one is {}!", num, add_one::add_one(num));
+}
+```
+step7. 运行work工作空间
+```shell
+$ cargo build
+$ cargo run -p adder
+```
+
+other: 使用外部依赖
+add-lib/Cargo.toml
+```toml
+[dependencies]
+rand = "0.5.5"
 ```
