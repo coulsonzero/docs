@@ -7,7 +7,8 @@ const navbarConfig: NavbarConfig = [
 		children: [
 			{text: "HTML", link: "/guide/frontend/html"},
 			{text: "CSS", link: "/guide/frontend/css"},
-			{text: "JavaScript", link: "/guide/frontend/javascript/"},
+			{text: "JavaScript",link: "/guide/frontend/javascript"},
+			{text: "Agent Tips", link: "/guide/frontend/agent-tips"},
 			{
 				text: "web框架",
 				children: [
