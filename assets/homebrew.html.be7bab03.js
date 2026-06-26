@@ -1,0 +1,1 @@
+const e={key:"v-4f0b72ad",path:"/guide/other/mac/homebrew.html",title:"Homebrew",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1646573109e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:1}]},filePathRelative:"guide/other/mac/homebrew.md"};export{e as data};

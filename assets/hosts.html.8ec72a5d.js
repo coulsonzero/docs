@@ -1,0 +1,1 @@
+const t={key:"v-eb556f0e",path:"/guide/other/mac/hosts.html",title:"MAC\u4FEE\u6539hosts\u6587\u4EF6",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1646573109e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:1}]},filePathRelative:"guide/other/mac/hosts.md"};export{t as data};
