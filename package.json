@@ -4,7 +4,7 @@
 	"description": "coulsonzero's docs web",
 	"private": true,
 	"scripts": {
-		"start": "vuepress dev docs",
+		"dev": "vuepress dev docs",
 		"build": "vuepress build docs",
 		"deploy": "bash deploy.sh"
 	},

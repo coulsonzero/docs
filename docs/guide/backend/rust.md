@@ -1364,6 +1364,17 @@ fn main() {
 ### Macros（宏）
 
 ```rust
+macro_rules! say_hello {
+    () => {
+        println!("Hello!");
+    };
+}
+fn main() {
+    say_hello!();  // prints "Hello!"
+}
+```
+
+```rust
 #[macro_export]
 macro_rules! vector {
     ( $( $x:expr ),* ) => {

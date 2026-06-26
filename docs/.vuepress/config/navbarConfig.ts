@@ -1,21 +1,27 @@
 import type {NavbarConfig} from "@vuepress/theme-default"
 
 const navbarConfig: NavbarConfig = [
-	{text: "🏡 首页", link: "https://coulsonzero.github.io"},
+	{text: "🏡 Home", link: "https://coulsonzero.github.io"},
 	{
-		text: "前端",
+		text: "web",
 		children: [
 			{text: "HTML", link: "/guide/frontend/html"},
 			{text: "CSS", link: "/guide/frontend/css"},
 			{text: "JavaScript",link: "/guide/frontend/javascript"},
 			{text: "Agent Tips", link: "/guide/frontend/agent-tips"},
 			{
-				text: "web框架",
+				text: "web framework",
 				children: [
 					{text: "React", link: "/guide/frontend/react/"},
 					{ text: "Vue",link: "/guide/frontend/vue" },
-					// {text: "Vue3", link: "/guide/frontend/vue-pro"},
-					{text: "jQuery", link: "/guide/frontend/jquery"},
+					// {text: "jQuery", link: "/guide/frontend/jquery"},
+				],
+			},
+			{
+				text: "package manager",
+				children: [
+					{text: "pnpm", link: "https://pnpm.io/installation"},
+					{text: "Vite", link: "https://cn.vitejs.dev"},
 				],
 			},
 			{
@@ -32,25 +38,6 @@ const navbarConfig: NavbarConfig = [
 					{text: "Canvas", link: "/guide/frontend/canvas"},
 					{text: "Three.js", link: "https://threejs.org"},
 				],
-			},
-			{
-				text: "js库",
-				children: [
-					{text: "Swiper", link: "https://swiperjs.com/demos"},
-					{text: "ScroolReveal", link: "https://scrollrevealjs.org/"},
-				],
-			},
-			{
-				text: "package管理器",
-				children: [
-					{text: "yarn", link: "https://www.yarnpkg.cn/"},
-					{text: "Vite", link: "https://cn.vitejs.dev/"},
-				],
-			},
-			{
-				text: "打包器",
-				children: [{text: "webpack", link: "https://www.webpackjs.com/"}],
-				children: [{text: "parcel", link: "https://parceljs.org/"}],
 			},
 			{
 				text: "文档管理",
@@ -117,9 +104,10 @@ const navbarConfig: NavbarConfig = [
 			{
 				text: "命令",
 				children: [
+					{text: "Git", link: "/guide/operations/git"},
 					{text: "Linux", link: "/guide/operations/linux"},
 					{text: "Shell", link: "/guide/operations/shell"},
-					{text: "Git", link: "/guide/operations/git"},
+
 				],
 			},
 			{

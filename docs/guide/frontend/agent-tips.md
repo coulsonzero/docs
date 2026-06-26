@@ -16,9 +16,12 @@ design/Modify the website design with these improvements:
 - music
 - FAQ
 - chat
-- 真实访问人数(ip)
+- 真实访问人数(cookie, ip)
 - 评论
 <!-- - 音乐/视频以链接形式，链接云端存储 -->
+- github活跃度
+- todo
+- calendar
 
 css样式要点：
 - 白色毛玻璃
