@@ -1,6 +1,73 @@
 # Ai Agent
 
-### 提示词tips
+## claude（终端）
+### 节省token使用量
+* use english to ask question
+* /model deepseek-v4-flash
+* claude --reasoning low
+
+### 减少claude操作询问
+```shell
+vim ~/.claude/settings.local.json
+```
+
+```json
+{
+  "permissions": {
+    "allow": {
+      "Read(*)",
+      "Write(*)",
+      "Edit(*)",
+      "Bash(pnpm *)",
+      "Bash(npm *)",
+      "Bash(node *)"
+    }
+  }
+}
+```
+按esc，输入 :wq 保存退出
+
+
+方式二：
+```shell
+claude --dangerously-skip-permissions
+```
+
+方式三：
+```sh
+~/.claude/settings.json
+```
+
+```json
+{
+  "approvalMode": "auto"
+}
+```
+## codex
+new
+```toml
+model = "deepseek-v4-flash"
+model_provider = "deepseek"
+
+[model_providers.deepseek]
+name = "DeepSeek"
+base_url = "https://api.deepseek.com"
+env_key = ""
+```
+old
+```toml
+model = "gpt-5.5"
+model_provider = "custom"
+
+[model_providers.custom]
+name = "custom"
+wire_api = "responses"
+requires_openai_auth = true
+base_url = "http://127.0.0.1:57321/v1"
+```
+
+
+## 提示词tips
 
 ```md
 ### ChatGPT(lovable)提示词

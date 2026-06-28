@@ -46,7 +46,7 @@ $ git branch -a    # 查看本地和远程分支
 $ git branch [branch_name]                  # 增
 $ git branch -d [branch_name]               # 删除本地分支
 $ git push origin —delete [branch_name]     # 删除远程分支
-$ git branch -m master main                 # 改: master -> main
+$ git branch -m main dev                    # 改远程分支名: main -> dev，推送dev再删除main分支
 ```
 
 ### git checkout
@@ -67,6 +67,8 @@ $ git push origin dev:dev # 创建远程分支
 $ git push origin :dev    # 删除远程分支
 $ git push origin --delete dev # 删除远程分支
 ```
+
+
 
 ### git diff | git log | git reset
 ```sh
@@ -140,6 +142,12 @@ $ git merge dev
 # $ git checkout -d dev
 ```
 
+### 让master完全等于main(覆盖)
+```sh
+$ git checkout master
+$ git reset --hard main
+$ git push origin master --force
+```
 
 ## FAQ
 
