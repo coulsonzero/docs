@@ -1,0 +1,1 @@
+const t={key:"v-fbb8b37a",path:"/guide/algorithm/ListNode/",title:"ListNode",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1651853293e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:4}]},filePathRelative:"guide/algorithm/ListNode/README.md"};export{t as data};

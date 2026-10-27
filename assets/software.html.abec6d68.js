@@ -1,0 +1,1 @@
+const e={key:"v-bd4741b2",path:"/guide/other/mac/software.html",title:"Mac\u8F6F\u4EF6\u4E0B\u8F7D\u7F51\u5740",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1646573109e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:1}]},filePathRelative:"guide/other/mac/software.md"};export{e as data};

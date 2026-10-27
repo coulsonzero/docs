@@ -1,0 +1,1 @@
+const e={key:"v-48fabb38",path:"/guide/other/mac/gestures.html",title:"Mac \u89E6\u63A7\u677F\u624B\u52BF",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1646573109e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:1}]},filePathRelative:"guide/other/mac/gestures.md"};export{e as data};

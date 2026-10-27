@@ -1,0 +1,1 @@
+const e={key:"v-4f9ed9ea",path:"/guide/other/mac/idealicence.html",title:"Mac\u6FC0\u6D3BIDEA 2021ARM\u6700\u65B0\u7248\u6559\u7A0B",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:165481985e4,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:4}]},filePathRelative:"guide/other/mac/idealicence.md"};export{e as data};

@@ -1,0 +1,1 @@
+const e={key:"v-57ca5396",path:"/guide/algorithm/ListNode/ListNode.html",title:"\u94FE\u8868",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[{level:2,title:"ListNode",slug:"listnode",children:[]}],git:{updatedTime:1649349503e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:2}]},filePathRelative:"guide/algorithm/ListNode/ListNode.md"};export{e as data};

@@ -1,0 +1,1 @@
+const e={key:"v-21ecc24b",path:"/guide/other/mac/",title:"Mac\u4F7F\u7528\u6307\u5357",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1776330846e3,contributors:[{name:"coulsonzero",email:"coulson2021@163.com",commits:9}]},filePathRelative:"guide/other/mac/README.md"};export{e as data};
