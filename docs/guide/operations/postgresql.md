@@ -29,9 +29,9 @@ psql -h localhost -p 5432 -U coulsonzero -d postgres # 连接数据库
 ```
 常用 psql 元命令：在 psql 客户端内，有许多以反斜杠 \ 开头的元命令，非常实用。
 \l: 列出所有数据库
-\c <dbname>: 切换到指定数据库
+\c `<dbname>`: 切换到指定数据库
 \dt: 列出当前数据库的所有表
-\d <tablename>: 查看表结构
+\d `<tablename>`: 查看表结构
 \du: 列出所有用户和角色
 \?: 查看所有元命令的帮助
 \q: 退出 psql
